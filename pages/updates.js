@@ -1,7 +1,7 @@
 import Layout from '../components/Layout'
 
 const Updates = (props) => (
-  <Layout>
+  <Layout title="Updates">
     <div>
       <h1>Updates</h1>
     </div>

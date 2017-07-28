@@ -3,9 +3,8 @@ import fetch from 'isomorphic-unfetch'
 import ReportLink from '../components/ReportLink'
 
 const Index = (props) => (
-  <Layout>
+  <Layout home='true'>
     <div>
-      <h1>RW mobile</h1>
       <ul>
         {props.reports.length > 0 &&
           props.reports.map((report, i) => <ReportLink key={report.id} report={report} />)
@@ -16,7 +15,9 @@ const Index = (props) => (
 )
 
 Index.getInitialProps = async function () {
-  const reportsEndpoint = 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev&fields[include][]=country&fields[include][]=source&fields[include][]=date'
+  const sortOrder = '&sort[]=date:desc&sort[]=title:asc'
+  const fields = '&fields[include][]=country&fields[include][]=source&fields[include][]=date'
+  const reportsEndpoint = `https://api.reliefweb.int/v1/reports?appname=rwmob-dev${sortOrder}${fields}`
   const res = await fetch(reportsEndpoint)
   const data = await res.json()
 

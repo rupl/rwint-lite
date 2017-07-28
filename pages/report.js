@@ -2,7 +2,7 @@ import Layout from '../components/Layout.js'
 import fetch from 'isomorphic-unfetch'
 
 const Report = (props) => (
-  <Layout>
+  <Layout title={props.report.fields.title}>
     <h1>{props.report.fields.title}</h1>
     <div>{props.report.fields.body}</div>
     <style jsx>{`

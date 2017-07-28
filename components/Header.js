@@ -1,7 +1,9 @@
 import Link from 'next/link'
+import Logo from './Logo'
 
-const Header = () => (
+const Header = (props) => (
   <header role='banner'>
+    <Logo home={props.home} />
     <Link prefetch href='/'>
       <a>Home</a>
     </Link>
