@@ -13,6 +13,12 @@ npm run build
 npm run start
 ```
 
+## Unit tests
+
+Unit tests use [Jest](https://facebook.github.io/jest/) and [Enzyme](http://airbnb.io/enzyme/)
+
+`npm test`
+
 ## Linting
 
 https://standardjs.com/
