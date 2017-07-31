@@ -1,5 +1,7 @@
 # ReliefWeb Mobile v2
 
+[![Build Status](https://travis-ci.org/UN-OCHA/rw-mobile2.svg?branch=master)](https://travis-ci.org/UN-OCHA/rw-mobile2)
+
 New version of the ReliefWeb mobile site built using [React](https://facebook.github.io/react/) and [Next.js](https://github.com/zeit/next.js).
 
 ## Running in dev mode
