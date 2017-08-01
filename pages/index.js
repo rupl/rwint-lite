@@ -1,21 +1,21 @@
 import Layout from '../components/Layout'
-import LatestUpdates from '../components/LatestUpdates'
+import Headlines from '../components/Headlines'
 import Featured from '../components/Featured'
-import { getFeatured, getUpdates } from '../services/requests'
+import { getFeatured, getHeadlines } from '../services/requests'
 
 const Index = (props) => (
   <Layout home='true'>
     <Featured {...props} />
-    <LatestUpdates {...props} />
+    <Headlines {...props} />
   </Layout>
 )
 
 Index.getInitialProps = async function () {
   let featured = await getFeatured()
-  let reports = await getUpdates()
+  let headlines = await getHeadlines()
   return {
     featured: featured,
-    reports: reports
+    reports: headlines
   }
 }
 

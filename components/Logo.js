@@ -13,7 +13,7 @@ const Logo = ({home}) => {
         </h1>
       }
       {!home &&
-        <Link href='/'>
+        <Link prefetch href='/'>
           <a><LogoImg /></a>
         </Link>
       }

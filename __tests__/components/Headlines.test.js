@@ -1,11 +1,11 @@
 /* eslint-env jest */
 import { shallow } from 'enzyme'
 import React from 'react'
-import Component from '../../components/LatestUpdates.js'
+import Component from '../../components/Headlines.js'
 
 let reports, reportLinks, wrapper
 
-describe('Latest updates component', () => {
+describe('Headlines component', () => {
   beforeAll(function () {
     reports = [{id: 1, fields: {title: 'The title'}}, {id: 2}]
     wrapper = shallow(<Component reports={reports} />)

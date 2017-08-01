@@ -16,12 +16,12 @@ describe('Index page', () => {
     expect(component.exists()).toEqual(true)
   })
 
-  it('calls getUpdates and return the updates from the request', () => {
+  it('calls getHeadlines and return the updates from the request', () => {
     expect.assertions(1)
     return App.getInitialProps().then(data => expect(data.reports).toEqual([{id: 1}]))
   })
 
-  it('calls getUpdates and return the updates from the request', () => {
+  it('calls getFeatured and return the updates from the request', () => {
     expect.assertions(1)
     return App.getInitialProps().then(data => expect(data.featured).toEqual([{id: 'featuredId'}]))
   })

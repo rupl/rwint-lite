@@ -1,44 +1,39 @@
 /* eslint-env jest */
-import { getFeatured, getUpdates } from '../../services/requests.js'
-import { mockCountries, mockDisasters, mockEndpoints } from '../../__fixtures__/data.fixture'
+import { getFeatured, getHeadlines } from '../../services/requests.js'
+import { mockCountries, mockDisasters, mockEndpoints, mockReports } from '../../__fixtures__/data.fixture'
 jest.mock('../../services/shuffleArray')
 const fetchMock = require('fetch-mock')
-const testUrl = 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev&limit=10&sort[]=date:desc&sort[]=title:asc&fields[include][]=country&fields[include][]=source&fields[include][]=date'
-const featuredCountriesUrl = mockEndpoints.featuredCountries
-const featuredDisastersUrl = mockEndpoints.featuredDisasters
-const mockFeaturedCountries = mockCountries
-const mockFeaturedDisasters = mockDisasters
 let result
 
 describe('API requests', () => {
-  describe('Get Updates', () => {
-    beforeAll(async () => {
-      fetchMock.get(testUrl, {data: 'my data'})
-      result = await getUpdates()
-    })
+  // describe('Get Updates', () => {
+  //   beforeAll(async () => {
+  //     fetchMock.get(testUrl, {data: 'my data'})
+  //     result = await getUpdates()
+  //   })
 
-    it('calls the updates end point', () => {
-      expect(fetchMock.called(testUrl)).toBe(true)
-    })
+  //   it('calls the updates end point', () => {
+  //     expect(fetchMock.called(testUrl)).toBe(true)
+  //   })
 
-    it('returns the data', () => {
-      expect(result).toBe('my data')
-    })
-  })
+  //   it('returns the data', () => {
+  //     expect(result).toBe('my data')
+  //   })
+  // })
 
   describe('Get Featured', () => {
     beforeAll(async () => {
-      fetchMock.get(featuredCountriesUrl, {data: mockFeaturedCountries})
-      fetchMock.get(featuredDisastersUrl, {data: mockFeaturedDisasters})
+      fetchMock.get(mockEndpoints.featuredCountries, {data: mockCountries})
+      fetchMock.get(mockEndpoints.featuredDisasters, {data: mockDisasters})
       result = await getFeatured()
     })
 
     it('calls the featured countries endpoint', () => {
-      expect(fetchMock.called(featuredCountriesUrl)).toBe(true)
+      expect(fetchMock.called(mockEndpoints.featuredCountries)).toBe(true)
     })
 
     it('calls the featured disasters endpoint', () => {
-      expect(fetchMock.called(featuredDisastersUrl)).toBe(true)
+      expect(fetchMock.called(mockEndpoints.featuredDisasters)).toBe(true)
     })
 
     it('returns 6 from the merged and shuffled array data', () => {
@@ -56,6 +51,34 @@ describe('API requests', () => {
     it('formats and adds the url name to each result', () => {
       expect(result[0].urlName).toBe('a-country-name-0')
       expect(result[5].urlName).toBe('oh-no-a-disaster-name-7')
+    })
+  })
+
+  describe('Get Headlines', () => {
+    beforeAll(async () => {
+      fetchMock.get(mockEndpoints.headlines, {data: mockReports})
+      result = await getHeadlines()
+    })
+
+    it('calls the featured countries endpoint', () => {
+      expect(fetchMock.called(mockEndpoints.headlines)).toBe(true)
+    })
+
+    it('returns the data', () => {
+      expect(result[0].id).toEqual(mockReports[0].id)
+      expect(result[1].fields.title).toEqual(mockReports[1].fields.title)
+    })
+
+    it('formats and adds the url-friendly country using the shortname if present to each result', () => {
+      expect(result[0].urlCountry).toBe('so-yo')
+    })
+
+    it('formats and adds the url-friendly country using the name if no shortname to each result', () => {
+      expect(result[1].urlCountry).toBe('south-yorkshire')
+    })
+
+    it('formats and adds the url-friendly title to each result', () => {
+      expect(result[0].urlTitle).toBe('report-something-words-en-uk-0')
     })
   })
 })

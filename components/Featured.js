@@ -8,6 +8,7 @@ const Featured = (props) => (
         props.featured.map((item, i) => (
           <li key={item.id}>
             <Link
+              prefetch
               as={`/${item.type}/${item.id}/${item.urlName}`}
               href={`/${item.type}?id=${item.id}&name=${item.urlName}`}>
               <a>{item.fields.name}</a>

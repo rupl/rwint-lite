@@ -5,38 +5,43 @@ import shuffleArray from './shuffleArray'
 const apiEndpoint = 'https://api.reliefweb.int/v1/'
 const appName = 'rwmob-dev'
 
-const constructEndpoint = (type, limit = 20, sort = [], fields = [], filters = []) => {
+const formatStringForUrl = (str) => {
+  return str.toLowerCase().replace(/\W+/g, '-')
+}
+
+const constructEndpoint = (type, limit = 20, sort = [], fields = [], filters = [], filterConditions = []) => {
   let endpoint = `${apiEndpoint}${type}?appname=${appName}&limit=${limit}`
 
-  for (var sortValue of sort) {
+  for (let sortValue of sort) {
     endpoint += `&sort[]=${sortValue}`
   }
 
-  for (var fieldValue of fields) {
+  for (let fieldValue of fields) {
     endpoint += `&fields[include][]=${fieldValue}`
   }
 
-  for (var filterValue of filters) {
-    // does this need to be an array of can just have a filter & its value?
+  for (let filterValue of filters) {
     endpoint += `&filter[field]=${filterValue}&filter[value]=true`
   }
 
-  return endpoint
-}
+  for (let [index, conditionValue] of filterConditions.entries()) {
+    endpoint += '&filter[operator]=AND'
 
-const getUpdates = async () => {
-  const sort = ['date:desc', 'title:asc']
-  const fields = ['country', 'source', 'date']
-  const reportsEndpoint = constructEndpoint('reports', 10, sort, fields)
-  let res, data
+    if (conditionValue.field) {
+      endpoint += `&filter[conditions][${index}][field]=${conditionValue.field}`
+    }
+    if (conditionValue.value) {
+      for (let theValue of conditionValue.value) {
+        endpoint += `&filter[conditions][${index}][value][]=${theValue}`
+      }
+    }
 
-  try {
-    res = await fetch(reportsEndpoint)
-    data = await res.json()
-    return data.data
-  } catch (e) {
-    console.log('error', e)
+    if (conditionValue.operator) {
+      endpoint += `&filter[conditions][${index}][operator]=${conditionValue.operator}`
+    }
   }
+
+  return endpoint
 }
 
 const getFeatured = async function () {
@@ -52,11 +57,11 @@ const getFeatured = async function () {
     disastersData = await res2.json()
     countriesData.data.map(item => {
       item.type = 'country'
-      item.urlName = item.fields.name.toLowerCase().replace(/\W+/g, '-')
+      item.urlName = formatStringForUrl(item.fields.name)
     })
     disastersData.data.map(item => {
       item.type = 'disaster'
-      item.urlName = item.fields.name.toLowerCase().replace(/\W+/g, '-')
+      item.urlName = formatStringForUrl(item.fields.name)
     })
 
     featured = [...countriesData.data, ...disastersData.data]
@@ -67,4 +72,37 @@ const getFeatured = async function () {
   }
 }
 
-export { getFeatured, getUpdates }
+const getHeadlines = async function () {
+  const sort = ['date.created:desc']
+  const fields = ['headline.title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
+  const filterConditions = [
+    {
+      operator: 'OR',
+      field: 'status',
+      value: ['published', 'to-review']
+    },
+    {
+      field: 'headline'
+    }
+  ]
+
+  const headlinesEndpoint = constructEndpoint('reports', 16, sort, fields, [], filterConditions)
+  let res, data
+  try {
+    res = await fetch(headlinesEndpoint)
+    data = await res.json()
+    data.data.map(item => {
+      if (item.fields.primary_country) {
+        item.urlCountry = item.fields.primary_country.shortname ? formatStringForUrl(item.fields.primary_country.shortname) : formatStringForUrl(item.fields.primary_country.name)
+      }
+      if (item.fields.title) {
+        item.urlTitle = formatStringForUrl(item.fields.title)
+      }
+    })
+    return data.data
+  } catch (e) {
+    console.log('error', e)
+  }
+}
+
+export { getFeatured, getHeadlines }

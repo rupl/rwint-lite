@@ -15,17 +15,17 @@ app.prepare()
     const actualPage = '/updates'
     app.render(req, res, actualPage)
   })
-  server.get('/reports/:id', (req, res) => {
+  server.get('/report/:id', (req, res) => {
     const actualPage = '/report'
     const queryParams = { id: req.params.id }
     app.render(req, res, actualPage, queryParams)
   })
-  server.get('/country/:id/:name', (req, res) => {
+  server.get('/country/:id', (req, res) => {
     const actualPage = '/country'
     const queryParams = { id: req.params.id, name: req.params.name }
     app.render(req, res, actualPage, queryParams)
   })
-  server.get('/disaster/:id/:name', (req, res) => {
+  server.get('/disaster/:id', (req, res) => {
     const actualPage = '/disaster'
     const queryParams = { id: req.params.id, name: req.params.name }
     app.render(req, res, actualPage, queryParams)
