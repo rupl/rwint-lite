@@ -24,20 +24,19 @@ const constructEndpoint = (type, limit = 20, sort = [], fields = [], filters = [
     endpoint += `&filter[field]=${filterValue}&filter[value]=true`
   }
 
-  for (let [index, conditionValue] of filterConditions.entries()) {
+  for (let i = 0; i < filterConditions.length; i++) {
     endpoint += '&filter[operator]=AND'
 
-    if (conditionValue.field) {
-      endpoint += `&filter[conditions][${index}][field]=${conditionValue.field}`
+    if (filterConditions[i].field) {
+      endpoint += `&filter[conditions][${i}][field]=${filterConditions[i].field}`
     }
-    if (conditionValue.value) {
-      for (let theValue of conditionValue.value) {
-        endpoint += `&filter[conditions][${index}][value][]=${theValue}`
+    if (filterConditions[i].value) {
+      for (let theValue of filterConditions[i].value) {
+        endpoint += `&filter[conditions][${i}][value][]=${theValue}`
       }
     }
-
-    if (conditionValue.operator) {
-      endpoint += `&filter[conditions][${index}][operator]=${conditionValue.operator}`
+    if (filterConditions[i].operator) {
+      endpoint += `&filter[conditions][${i}][operator]=${filterConditions[i].operator}`
     }
   }
 
