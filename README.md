@@ -21,6 +21,10 @@ Unit tests use [Jest](https://facebook.github.io/jest/) and [Enzyme](http://airb
 
 `npm test`
 
+To run a single test suite
+
+`npm test -- <path-to-test>`
+
 ## Linting
 
 https://standardjs.com/

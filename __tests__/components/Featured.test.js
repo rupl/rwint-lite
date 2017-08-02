@@ -25,7 +25,7 @@ describe('Featured component', () => {
   })
 
   it('renders the component', () => {
-    expect(wrapper.exists()).toEqual(true)
+    expect(wrapper.exists()).toBe(true)
   })
 
   it('renders a link for each featured item', () => {
