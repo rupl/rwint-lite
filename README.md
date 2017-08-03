@@ -30,3 +30,13 @@ To run a single test suite
 https://standardjs.com/
 
 `npm run lint`
+
+## Using the docker image
+
+Get the docker image (latest dev branch is being pulled in the example below)
+
+`docker pull unocha/rw-mobile:dev`
+
+To view it on host port 3000
+
+`docker run -d -p 3000:3000 unocha/rw-mobile:dev`
