@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import Component from '../../components/Featured.js'
 
-let featured, wrapper
+let featured, simpleLinks, wrapper
 
 describe('Featured component', () => {
   beforeAll(function () {
@@ -22,6 +22,7 @@ describe('Featured component', () => {
       }
     ]
     wrapper = shallow(<Component featured={featured} />)
+    simpleLinks = wrapper.find('SimpleLink')
   })
 
   it('renders the component', () => {
@@ -29,7 +30,11 @@ describe('Featured component', () => {
   })
 
   it('renders a link for each featured item', () => {
-    const links = wrapper.find('Link')
-    expect(links.length).toBe(2)
+    expect(simpleLinks.length).toBe(2)
+  })
+
+  it('passes the link to the SimpleLink', function () {
+    const first = simpleLinks.nodes[0]
+    expect(first.props.link).toEqual(featured[0])
   })
 })

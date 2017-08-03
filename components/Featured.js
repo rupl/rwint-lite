@@ -1,22 +1,40 @@
-import Link from 'next/link'
+import { breakpoints } from '../theme/variables'
+import SectionHeading from './SectionHeading'
+import SimpleLink from './links/SimpleLink'
 
 const Featured = (props) => (
   <div>
-    <h3>Featured</h3>
+    <SectionHeading heading='Featured' />
     <ul>
       {props.featured && props.featured.length > 0 &&
         props.featured.map((item, i) => (
           <li key={item.id}>
-            <Link
-              prefetch
-              as={`/${item.type}/${item.id}/${item.urlName}`}
-              href={`/${item.type}?id=${item.id}&name=${item.urlName}`}>
-              <a>{item.fields.name}</a>
-            </Link>
+            <SimpleLink link={item} />
           </li>
         )
       )}
     </ul>
+    <style jsx>{`
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      @media (min-width: ${breakpoints.md}) {
+        ul {
+          display: block;
+          display: flex;
+          flex-wrap: wrap;
+        }
+        li {
+          width: 33.33%;
+          padding-right: 4px;
+        }
+        li:nth-child(3n) {
+          padding-right: 0;
+        }
+      }
+    `}</style>
   </div>
 )
 

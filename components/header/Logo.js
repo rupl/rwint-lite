@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { breakpoints, colors, measurements } from '../../theme/theme'
+import { breakpoints, colors, measurements } from '../../theme/variables'
 
 const Logo = ({home}) => {
   return (
@@ -19,8 +19,8 @@ const Logo = ({home}) => {
       <style jsx>{`
       .cd-site-header__logo {
         display: block;
-        width: ${measurements.baseUnit * 5}px;
-        height: ${measurements.baseUnit * 5}px;
+        width: ${measurements.baseUnit * 5}em;
+        height: ${measurements.baseUnit * 5}em;
         position: relative;
         background: url("/static/rw-logo-mobile.svg") left center no-repeat;
         background-size: 100% auto;
@@ -28,7 +28,7 @@ const Logo = ({home}) => {
       .cd-site-header__logo:after {
         content: "";
         position: absolute;
-        bottom: -6px;
+        bottom: -${measurements.baseUnit * 0.75}em;
         left: 0;
         width: 100%;
         border-bottom: 2px solid transparent;
@@ -45,13 +45,13 @@ const Logo = ({home}) => {
       @media (min-width: ${breakpoints.md}) {
         .cd-site-header__logo {
           background: url("/static/rw-logo.svg") left center no-repeat;
-          width: ${measurements.baseUnit * 19}px;
-          margin-right: ${measurements.baseUnit * 3}px;
-          margin-bottom: -${measurements.baseUnit}px;
+          width: ${measurements.baseUnit * 19}em;
+          margin-right: ${measurements.baseUnit * 3}em;
+          margin-bottom: -${measurements.baseUnit}em;
           background-size: auto;
         }
         .cd-site-header__logo:after {
-          bottom: -${measurements.baseUnit}px;
+          bottom: -${measurements.baseUnit}em;
         }
       }
     `}</style>

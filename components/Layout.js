@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import Header from './header/Header'
 import Footer from './Footer'
-import { base, fontSizes } from '../theme/theme'
+import { fontSizes } from '../theme/variables'
+import base from '../theme/base'
 
 const pageTitle = (home, title) => {
   const siteTitle = 'ReliefWeb Mobile'
@@ -18,9 +19,9 @@ const Layout = (props) => (
     <div className='page-wrapper'>
       <a href='#main' className='skip-link'>Skip to content</a>
       <Header home={props.home} />
-      <main id='main' role='main' className='container'>
+      <div id='main' role='main' className='container'>
         {props.children}
-      </main>
+      </div>
     </div>
     <Footer />
     <style jsx global>{base}</style>

@@ -1,7 +1,7 @@
 import Logo from './Logo'
 import Nav from './Nav'
 import GlobalHeader from './GlobalHeader'
-import { breakpoints, colors, measurements } from '../../theme/theme'
+import { breakpoints, colors, measurements } from '../../theme/variables'
 
 const Header = (props) => (
   <header role='banner'>
@@ -19,12 +19,12 @@ const Header = (props) => (
       .cd-site-header__inner {
         align-items: center;
         position: relative;
-        height: ${measurements.baseUnit * 6}px;
+        height: ${measurements.baseUnit * 6}em;
         display: flex;
       }
       @media (min-width: ${breakpoints.md}) {
         .cd-site-header__inner {
-          height: ${measurements.baseUnit * 7.5}px;
+          height: ${measurements.baseUnit * 7.5}em;
         }
       }
     `}</style>

@@ -28,11 +28,21 @@ const mockReports = [
   {
     id: '30',
     fields: {
-      title: 'Report: Something - words [EN/UK] 0',
+      date: {
+        created: '2017-08-03T13:20:12+00:00'
+      },
       primary_country: {
-        name: 'South Yorkshire',
         shortname: 'So Yo'
-      }
+      },
+      source: [
+        {
+          shortname: 'Now Then'
+        },
+        {
+          name: 'Exposed'
+        }
+      ],
+      title: 'Report: Something - words [EN/UK] 0'
     }
   },
   {
