@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv sh
+cd /srv/www
+export HOME=/srv/www
+echo "==> Starting the server"
+exec npm run start
