@@ -1,4 +1,4 @@
-import { breakpoints, colors, fontSizes, measurements } from '../../theme/theme'
+import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
 
 const GlobalHeader = (props) => (
   <div className='cd-global-header'>
@@ -17,11 +17,11 @@ const GlobalHeader = (props) => (
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: ${measurements.baseUnit * 5}px;
+        height: ${measurements.baseUnit * 5}em;
       }
       .cd-global-header__sites {
         position: relative;
-        margin-left: -${measurements.baseUnit}px;
+        margin-left: -${measurements.baseUnit}em;
       }
       .cd-global-header__sites-btn {
         background: none;
@@ -30,7 +30,7 @@ const GlobalHeader = (props) => (
         text-transform: uppercase;
         text-align: left;
         padding: 0 ${measurements.baseUnit};
-        height: ${measurements.baseUnit * 5}px;
+        height: ${measurements.baseUnit * 5}em;
         font-size: ${fontSizes.tiny};
       }
       .cd-global-header__sites-btn:hover, .cd-global-header__sites-btn:focus {

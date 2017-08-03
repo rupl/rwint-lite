@@ -6,21 +6,6 @@ const fetchMock = require('fetch-mock')
 let result
 
 describe('API requests', () => {
-  // describe('Get Updates', () => {
-  //   beforeAll(async () => {
-  //     fetchMock.get(testUrl, {data: 'my data'})
-  //     result = await getUpdates()
-  //   })
-
-  //   it('calls the updates end point', () => {
-  //     expect(fetchMock.called(testUrl)).toBe(true)
-  //   })
-
-  //   it('returns the data', () => {
-  //     expect(result).toBe('my data')
-  //   })
-  // })
-
   describe('Get Featured', () => {
     beforeAll(async () => {
       fetchMock.get(mockEndpoints.featuredCountries, {data: mockCountries})
