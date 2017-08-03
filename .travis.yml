@@ -30,4 +30,4 @@ script:
   - docker-compose up -d
   - sleep 5
   - docker-compose exec mobile npm test
-  - docker-compose exec mobile npm lint
+  - docker-compose exec mobile npm run lint
