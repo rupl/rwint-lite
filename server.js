@@ -35,7 +35,7 @@ app.prepare()
     return handle(req, res)
   })
 
-  server.listen(3000, "0.0.0.0", (err) => {
+  server.listen(3000, '0.0.0.0', (err) => {
     if (err) throw err
     console.log('> Ready on http://0.0.0.0:3000')
   })
