@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  mobile2:
+    image: unocha/rw-mobile:${MOBILE_IMAGE_TAG}
+    environment:
+      VIRTUAL_HOST: dev.m.rwdev.org
+      VIRTUAL_PORT: 3000
+      VIRTUAL_NETWORK: nginx-proxy
+      LETSENCRYPT_HOST: dev.m.rwdev.org
+    networks:
+      default:
+      rwint-proxy:
+
+networks:
+  rwint-proxy:
+    external:
+      name: nginx-proxy
