@@ -8,6 +8,8 @@ services:
       VIRTUAL_PORT: 3000
       VIRTUAL_NETWORK: nginx-proxy
       LETSENCRYPT_HOST: dev.m.rwdev.org
+      NEW_RELIC_APP_NAME:
+      NEW_RELIC_LICENSE_KEY:
     networks:
       default:
       rwint-proxy:
