@@ -45,6 +45,10 @@ const base = `
     color: ${colors.link.focus};
     outline: 3px solid ${colors.link.focusBg};
   }
+  button {
+    -webkit-appearance: none;
+    font-size: 100%;
+  }
   .sr-only {
     position: absolute;
     width: 1px;

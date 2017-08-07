@@ -32,7 +32,8 @@ const colors = ({
     body: '#555',
     dark: '#333',
     light: '#767676',
-    highlight: blue
+    highlight: blue,
+    header: purple
   }
 })
 

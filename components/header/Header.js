@@ -17,10 +17,8 @@ const Header = (props) => (
         border-bottom: 2px solid ${colors.border.light};
       }
       .cd-site-header__inner {
-        align-items: center;
         position: relative;
         height: ${measurements.baseUnit * 6}em;
-        display: flex;
       }
       @media (min-width: ${breakpoints.md}) {
         .cd-site-header__inner {
@@ -32,6 +30,3 @@ const Header = (props) => (
 )
 
 export default Header
-
-// TODO
-// skip link
