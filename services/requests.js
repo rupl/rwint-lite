@@ -43,6 +43,22 @@ const constructEndpoint = (type, limit = 20, sort = [], fields = [], filters = [
   return endpoint
 }
 
+const getCountries = async function () {
+  const countriesEndpoint = constructEndpoint('countries', 300, ['name:asc'], ['name', 'iso3'], [])
+  let res, data
+  try {
+    res = await fetch(countriesEndpoint)
+    data = await res.json()
+    data.data.map(item => {
+      item.type = 'country'
+      item.urlName = formatStringForUrl(item.fields.name)
+    })
+    return data.data
+  } catch (e) {
+    console.log('error', e)
+  }
+}
+
 const getFeatured = async function () {
   const countriesEndpoint = constructEndpoint('countries', 20, [], [], ['featured'])
   const disastersEndpoint = constructEndpoint('disasters', 20, [], [], ['featured'])
@@ -104,4 +120,33 @@ const getHeadlines = async function () {
   }
 }
 
-export { getFeatured, getHeadlines }
+const getUpdates = async function () {
+  const sort = ['date.created:desc']
+  const fields = ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
+  const filterConditions = [
+    {
+      operator: 'OR',
+      field: 'status',
+      value: ['published', 'to-review']
+    }
+  ]
+  const updatesEndpoint = constructEndpoint('reports', 10, sort, fields, [], filterConditions)
+  let res, data
+  try {
+    res = await fetch(updatesEndpoint)
+    data = await res.json()
+    data.data.map(item => {
+      if (item.fields.primary_country) {
+        item.urlCountry = item.fields.primary_country.shortname ? formatStringForUrl(item.fields.primary_country.shortname) : formatStringForUrl(item.fields.primary_country.name)
+      }
+      if (item.fields.title) {
+        item.urlTitle = formatStringForUrl(item.fields.title)
+      }
+    })
+    return data.data
+  } catch (e) {
+    console.log('error', e)
+  }
+}
+
+export { getCountries, getFeatured, getHeadlines, getUpdates }

@@ -19,4 +19,29 @@ const Arrow = ({direction}) => (
     `}</style>
   </svg>
 )
-export { Arrow }
+
+const Cancel = () => (
+  <svg width='32' height='32' viewBox='0 0 32 32' aria-hidden='true'>
+    <path d='M16.8 16l7.6-7.7c0.2-0.2 0.2-0.6 0-0.8s-0.6-0.2-0.8 0l-7.6 7.6-7.7-7.6c-0.2-0.2-0.6-0.2-0.8 0s-0.2 0.6 0 0.8l7.6 7.7-7.6 7.7c-0.2 0.2-0.2 0.6 0 0.8 0.1 0.1 0.3 0.2 0.4 0.2 0.2 0 0.3-0.1 0.4-0.2l7.6-7.7 7.6 7.7c0.1 0.1 0.3 0.2 0.4 0.2 0.2 0 0.3-0.1 0.4-0.2 0.2-0.2 0.2-0.6 0-0.8l-7.5-7.7z' />
+    <style jsx>{`
+      svg {
+        fill: ${colors.text.header};
+      }
+    `}</style>
+  </svg>
+)
+
+const Menu = () => (
+  <svg width='32' height='32' viewBox='0 0 32 32' aria-hidden='true'>
+    <path d='M3.8 7.8h24.5v1.4h-24.5v-1.4z' />
+    <path d='M3.8 15.3h24.5v1.4h-24.5v-1.4z' />
+    <path d='M3.8 22.8h24.5v1.4h-24.5v-1.4z' />
+    <style jsx>{`
+      svg {
+        fill: ${colors.text.header};
+      }
+    `}</style>
+  </svg>
+)
+
+export { Arrow, Cancel, Menu }

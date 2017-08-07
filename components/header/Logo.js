@@ -3,7 +3,7 @@ import { breakpoints, colors, measurements } from '../../theme/variables'
 
 const Logo = ({home}) => {
   return (
-    <div>
+    <div className='cd-site-header__logo-holder'>
       {home &&
         <h1 className='cd-site-header__logo active'>
           <span className='sr-only'>ReliefWeb</span>
@@ -20,7 +20,7 @@ const Logo = ({home}) => {
       .cd-site-header__logo {
         display: block;
         width: ${measurements.baseUnit * 5}em;
-        height: ${measurements.baseUnit * 5}em;
+        height: ${measurements.baseUnit * 6}em;
         position: relative;
         background: url("/static/rw-logo-mobile.svg") left center no-repeat;
         background-size: 100% auto;
@@ -28,7 +28,7 @@ const Logo = ({home}) => {
       .cd-site-header__logo:after {
         content: "";
         position: absolute;
-        bottom: -${measurements.baseUnit * 0.75}em;
+        bottom: -2px;
         left: 0;
         width: 100%;
         border-bottom: 2px solid transparent;
@@ -43,15 +43,16 @@ const Logo = ({home}) => {
         border-color: ${colors.bg.headerFooter};
       }
       @media (min-width: ${breakpoints.md}) {
+        .cd-site-header__logo-holder {
+          float: left;
+        }
         .cd-site-header__logo {
-          background: url("/static/rw-logo.svg") left center no-repeat;
+          background: url("/static/rw-logo.svg") left 14px no-repeat;
           width: ${measurements.baseUnit * 19}em;
+          height: ${measurements.baseUnit * 7.5}em;
           margin-right: ${measurements.baseUnit * 3}em;
           margin-bottom: -${measurements.baseUnit}em;
           background-size: auto;
-        }
-        .cd-site-header__logo:after {
-          bottom: -${measurements.baseUnit}em;
         }
       }
     `}</style>
