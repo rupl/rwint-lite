@@ -2,15 +2,33 @@ require('newrelic')
 const express = require('express')
 const next = require('next')
 const compression = require('compression')
+const winston = require('winston')
+const expressWinston = require('express-winston')
+const fs = require('fs')
+const mkdirp = require('mkdirp')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
+const logDir = 'var/log/node'
+
+if (!fs.existsSync(logDir)) {
+  mkdirp(logDir)
+}
 
 app.prepare()
 .then(() => {
   const server = express()
   server.use(compression())
+
+  if (!dev) {
+    server.use(expressWinston.logger({
+      transports: [
+        new winston.transports.Console(),
+        new (winston.transports.File)({filename: `${logDir}/access.log`})
+      ]
+    }))
+  }
 
   server.get('/report/listing', (req, res) => {
     const actualPage = '/updates'
@@ -35,6 +53,18 @@ app.prepare()
   server.get('*', (req, res) => {
     return handle(req, res)
   })
+
+  if (!dev) {
+    server.use(expressWinston.errorLogger({
+      transports: [
+        new winston.transports.Console({
+          json: true,
+          colorize: true
+        }),
+        new (winston.transports.File)({filename: `${logDir}/error.log`})
+      ]
+    }))
+  }
 
   server.listen(3000, '0.0.0.0', (err) => {
     if (err) throw err
