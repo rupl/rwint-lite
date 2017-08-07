@@ -16,12 +16,15 @@
   "dependencies": {
     "compression": "^1.7.0",
     "express": "^4.15.3",
+    "express-winston": "^2.4.0",
     "fecha": "^2.3.1",
     "isomorphic-unfetch": "^2.0.0",
+    "mkdirp": "^0.5.1",
     "newrelic": "^2.0.2",
     "next": "^2.4.8",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "babel-jest": "^20.0.3",
