@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import { getCountries, getFeatured, getHeadlines, getUpdates } from '../../services/requests.js'
-import { mockCountries, mockDisasters, mockEndpoints, mockReports } from '../../__fixtures__/data.fixture'
+import { mockCountries, mockDisasters, mockEndpoints, mockHeadlines, mockReports } from '../../__fixtures__/data.fixture'
 jest.mock('../../services/shuffleArray')
 const fetchMock = require('fetch-mock')
 let result
@@ -41,7 +41,7 @@ describe('API requests', () => {
 
   describe('Get Headlines', () => {
     beforeAll(async () => {
-      fetchMock.get(mockEndpoints.headlines, {data: mockReports})
+      fetchMock.get(mockEndpoints.headlines, {data: mockHeadlines})
       result = await getHeadlines()
     })
 
@@ -50,8 +50,8 @@ describe('API requests', () => {
     })
 
     it('returns the data', () => {
-      expect(result[0].id).toEqual(mockReports[0].id)
-      expect(result[1].fields.title).toEqual(mockReports[1].fields.title)
+      expect(result[0].id).toEqual(mockHeadlines[0].id)
+      expect(result[1].fields.title).toEqual(mockHeadlines[1].fields.title)
     })
 
     it('formats and adds the url-friendly country using the shortname if present to each result', () => {
@@ -69,29 +69,40 @@ describe('API requests', () => {
 
   describe('Get Updates', () => {
     beforeAll(async () => {
-      fetchMock.get(mockEndpoints.updates, {data: mockReports})
+      fetchMock.get(mockEndpoints.updates, mockReports)
       result = await getUpdates()
     })
 
-    it('calls the upadtes endpoint', () => {
+    it('calls the updates endpoint', () => {
       expect(fetchMock.called(mockEndpoints.updates)).toBe(true)
     })
 
     it('returns the data', () => {
-      expect(result[0].id).toEqual(mockReports[0].id)
-      expect(result[1].fields.title).toEqual(mockReports[1].fields.title)
+      expect(result.data[0].id).toEqual(mockReports.data[0].id)
+      expect(result.data[1].fields.title).toEqual(mockReports.data[1].fields.title)
     })
 
     it('formats and adds the url-friendly country using the shortname if present to each result', () => {
-      expect(result[0].urlCountry).toBe('so-yo')
+      expect(result.data[0].urlCountry).toBe('so-yo')
     })
 
     it('formats and adds the url-friendly country using the name if no shortname to each result', () => {
-      expect(result[1].urlCountry).toBe('south-yorkshire')
+      expect(result.data[1].urlCountry).toBe('south-yorkshire')
     })
 
     it('formats and adds the url-friendly title to each result', () => {
-      expect(result[0].urlTitle).toBe('report-something-words-en-uk-0')
+      expect(result.data[0].urlTitle).toBe('report-something-words-en-uk-0')
+    })
+  })
+
+  describe('Get next page of updates', () => {
+    beforeAll(async () => {
+      fetchMock.get(mockEndpoints.updatesPage2, mockReports)
+      result = await getUpdates(1)
+    })
+
+    it('calls the updates endpoint with offset set to 10', () => {
+      expect(fetchMock.called(mockEndpoints.updatesPage2)).toBe(true)
     })
   })
 

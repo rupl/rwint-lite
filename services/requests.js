@@ -9,8 +9,8 @@ const formatStringForUrl = (str) => {
   return str.toLowerCase().replace(/\W+/g, '-')
 }
 
-const constructEndpoint = (type, limit = 20, sort = [], fields = [], filters = [], filterConditions = []) => {
-  let endpoint = `${apiEndpoint}${type}?appname=${appName}&limit=${limit}`
+const constructEndpoint = (type, limit = 20, offset = 0, sort = [], fields = [], filters = [], filterConditions = []) => {
+  let endpoint = `${apiEndpoint}${type}?appname=${appName}&limit=${limit}&offset=${offset}`
 
   for (let sortValue of sort) {
     endpoint += `&sort[]=${sortValue}`
@@ -44,7 +44,7 @@ const constructEndpoint = (type, limit = 20, sort = [], fields = [], filters = [
 }
 
 const getCountries = async function () {
-  const countriesEndpoint = constructEndpoint('countries', 300, ['name:asc'], ['name', 'iso3'], [])
+  const countriesEndpoint = constructEndpoint('countries', 300, 0, ['name:asc'], ['name', 'iso3'], [])
   let res, data
   try {
     res = await fetch(countriesEndpoint)
@@ -60,8 +60,8 @@ const getCountries = async function () {
 }
 
 const getFeatured = async function () {
-  const countriesEndpoint = constructEndpoint('countries', 20, [], [], ['featured'])
-  const disastersEndpoint = constructEndpoint('disasters', 20, [], [], ['featured'])
+  const countriesEndpoint = constructEndpoint('countries', 20, 0, [], [], ['featured'])
+  const disastersEndpoint = constructEndpoint('disasters', 20, 0, [], [], ['featured'])
   const countriesPromise = fetch(countriesEndpoint)
   const disastersPromise = fetch(disastersEndpoint)
   let res1, res2, countriesData, disastersData, featured
@@ -101,7 +101,7 @@ const getHeadlines = async function () {
     }
   ]
 
-  const headlinesEndpoint = constructEndpoint('reports', 16, sort, fields, [], filterConditions)
+  const headlinesEndpoint = constructEndpoint('reports', 16, 0, sort, fields, [], filterConditions)
   let res, data
   try {
     res = await fetch(headlinesEndpoint)
@@ -120,7 +120,7 @@ const getHeadlines = async function () {
   }
 }
 
-const getUpdates = async function () {
+const getUpdates = async function (currentPage, limit = 10) {
   const sort = ['date.created:desc']
   const fields = ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
   const filterConditions = [
@@ -130,7 +130,8 @@ const getUpdates = async function () {
       value: ['published', 'to-review']
     }
   ]
-  const updatesEndpoint = constructEndpoint('reports', 10, sort, fields, [], filterConditions)
+  const offset = currentPage ? currentPage * limit : 0
+  const updatesEndpoint = constructEndpoint('reports', limit, offset, sort, fields, [], filterConditions)
   let res, data
   try {
     res = await fetch(updatesEndpoint)
@@ -143,7 +144,7 @@ const getUpdates = async function () {
         item.urlTitle = formatStringForUrl(item.fields.title)
       }
     })
-    return data.data
+    return data
   } catch (e) {
     console.log('error', e)
   }
