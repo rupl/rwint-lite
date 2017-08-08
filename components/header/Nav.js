@@ -2,18 +2,25 @@ import React from 'react'
 import Link from 'next/link'
 import { Cancel, Menu } from '../icons/Icons'
 import { breakpoints, colors, measurements } from '../../theme/variables'
+import Router from 'next/router'
 
 class Nav extends React.Component {
   constructor (props) {
     super(props)
     this.toggle = this.toggle.bind(this)
     this.state = {
-      isOpen: false
+      isOpen: false,
+      activeLink: ''
     }
   }
   toggle () {
     this.setState({
       isOpen: !this.state.isOpen
+    })
+  }
+  componentDidMount () {
+    this.setState({
+      activeLink: Router.route
     })
   }
   render () {
@@ -23,27 +30,37 @@ class Nav extends React.Component {
           <ul className='cd-nav'>
             <li className='cd-nav__item'>
               <Link prefetch as='/report/listing' href='/updates'>
-                <a className='cd-nav__link'>Updates</a>
+                <a className={`cd-nav__link ${(this.state.activeLink === '/updates' || this.state.activeLink === '/report') ? 'cd-nav__link--active' : ''}`}>
+                  Updates
+                </a>
               </Link>
             </li>
             <li className='cd-nav__item'>
               <Link prefetch as='/country/listing' href='/countries'>
-                <a className='cd-nav__link'>Countries</a>
+                <a className={`cd-nav__link ${(this.state.activeLink === '/countries' || this.state.activeLink === '/country') ? 'cd-nav__link--active' : ''}`}>
+                  Countries
+                </a>
               </Link>
             </li>
             <li className='cd-nav__item'>
               <Link prefetch as='/disaster/listing' href='/disasters'>
-                <a className='cd-nav__link'>Disasters</a>
+                <a className={`cd-nav__link ${(this.state.activeLink === '/disasters' || this.state.activeLink === '/disaster') ? 'cd-nav__link--active' : ''}`}>
+                  Disasters
+                </a>
               </Link>
             </li>
             <li className='cd-nav__item'>
               <Link prefetch as='/job/listing' href='/jobs'>
-                <a className='cd-nav__link'>Jobs</a>
+                <a className={`cd-nav__link ${(this.state.activeLink === '/jobs' || this.state.activeLink === '/job') ? 'cd-nav__link--active' : ''}`}>
+                  Jobs
+                </a>
               </Link>
             </li>
             <li className='cd-nav__item'>
               <Link prefetch as='/training/listing' href='/training'>
-                <a className='cd-nav__link'>Training</a>
+                <a className={`cd-nav__link ${(this.state.activeLink === '/training') ? 'cd-nav__link--active' : ''}`}>
+                  Training
+                </a>
               </Link>
             </li>
           </ul>
@@ -121,7 +138,7 @@ class Nav extends React.Component {
             background: ${colors.link.focusBg};
             outline: none;
           }
-          .cd-nav__link:hover:after, .cd-nav__link:focus:after {
+          .cd-nav__link:hover:after, .cd-nav__link:focus:after, .cd-nav__link--active:after {
             border-color: ${colors.bg.headerFooter};
           }
           .cd-active .cd-nav__link {

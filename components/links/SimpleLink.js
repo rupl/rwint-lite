@@ -8,7 +8,9 @@ const SimpleLink = ({link}) => (
     as={`/${link.type}/${link.id}/${link.urlName}`}
     href={`/${link.type}?id=${link.id}&name=${link.urlName}`}>
     <a>
-      <Arrow direction='right' />
+      <span>
+        <Arrow direction='right' color='highlight' />
+      </span>
       {link.fields &&
         link.fields.name
       }
@@ -28,6 +30,14 @@ const SimpleLink = ({link}) => (
           background: ${colors.bg.dark};
           color: #fff;
           outline: none;
+        }
+        span {
+          height: ${measurements.baseUnit * 2}em;
+          width: ${measurements.baseUnit * 2}em;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          margin-top: -${measurements.baseUnit}em;
         }
       `}</style>
     </a>

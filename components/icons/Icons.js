@@ -1,20 +1,24 @@
-import { colors, measurements } from '../../theme/variables'
+import { colors } from '../../theme/variables'
 
-const Arrow = ({direction}) => (
-  <svg width='47px' height='25px' viewBox='0 0 47 25' aria-hidden='true' className={direction}>
+const Arrow = ({direction, color}) => (
+  <svg width='47px' height='25px' viewBox='0 0 47 25' aria-hidden='true' className={`${direction} ${color}`}>
     <path d='M33.4031632,35.6954709 C32.5059669,35.6954709 32.0573688,35.2468728 31.8330697,35.0225737 L12.9919482,16.1814522 C12.094752,15.2842559 11.6461538,14.1627606 11.6461538,12.8169662 C11.6461538,11.4711718 12.094752,10.3496765 12.9919482,9.45248023 L31.8330697,-9.38864127 C32.2816679,-9.8372394 32.730266,-10.0615385 33.4031632,-10.0615385 C34.0760604,-10.0615385 34.5246585,-9.8372394 34.9732566,-9.38864127 C35.4218548,-8.94004313 35.6461538,-8.491445 35.6461538,-7.81854781 C35.6461538,-7.14565061 35.4218548,-6.69705248 34.9732566,-6.24845435 L16.1321352,12.5926671 L16.1321352,12.5926671 C16.1321352,12.5926671 16.1321352,12.5926671 16.1321352,12.8169662 L16.1321352,13.2655643 L34.9732566,31.8823868 C35.8704529,32.779583 35.8704529,34.1253774 34.9732566,35.0225737 C34.7489576,35.2468728 34.3003595,35.6954709 33.4031632,35.6954709 Z' transform='translate(23.646154, 12.816966) rotate(90.000000) translate(-23.646154, -12.816966) ' />
     <style jsx>{`
       svg {
-        height: ${measurements.baseUnit * 2}em;
-        width: ${measurements.baseUnit * 2}em;
-        position: absolute;
-        left: 0;
-        top: 50%;
-        margin-top: -${measurements.baseUnit}em;
-        fill: ${colors.border.highlight};
+        width: 100%;
+        height: 100%;
       }
       svg.right {
         transform: rotate(90deg);
+      }
+      svg.down {
+        transform: rotate(180deg);
+      }
+      svg.globalHeader {
+        fill: ${colors.text.globalHeader}
+      }
+      svg.highlight {
+        fill: ${colors.border.highlight}
       }
     `}</style>
   </svg>

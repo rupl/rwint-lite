@@ -33,7 +33,8 @@ const colors = ({
     dark: '#333',
     light: '#767676',
     highlight: blue,
-    header: purple
+    header: purple,
+    globalHeader: 'white'
   }
 })
 
