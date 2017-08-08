@@ -10,7 +10,7 @@ const mkdirp = require('mkdirp')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
-const logDir = './var/log/node'
+const logDir = '/var/log/node'
 
 if (!fs.existsSync(logDir)) {
   mkdirp(logDir)
