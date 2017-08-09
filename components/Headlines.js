@@ -7,7 +7,7 @@ const LatestUpdates = (props) => (
     <SectionHeading heading='Latest Headlines' />
     <div className='reports-wrapper'>
       {props.reports && props.reports.length > 0 &&
-        props.reports.map((report, i) => <ReportLink key={report.id} report={report} />)
+        props.reports.map((report, i) => <ReportLink key={report.id} headingLevel='3' report={report} />)
       }
     </div>
     <style>{`

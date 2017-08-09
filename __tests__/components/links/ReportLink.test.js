@@ -12,7 +12,7 @@ describe('Report Link component', () => {
     report = reports[0]
     report.urlCountry = 'so-yo'
     report.urlTitle = 'report-something-words-en-uk-0'
-    wrapper = shallow(<Component report={report} />)
+    wrapper = shallow(<Component report={report} headingLevel='3' />)
   })
 
   it('renders the component', () => {

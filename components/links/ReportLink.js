@@ -17,13 +17,23 @@ class ReportLink extends React.Component {
 
   render () {
     const { id, fields, urlCountry, urlTitle } = this.props.report
+    const headingLevel = this.props.headingLevel || '2'
     return (
       <div className='report'>
-        <h3 className='title'>
-          <Link prefetch as={`/report/${id}/${urlCountry}/${urlTitle}`} href={`/report?id=${id}`}>
-            <a ref='theLink'>{fields.title}</a>
-          </Link>
-        </h3>
+        {headingLevel === '2' &&
+          <h2 className='title'>
+            <Link prefetch as={`/report/${id}/${urlCountry}/${urlTitle}`} href={`/report?id=${id}`}>
+              <a ref='theLink'>{fields.title}</a>
+            </Link>
+          </h2>
+        }
+        {headingLevel === '3' &&
+          <h3 className='title'>
+            <Link prefetch as={`/report/${id}/${urlCountry}/${urlTitle}`} href={`/report?id=${id}`}>
+              <a ref='theLink'>{fields.title}</a>
+            </Link>
+          </h3>
+        }
         {fields.date &&
           <p className='date'>{formatDate(fields.date.created)}</p>
         }
