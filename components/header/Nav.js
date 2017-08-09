@@ -75,55 +75,26 @@ class Nav extends React.Component {
           <span className='sr-only'>Main menu</span>
         </button>
         <style jsx>{`
-          .cd-site-header__nav-toggle {
-            border: none;
-            background: none;
-            width: ${measurements.baseUnit * 5}em;
-            height: ${measurements.baseUnit * 5}em;
-            position: absolute;
-            top: ${measurements.baseUnit / 2}em;
-            right: ${measurements.baseUnit}em;
-            padding: 0;
-          }
-          .cd-site-header__nav {
-            top: ${measurements.baseUnit * 6}em;
-            width: 100%;
-            right: 0;
-            position: absolute;
-            z-index: 99;
-            background: white;
-            box-shadow: 0 3px 3px 0 rgba(0,0,0,.15);
-            padding: 0 ${measurements.baseUnit * 1.5}em ${measurements.baseUnit / 2}em ${measurements.baseUnit * 1.5}em;
-          }
-          .cd-site-header__nav[aria-hidden="true"] {
-            display: none;
-          }
-          .cd-site-header__nav[aria-hidden="true"] + .cd-site-header__nav-toggle .cd-site-header__nav-toggle-cancel {
-            display: none;
-          }
-          .cd-site-header__nav[aria-hidden="false"] + .cd-site-header__nav-toggle .cd-site-header__nav-toggle-menu {
-            display: none;
+          .cd-nav__link {
+            display: block;
+            line-height: 1;
+            text-decoration: none;
+            position: relative;
+            color: ${colors.text.header};
+            height: ${measurements.baseUnit * 7.5}em;
+            padding: ${measurements.baseUnit * 3}em ${measurements.baseUnit * 2}em;
           }
           .cd-nav {
             list-style: none;
             margin: 0;
             padding: 0;
+            float: right;
           }
           .cd-nav__item {
             position: relative;
             text-transform: uppercase;
-            border-bottom: 1px solid ${colors.border.light};
-          }
-          .cd-nav__item:last-child {
+            display: inline-block;
             border: none;
-          }
-          .cd-nav__link {
-            display: block;
-            line-height: 1;
-            padding: ${measurements.baseUnit * 2}em ${measurements.baseUnit}em;
-            text-decoration: none;
-            position: relative;
-            color: ${colors.text.header};
           }
           .cd-nav__link:after {
             content: "";
@@ -146,6 +117,51 @@ class Nav extends React.Component {
           }
           .cd-active .cd-nav__link:after {
             border-color: #${colors.bg.headerFooter};
+          }
+          @media (max-width: 1024px) {
+            .cd-site-header__nav-toggle {
+              border: none;
+              background: none;
+              width: ${measurements.baseUnit * 5}em;
+              height: ${measurements.baseUnit * 5}em;
+              position: absolute;
+              top: ${measurements.baseUnit / 2}em;
+              right: ${measurements.baseUnit}em;
+              padding: 0;
+            }
+            .cd-site-header__nav {
+              top: ${measurements.baseUnit * 6}em;
+              width: 100%;
+              right: 0;
+              position: absolute;
+              z-index: 99;
+              background: white;
+              box-shadow: 0 3px 3px 0 rgba(0,0,0,.15);
+              padding: 0 ${measurements.baseUnit * 1.5}em ${measurements.baseUnit / 2}em ${measurements.baseUnit * 1.5}em;
+            }
+            .cd-site-header__nav[aria-hidden="true"] {
+              display: none;
+            }
+            .cd-site-header__nav[aria-hidden="true"] + .cd-site-header__nav-toggle .cd-site-header__nav-toggle-cancel {
+              display: none;
+            }
+            .cd-site-header__nav[aria-hidden="false"] + .cd-site-header__nav-toggle .cd-site-header__nav-toggle-menu {
+              display: none;
+            }
+            .cd-nav {
+              float: none;
+            }
+            .cd-nav__item {
+              display: block;
+              border-bottom: 1px solid ${colors.border.light};
+            }
+            .cd-nav__item:last-child {
+              border: none;
+            }
+            .cd-nav__link {
+              height: auto;
+              padding: ${measurements.baseUnit * 2}em ${measurements.baseUnit}em;
+            }
           }
           @media (min-width: ${breakpoints.md}) {
             .cd-site-header__nav {
@@ -174,14 +190,6 @@ class Nav extends React.Component {
             }
             .cd-nav {
               display: flex;
-            }
-            .cd-nav__item {
-              display: inline-block;
-              border: none;
-            }
-            .cd-nav__link {
-              height: ${measurements.baseUnit * 7.5}em;
-              padding: ${measurements.baseUnit * 3}em ${measurements.baseUnit * 2}em;
             }
             .cd-nav__link:hover, .cd-nav__link:focus {
               text-decoration: none;

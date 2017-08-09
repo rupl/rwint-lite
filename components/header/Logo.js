@@ -42,6 +42,17 @@ const Logo = ({home}) => {
       .cd-site-header__logo.active:after, .cd-site-header__logo:focus:after, .cd-site-header__logo:hover:after {
         border-color: ${colors.bg.headerFooter};
       }
+
+      .cd-site-header__logo-holder {
+        float: left;
+      }
+
+      @media (max-width: 1024px) {
+        .cd-site-header__logo-holder {
+          float: none;
+        }
+      }
+
       @media (min-width: ${breakpoints.md}) {
         .cd-site-header__logo-holder {
           float: left;

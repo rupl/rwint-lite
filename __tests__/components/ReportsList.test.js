@@ -80,7 +80,3 @@ describe('ReportsList component', () => {
     })
   })
 })
-
-// load more
-// remove duplicates
-// reset
