@@ -8,7 +8,7 @@ let linkEl, report, reports, wrapper
 
 describe('Report Link component', () => {
   beforeAll(function () {
-    reports = [...mockReports]
+    reports = [...mockReports.data]
     report = reports[0]
     report.urlCountry = 'so-yo'
     report.urlTitle = 'report-something-words-en-uk-0'

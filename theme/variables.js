@@ -15,7 +15,8 @@ const colors = ({
     content: 'white',
     dark: '#555',
     headerFooter: purple,
-    headerFooterHighlight: '#495986'
+    headerFooterHighlight: '#495986',
+    primaryButton: blue
   },
   border: {
     highlight: red,
@@ -34,7 +35,8 @@ const colors = ({
     light: '#767676',
     highlight: blue,
     header: purple,
-    globalHeader: 'white'
+    globalHeader: 'white',
+    primaryButton: 'white'
   }
 })
 
