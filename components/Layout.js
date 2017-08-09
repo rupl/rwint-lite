@@ -10,13 +10,17 @@ const pageTitle = (home, title) => {
   return (home || !title) ? siteTitle : `${title} | ${siteTitle}`
 }
 
+const dev = process.env.NODE_ENV !== 'production'
+
 const Layout = (props) => (
   <div>
     <Head>
       <title>{pageTitle(props.home, props.title)}</title>
       <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       <link rel='manifest' href='/static/manifest.json' />
-      <NewRelic />
+      {!dev &&
+        <NewRelic />
+      }
     </Head>
     <div className='page-wrapper'>
       <a href='#main' className='skip-link'>Skip to content</a>
