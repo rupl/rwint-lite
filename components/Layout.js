@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Header from './header/Header'
 import Footer from './Footer'
+import NewRelic from './NewRelic'
 import { fontSizes } from '../theme/variables'
 import base from '../theme/base'
 
@@ -15,6 +16,7 @@ const Layout = (props) => (
       <title>{pageTitle(props.home, props.title)}</title>
       <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       <link rel='manifest' href='/static/manifest.json' />
+      <NewRelic />
     </Head>
     <div className='page-wrapper'>
       <a href='#main' className='skip-link'>Skip to content</a>
