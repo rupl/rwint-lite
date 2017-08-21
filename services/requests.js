@@ -120,7 +120,7 @@ const getHeadlines = async function () {
   }
 }
 
-const getUpdates = async function (currentPage, limit = 10) {
+const requestUpdates = async function (offset, limit = 10) {
   const sort = ['date.created:desc']
   const fields = ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
   const filterConditions = [
@@ -130,7 +130,6 @@ const getUpdates = async function (currentPage, limit = 10) {
       value: ['published', 'to-review']
     }
   ]
-  const offset = currentPage ? currentPage * limit : 0
   const updatesEndpoint = constructEndpoint('reports', limit, offset, sort, fields, [], filterConditions)
   let res, data
   try {
@@ -150,4 +149,4 @@ const getUpdates = async function (currentPage, limit = 10) {
   }
 }
 
-export { getCountries, getFeatured, getHeadlines, getUpdates }
+export { getCountries, getFeatured, getHeadlines, requestUpdates }
