@@ -1,8 +1,16 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import { requestUpdates } from './services/requests'
+import { requestFeatured, requestHeadlines, requestUpdates } from './services/requests'
 
 const theInitialState = {
+  featured: {
+    lastFetched: '',
+    items: []
+  },
+  headlines: {
+    lastFetched: '',
+    items: []
+  },
   updates: {
     canLoadMore: false,
     currentPage: 1,
@@ -17,7 +25,9 @@ const reportsPerPage = 10
 export const actionTypes = {
   GET_UPDATES: 'GET_UPDATES',
   LOAD_MORE_UPDATES: 'LOAD_MORE_UPDATES',
-  UPDATES_REQUESTED: 'UPDATES_REQUESTED'
+  UPDATES_REQUESTED: 'UPDATES_REQUESTED',
+  GET_FEATURED: 'GET_FEATURED',
+  GET_HEADLINES: 'GET_HEADLINES'
 }
 
 // reducers
@@ -46,6 +56,28 @@ export const reducer = (state = theInitialState, action) => {
       return {
         ...state,
         updates: newUpdates
+      }
+
+    case actionTypes.GET_FEATURED:
+      const featuredDate = new Date()
+      let newFeatured = {
+        lastFetched: featuredDate.toString(),
+        items: action.items
+      }
+      return {
+        ...state,
+        featured: newFeatured
+      }
+
+    case actionTypes.GET_HEADLINES:
+      const headlinesDate = new Date()
+      let newHeadlines = {
+        lastFetched: headlinesDate.toString(),
+        items: action.items
+      }
+      return {
+        ...state,
+        headlines: newHeadlines
       }
 
     default: return state
@@ -92,6 +124,30 @@ export const getUpdates = (pageNumber, loadMore = false, pagination = false) => 
       pageNumber: pageNumber,
       pagination: pagination
     })
+  }
+}
+
+export const getFeatured = () => {
+  return async (dispatch, getState) => {
+    if (shouldUpdate(getState().featured.lastFetched, 10)) {
+      let response = await requestFeatured()
+      dispatch({
+        type: actionTypes.GET_FEATURED,
+        items: response
+      })
+    }
+  }
+}
+
+export const getHeadlines = () => {
+  return async (dispatch, getState) => {
+    if (shouldUpdate(getState().headlines.lastFetched, 1)) {
+      let response = await requestHeadlines()
+      dispatch({
+        type: actionTypes.GET_HEADLINES,
+        items: response
+      })
+    }
   }
 }
 

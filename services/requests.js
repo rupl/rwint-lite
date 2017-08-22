@@ -59,7 +59,7 @@ const getCountries = async function () {
   }
 }
 
-const getFeatured = async function () {
+const requestFeatured = async function () {
   const countriesEndpoint = constructEndpoint('countries', 20, 0, [], [], ['featured'])
   const disastersEndpoint = constructEndpoint('disasters', 20, 0, [], [], ['featured'])
   const countriesPromise = fetch(countriesEndpoint)
@@ -87,7 +87,7 @@ const getFeatured = async function () {
   }
 }
 
-const getHeadlines = async function () {
+const requestHeadlines = async function () {
   const sort = ['date.created:desc']
   const fields = ['headline.title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
   const filterConditions = [
@@ -149,4 +149,4 @@ const requestUpdates = async function (offset, limit = 10) {
   }
 }
 
-export { getCountries, getFeatured, getHeadlines, requestUpdates }
+export { getCountries, requestFeatured, requestHeadlines, requestUpdates }
