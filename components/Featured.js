@@ -4,7 +4,7 @@ import { breakpoints } from '../theme/variables'
 import SectionHeading from './SectionHeading'
 import SimpleLink from './links/SimpleLink'
 
-class Featured extends React.Component {
+export class Featured extends React.Component {
   render () {
     const {featured} = this.props
     return (

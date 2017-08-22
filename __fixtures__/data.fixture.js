@@ -24,6 +24,15 @@ const mockDisasters = [
   {id: '29', fields: {name: 'Oh no: A disaster name - 9'}}
 ]
 
+const mockFeatured = [
+  {id: '10', fields: {name: 'A country name 0'}},
+  {id: '11', fields: {name: 'A country name 1'}},
+  {id: '23', fields: {name: 'Oh no: A disaster name - 3'}},
+  {id: '24', fields: {name: 'Oh no: A disaster name - 4'}},
+  {id: '18', fields: {name: 'A country name 8'}},
+  {id: '19', fields: {name: 'A country name 9'}}
+]
+
 const mockHeadlines = [
   {
     id: '30',
@@ -125,4 +134,4 @@ const mockEndpoints = {
   updatesPage2: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev&limit=10&offset=10&sort[]=date.created:desc&fields[include][]=title&fields[include][]=date.created&fields[include][]=primary_country.name&fields[include][]=primary_country.shortname&fields[include][]=source.name&fields[include][]=source.shortname&filter[operator]=AND&filter[conditions][0][field]=status&filter[conditions][0][value][]=published&filter[conditions][0][value][]=to-review&filter[conditions][0][operator]=OR'
 }
 
-export { mockCountries, mockDisasters, mockEndpoints, mockHeadlines, mockReports, mockReportsPage2 }
+export { mockCountries, mockDisasters, mockEndpoints, mockFeatured, mockHeadlines, mockReports, mockReportsPage2 }

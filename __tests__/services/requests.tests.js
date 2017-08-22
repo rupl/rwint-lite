@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { getCountries, getFeatured, getHeadlines, getUpdates } from '../../services/requests.js'
+import { getCountries, requestFeatured, requestHeadlines, requestUpdates } from '../../services/requests.js'
 import { mockCountries, mockDisasters, mockEndpoints, mockHeadlines, mockReports } from '../../__fixtures__/data.fixture'
 jest.mock('../../services/shuffleArray')
 const fetchMock = require('fetch-mock')
@@ -10,7 +10,7 @@ describe('API requests', () => {
     beforeAll(async () => {
       fetchMock.get(mockEndpoints.featuredCountries, {data: mockCountries})
       fetchMock.get(mockEndpoints.featuredDisasters, {data: mockDisasters})
-      result = await getFeatured()
+      result = await requestFeatured()
     })
 
     it('calls the featured countries endpoint', () => {
@@ -42,7 +42,7 @@ describe('API requests', () => {
   describe('Get Headlines', () => {
     beforeAll(async () => {
       fetchMock.get(mockEndpoints.headlines, {data: mockHeadlines})
-      result = await getHeadlines()
+      result = await requestHeadlines()
     })
 
     it('calls the featured countries endpoint', () => {
@@ -70,7 +70,7 @@ describe('API requests', () => {
   describe('Get Updates', () => {
     beforeAll(async () => {
       fetchMock.get(mockEndpoints.updates, mockReports)
-      result = await getUpdates()
+      result = await requestUpdates()
     })
 
     it('calls the updates endpoint', () => {
@@ -98,7 +98,7 @@ describe('API requests', () => {
   describe('Get next page of updates', () => {
     beforeAll(async () => {
       fetchMock.get(mockEndpoints.updatesPage2, mockReports)
-      result = await getUpdates(1)
+      result = await requestUpdates(10)
     })
 
     it('calls the updates endpoint with offset set to 10', () => {

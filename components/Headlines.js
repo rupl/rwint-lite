@@ -4,7 +4,7 @@ import ReportLink from '../components/links/ReportLink'
 import SectionHeading from './SectionHeading'
 import { breakpoints } from '../theme/variables'
 
-class Headlines extends React.Component {
+export class Headlines extends React.Component {
   render () {
     const {headlines} = this.props
     return (
