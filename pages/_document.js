@@ -6,7 +6,9 @@ export default class MyDocument extends Document {
 
     return (
       <html lang='en'>
-        <Head />
+        <Head>
+          <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign' />
+        </Head>
         <body>
           <Main />
           <NextScript />
