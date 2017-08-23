@@ -18,6 +18,8 @@ const SimpleLink = ({link}) => (
         a {
           padding: ${measurements.baseUnit * 2}em ${measurements.baseUnit}em ${measurements.baseUnit * 2}em 0;
           display: block;
+          display: flex;
+          align-items: center;
           text-decoration: none;
           position: relative;
           padding-left: 24px;
