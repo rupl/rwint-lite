@@ -1,13 +1,14 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
-import { initStore, getFeatured, getHeadlines } from '../store'
+import { initStore } from '../store'
+import { getFeatured, getHeadlines } from '../actions/actions'
 import withRedux from 'next-redux-wrapper'
 import Layout from '../components/Layout'
 import Headlines from '../components/Headlines'
 import Featured from '../components/Featured'
 
-class Index extends React.Component {
-  static async getInitialProps ({store, isServer, pathname, query}) {
+export class Index extends React.Component {
+  static async getInitialProps ({store}) {
     await store.dispatch(getFeatured())
     await store.dispatch(getHeadlines())
   }
