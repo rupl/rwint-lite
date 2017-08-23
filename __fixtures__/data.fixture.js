@@ -91,6 +91,9 @@ const mockReports = {
           },
           {
             name: 'Exposed'
+          },
+          {
+            name: 'The Star'
           }
         ],
         title: 'Report: Something - words [EN/UK] 0'

@@ -42,4 +42,9 @@ describe('Report Link component', () => {
     expect(wrapper.find('.sources').first().find('a').text()).toContain('Now Then')
     expect(wrapper.find('.sources').at(1).find('a').text()).toContain('Exposed')
   })
+
+  it('only shows up to 2 sources', () => {
+    expect(wrapper.find('.sources').length).toBe(2)
+    expect(wrapper.find('.sources-more').text()).toEqual('+1 more')
+  })
 })

@@ -18,6 +18,10 @@ class ReportLink extends React.Component {
   render () {
     const { id, fields, urlCountry, urlTitle } = this.props.report
     const headingLevel = this.props.headingLevel || '2'
+    const numSourcesToShow = 2
+    const displaySources = fields.source.length > numSourcesToShow ? [fields.source[0], fields.source[1]] : fields.source
+    const moreSourcesNumber = fields.source.length > numSourcesToShow ? fields.source.length - numSourcesToShow : 0
+
     return (
       <div className='report'>
         {headingLevel === '2' &&
@@ -45,16 +49,19 @@ class ReportLink extends React.Component {
           }
           <span className='divider'>|</span>
           {fields.source &&
-            fields.source.map((source, i) =>
+            displaySources.map((source, i) =>
               <span className='sources' key={i}>
                 <Link prefetch as='report/listing' href='/updates'>
                   <a>{source.shortname || source.name}</a>
                 </Link>
-                {i + 1 < fields.source.length &&
+                {i < displaySources.length && i + 1 !== fields.source.length &&
                   <span>,</span>
                 }
               </span>
-          )}
+            )}
+          {moreSourcesNumber > 0 &&
+            <span className='sources-more'>+{moreSourcesNumber} more</span>
+          }
         </div>
         <style jsx>{`
           .report {
@@ -96,8 +103,8 @@ class ReportLink extends React.Component {
             color: ${colors.text.light};
             padding: ${measurements.baseUnit * 0.67}em 0;
           }
-          .sources + .sources {
-            margin-left: ${measurements.baseUnit}em;
+          .sources {
+            margin-right: ${measurements.baseUnit}em;
           }
           @media (min-width: ${breakpoints.md}) {
             .report {
