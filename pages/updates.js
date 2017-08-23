@@ -24,7 +24,7 @@ export class Updates extends React.Component {
   }
 
   static async getInitialProps ({store, isServer, pathname, query}) {
-    let pageNumber = query.page ? query.page : 1
+    let pageNumber = query && query.page ? query.page : 1
     const showPagination = isServer && pageNumber > 1
 
     await store.dispatch(getUpdates(pageNumber, false, showPagination))

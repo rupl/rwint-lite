@@ -35,21 +35,6 @@ describe('Index page', () => {
 
     it('renders the component', () => {
       expect(wrapper.length).toEqual(1)
-      // expect(wrapper.prop('headlines')).toEqual([])
     })
   })
-
-  // TO DO
-  // test it gets the stuff from store
-
-  // it('calls getHeadlines and return the updates from the request', () => {
-  //   // console.log(container.props())
-  //   // expect(container.prop('headlines')).toEqual(mockHeadlines)
-  //   return container.getInitialProps().then(data => expect(data.featured).toEqual([{id: 'featuredId'}]))
-  // })
-
-  // it('calls getFeatured and return the updates from the request', () => {
-  //   expect.assertions(1)
-  //   return App.getInitialProps().then(data => expect(data.featured).toEqual([{id: 'featuredId'}]))
-  // })
 })
