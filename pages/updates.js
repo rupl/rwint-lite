@@ -1,56 +1,110 @@
+import React from 'react'
+import Router from 'next/router'
+import { bindActionCreators } from 'redux'
+import { initStore } from '../store'
+import { getUpdates } from '../actions/actions'
+import withRedux from 'next-redux-wrapper'
 import Layout from '../components/Layout'
-import { getUpdates } from '../services/requests'
 import ReportsList from '../components/ReportsList'
 import SectionHeading from '../components/SectionHeading'
-import { breakpoints } from '../theme/variables'
+import LoadMoreButton from '../components/LoadMoreButton'
+import PaginationButtons from '../components/PaginationButtons'
+import { breakpoints, measurements } from '../theme/variables'
 
-const Updates = (props) => (
-  <Layout title='Updates'>
-    <div>
-      <SectionHeading heading='Updates' level='1' />
-      <ReportsList {...props} />
-    </div>
-    <style>{`
-      @media (min-width: ${breakpoints.md}) {
-        .reports-wrapper {
-          overflow: auto;
-          display: flex;
-          flex-wrap: wrap;
-        }
-      }
-    `}</style>
-  </Layout>
-)
-
-Updates.getInitialProps = async function (context) {
-  const reportsPerPage = 10
-  const maxReports = 100
-  let reports = []
-  let pageNumber = 1
-  let limit = reportsPerPage
-  let offset = 0
-  let aboveMax = false
-  let canLoadMore = true
-
-  if (context && context.req && context.req.query.page) {
-    pageNumber = context.req.query.page
-  } else {
-    if (context && context.asPath) {
-      const pageFromPath = context.asPath.split('page=')[1]
-      pageNumber = pageFromPath ? parseInt(pageFromPath, 10) : 1
+export class Updates extends React.Component {
+  constructor (props) {
+    super(props)
+    this.loadMore = this.loadMore.bind(this)
+    this.nextPage = this.nextPage.bind(this)
+    this.prevPage = this.prevPage.bind(this)
+    this.state = {
+      currentPage: props.currentPage,
+      supportsPush: false
     }
   }
-  aboveMax = (reportsPerPage * pageNumber) > maxReports
-  limit = aboveMax ? reportsPerPage : reportsPerPage * pageNumber
-  offset = aboveMax ? pageNumber - 1 : 0
-  reports = await getUpdates(offset, limit)
-  canLoadMore = reports.totalCount > (pageNumber * reportsPerPage)
-  return {
-    aboveMax: aboveMax,
-    canLoadMore: canLoadMore,
-    currentPage: pageNumber,
-    reports: reports.data
+
+  static async getInitialProps ({store, isServer, pathname, query}) {
+    let pageNumber = query && query.page ? query.page : 1
+    const showPagination = isServer && pageNumber > 1
+
+    await store.dispatch(getUpdates(pageNumber, false, showPagination))
+
+    return {
+      canLoadMore: store.getState().updates.canLoadMore,
+      currentPage: store.getState().updates.currentPage,
+      showPagination: showPagination
+    }
+  }
+
+  componentDidMount () {
+    this.setState({
+      supportsPush: true
+    })
+  }
+
+  async loadMore () {
+    const nextPage = parseInt(this.state.currentPage, 10) + 1
+    await this.props.getUpdates(nextPage, true)
+    this.setState({
+      currentPage: nextPage
+    })
+    Router.push(`/updates?page=${nextPage}`, `/report/listing?page=${nextPage}`, {shallow: true})
+  }
+
+  async nextPage () {
+    const pageNumber = parseInt(this.state.currentPage, 10) + 1
+    await this.props.getUpdates(pageNumber, false, true)
+    this.setState({
+      currentPage: pageNumber
+    })
+    Router.push(`/updates?page=${pageNumber}`, `/report/listing?page=${pageNumber}`, {shallow: true})
+  }
+
+  async prevPage () {
+    const pageNumber = parseInt(this.state.currentPage, 10) - 1
+    await this.props.getUpdates(pageNumber, false, true)
+    this.setState({
+      currentPage: pageNumber
+    })
+    Router.push(`/updates?page=${pageNumber}`, `/report/listing?page=${pageNumber}`, {shallow: true})
+  }
+
+  render () {
+    const nextPage = parseInt(this.state.currentPage, 10) + 1
+    return (
+      <Layout title='Updates'>
+        <div>
+          <SectionHeading heading='Updates' level='1' />
+          <ReportsList />
+          {this.props.showPagination &&
+            <PaginationButtons prevClick={this.prevPage} nextClick={this.nextPage} currentPage={this.state.currentPage} supportsPush={this.state.supportsPush} />
+          }
+          {!this.props.showPagination && this.props.canLoadMore &&
+            <div className='btn-container'>
+              <LoadMoreButton click={this.loadMore} nextPage={nextPage} supportsPush={this.state.supportsPush} />
+            </div>
+          }
+        </div>
+        <style jsx>{`
+          .btn-container {
+            max-width: 320px;
+            margin: ${measurements.baseUnit * 2}em auto;
+          }
+          @media (min-width: ${breakpoints.md}) {
+            .btn-container {
+              margin: ${measurements.baseUnit * 5}em auto;
+            }
+          }
+        `}</style>
+      </Layout>
+    )
   }
 }
 
-export default Updates
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUpdates: bindActionCreators(getUpdates, dispatch)
+  }
+}
+
+export default withRedux(initStore, null, mapDispatchToProps)(Updates)
