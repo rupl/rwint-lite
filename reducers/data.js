@@ -29,7 +29,7 @@ const reportsPerPage = 10
 export const reducer = (state = theInitialState, action) => {
   switch (action.type) {
     case actionTypes.GET_UPDATES:
-      const canLoadMore = action.items.totalCount > (state.updates.currentPage * reportsPerPage)
+      const canLoadMore = action.items.totalCount > (action.pageNumber * reportsPerPage)
       const d = action.pagination ? '' : new Date() // dont save last fetched if loading a paginated page
       let newReports = action.loadMore ? [...state.updates.reports, ...action.items.data] : action.items.data
       let focusId = ''
