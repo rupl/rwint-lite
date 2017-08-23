@@ -26,7 +26,6 @@ export const theInitialState = {
 }
 const reportsPerPage = 10
 
-// reducers
 export const reducer = (state = theInitialState, action) => {
   switch (action.type) {
     case actionTypes.GET_UPDATES:

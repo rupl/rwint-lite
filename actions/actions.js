@@ -12,16 +12,17 @@ const shouldUpdate = (lastFetched, threshold = 1) => {
   if (dateNow > dateThreshold) {
     return true
   }
+  return false
 }
 
-export const getUpdates = (pageNumber, loadMore = false, pagination = false) => {
+export const getUpdates = (pageNumber = 1, loadMore = false, pagination = false) => {
   return async (dispatch, getState) => {
     const limit = 10
     let offset = (pageNumber - 1) * limit
     const goingBackToPaginatedPage = pageNumber > 1 && !loadMore && !pagination
     const shouldRefreshFirstPage = pageNumber === 1 && shouldUpdate(getState().updates.lastFetched)
     // if going back client side or is page one and recently fetched dont re-fetch data
-    if (goingBackToPaginatedPage && !shouldRefreshFirstPage) {
+    if (goingBackToPaginatedPage || (pageNumber === 1 && !shouldRefreshFirstPage)) {
       return
     }
 

@@ -11,7 +11,7 @@ import LoadMoreButton from '../components/LoadMoreButton'
 import PaginationButtons from '../components/PaginationButtons'
 import { breakpoints, measurements } from '../theme/variables'
 
-class Updates extends React.Component {
+export class Updates extends React.Component {
   constructor (props) {
     super(props)
     this.loadMore = this.loadMore.bind(this)
