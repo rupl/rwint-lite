@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import * as actions from '../../actions/actions'
 import * as actionTypes from '../../constants/actionTypes'
-import { mockFeatured, mockHeadlines, mockReports } from '../../__fixtures__/data.fixture'
+import { mockFeatured, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
 
 jest.mock('../../services/requests')
 
@@ -140,6 +140,31 @@ describe('Get Headlines', () => {
       }
     })
     return store.dispatch(actions.getHeadlines()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('Get an Update', () => {
+  it('creates GET_UPDATE when has fetched update and returns the update', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_UPDATE,
+      item: mockUpdate
+    }]
+    const store = mockStore({
+      updateReports: []
+    })
+    return store.dispatch(actions.getUpdate(mockUpdate.id)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('does not create GET_UPDATE when update has already been fetched', () => {
+    const expectedActions = []
+    const store = mockStore({
+      updateReports: [mockUpdate]
+    })
+    return store.dispatch(actions.getUpdate(mockUpdate.id)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })

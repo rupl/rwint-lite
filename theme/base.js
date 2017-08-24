@@ -34,6 +34,9 @@ const base = `
     font-weight: normal;
     font-family: ${fonts.heading};
   }
+  p, ul, ol {
+    line-height: 1.5;
+  }
   a {
     color: ${colors.link.default};
   }

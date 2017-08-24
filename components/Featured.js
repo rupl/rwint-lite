@@ -30,6 +30,7 @@ export class Featured extends React.Component {
               display: block;
               display: flex;
               flex-wrap: wrap;
+              line-height: initial;
             }
             li {
               width: 33.33%;

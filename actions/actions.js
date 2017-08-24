@@ -1,5 +1,5 @@
 import * as actionTypes from '../constants/actionTypes'
-import { requestFeatured, requestHeadlines, requestUpdates } from '../services/requests'
+import { requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../services/requests'
 
 // helpers
 const shouldUpdate = (lastFetched, threshold = 1) => {
@@ -13,6 +13,23 @@ const shouldUpdate = (lastFetched, threshold = 1) => {
     return true
   }
   return false
+}
+
+export const getUpdate = (id) => {
+  return async (dispatch, getState) => {
+    const reports = getState().updateReports
+    if (reports) {
+      const index = reports.map((x) => { return x.id }).indexOf(id)
+      if (index !== -1) {
+        return
+      }
+    }
+    let response = await requestUpdate(id)
+    dispatch({
+      type: actionTypes.GET_UPDATE,
+      item: response[0]
+    })
+  }
 }
 
 export const getUpdates = (pageNumber = 1, loadMore = false, pagination = false) => {

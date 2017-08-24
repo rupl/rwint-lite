@@ -1,12 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import fecha from 'fecha'
+import formatDate from '../../helpers/formatDate'
 import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
-
-const formatDate = (date) => {
-  return fecha.format(new Date(date), 'DD MMM YYYY')
-}
 
 class ReportLink extends React.Component {
   componentDidMount () {
@@ -68,6 +64,9 @@ class ReportLink extends React.Component {
             border-bottom: 1px solid ${colors.border.light}
             padding: ${measurements.baseUnit * 1.5}em 0 ${measurements.baseUnit}em 0;
             word-break: break-word;
+          }
+          p {
+            line-height: initial;
           }
           .title {
             margin-bottom: ${measurements.baseUnit}em;
