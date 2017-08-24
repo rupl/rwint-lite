@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import { reducer } from '../../reducers/data'
 import * as actionTypes from '../../constants/actionTypes'
-import { mockFeatured, mockHeadlines, mockReports, mockReportsPage2 } from '../../__fixtures__/data.fixture'
+import { mockFeatured, mockHeadlines, mockReports, mockReportsPage2, mockUpdate, mockUpdate2 } from '../../__fixtures__/data.fixture'
 
 describe('data reducer', () => {
   it('should return the initial state', () => {
@@ -22,9 +22,34 @@ describe('data reducer', () => {
           reports: [],
           lastFetched: '',
           totalCount: 0
-        }
+        },
+        updateReports: []
       }
     )
+  })
+
+  describe('Handle GET_UPDATE', () => {
+    it('should handle get update', () => {
+      expect(
+        reducer({updateReports: []}, {
+          type: actionTypes.GET_UPDATE,
+          item: mockUpdate
+        })
+      ).toEqual({
+        updateReports: [mockUpdate]
+      })
+    })
+
+    it('should store multiple updates', () => {
+      expect(
+        reducer({updateReports: [mockUpdate]}, {
+          type: actionTypes.GET_UPDATE,
+          item: mockUpdate2
+        })
+      ).toEqual({
+        updateReports: [mockUpdate, mockUpdate2]
+      })
+    })
   })
 
   describe('Handle GET_UPDATES', () => {
@@ -32,7 +57,7 @@ describe('data reducer', () => {
       const d = new Date()
 
       expect(
-        reducer([], {
+        reducer({}, {
           type: actionTypes.GET_UPDATES,
           items: mockReports,
           pageNumber: 3

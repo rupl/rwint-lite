@@ -1,25 +1,37 @@
-import Layout from '../components/Layout.js'
-import fetch from 'isomorphic-unfetch'
+import React from 'react'
+import Layout from '../components/Layout'
+import { bindActionCreators } from 'redux'
+import { initStore } from '../store'
+import { getUpdate } from '../actions/actions'
+import withRedux from 'next-redux-wrapper'
+import ArticleBody from '../components/article/ArticleBody'
 
-const Report = (props) => (
-  <Layout title={props.report.fields.title}>
-    <h1>{props.report.fields.title}</h1>
-    <div>{props.report.fields.body}</div>
-    <style jsx>{`
-      div {
-        white-space: pre-wrap;
-      }
-    `}</style>
-  </Layout>
-)
+export class Report extends React.Component {
+  static async getInitialProps ({store, isServer, pathname, query}) {
+    const id = query.id
+    await store.dispatch(getUpdate(id))
+    const reports = store.getState().updateReports
+    const report = reports.filter((obj) => {
+      return parseInt(obj.id, 10) === parseInt(id, 10)
+    })[0]
+    return {
+      report: report
+    }
+  }
 
-Report.getInitialProps = async function (context) {
-  const { id } = context.query
-  const reportsEndpoint = `https://api.reliefweb.int/v1/reports/${id}?appname=rwmob-dev`
-  const res = await fetch(reportsEndpoint)
-  const data = await res.json()
-  const report = data.data[0]
-  return { report }
+  render () {
+    return (
+      <Layout title={this.props.report.fields.title}>
+        <ArticleBody report={this.props.report} />
+      </Layout>
+    )
+  }
 }
 
-export default Report
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUpdate: bindActionCreators(getUpdate, dispatch)
+  }
+}
+
+export default withRedux(initStore, null, mapDispatchToProps)(Report)

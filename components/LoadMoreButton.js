@@ -8,6 +8,10 @@ const LoadMoreButton = ({click, nextPage, supportsPush}) => {
         <style jsx>{`
           button {
             ${primaryButton}
+          }
+          button:hover {
+            opacity: 0.9;
+          }
         `}</style>
       </button>
     )
@@ -18,6 +22,11 @@ const LoadMoreButton = ({click, nextPage, supportsPush}) => {
       <style jsx>{`
         a {
           ${primaryButton}
+        }
+        a:hover {
+          opacity: 0.9;
+          color: white;
+        }
       `}</style>
     </a>
   )

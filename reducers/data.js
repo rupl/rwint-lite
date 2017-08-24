@@ -22,12 +22,21 @@ export const theInitialState = {
     lastFetched: '',
     reports: [],
     totalCount: 0
-  }
+  },
+  updateReports: []
 }
 const reportsPerPage = 10
 
 export const reducer = (state = theInitialState, action) => {
   switch (action.type) {
+    case actionTypes.GET_UPDATE:
+      let newUpdateReports = [...state.updateReports]
+      newUpdateReports.push(action.item)
+      return {
+        ...state,
+        updateReports: newUpdateReports
+      }
+
     case actionTypes.GET_UPDATES:
       const canLoadMore = action.items.totalCount > (action.pageNumber * reportsPerPage)
       const d = action.pagination ? '' : new Date() // dont save last fetched if loading a paginated page

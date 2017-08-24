@@ -120,6 +120,18 @@ const requestHeadlines = async function () {
   }
 }
 
+const requestUpdate = async function (id) {
+  const endpoint = `${apiEndpoint}reports/${id}?appname=${appName}`
+  let res, data
+  try {
+    res = await fetch(endpoint)
+    data = await res.json()
+    return data.data
+  } catch (e) {
+    console.log('error', e)
+  }
+}
+
 const requestUpdates = async function (offset, limit = 10) {
   const sort = ['date.created:desc']
   const fields = ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
@@ -149,4 +161,4 @@ const requestUpdates = async function (offset, limit = 10) {
   }
 }
 
-export { getCountries, requestFeatured, requestHeadlines, requestUpdates }
+export { getCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }
