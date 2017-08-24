@@ -32,7 +32,7 @@ app.prepare()
 
   server.get('/report/listing', (req, res) => {
     const actualPage = '/updates'
-    const queryParams = { page: req.query.page }
+    const queryParams = { page: req.query.page, search: req.query.search }
     // console.log('req', req)
     app.render(req, res, actualPage, queryParams)
   })

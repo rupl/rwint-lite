@@ -17,6 +17,8 @@ class ReportLink extends React.Component {
     const numSourcesToShow = 2
     const displaySources = fields.source.length > numSourcesToShow ? [fields.source[0], fields.source[1]] : fields.source
     const moreSourcesNumber = fields.source.length > numSourcesToShow ? fields.source.length - numSourcesToShow : 0
+    const countryQueryString = `?search=country.exact:"${fields.primary_country.shortname || fields.primary_country.name}"`
+    let sourceQueryString = '?search=source.exact:'
 
     return (
       <div className='report'>
@@ -39,15 +41,16 @@ class ReportLink extends React.Component {
         }
         <div className='info'>
           {fields.primary_country &&
-            <Link prefetch as='report/listing' href='/updates'>
+            <Link as={`/report/listing${countryQueryString}`} href={`/updates${countryQueryString}`}>
               <a className='country'>{fields.primary_country.shortname || fields.primary_country.name}</a>
             </Link>
           }
           <span className='divider'>|</span>
           {fields.source &&
             displaySources.map((source, i) =>
+
               <span className='sources' key={i}>
-                <Link prefetch as='report/listing' href='/updates'>
+                <Link prefetch as={`/report/listing${sourceQueryString}"${source.shortname || source.name}"`} href={`/updates${sourceQueryString}"${source.shortname || source.name}"`}>
                   <a>{source.shortname || source.name}</a>
                 </Link>
                 {i < displaySources.length && i + 1 !== fields.source.length &&

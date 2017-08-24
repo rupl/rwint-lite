@@ -32,26 +32,28 @@ export const getUpdate = (id) => {
   }
 }
 
-export const getUpdates = (pageNumber = 1, loadMore = false, pagination = false) => {
+export const getUpdates = (pageNumber = 1, loadMore = false, pagination = false, query) => {
   return async (dispatch, getState) => {
     const limit = 10
     let offset = (pageNumber - 1) * limit
     const goingBackToPaginatedPage = pageNumber > 1 && !loadMore && !pagination
-    const shouldRefreshFirstPage = pageNumber === 1 && shouldUpdate(getState().updates.lastFetched)
+    const shouldRefreshFirstPage = query || (pageNumber === 1 && shouldUpdate(getState().updates.lastFetched))
     // if going back client side or is page one and recently fetched dont re-fetch data
-    if (goingBackToPaginatedPage || (pageNumber === 1 && !shouldRefreshFirstPage)) {
+    if ((goingBackToPaginatedPage || (pageNumber === 1 && !shouldRefreshFirstPage))) {
       return
     }
-
-    let response = []
-    response = await requestUpdates(offset, limit)
-    dispatch({
+    let response = await requestUpdates(offset, limit, query)
+    let dispatchObj = {
       type: actionTypes.GET_UPDATES,
       items: response,
       loadMore: loadMore,
       pageNumber: pageNumber,
       pagination: pagination
-    })
+    }
+    if (query) {
+      dispatchObj.isQuery = true
+    }
+    dispatch(dispatchObj)
   }
 }
 

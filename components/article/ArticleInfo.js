@@ -32,6 +32,9 @@ class ArticleInfo extends React.Component {
             font-weight: bold;
             text-decoration: none;
           }
+          span {
+            display: inline-block;
+          }
           .divider {
             padding: 0 ${measurements.baseUnit}em;
           }

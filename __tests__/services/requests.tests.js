@@ -106,6 +106,22 @@ describe('API requests', () => {
     })
   })
 
+  describe('Get queried Updates', () => {
+    beforeAll(async () => {
+      fetchMock.get(mockEndpoints.queryUpdates, mockReports)
+      result = await requestUpdates(0, 10, 'country.exact:"Syria"')
+    })
+
+    it('calls the update endpoint with the query', () => {
+      expect(fetchMock.called(mockEndpoints.queryUpdates)).toBe(true)
+    })
+
+    it('returns the data', () => {
+      expect(result.data[0].id).toEqual(mockReports.data[0].id)
+      expect(result.data[1].fields.title).toEqual(mockReports.data[1].fields.title)
+    })
+  })
+
   describe('Get Countries', () => {
     beforeAll(async () => {
       fetchMock.get(mockEndpoints.countries, {data: mockCountries})

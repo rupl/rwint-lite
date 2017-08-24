@@ -9,7 +9,7 @@ const formatStringForUrl = (str) => {
   return str.toLowerCase().replace(/\W+/g, '-')
 }
 
-const constructEndpoint = (type, limit = 20, offset = 0, sort = [], fields = [], filters = [], filterConditions = []) => {
+const constructEndpoint = (type, limit = 20, offset = 0, sort = [], fields = [], filters = [], filterConditions = [], query) => {
   let endpoint = `${apiEndpoint}${type}?appname=${appName}&limit=${limit}&offset=${offset}`
 
   for (let sortValue of sort) {
@@ -38,6 +38,10 @@ const constructEndpoint = (type, limit = 20, offset = 0, sort = [], fields = [],
     if (filterConditions[i].operator) {
       endpoint += `&filter[conditions][${i}][operator]=${filterConditions[i].operator}`
     }
+  }
+
+  if (query) {
+    endpoint += `&query[value]=${query}`
   }
 
   return endpoint
@@ -132,7 +136,7 @@ const requestUpdate = async function (id) {
   }
 }
 
-const requestUpdates = async function (offset, limit = 10) {
+const requestUpdates = async function (offset, limit = 10, query) {
   const sort = ['date.created:desc']
   const fields = ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
   const filterConditions = [
@@ -142,7 +146,7 @@ const requestUpdates = async function (offset, limit = 10) {
       value: ['published', 'to-review']
     }
   ]
-  const updatesEndpoint = constructEndpoint('reports', limit, offset, sort, fields, [], filterConditions)
+  const updatesEndpoint = constructEndpoint('reports', limit, offset, sort, fields, [], filterConditions, query)
   let res, data
   try {
     res = await fetch(updatesEndpoint)

@@ -17,7 +17,7 @@ describe('data reducer', () => {
         },
         updates: {
           canLoadMore: false,
-          currentPage: 1,
+          currentPage: 0,
           focusId: '',
           reports: [],
           lastFetched: '',
