@@ -1,35 +1,47 @@
+import React from 'react'
+import { connect } from 'react-redux'
 import { primaryButton } from '../theme/buttons'
 
-const LoadMoreButton = ({click, nextPage, supportsPush}) => {
-  if (supportsPush) {
+export class LoadMoreButton extends React.Component {
+  render () {
+    if (this.props.supportsPush) {
+      return (
+        <div>
+          {this.props.updates.canLoadMore &&
+            <button type='button' onClick={this.props.click}>
+              Show more
+              <style jsx>{`
+                button {
+                  ${primaryButton}
+                }
+                button:hover {
+                  opacity: 0.9;
+                }
+              `}</style>
+            </button>
+          }
+        </div>
+      )
+    }
     return (
-      <button type='button' onClick={click}>
-        Show more
-        <style jsx>{`
-          button {
-            ${primaryButton}
-          }
-          button:hover {
-            opacity: 0.9;
-          }
-        `}</style>
-      </button>
+      <div>
+        {this.props.updates.canLoadMore &&
+          <a className='load-more-link' href={`/report/listing?page=${this.props.nextPage}`}>
+            Show more
+            <style jsx>{`
+              a {
+                ${primaryButton}
+              }
+              a:hover {
+                opacity: 0.9;
+                color: white;
+              }
+            `}</style>
+          </a>
+        }
+      </div>
     )
   }
-  return (
-    <a className='load-more-link' href={`/report/listing?page=${nextPage}`}>
-      Show more
-      <style jsx>{`
-        a {
-          ${primaryButton}
-        }
-        a:hover {
-          opacity: 0.9;
-          color: white;
-        }
-      `}</style>
-    </a>
-  )
 }
 
-export default LoadMoreButton
+export default connect(state => state)(LoadMoreButton)

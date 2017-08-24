@@ -17,7 +17,7 @@ export const theInitialState = {
   },
   updates: {
     canLoadMore: false,
-    currentPage: 1,
+    currentPage: 0,
     focusId: '',
     lastFetched: '',
     reports: [],
@@ -39,7 +39,7 @@ export const reducer = (state = theInitialState, action) => {
 
     case actionTypes.GET_UPDATES:
       const canLoadMore = action.items.totalCount > (action.pageNumber * reportsPerPage)
-      const d = action.pagination ? '' : new Date() // dont save last fetched if loading a paginated page
+      const d = action.pagination || action.isQuery ? '' : new Date() // dont save last fetched if loading a paginated page
       let newReports = action.loadMore ? [...state.updates.reports, ...action.items.data] : action.items.data
       let focusId = ''
 

@@ -85,6 +85,25 @@ describe('Get Updates', () => {
   })
 })
 
+describe('Get Updates with query', () => {
+  it('creates GET_UPDATES when has fetched updates and returns the items, info and isQuery flag', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_UPDATES,
+      items: mockReports,
+      loadMore: false,
+      pageNumber: 1,
+      pagination: false,
+      isQuery: true
+    }]
+    const store = mockStore({
+      updates: {}
+    })
+    return store.dispatch(actions.getUpdates(1, false, false, 'country.exact:"Syria"')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
 describe('Get Featured', () => {
   it('creates GET_FEATURED when has fetched featured and returns the items', () => {
     const expectedActions = [{
