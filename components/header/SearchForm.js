@@ -1,7 +1,7 @@
 import React from 'react'
 import Router from 'next/router'
 import { SearchIcon } from '../icons/Icons'
-import { colors, fonts, fontSizes, measurements } from '../../theme/variables'
+import { breakpoints, colors, fonts, fontSizes, measurements } from '../../theme/variables'
 
 export class SearchForm extends React.Component {
   constructor (props) {
@@ -51,9 +51,10 @@ export class SearchForm extends React.Component {
             font-family: ${fonts.body};
             font-size: ${fontSizes.base};
             padding: ${measurements.baseUnit * 1.5}em ${measurements.baseUnit * 1.5}em ${measurements.baseUnit * 1.5}em ${measurements.baseUnit * 3.5}em;
-            width: 100%;
+            width: 400px;
             height: 62px;
             background: transparent;
+            color: ${colors.text.light};
           }
           input:focus {
             outline: none;
@@ -83,6 +84,18 @@ export class SearchForm extends React.Component {
           }
           :-moz-placeholder {
             font-style: italic;
+          }
+
+          @media (min-width: ${breakpoints.lg}) {
+            input {
+              width: 270px;
+            }
+          }
+
+          @media (min-width: ${breakpoints.xl}) {
+            input {
+              width: 380px;
+            }
           }
 
           @media (max-width: 48em) {
