@@ -149,14 +149,12 @@ const mockUpdate2 = {
 }
 
 const mockEndpoints = {
-  countries: 'https://api.reliefweb.int/v1/countries?appname=rwmob-dev&limit=300&offset=0&sort[]=name:asc&fields[include][]=name&fields[include][]=iso3',
-  featuredCountries: 'https://api.reliefweb.int/v1/countries?appname=rwmob-dev&limit=20&offset=0&filter[field]=featured&filter[value]=true',
-  featuredDisasters: 'https://api.reliefweb.int/v1/disasters?appname=rwmob-dev&limit=20&offset=0&filter[field]=featured&filter[value]=true',
-  headlines: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev&limit=16&offset=0&sort[]=date.created:desc&fields[include][]=headline.title&fields[include][]=date.created&fields[include][]=primary_country.name&fields[include][]=primary_country.shortname&fields[include][]=source.name&fields[include][]=source.shortname&filter[operator]=AND&filter[conditions][0][field]=status&filter[conditions][0][value][]=published&filter[conditions][0][value][]=to-review&filter[conditions][0][operator]=OR&filter[operator]=AND&filter[conditions][1][field]=headline',
-  updates: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev&limit=10&offset=0&sort[]=date.created:desc&fields[include][]=title&fields[include][]=date.created&fields[include][]=primary_country.name&fields[include][]=primary_country.shortname&fields[include][]=source.name&fields[include][]=source.shortname&filter[operator]=AND&filter[conditions][0][field]=status&filter[conditions][0][value][]=published&filter[conditions][0][value][]=to-review&filter[conditions][0][operator]=OR',
-  updatesPage2: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev&limit=10&offset=10&sort[]=date.created:desc&fields[include][]=title&fields[include][]=date.created&fields[include][]=primary_country.name&fields[include][]=primary_country.shortname&fields[include][]=source.name&fields[include][]=source.shortname&filter[operator]=AND&filter[conditions][0][field]=status&filter[conditions][0][value][]=published&filter[conditions][0][value][]=to-review&filter[conditions][0][operator]=OR',
-  update: 'https://api.reliefweb.int/v1/reports/100?appname=rwmob-dev',
-  queryUpdates: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev&limit=10&offset=0&sort[]=date.created:desc&fields[include][]=title&fields[include][]=date.created&fields[include][]=primary_country.name&fields[include][]=primary_country.shortname&fields[include][]=source.name&fields[include][]=source.shortname&filter[operator]=AND&filter[conditions][0][field]=status&filter[conditions][0][value][]=published&filter[conditions][0][value][]=to-review&filter[conditions][0][operator]=OR&query[value]=country.exact:"Syria"'
+  countries: 'https://api.reliefweb.int/v1/countries?appname=rwmob-dev',
+  featuredCountries: 'https://api.reliefweb.int/v1/countries?appname=rwmob-dev',
+  featuredDisasters: 'https://api.reliefweb.int/v1/disasters?appname=rwmob-dev',
+  headlines: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev',
+  updates: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev',
+  update: 'https://api.reliefweb.int/v1/reports/100?appname=rwmob-dev'
 }
 
 export { mockCountries, mockDisasters, mockEndpoints, mockFeatured, mockHeadlines, mockReports, mockReportsPage2, mockUpdate, mockUpdate2 }

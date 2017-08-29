@@ -9,50 +9,53 @@ const formatStringForUrl = (str) => {
   return str.toLowerCase().replace(/\W+/g, '-')
 }
 
-const constructEndpoint = (type, limit = 20, offset = 0, sort = [], fields = [], filters = [], filterConditions = [], query) => {
-  let endpoint = `${apiEndpoint}${type}?appname=${appName}&limit=${limit}&offset=${offset}`
-
-  for (let sortValue of sort) {
-    endpoint += `&sort[]=${sortValue}`
+const constructRequestBody = (limit = 20, offset = 0, sort = [], fields = [], filter, preset, query) => {
+  let requestBody = {
+    limit: limit,
+    offset: offset
   }
 
-  for (let fieldValue of fields) {
-    endpoint += `&fields[include][]=${fieldValue}`
+  if (preset) {
+    requestBody.preset = preset
   }
 
-  for (let filterValue of filters) {
-    endpoint += `&filter[field]=${filterValue}&filter[value]=true`
+  if (sort.length) {
+    requestBody.sort = sort
   }
 
-  for (let i = 0; i < filterConditions.length; i++) {
-    endpoint += '&filter[operator]=AND'
-
-    if (filterConditions[i].field) {
-      endpoint += `&filter[conditions][${i}][field]=${filterConditions[i].field}`
+  if (fields.length) {
+    requestBody.fields = {
+      include: fields
     }
-    if (filterConditions[i].value) {
-      for (let theValue of filterConditions[i].value) {
-        endpoint += `&filter[conditions][${i}][value][]=${theValue}`
-      }
+  }
+
+  if (filter) {
+    requestBody.filter = {
+      field: filter
     }
-    if (filterConditions[i].operator) {
-      endpoint += `&filter[conditions][${i}][operator]=${filterConditions[i].operator}`
+    if (filter === 'featured') {
+      requestBody.filter.value = true
     }
   }
 
   if (query) {
-    query = query.replace(/\s/g, '+')
-    endpoint += `&query[value]=${query}`
+    requestBody.query = {
+      value: query,
+      operator: 'AND'
+    }
   }
 
-  return endpoint
+  return requestBody
 }
 
 const getCountries = async function () {
-  const countriesEndpoint = constructEndpoint('countries', 300, 0, ['name:asc'], ['name', 'iso3'], [])
+  const requestBody = constructRequestBody(300, 0, ['name:asc'], ['name', 'iso3'])
   let res, data
   try {
-    res = await fetch(countriesEndpoint)
+    res = await fetch(`${apiEndpoint}countries?appname=${appName}`, {
+      method: 'post',
+      body: JSON.stringify(requestBody)
+    })
     data = await res.json()
     data.data.map(item => {
       item.type = 'country'
@@ -65,10 +68,15 @@ const getCountries = async function () {
 }
 
 const requestFeatured = async function () {
-  const countriesEndpoint = constructEndpoint('countries', 20, 0, [], [], ['featured'])
-  const disastersEndpoint = constructEndpoint('disasters', 20, 0, [], [], ['featured'])
-  const countriesPromise = fetch(countriesEndpoint)
-  const disastersPromise = fetch(disastersEndpoint)
+  const requestBody = constructRequestBody(20, 0, [], [], 'featured')
+  const countriesPromise = fetch(`${apiEndpoint}countries?appname=${appName}`, {
+    method: 'post',
+    body: JSON.stringify(requestBody)
+  })
+  const disastersPromise = fetch(`${apiEndpoint}disasters?appname=${appName}`, {
+    method: 'post',
+    body: JSON.stringify(requestBody)
+  })
   let res1, res2, countriesData, disastersData, featured
 
   try {
@@ -93,23 +101,15 @@ const requestFeatured = async function () {
 }
 
 const requestHeadlines = async function () {
-  const sort = ['date.created:desc']
+  const sort = ['date:desc']
   const fields = ['headline.title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
-  const filterConditions = [
-    {
-      operator: 'OR',
-      field: 'status',
-      value: ['published', 'to-review']
-    },
-    {
-      field: 'headline'
-    }
-  ]
-
-  const headlinesEndpoint = constructEndpoint('reports', 16, 0, sort, fields, [], filterConditions)
+  const requestBody = constructRequestBody(16, 0, sort, fields, 'headline')
   let res, data
   try {
-    res = await fetch(headlinesEndpoint)
+    res = await fetch(`${apiEndpoint}reports?appname=${appName}`, {
+      method: 'post',
+      body: JSON.stringify(requestBody)
+    })
     data = await res.json()
     data.data.map(item => {
       if (item.fields.primary_country) {
@@ -138,19 +138,15 @@ const requestUpdate = async function (id) {
 }
 
 const requestUpdates = async function (offset, limit = 10, query) {
-  const sort = ['date.created:desc']
+  const sort = ['date:desc']
   const fields = ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
-  const filterConditions = [
-    {
-      operator: 'OR',
-      field: 'status',
-      value: ['published', 'to-review']
-    }
-  ]
-  const updatesEndpoint = constructEndpoint('reports', limit, offset, sort, fields, [], filterConditions, query)
+  const requestBody = constructRequestBody(limit, offset, sort, fields, '', 'latest', query)
   let res, data
   try {
-    res = await fetch(updatesEndpoint)
+    res = await fetch(`${apiEndpoint}reports?appname=${appName}`, {
+      method: 'post',
+      body: JSON.stringify(requestBody)
+    })
     data = await res.json()
     data.data.map(item => {
       if (item.fields.primary_country) {

@@ -3,22 +3,48 @@ import { getCountries, requestFeatured, requestHeadlines, requestUpdate, request
 import { mockCountries, mockDisasters, mockEndpoints, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
 jest.mock('../../services/shuffleArray')
 const fetchMock = require('fetch-mock')
-let result
 
 describe('API requests', () => {
+  let expectedBody, result
+
   describe('Get Featured', () => {
     beforeAll(async () => {
-      fetchMock.get(mockEndpoints.featuredCountries, {data: mockCountries})
-      fetchMock.get(mockEndpoints.featuredDisasters, {data: mockDisasters})
+      fetchMock.post(mockEndpoints.featuredCountries, {data: mockCountries})
+      fetchMock.post(mockEndpoints.featuredDisasters, {data: mockDisasters})
       result = await requestFeatured()
     })
+    afterAll(fetchMock.restore)
 
-    it('calls the featured countries endpoint', () => {
-      expect(fetchMock.called(mockEndpoints.featuredCountries)).toBe(true)
+    it('posts to the featured countries endpoint', () => {
+      expect(fetchMock.called(mockEndpoints.featuredCountries)).toEqual(true)
+      expectedBody = {
+        limit: 20,
+        offset: 0,
+        filter: {
+          field: 'featured',
+          value: true
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
     })
 
-    it('calls the featured disasters endpoint', () => {
-      expect(fetchMock.called(mockEndpoints.featuredDisasters)).toBe(true)
+    it('posts to the featured disasters endpoint', () => {
+      expect(fetchMock.called(mockEndpoints.featuredDisasters)).toEqual(true)
+      expectedBody = {
+        limit: 20,
+        offset: 0,
+        filter: {
+          field: 'featured',
+          value: true
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
     })
 
     it('returns 6 from the merged and shuffled array data', () => {
@@ -41,12 +67,28 @@ describe('API requests', () => {
 
   describe('Get Headlines', () => {
     beforeAll(async () => {
-      fetchMock.get(mockEndpoints.headlines, {data: mockHeadlines})
+      fetchMock.post(mockEndpoints.updates, mockReports)
       result = await requestHeadlines()
     })
+    afterAll(fetchMock.restore)
 
-    it('calls the featured countries endpoint', () => {
-      expect(fetchMock.called(mockEndpoints.headlines)).toBe(true)
+    it('posts to the headlines endpoint', () => {
+      expect(fetchMock.called(mockEndpoints.headlines)).toEqual(true)
+      expectedBody = {
+        limit: 16,
+        offset: 0,
+        sort: ['date:desc'],
+        fields: {
+          include: ['headline.title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
+        },
+        filter: {
+          field: 'headline'
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
     })
 
     it('returns the data', () => {
@@ -69,12 +111,26 @@ describe('API requests', () => {
 
   describe('Get Updates', () => {
     beforeAll(async () => {
-      fetchMock.get(mockEndpoints.updates, mockReports)
+      fetchMock.post(mockEndpoints.updates, mockReports)
       result = await requestUpdates()
     })
+    afterAll(fetchMock.restore)
 
-    it('calls the updates endpoint', () => {
-      expect(fetchMock.called(mockEndpoints.updates)).toBe(true)
+    it('sends a post request with the correct body data', () => {
+      expect(fetchMock.called(mockEndpoints.updates)).toEqual(true)
+      expectedBody = {
+        limit: 10,
+        offset: 0,
+        preset: 'latest',
+        sort: ['date:desc'],
+        fields: {
+          include: ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
     })
 
     it('returns the data', () => {
@@ -97,23 +153,55 @@ describe('API requests', () => {
 
   describe('Get next page of updates', () => {
     beforeAll(async () => {
-      fetchMock.get(mockEndpoints.updatesPage2, mockReports)
+      fetchMock.post(mockEndpoints.updates, mockReports)
       result = await requestUpdates(10)
     })
+    afterAll(fetchMock.restore)
 
-    it('calls the updates endpoint with offset set to 10', () => {
-      expect(fetchMock.called(mockEndpoints.updatesPage2)).toBe(true)
+    it('sends the post request with offset set to 10', () => {
+      expect(fetchMock.called(mockEndpoints.updates)).toEqual(true)
+      expectedBody = {
+        limit: 10,
+        offset: 10,
+        preset: 'latest',
+        sort: ['date:desc'],
+        fields: {
+          include: ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
     })
   })
 
-  describe('Get queried Updates', () => {
+  describe('Get queried updates', () => {
     beforeAll(async () => {
-      fetchMock.get(mockEndpoints.queryUpdates, mockReports)
+      fetchMock.post(mockEndpoints.updates, mockReports)
       result = await requestUpdates(0, 10, 'country.exact:"Syria"')
     })
+    afterAll(fetchMock.restore)
 
-    it('calls the update endpoint with the query', () => {
-      expect(fetchMock.called(mockEndpoints.queryUpdates)).toBe(true)
+    it('sends the post request with the query', () => {
+      expect(fetchMock.called(mockEndpoints.updates)).toEqual(true)
+      expectedBody = {
+        limit: 10,
+        offset: 0,
+        preset: 'latest',
+        sort: ['date:desc'],
+        fields: {
+          include: ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
+        },
+        query: {
+          value: 'country.exact:"Syria"',
+          operator: 'AND'
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
     })
 
     it('returns the data', () => {
@@ -124,12 +212,25 @@ describe('API requests', () => {
 
   describe('Get Countries', () => {
     beforeAll(async () => {
-      fetchMock.get(mockEndpoints.countries, {data: mockCountries})
+      fetchMock.post(mockEndpoints.countries, {data: mockCountries})
       result = await getCountries()
     })
+    afterAll(fetchMock.restore)
 
-    it('calls the countries endpoint', () => {
-      expect(fetchMock.called(mockEndpoints.countries)).toBe(true)
+    it('posts to the countries endpoint', () => {
+      expect(fetchMock.called(mockEndpoints.countries)).toEqual(true)
+      expectedBody = {
+        limit: 300,
+        offset: 0,
+        sort: ['name:asc'],
+        fields: {
+          include: ['name', 'iso3']
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
     })
 
     it('returns the data', () => {
@@ -151,6 +252,7 @@ describe('API requests', () => {
       fetchMock.get(mockEndpoints.update, {data: mockUpdate})
       result = await requestUpdate(100)
     })
+    afterAll(fetchMock.restore)
 
     it('calls the update endpoint', () => {
       expect(fetchMock.called(mockEndpoints.update)).toBe(true)
