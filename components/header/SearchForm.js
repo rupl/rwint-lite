@@ -12,7 +12,7 @@ export class SearchForm extends React.Component {
   }
 
   componentDidMount (a, b) {
-    const value =  Router.router.query && Router.router.query.search ? Router.router.query.search : ''
+    const value = Router.router.query && Router.router.query.search ? Router.router.query.search : ''
     this.setState({
       value: value
     })
