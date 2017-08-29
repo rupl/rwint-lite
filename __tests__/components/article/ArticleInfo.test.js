@@ -6,12 +6,12 @@ import ArticleInfo from '../../../components/article/ArticleInfo.js'
 describe('Article Info component', () => {
   let wrapper
   const items = [
-    {name: 'perkins'},
+    {name: 'South Yorkshire'},
     {name: 'pud'}
   ]
 
   beforeAll(() => {
-    wrapper = shallow(<ArticleInfo heading='The heading' items={items} />)
+    wrapper = shallow(<ArticleInfo heading='The heading' type='country' items={items} />)
   })
 
   it('renders the component', () => {
@@ -24,6 +24,8 @@ describe('Article Info component', () => {
 
   it('renders a link for each item', () => {
     expect(wrapper.find('a').length).toBe(2)
-    expect(wrapper.find('a').first().text()).toContain('perkins')
+    expect(wrapper.find('a').first().text()).toContain('South Yorkshire')
+    expect(wrapper.find('Link').first().prop('href')).toBe('/updates?search=country.exact:"South Yorkshire"')
+    expect(wrapper.find('Link').first().prop('as')).toBe('/report/listing?search=country.exact:"South Yorkshire"')
   })
 })

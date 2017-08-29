@@ -28,6 +28,7 @@ describe('Article Attachments component', () => {
       countryInfo = wrapper.find('ArticleInfo[heading="Countries"]')
       expect(countryInfo.exists()).toBe(true)
       expect(countryInfo.prop('items')).toEqual(report.fields.country)
+      expect(countryInfo.prop('type')).toEqual('country')
     })
 
     it('does not render the countries if not present', () => {
@@ -48,6 +49,7 @@ describe('Article Attachments component', () => {
       disastersInfo = wrapper.find('ArticleInfo[heading="Disasters"]')
       expect(disastersInfo.exists()).toBe(true)
       expect(disastersInfo.prop('items')).toEqual(report.fields.disaster)
+      expect(disastersInfo.prop('type')).toEqual('disaster')
     })
 
     it('does not render the disasters if not present', () => {
@@ -68,6 +70,7 @@ describe('Article Attachments component', () => {
       sourceInfo = wrapper.find('ArticleInfo[heading="Sources"]')
       expect(sourceInfo.exists()).toBe(true)
       expect(sourceInfo.prop('items')).toEqual(report.fields.source)
+      expect(sourceInfo.prop('type')).toEqual('source')
     })
 
     it('does not render the sources if not present', () => {
@@ -88,6 +91,7 @@ describe('Article Attachments component', () => {
       themeInfo = wrapper.find('ArticleInfo[heading="Themes"]')
       expect(themeInfo.exists()).toBe(true)
       expect(themeInfo.prop('items')).toEqual(report.fields.theme)
+      expect(themeInfo.prop('type')).toEqual('theme')
     })
 
     it('does not render the themes if not present', () => {
@@ -108,6 +112,7 @@ describe('Article Attachments component', () => {
       disasterTypeInfo = wrapper.find('ArticleInfo[heading="Disaster types"]')
       expect(disasterTypeInfo.exists()).toBe(true)
       expect(disasterTypeInfo.prop('items')).toEqual(report.fields.disaster_type)
+      expect(disasterTypeInfo.prop('type')).toEqual('disaster_type')
     })
 
     it('does not render the disasters type if not present', () => {
@@ -128,6 +133,7 @@ describe('Article Attachments component', () => {
       vulnerableGroupInfo = wrapper.find('ArticleInfo[heading="Vulnerable groups"]')
       expect(vulnerableGroupInfo.exists()).toBe(true)
       expect(vulnerableGroupInfo.prop('items')).toEqual(report.fields.vulnerable_groups)
+      expect(vulnerableGroupInfo.prop('type')).toEqual('vulnerable_groups')
     })
 
     it('does not render the vulnerable groups type if not present', () => {
@@ -148,6 +154,7 @@ describe('Article Attachments component', () => {
       formatInfo = wrapper.find('ArticleInfo[heading="Formats"]')
       expect(formatInfo.exists()).toBe(true)
       expect(formatInfo.prop('items')).toEqual(report.fields.format)
+      expect(formatInfo.prop('type')).toEqual('format')
     })
 
     it('does not render the formats if not present', () => {
@@ -168,6 +175,7 @@ describe('Article Attachments component', () => {
       languageInfo = wrapper.find('ArticleInfo[heading="Languages"]')
       expect(languageInfo.exists()).toBe(true)
       expect(languageInfo.prop('items')).toEqual(report.fields.language)
+      expect(languageInfo.prop('type')).toEqual('language')
     })
 
     it('does not render the languages if not present', () => {

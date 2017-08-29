@@ -4,12 +4,13 @@ import { fonts, fontSizes, measurements } from '../../theme/variables'
 
 class ArticleInfo extends React.Component {
   render () {
+    const queryString = `?search=${this.props.type}.exact:`
     return (
       <div>
         <h2>{this.props.heading}</h2>
         {this.props.items.map((item, i) =>
           <span key={i}>
-            <Link prefetch as='report/listing' href='/updates'>
+            <Link prefetch as={`/report/listing${queryString}"${item.name}"`} href={`/updates${queryString}"${item.name}"`}>
               <a>{item.name}</a>
             </Link>
             {i + 1 < this.props.items.length &&

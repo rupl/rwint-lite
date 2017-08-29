@@ -41,6 +41,7 @@ const constructEndpoint = (type, limit = 20, offset = 0, sort = [], fields = [],
   }
 
   if (query) {
+    query = query.replace(/\s/g, '+')
     endpoint += `&query[value]=${query}`
   }
 
