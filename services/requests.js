@@ -48,7 +48,7 @@ const constructRequestBody = (limit = 20, offset = 0, sort = [], fields = [], fi
   return requestBody
 }
 
-const getCountries = async function () {
+const requestCountries = async function () {
   const requestBody = constructRequestBody(300, 0, ['name:asc'], ['name', 'iso3'])
   let res, data
   try {
@@ -167,4 +167,4 @@ const requestUpdates = async function (offset, limit = 10, query) {
   }
 }
 
-export { getCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }
+export { requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }

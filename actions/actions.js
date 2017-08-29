@@ -1,5 +1,5 @@
 import * as actionTypes from '../constants/actionTypes'
-import { requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../services/requests'
+import { requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../services/requests'
 
 // helpers
 const shouldUpdate = (lastFetched, threshold = 1) => {
@@ -75,6 +75,18 @@ export const getHeadlines = () => {
       let response = await requestHeadlines()
       dispatch({
         type: actionTypes.GET_HEADLINES,
+        items: response
+      })
+    }
+  }
+}
+
+export const getCountries = () => {
+  return async (dispatch, getState) => {
+    if (shouldUpdate(getState().countries.lastFetched, 10)) {
+      let response = await requestCountries()
+      dispatch({
+        type: actionTypes.GET_COUNTRIES,
         items: response
       })
     }

@@ -1,6 +1,7 @@
 /* eslint-env jest */
-import { mockFeatured, mockHeadlines, mockReports, mockReportsPage2, mockUpdate } from '../../__fixtures__/data.fixture'
+import { mockCountries, mockFeatured, mockHeadlines, mockReports, mockReportsPage2, mockUpdate } from '../../__fixtures__/data.fixture'
 
+const requestCountries = jest.fn(() => Promise.resolve(mockCountries))
 const requestFeatured = jest.fn(() => Promise.resolve(mockFeatured))
 const requestHeadlines = jest.fn(() => Promise.resolve(mockHeadlines))
 const requestUpdates = jest.fn((x) => {
@@ -9,4 +10,4 @@ const requestUpdates = jest.fn((x) => {
 })
 const requestUpdate = jest.fn(() => Promise.resolve([mockUpdate]))
 
-export { requestFeatured, requestHeadlines, requestUpdate, requestUpdates }
+export { requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }
