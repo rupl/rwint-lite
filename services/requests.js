@@ -68,7 +68,12 @@ const getCountries = async function () {
 }
 
 const requestFeatured = async function () {
-  const requestBody = constructRequestBody(20, 0, [], [], 'featured')
+  const requestBody = {
+    filter: {
+      field: 'featured',
+      value: true
+    }
+  }
   const countriesPromise = fetch(`${apiEndpoint}countries?appname=${appName}`, {
     method: 'post',
     body: JSON.stringify(requestBody)

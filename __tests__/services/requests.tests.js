@@ -18,8 +18,6 @@ describe('API requests', () => {
     it('posts to the featured countries endpoint', () => {
       expect(fetchMock.called(mockEndpoints.featuredCountries)).toEqual(true)
       expectedBody = {
-        limit: 20,
-        offset: 0,
         filter: {
           field: 'featured',
           value: true
@@ -34,8 +32,6 @@ describe('API requests', () => {
     it('posts to the featured disasters endpoint', () => {
       expect(fetchMock.called(mockEndpoints.featuredDisasters)).toEqual(true)
       expectedBody = {
-        limit: 20,
-        offset: 0,
         filter: {
           field: 'featured',
           value: true
