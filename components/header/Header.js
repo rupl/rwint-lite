@@ -1,6 +1,7 @@
 import Logo from './Logo'
 import Nav from './Nav'
 import GlobalHeader from './GlobalHeader'
+import SearchForm from './SearchForm'
 import { breakpoints, colors, measurements } from '../../theme/variables'
 
 const Header = (props) => (
@@ -9,6 +10,7 @@ const Header = (props) => (
     <div className='cd-site-header'>
       <div className='container cd-site-header__inner'>
         <Logo home={props.home} />
+        <SearchForm />
         <Nav />
       </div>
     </div>
