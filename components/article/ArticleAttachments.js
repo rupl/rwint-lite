@@ -3,9 +3,10 @@ import { fonts, fontSizes, measurements } from '../../theme/variables'
 
 class ArticleAttachments extends React.Component {
   render () {
+    const heading = this.props.items.length > 1 ? `${this.props.heading}s` : this.props.heading
     return (
       <div>
-        <h2>{this.props.heading}</h2>
+        <h2>{heading}</h2>
         <ul>
           {this.props.items.map((file, i) =>
             <li key={i}>

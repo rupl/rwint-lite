@@ -25,7 +25,7 @@ describe('Article Attachments component', () => {
         {name: 'France'}
       ]
       wrapper = shallow(<ArticleSideBar report={report} />)
-      countryInfo = wrapper.find('ArticleInfo[heading="Countries"]')
+      countryInfo = wrapper.find('ArticleInfo[heading="Country"]')
       expect(countryInfo.exists()).toBe(true)
       expect(countryInfo.prop('items')).toEqual(report.fields.country)
       expect(countryInfo.prop('type')).toEqual('country')
@@ -34,7 +34,7 @@ describe('Article Attachments component', () => {
     it('does not render the countries if not present', () => {
       report.fields = {}
       wrapper = shallow(<ArticleSideBar report={report} />)
-      countryInfo = wrapper.find('ArticleInfo[heading="Countries"]')
+      countryInfo = wrapper.find('ArticleInfo[heading="Country"]')
       expect(countryInfo.exists()).toBe(false)
     })
   })
@@ -46,7 +46,7 @@ describe('Article Attachments component', () => {
         {name: 'Trump'}
       ]
       wrapper = shallow(<ArticleSideBar report={report} />)
-      disastersInfo = wrapper.find('ArticleInfo[heading="Disasters"]')
+      disastersInfo = wrapper.find('ArticleInfo[heading="Disaster"]')
       expect(disastersInfo.exists()).toBe(true)
       expect(disastersInfo.prop('items')).toEqual(report.fields.disaster)
       expect(disastersInfo.prop('type')).toEqual('disaster')
@@ -55,7 +55,7 @@ describe('Article Attachments component', () => {
     it('does not render the disasters if not present', () => {
       report.fields = {}
       wrapper = shallow(<ArticleSideBar report={report} />)
-      disastersInfo = wrapper.find('ArticleInfo[heading="Disasters"]')
+      disastersInfo = wrapper.find('ArticleInfo[heading="Disaster"]')
       expect(disastersInfo.exists()).toBe(false)
     })
   })
@@ -67,7 +67,7 @@ describe('Article Attachments component', () => {
         {name: 'UN'}
       ]
       wrapper = shallow(<ArticleSideBar report={report} />)
-      sourceInfo = wrapper.find('ArticleInfo[heading="Sources"]')
+      sourceInfo = wrapper.find('ArticleInfo[heading="Source"]')
       expect(sourceInfo.exists()).toBe(true)
       expect(sourceInfo.prop('items')).toEqual(report.fields.source)
       expect(sourceInfo.prop('type')).toEqual('source')
@@ -76,7 +76,7 @@ describe('Article Attachments component', () => {
     it('does not render the sources if not present', () => {
       report.fields = {}
       wrapper = shallow(<ArticleSideBar report={report} />)
-      sourceInfo = wrapper.find('ArticleInfo[heading="Sources"]')
+      sourceInfo = wrapper.find('ArticleInfo[heading="Source"]')
       expect(sourceInfo.exists()).toBe(false)
     })
   })
@@ -88,7 +88,7 @@ describe('Article Attachments component', () => {
         {name: 'Wash'}
       ]
       wrapper = shallow(<ArticleSideBar report={report} />)
-      themeInfo = wrapper.find('ArticleInfo[heading="Themes"]')
+      themeInfo = wrapper.find('ArticleInfo[heading="Theme"]')
       expect(themeInfo.exists()).toBe(true)
       expect(themeInfo.prop('items')).toEqual(report.fields.theme)
       expect(themeInfo.prop('type')).toEqual('theme')
@@ -97,7 +97,7 @@ describe('Article Attachments component', () => {
     it('does not render the themes if not present', () => {
       report.fields = {}
       wrapper = shallow(<ArticleSideBar report={report} />)
-      themeInfo = wrapper.find('ArticleInfo[heading="Themes"]')
+      themeInfo = wrapper.find('ArticleInfo[heading="Theme"]')
       expect(themeInfo.exists()).toBe(false)
     })
   })
@@ -109,7 +109,7 @@ describe('Article Attachments component', () => {
         {name: 'Other'}
       ]
       wrapper = shallow(<ArticleSideBar report={report} />)
-      disasterTypeInfo = wrapper.find('ArticleInfo[heading="Disaster types"]')
+      disasterTypeInfo = wrapper.find('ArticleInfo[heading="Disaster type"]')
       expect(disasterTypeInfo.exists()).toBe(true)
       expect(disasterTypeInfo.prop('items')).toEqual(report.fields.disaster_type)
       expect(disasterTypeInfo.prop('type')).toEqual('disaster_type')
@@ -118,7 +118,7 @@ describe('Article Attachments component', () => {
     it('does not render the disasters type if not present', () => {
       report.fields = {}
       wrapper = shallow(<ArticleSideBar report={report} />)
-      disasterTypeInfo = wrapper.find('ArticleInfo[heading="Disaster types"]')
+      disasterTypeInfo = wrapper.find('ArticleInfo[heading="Disaster type"]')
       expect(disasterTypeInfo.exists()).toBe(false)
     })
   })
@@ -130,7 +130,7 @@ describe('Article Attachments component', () => {
         {name: 'Women'}
       ]
       wrapper = shallow(<ArticleSideBar report={report} />)
-      vulnerableGroupInfo = wrapper.find('ArticleInfo[heading="Vulnerable groups"]')
+      vulnerableGroupInfo = wrapper.find('ArticleInfo[heading="Vulnerable group"]')
       expect(vulnerableGroupInfo.exists()).toBe(true)
       expect(vulnerableGroupInfo.prop('items')).toEqual(report.fields.vulnerable_groups)
       expect(vulnerableGroupInfo.prop('type')).toEqual('vulnerable_groups')
@@ -139,7 +139,7 @@ describe('Article Attachments component', () => {
     it('does not render the vulnerable groups type if not present', () => {
       report.fields = {}
       wrapper = shallow(<ArticleSideBar report={report} />)
-      vulnerableGroupInfo = wrapper.find('ArticleInfo[heading="Vulnerable groups"]')
+      vulnerableGroupInfo = wrapper.find('ArticleInfo[heading="Vulnerable group"]')
       expect(vulnerableGroupInfo.exists()).toBe(false)
     })
   })
@@ -151,7 +151,7 @@ describe('Article Attachments component', () => {
         {name: 'Wash'}
       ]
       wrapper = shallow(<ArticleSideBar report={report} />)
-      formatInfo = wrapper.find('ArticleInfo[heading="Formats"]')
+      formatInfo = wrapper.find('ArticleInfo[heading="Format"]')
       expect(formatInfo.exists()).toBe(true)
       expect(formatInfo.prop('items')).toEqual(report.fields.format)
       expect(formatInfo.prop('type')).toEqual('format')
@@ -160,7 +160,7 @@ describe('Article Attachments component', () => {
     it('does not render the formats if not present', () => {
       report.fields = {}
       wrapper = shallow(<ArticleSideBar report={report} />)
-      formatInfo = wrapper.find('ArticleInfo[heading="Formats"]')
+      formatInfo = wrapper.find('ArticleInfo[heading="Format"]')
       expect(formatInfo.exists()).toBe(false)
     })
   })
@@ -172,7 +172,7 @@ describe('Article Attachments component', () => {
         {name: 'Wash'}
       ]
       wrapper = shallow(<ArticleSideBar report={report} />)
-      languageInfo = wrapper.find('ArticleInfo[heading="Languages"]')
+      languageInfo = wrapper.find('ArticleInfo[heading="Language"]')
       expect(languageInfo.exists()).toBe(true)
       expect(languageInfo.prop('items')).toEqual(report.fields.language)
       expect(languageInfo.prop('type')).toEqual('language')
@@ -181,7 +181,7 @@ describe('Article Attachments component', () => {
     it('does not render the languages if not present', () => {
       report.fields = {}
       wrapper = shallow(<ArticleSideBar report={report} />)
-      languageInfo = wrapper.find('ArticleInfo[heading="Languages"]')
+      languageInfo = wrapper.find('ArticleInfo[heading="Language"]')
       expect(languageInfo.exists()).toBe(false)
     })
   })
@@ -193,7 +193,7 @@ describe('Article Attachments component', () => {
         {filename: 'another one'}
       ]
       wrapper = shallow(<ArticleSideBar report={report} />)
-      attachmentInfo = wrapper.find('ArticleAttachments[heading="Attachments"]')
+      attachmentInfo = wrapper.find('ArticleAttachments[heading="Attachment"]')
       expect(attachmentInfo.exists()).toBe(true)
       expect(attachmentInfo.prop('items')).toEqual(report.fields.file)
     })
@@ -201,7 +201,7 @@ describe('Article Attachments component', () => {
     it('does not render the attachments if not present', () => {
       report.fields = {}
       wrapper = shallow(<ArticleSideBar report={report} />)
-      attachmentInfo = wrapper.find('ArticleAttachments[heading="Languages"]')
+      attachmentInfo = wrapper.find('ArticleAttachments[heading="Attachment"]')
       expect(attachmentInfo.exists()).toBe(false)
     })
   })

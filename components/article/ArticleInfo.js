@@ -2,12 +2,23 @@ import React from 'react'
 import Link from 'next/link'
 import { fonts, fontSizes, measurements } from '../../theme/variables'
 
+const formatHeading = (heading, itemsLength) => {
+  if (itemsLength === 1) {
+    return heading
+  }
+  if (heading === 'Country') {
+    return 'Countries'
+  }
+  return `${heading}s`
+}
+
 class ArticleInfo extends React.Component {
   render () {
+    const heading = formatHeading(this.props.heading, this.props.items.length)
     const queryString = `?search=${this.props.type}.exact:`
     return (
       <div>
-        <h2>{this.props.heading}</h2>
+        <h2>{heading}</h2>
         {this.props.items.map((item, i) =>
           <span key={i}>
             <Link prefetch as={`/report/listing${queryString}"${item.name}"`} href={`/updates${queryString}"${item.name}"`}>
