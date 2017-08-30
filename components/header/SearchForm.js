@@ -11,11 +11,13 @@ export class SearchForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount (a, b) {
+  componentWillReceiveProps () {
     const value = Router.router.query && Router.router.query.search ? Router.router.query.search : ''
-    this.setState({
-      value: value
-    })
+    if (value !== '') {
+      this.setState({
+        value: value
+      })
+    }
   }
 
   handleChange (event) {
