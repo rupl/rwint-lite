@@ -33,18 +33,4 @@ describe('Report Link component', () => {
   it('formats and renders the date', () => {
     expect(wrapper.find('.date').text()).toContain('03 Aug 2017')
   })
-
-  it('renders the country', () => {
-    expect(wrapper.find('.country').text()).toContain('So Yo')
-  })
-
-  it('renders the sources', () => {
-    expect(wrapper.find('.sources').first().find('a').text()).toContain('Now Then')
-    expect(wrapper.find('.sources').at(1).find('a').text()).toContain('Exposed')
-  })
-
-  it('only shows up to 2 sources', () => {
-    expect(wrapper.find('.sources').length).toBe(2)
-    expect(wrapper.find('.sources-more').text()).toEqual('+1 more')
-  })
 })

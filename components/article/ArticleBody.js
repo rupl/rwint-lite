@@ -1,13 +1,16 @@
 import React from 'react'
+// import Link from 'next/link'
 import sanitizeHtml from 'sanitize-html'
 import formatDate from '../../helpers/formatDate'
 import ArticleSideBar from './ArticleSideBar'
+import InfoLinks from '../links/InfoLinks'
 import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
 
 export class ArticleBody extends React.Component {
   render () {
     const {report} = this.props
     const body = report.fields['body-html'] ? sanitizeHtml(report.fields['body-html']) : ''
+
     return (
       <div className='article-container'>
         <article className='article-main'>
@@ -15,13 +18,16 @@ export class ArticleBody extends React.Component {
             {report.fields.title &&
               <h1>{report.fields.title}</h1>
             }
-            <div className='header-info'>
+            <p className='header-info'>
               {report.fields.date && report.fields.date.created &&
-                <p className='date'>Published on {formatDate(report.fields.date.created, true)}</p>
+                <span className='date'>Published on {formatDate(report.fields.date.created, true)}</span>
               }
               {report.fields.origin &&
                 <a href={report.fields.origin} className='original'>View original</a>
               }
+            </p>
+            <div className='header-info'>
+              <InfoLinks country={report.fields.primary_country} sources={report.fields.source} />
             </div>
           </header>
           {body &&
@@ -45,21 +51,22 @@ export class ArticleBody extends React.Component {
             color: ${colors.text.dark};
           }
           .header-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: ${measurements.baseUnit * 1.5}em;
+            margin: ${measurements.baseUnit * 1.5}em 0 0 0;
+          }
+          .header-info .date, .header-info a {
+            font-size: ${fontSizes.small}
           }
           .date {
-            font-size: ${fontSizes.small};
             margin: 0;
             line-height: 1;
             color: ${colors.text.light};
           }
           .original {
-            font-size: ${fontSizes.small};
-            font-weight: bold;
+            margin-left: ${measurements.baseUnit * 2}em;
             text-decoration: none;
+          }
+          .original:hover, .original:focus {
+            text-decoration: underline;
           }
           @media (min-width: ${breakpoints.md}) {
             .article-container {
