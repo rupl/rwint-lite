@@ -9,6 +9,9 @@ export class ReportsList extends React.Component {
     return (
       <div>
         <div className='reports-wrapper'>
+          {!updates.reports.length &&
+            <p>No results found</p>
+          }
           {updates.reports && updates.reports.length > 0 &&
             updates.reports.map((report, i) => <ReportLink key={report.id} report={report} focusId={updates.focusId} />)
           }

@@ -24,7 +24,8 @@ export class SearchForm extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault()
-    Router.push(`/updates?search=${this.state.value}`, `/report/listing/?search=${this.state.value}`)
+    const searchTerm = this.state.value.replace(/\W+/g, ' ')
+    Router.push(`/updates?search=${searchTerm}`, `/report/listing/?search=${searchTerm}`)
   }
 
   render () {
