@@ -18,7 +18,7 @@ export class ArticleBody extends React.Component {
             }
             <div className='header-info'>
               {report.fields.date && report.fields.date.created &&
-                <p className='date'>Published on: {formatDate(report.fields.date.created)}</p>
+                <p className='date'>Published on {formatDate(report.fields.date.created, true)}</p>
               }
               {report.fields.origin &&
                 <a href={report.fields.origin} className='original'>View original</a>

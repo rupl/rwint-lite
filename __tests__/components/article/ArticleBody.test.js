@@ -20,7 +20,7 @@ describe('Article Body component', () => {
   })
 
   it('renders the publish date', () => {
-    expect(wrapper.find('.date').text()).toContain('Published on: 23 Aug 2017')
+    expect(wrapper.find('.date').text()).toContain('Published on 23 August 2017')
   })
 
   it('renders a link to the original', () => {
