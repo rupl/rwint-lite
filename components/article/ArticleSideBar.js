@@ -3,7 +3,7 @@ import Link from 'next/link'
 import ArticleAttachments from './ArticleAttachments'
 import ArticleInfo from './ArticleInfo'
 import { primaryButton } from '../../theme/buttons'
-import { colors, measurements } from '../../theme/variables'
+import { breakpoints, colors, measurements } from '../../theme/variables'
 
 class ArticleSideBar extends React.Component {
   render () {
@@ -40,7 +40,7 @@ class ArticleSideBar extends React.Component {
           }
         </div>
         <Link prefetch as='report/listing' href='/updates'>
-          <a>View latest updates</a>
+          <a className='latest'>View latest updates</a>
         </Link>
         <style jsx>{`
           .inner {
@@ -60,6 +60,11 @@ class ArticleSideBar extends React.Component {
             outline: -webkit-focus-ring-color auto 5px;
             background: ${colors.bg.primaryButton};
             color: white;
+          }
+          @media (min-width: ${breakpoints.md}) {
+            .latest {
+              display: none;
+            }
           }
         `}</style>
       </div>
