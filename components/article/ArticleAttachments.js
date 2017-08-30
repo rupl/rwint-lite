@@ -10,7 +10,7 @@ class ArticleAttachments extends React.Component {
           {this.props.items.map((file, i) =>
             <li key={i}>
               <a href={file.url} key={i}>
-                {file.filename || file.url}
+                {file.description || file.filename || file.url}
               </a>
             </li>
           )}
@@ -31,7 +31,7 @@ class ArticleAttachments extends React.Component {
           }
           li {
             list-style: none;
-            line-height: 1;
+            line-height: 1.2;
           }
           a {
             font-size: ${fontSizes.small};

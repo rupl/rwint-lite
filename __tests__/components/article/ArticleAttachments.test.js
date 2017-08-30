@@ -6,8 +6,9 @@ import ArticleAttachments from '../../../components/article/ArticleAttachments.j
 describe('Article Attachments component', () => {
   let wrapper
   const items = [
-    {url: 'http://something.pdf'},
-    {url: 'http://somehting-else.pdf', filename: 'a pdf'}
+    {url: 'http://something1.pdf'},
+    {url: 'http://something-else2.pdf', filename: 'a pdf'},
+    {url: 'http://something-else3.pdf', filename: 'a pdf', description: 'This is a description'}
   ]
 
   beforeAll(() => {
@@ -23,10 +24,21 @@ describe('Article Attachments component', () => {
   })
 
   it('renders a link for each item', () => {
-    expect(wrapper.find('a').length).toBe(2)
-    expect(wrapper.find('a').first().text()).toContain('http://something.pdf')
-    expect(wrapper.find('a').first().prop('href')).toContain('http://something.pdf')
+    expect(wrapper.find('a').length).toBe(3)
+  })
+
+  it('shows the file description if present', () => {
+    expect(wrapper.find('a').at(2).text()).toContain('This is a description')
+    expect(wrapper.find('a').at(2).prop('href')).toContain('http://something-else3.pdf')
+  })
+
+  it('if the file description is not present it shows the filename', () => {
     expect(wrapper.find('a').at(1).text()).toContain('a pdf')
-    expect(wrapper.find('a').at(1).prop('href')).toContain('http://somehting-else.pdf')
+    expect(wrapper.find('a').at(1).prop('href')).toContain('http://something-else2.pdf')
+  })
+
+  it('if the file description and nmae are not present it shows the url', () => {
+    expect(wrapper.find('a').at(0).text()).toContain('http://something1.pdf')
+    expect(wrapper.find('a').at(0).prop('href')).toContain('http://something1.pdf')
   })
 })
