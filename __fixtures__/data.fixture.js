@@ -1,14 +1,14 @@
 const mockCountries = [
   {id: '10', fields: {name: 'A country name 0'}},
   {id: '11', fields: {name: 'A country name 1'}},
-  {id: '12', fields: {name: 'A country name 2'}},
-  {id: '13', fields: {name: 'A country name 3'}},
-  {id: '14', fields: {name: 'A country name 4'}},
-  {id: '15', fields: {name: 'A country name 5'}},
-  {id: '16', fields: {name: 'A country name 6'}},
-  {id: '17', fields: {name: 'A country name 7'}},
-  {id: '18', fields: {name: 'A country name 8'}},
-  {id: '19', fields: {name: 'A country name 9'}}
+  {id: '12', fields: {name: 'B country name 2'}},
+  {id: '13', fields: {name: 'C country name 3'}},
+  {id: '14', fields: {name: 'C country name 4'}},
+  {id: '15', fields: {name: 'D country name 5'}},
+  {id: '16', fields: {name: 'D country name 6'}},
+  {id: '17', fields: {name: 'Z country name 7'}},
+  {id: '18', fields: {name: 'Z country name 8'}},
+  {id: '19', fields: {name: 'Z country name 9'}}
 ]
 
 const mockDisasters = [

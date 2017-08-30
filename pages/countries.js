@@ -1,36 +1,36 @@
+import React from 'react'
+import { bindActionCreators } from 'redux'
+import { initStore } from '../store'
+import { getCountries } from '../actions/actions'
+import withRedux from 'next-redux-wrapper'
 import Layout from '../components/Layout'
-import { getCountries } from '../services/requests'
-import SimpleLink from '../components/links/SimpleLink'
+import CountriesList from '../components/CountriesList'
 import SectionHeading from '../components/SectionHeading'
-import { breakpoints } from '../theme/variables'
 
-const Countries = (props) => (
-  <Layout title='Countries'>
-    <div>
-      <SectionHeading heading='Countries' level='1' />
-      <div className='reports-wrapper'>
-        {props.countries && props.countries.length > 0 &&
-          props.countries.map((country, i) => <SimpleLink key={country.id} link={country} />)
-        }
-      </div>
-    </div>
-    <style>{`
-      @media (min-width: ${breakpoints.md}) {
-        .reports-wrapper {
-          overflow: auto;
-          display: flex;
-          flex-wrap: wrap;
-        }
-      }
-    `}</style>
-  </Layout>
-)
+export class Countries extends React.Component {
+  static async getInitialProps ({store}) {
+    await store.dispatch(getCountries())
+  }
 
-Countries.getInitialProps = async function () {
-  let countries = await getCountries()
-  return {
-    countries: countries
+  render () {
+    return (
+      <Layout title='Countries'>
+        <div>
+          <SectionHeading heading='Countries' level='1' />
+          <CountriesList />
+        </div>
+        <style>{`
+
+        `}</style>
+      </Layout>
+    )
   }
 }
 
-export default Countries
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCountries: bindActionCreators(getCountries, dispatch)
+  }
+}
+
+export default withRedux(initStore, null, mapDispatchToProps)(Countries)

@@ -7,6 +7,10 @@ const removeDuplicates = (myArr, prop) => {
 }
 
 export const theInitialState = {
+  countries: {
+    lastFetched: '',
+    items: []
+  },
   featured: {
     lastFetched: '',
     items: []
@@ -82,6 +86,17 @@ export const reducer = (state = theInitialState, action) => {
       return {
         ...state,
         headlines: newHeadlines
+      }
+
+    case actionTypes.GET_COUNTRIES:
+      const countriesDate = new Date()
+      let newCountries = {
+        lastFetched: countriesDate.toString(),
+        items: action.items
+      }
+      return {
+        ...state,
+        countries: newCountries
       }
 
     default: return state

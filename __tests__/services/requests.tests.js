@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { getCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../../services/requests.js'
+import { requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../../services/requests.js'
 import { mockCountries, mockDisasters, mockEndpoints, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
 jest.mock('../../services/shuffleArray')
 const fetchMock = require('fetch-mock')
@@ -209,7 +209,7 @@ describe('API requests', () => {
   describe('Get Countries', () => {
     beforeAll(async () => {
       fetchMock.post(mockEndpoints.countries, {data: mockCountries})
-      result = await getCountries()
+      result = await requestCountries()
     })
     afterAll(fetchMock.restore)
 

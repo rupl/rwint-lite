@@ -107,6 +107,7 @@ export class SearchForm extends React.Component {
             }
             input {
               height: 50px;
+              width: auto;
             }
           }
         `}</style>
