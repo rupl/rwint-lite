@@ -2,7 +2,6 @@ import React from 'react'
 import sanitizeHtml from 'sanitize-html'
 import formatDate from '../../helpers/formatDate'
 import ArticleSideBar from './ArticleSideBar'
-import { smallButton } from '../../theme/buttons'
 import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
 
 export class ArticleBody extends React.Component {
@@ -58,16 +57,10 @@ export class ArticleBody extends React.Component {
             color: ${colors.text.light};
           }
           .original {
-            ${smallButton}
-            line-height: 1;
+            font-size: ${fontSizes.small};
+            font-weight: bold;
+            text-decoration: none;
           }
-          .original:focus {
-            outline: -webkit-focus-ring-color auto 5px;
-          }
-          .original:hover {
-            opacity: 0.9;
-          }
-
           @media (min-width: ${breakpoints.md}) {
             .article-container {
               padding-top: ${measurements.baseUnit * 4}em;
