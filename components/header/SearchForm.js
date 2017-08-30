@@ -13,11 +13,9 @@ export class SearchForm extends React.Component {
 
   componentWillReceiveProps () {
     const value = Router.router.query && Router.router.query.search ? Router.router.query.search : ''
-    if (value !== '') {
-      this.setState({
-        value: value
-      })
-    }
+    this.setState({
+      value: value
+    })
   }
 
   handleChange (event) {
