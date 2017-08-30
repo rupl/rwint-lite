@@ -156,7 +156,7 @@ export class CountriesList extends React.Component {
             border: none;
             width: 100%;
             height: ${measurements.baseUnit * 4.5}em;
-            padding: 0 ${measurements.baseUnit * 2.5}em 0 2px;;
+            padding: 0 0 0 2px;;
             text-align-last:right;
             position: absolute;
             z-index: 1;
@@ -165,6 +165,9 @@ export class CountriesList extends React.Component {
           }
           select:focus {
             opacity: 0.5;
+          }
+          option {
+            color: ${colors.text.dark};
           }
           @media (min-width: ${breakpoints.sm}) {
             ol {
