@@ -11,9 +11,6 @@ class ArticleSideBar extends React.Component {
     return (
       <div>
         <div className='inner'>
-          {report.fields.file &&
-            <ArticleAttachments heading='Attachment' items={report.fields.file} />
-          }
           {report.fields.country &&
             <ArticleInfo heading='Country' type='country' items={report.fields.country} />
           }
@@ -37,6 +34,9 @@ class ArticleSideBar extends React.Component {
           }
           {report.fields.language &&
             <ArticleInfo heading='Language' type='language' items={report.fields.language} />
+          }
+          {report.fields.file &&
+            <ArticleAttachments heading='Attachment' items={report.fields.file} />
           }
         </div>
         <Link prefetch as='report/listing' href='/updates'>
