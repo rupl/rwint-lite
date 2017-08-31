@@ -1,6 +1,27 @@
 import React from 'react'
 import { fonts, fontSizes, measurements } from '../../theme/variables'
 
+const formatFileSize = (size) => {
+  if (!size) { return '' }
+  let filesize = Math.round(size / 1000)
+  if (filesize < 1000) {
+    return `${filesize}kb`
+  }
+  filesize = (filesize / 1000).toFixed(2)
+  return `${filesize}mb`
+}
+
+const formatMimeType = (mimeType) => {
+  if (!mimeType) { return '' }
+  return mimeType.split('/')[1]
+}
+
+const formatFileLinkText = (file) => {
+  const name = file.description || file.filename || file.url
+  const text = `${name} (${formatFileSize(file.filesize)} ${formatMimeType(file.mimetype)})`
+  return text
+}
+
 class ArticleAttachments extends React.Component {
   render () {
     const heading = this.props.items.length > 1 ? `${this.props.heading}s` : this.props.heading
@@ -11,7 +32,7 @@ class ArticleAttachments extends React.Component {
           {this.props.items.map((file, i) =>
             <li key={i}>
               <a href={file.url} key={i}>
-                {file.description || file.filename || file.url}
+                {formatFileLinkText(file)}
               </a>
             </li>
           )}

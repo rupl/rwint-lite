@@ -6,8 +6,8 @@ import ArticleAttachments from '../../../components/article/ArticleAttachments.j
 describe('Article Attachments component', () => {
   let wrapper
   const items = [
-    {url: 'http://something1.pdf'},
-    {url: 'http://something-else2.pdf', filename: 'a pdf'},
+    {url: 'http://something1.pdf', filesize: '727962', mimetype: 'application/pdf'},
+    {url: 'http://something-else2.pdf', filename: 'a pdf', filesize: '7279620', mimetype: 'application/pdf'},
     {url: 'http://something-else3.pdf', filename: 'a pdf', description: 'This is a description'}
   ]
 
@@ -37,8 +37,18 @@ describe('Article Attachments component', () => {
     expect(wrapper.find('a').at(1).prop('href')).toContain('http://something-else2.pdf')
   })
 
-  it('if the file description and nmae are not present it shows the url', () => {
+  it('if the file description and name are not present it shows the url', () => {
     expect(wrapper.find('a').at(0).text()).toContain('http://something1.pdf')
     expect(wrapper.find('a').at(0).prop('href')).toContain('http://something1.pdf')
+  })
+
+  it('shows the file size', () => {
+    expect(wrapper.find('a').at(0).text()).toContain('728kb')
+    expect(wrapper.find('a').at(1).text()).toContain('7.28mb')
+  })
+
+  it('shows the file type', () => {
+    expect(wrapper.find('a').at(0).text()).toContain('pdf')
+    expect(wrapper.find('a').at(1).text()).toContain('pdf')
   })
 })
