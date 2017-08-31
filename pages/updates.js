@@ -56,7 +56,6 @@ export class Updates extends React.Component {
     const query = this.props.query
     const nextPage = parseInt(this.props.currentPage, 10) + 1
     await this.props.getUpdates(nextPage, true, false, query)
-    this.updatePagination(nextPage, query)
   }
 
   async nextPage () {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { primaryButton } from '../theme/buttons'
-import { breakpoints, measurements } from '../theme/variables'
+import { breakpoints, colors, measurements } from '../theme/variables'
 
 export class PaginationButtons extends React.Component {
   render () {
@@ -48,9 +48,11 @@ export class PaginationButtons extends React.Component {
       <div>
         {this.props.updates.canLoadMore &&
           <div className='pagination-container'>
-            <a href={`/report/listing?page=${prevPage}`}>
-              Prev
-            </a>
+            {prevPage > 0 &&
+              <a href={`/report/listing?page=${prevPage}`}>
+                Prev
+              </a>
+            }
             <span>Page: {this.props.currentPage}</span>
             <a href={`/report/listing?page=${nextPage}`}>
               Next
@@ -65,6 +67,12 @@ export class PaginationButtons extends React.Component {
                 display: inline-block;
                 width: 80px;
                 margin: 0 8px;
+              }
+              a:hover {
+                color: white;
+              }
+              a:focus {
+                background: ${colors.bg.primaryButton};
               }
               @media (min-width: ${breakpoints.md}) {
                 .pagination-container {
