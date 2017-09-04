@@ -11,6 +11,7 @@ export const theInitialState = {
     lastFetched: '',
     items: []
   },
+  countryReports: [],
   featured: {
     lastFetched: '',
     items: []
@@ -86,6 +87,14 @@ export const reducer = (state = theInitialState, action) => {
       return {
         ...state,
         headlines: newHeadlines
+      }
+
+    case actionTypes.GET_COUNTRY:
+      let newCountryReports = [...state.countryReports]
+      newCountryReports.push(action.item)
+      return {
+        ...state,
+        countryReports: newCountryReports
       }
 
     case actionTypes.GET_COUNTRIES:

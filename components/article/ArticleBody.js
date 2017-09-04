@@ -1,5 +1,4 @@
 import React from 'react'
-// import Link from 'next/link'
 import sanitizeHtml from 'sanitize-html'
 import formatDate from '../../helpers/formatDate'
 import ArticleSideBar from './ArticleSideBar'

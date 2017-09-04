@@ -1,4 +1,4 @@
-const mockCountries = [
+export const mockCountries = [
   {id: '10', fields: {name: 'A country name 0'}},
   {id: '11', fields: {name: 'A country name 1'}},
   {id: '12', fields: {name: 'B country name 2'}},
@@ -11,7 +11,7 @@ const mockCountries = [
   {id: '19', fields: {name: 'Z country name 9'}}
 ]
 
-const mockDisasters = [
+export const mockDisasters = [
   {id: '30', fields: {name: 'Oh no: A disaster name - 0'}},
   {id: '21', fields: {name: 'Oh no: A disaster name - 1'}},
   {id: '22', fields: {name: 'Oh no: A disaster name - 2'}},
@@ -24,7 +24,7 @@ const mockDisasters = [
   {id: '29', fields: {name: 'Oh no: A disaster name - 9'}}
 ]
 
-const mockFeatured = [
+export const mockFeatured = [
   {id: '10', fields: {name: 'A country name 0'}},
   {id: '11', fields: {name: 'A country name 1'}},
   {id: '23', fields: {name: 'Oh no: A disaster name - 3'}},
@@ -33,7 +33,7 @@ const mockFeatured = [
   {id: '19', fields: {name: 'A country name 9'}}
 ]
 
-const mockHeadlines = [
+export const mockHeadlines = [
   {
     id: '30',
     fields: {
@@ -73,7 +73,7 @@ const mockHeadlines = [
   {id: '39', fields: {title: 'Report: Something - words [EN/UK] 9'}}
 ]
 
-const mockReports = {
+export const mockReports = {
   totalCount: 22,
   data: [
     {
@@ -119,7 +119,7 @@ const mockReports = {
   ]
 }
 
-const mockReportsPage2 = {
+export const mockReportsPage2 = {
   totalCount: 22,
   data: [
     {id: '39', fields: {title: 'Report: Something - words [EN/UK] 9'}},
@@ -128,7 +128,7 @@ const mockReportsPage2 = {
   ]
 }
 
-const mockUpdate = {
+export const mockUpdate = {
   id: 100,
   fields: {
     id: 100,
@@ -141,14 +141,44 @@ const mockUpdate = {
   }
 }
 
-const mockUpdate2 = {
+export const mockUpdate2 = {
   fields: {
     id: 101,
     title: 'This is the title2'
   }
 }
 
-const mockEndpoints = {
+const mockCountryDescription = `
+  <h3>Appeals and Funding</h3>
+  <ul>
+  <li><strong>document name</strong><a href="#"><img src="#" /></a></li>
+  <li><strong>document name</strong><a href="#">A link</a><a href="#"><img src="#" /></a></li>
+  <li><a href="#">A link</a></li>
+  <li><a href="https://www.humanitarianresponse.info/something"><img src="#" /></a></li>
+  <li><a href="https://fts.unocha.org/something"><img src="#" /></a></li>
+  <li><a href="https://unhcr.org/something"><img src="#" /></a></li>
+  </ul>`
+
+export const mockCountry = {
+  id: 100,
+  fields: {
+    id: 100,
+    name: 'I am a country',
+    'description-html': mockCountryDescription
+  }
+}
+
+export const mockCountry2 = {
+  id: 101,
+  fields: {
+    id: 100,
+    name: 'I am another country',
+    'description-html': '<p>ddd</p>'
+  }
+}
+
+export const mockEndpoints = {
+  country: 'https://api.reliefweb.int/v1/countries/100?appname=rwmob-dev',
   countries: 'https://api.reliefweb.int/v1/countries?appname=rwmob-dev',
   featuredCountries: 'https://api.reliefweb.int/v1/countries?appname=rwmob-dev',
   featuredDisasters: 'https://api.reliefweb.int/v1/disasters?appname=rwmob-dev',
@@ -156,5 +186,3 @@ const mockEndpoints = {
   updates: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev',
   update: 'https://api.reliefweb.int/v1/reports/100?appname=rwmob-dev'
 }
-
-export { mockCountries, mockDisasters, mockEndpoints, mockFeatured, mockHeadlines, mockReports, mockReportsPage2, mockUpdate, mockUpdate2 }
