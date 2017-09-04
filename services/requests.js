@@ -1,6 +1,6 @@
 /* global fetch */
 import 'isomorphic-unfetch'
-import shuffleArray from './shuffleArray'
+import shuffleArray from '../helpers/shuffleArray'
 
 const apiEndpoint = 'https://api.reliefweb.int/v1/'
 const appName = 'rwmob-dev'
@@ -46,6 +46,18 @@ const constructRequestBody = (limit = 20, offset = 0, sort = [], fields = [], fi
   }
 
   return requestBody
+}
+
+const requestCountry = async function (id) {
+  const endpoint = `${apiEndpoint}countries/${id}?appname=${appName}`
+  let res, data
+  try {
+    res = await fetch(endpoint)
+    data = await res.json()
+    return data.data
+  } catch (e) {
+    console.log('error', e)
+  }
 }
 
 const requestCountries = async function () {
@@ -167,4 +179,4 @@ const requestUpdates = async function (offset, limit = 10, query) {
   }
 }
 
-export { requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }
+export { requestCountry, requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }

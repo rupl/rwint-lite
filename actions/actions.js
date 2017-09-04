@@ -1,5 +1,5 @@
 import * as actionTypes from '../constants/actionTypes'
-import { requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../services/requests'
+import { requestCountry, requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../services/requests'
 
 // helpers
 const shouldUpdate = (lastFetched, threshold = 1) => {
@@ -32,9 +32,9 @@ export const getUpdate = (id) => {
   }
 }
 
-export const getUpdates = (pageNumber = 1, loadMore = false, pagination = false, query) => {
+export const getUpdates = (pageNumber = 1, loadMore = false, pagination = false, query, num = 10) => {
   return async (dispatch, getState) => {
-    const limit = 10
+    const limit = num
     let offset = (pageNumber - 1) * limit
     const goingBackToPaginatedPage = pageNumber > 1 && !loadMore && !pagination
     const shouldRefreshFirstPage = query || (pageNumber === 1 && shouldUpdate(getState().updates.lastFetched))
@@ -78,6 +78,23 @@ export const getHeadlines = () => {
         items: response
       })
     }
+  }
+}
+
+export const getCountry = (id) => {
+  return async (dispatch, getState) => {
+    const reports = getState().countryReports
+    if (reports) {
+      const index = reports.map((x) => { return x.id }).indexOf(id)
+      if (index !== -1) {
+        return
+      }
+    }
+    let response = await requestCountry(id)
+    dispatch({
+      type: actionTypes.GET_COUNTRY,
+      item: response[0]
+    })
   }
 }
 

@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import * as actions from '../../actions/actions'
 import * as actionTypes from '../../constants/actionTypes'
-import { mockCountries, mockFeatured, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
+import { mockCountry, mockCountries, mockFeatured, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
 
 jest.mock('../../services/requests')
 
@@ -184,6 +184,31 @@ describe('Get an Update', () => {
       updateReports: [mockUpdate]
     })
     return store.dispatch(actions.getUpdate(mockUpdate.id)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('Get a Country', () => {
+  it('creates GET_COUNTRY when has fetched country and returns the country', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_COUNTRY,
+      item: mockCountry
+    }]
+    const store = mockStore({
+      countryReports: []
+    })
+    return store.dispatch(actions.getCountry(mockCountry.id)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('does not create GET_COUNTRY when country has already been fetched', () => {
+    const expectedActions = []
+    const store = mockStore({
+      countryReports: [mockCountry]
+    })
+    return store.dispatch(actions.getCountry(mockCountry.id)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })

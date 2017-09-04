@@ -1,7 +1,7 @@
 /* eslint-env jest */
-import { requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../../services/requests.js'
-import { mockCountries, mockDisasters, mockEndpoints, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
-jest.mock('../../services/shuffleArray')
+import { requestCountry, requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../../services/requests.js'
+import { mockCountry, mockCountries, mockDisasters, mockEndpoints, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
+jest.mock('../../helpers/shuffleArray')
 const fetchMock = require('fetch-mock')
 
 describe('API requests', () => {
@@ -257,6 +257,23 @@ describe('API requests', () => {
     it('returns the data', () => {
       expect(result.id).toEqual(mockUpdate.id)
       expect(result.fields.title).toEqual(mockUpdate.fields.title)
+    })
+  })
+
+  describe('Get a Country', () => {
+    beforeAll(async () => {
+      fetchMock.get(mockEndpoints.country, {data: mockCountry})
+      result = await requestCountry(100)
+    })
+    afterAll(fetchMock.restore)
+
+    it('calls the country endpoint', () => {
+      expect(fetchMock.called(mockEndpoints.country)).toBe(true)
+    })
+
+    it('returns the data', () => {
+      expect(result.id).toEqual(mockCountry.id)
+      expect(result.fields.name).toEqual(mockCountry.fields.name)
     })
   })
 })

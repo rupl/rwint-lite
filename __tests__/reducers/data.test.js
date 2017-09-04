@@ -1,7 +1,8 @@
 /* eslint-env jest */
 import { reducer } from '../../reducers/data'
 import * as actionTypes from '../../constants/actionTypes'
-import { mockCountries, mockFeatured, mockHeadlines, mockReports, mockReportsPage2, mockUpdate, mockUpdate2 } from '../../__fixtures__/data.fixture'
+import { mockCountries, mockCountry, mockCountry2, mockFeatured, mockHeadlines, mockReports, mockReportsPage2,
+  mockUpdate, mockUpdate2 } from '../../__fixtures__/data.fixture'
 
 describe('data reducer', () => {
   it('should return the initial state', () => {
@@ -11,6 +12,7 @@ describe('data reducer', () => {
           items: [],
           lastFetched: ''
         },
+        countryReports: [],
         featured: {
           items: [],
           lastFetched: ''
@@ -190,6 +192,30 @@ describe('data reducer', () => {
           items: mockCountries,
           lastFetched: d.toString()
         }
+      })
+    })
+  })
+
+  describe('Handle GET_COUNTRY', () => {
+    it('should handle get country', () => {
+      expect(
+        reducer({countryReports: []}, {
+          type: actionTypes.GET_COUNTRY,
+          item: mockCountry
+        })
+      ).toEqual({
+        countryReports: [mockCountry]
+      })
+    })
+
+    it('should store multiple updates', () => {
+      expect(
+        reducer({countryReports: [mockCountry]}, {
+          type: actionTypes.GET_COUNTRY,
+          item: mockCountry2
+        })
+      ).toEqual({
+        countryReports: [mockCountry, mockCountry2]
       })
     })
   })
