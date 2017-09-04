@@ -43,12 +43,12 @@ describe('Article Attachments component', () => {
   })
 
   it('shows the file size', () => {
-    expect(wrapper.find('a').at(0).text()).toContain('728kb')
-    expect(wrapper.find('a').at(1).text()).toContain('7.28mb')
+    expect(wrapper.find('a').at(0).text()).toContain('728 kB')
+    expect(wrapper.find('a').at(1).text()).toContain('7.28 MB')
   })
 
   it('shows the file type', () => {
-    expect(wrapper.find('a').at(0).text()).toContain('pdf')
-    expect(wrapper.find('a').at(1).text()).toContain('pdf')
+    expect(wrapper.find('a').at(0).text()).toContain('PDF')
+    expect(wrapper.find('a').at(1).text()).toContain('PDF')
   })
 })
