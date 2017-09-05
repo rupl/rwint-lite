@@ -42,15 +42,7 @@ describe('Country Body component', () => {
     expect(bodyContent).toContain('<img alt="document name" src="#" />')
   })
 
-  it('adds the alt text to image links to HR.info if no description', function () {
-    expect(bodyContent).toContain('<a class="tb-img" href="https://www.humanitarianresponse.info/something"><img alt="HumanitarianResponse.info" src="#" /></a>')
-  })
-
-  it('adds the alt text to image links to FTS if no description', function () {
-    expect(bodyContent).toContain('<a class="tb-img" href="https://fts.unocha.org/something"><img alt="Financial Tracking Service" src="#" /></a>')
-  })
-
-  it('adds the alt text to image links to UNHCR if no description', function () {
-    expect(bodyContent).toContain('<a class="tb-img" href="https://unhcr.org/something"><img alt="UNHCR" src="#" /></a>')
+  it('adds the url as alt text to image links with no description', function () {
+    expect(bodyContent).toContain('<a class="tb-img" href="https://www.humanitarianresponse.info/something"><img alt="Link to https://www.humanitarianresponse.info/something" src="#" /></a>')
   })
 })
