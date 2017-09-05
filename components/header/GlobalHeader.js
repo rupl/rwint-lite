@@ -98,6 +98,7 @@ class GlobalHeader extends React.Component {
             height: 10px;
             display: inline-block;
             margin-left: ${measurements.baseUnit}em;
+            color: ${colors.text.globalHeader};
           }
           @media (min-width: ${breakpoints.sm}) {
             .cd-global-header__sites {

@@ -33,7 +33,7 @@ describe('CountriesList component', () => {
     beforeAll(() => {
       wrapper = shallow(<CountriesList countries={{items: mockCountries}} />)
       groups = wrapper.find('.group')
-      links = wrapper.find('Link')
+      links = wrapper.find('SimpleLink')
     })
 
     it('renders the component', () => {

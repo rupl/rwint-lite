@@ -220,7 +220,7 @@ describe('API requests', () => {
         offset: 0,
         sort: ['name:asc'],
         fields: {
-          include: ['name', 'iso3']
+          include: ['name', 'featured']
         }
       }
       expect(fetchMock.lastOptions()).toEqual({

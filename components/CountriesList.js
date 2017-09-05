@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Link from 'next/link'
+import SimpleLink from './links/SimpleLink'
 import { Arrow } from './icons/Icons'
 import { breakpoints, colors, fontSizes, measurements } from '../theme/variables'
 
@@ -60,10 +60,7 @@ export class CountriesList extends React.Component {
             <ol>
               {group.countries.map((country, j) =>
                 <li key={j}>
-                  <Link as={`/country/${country.id}/${country.urlName}`}
-                    href={`/country?id=${country.id}&name=${country.urlName}`}>
-                    <a>{country.fields.name}</a>
-                  </Link>
+                  <SimpleLink link={country} />
                 </li>
               )}
             </ol>
@@ -90,20 +87,18 @@ export class CountriesList extends React.Component {
             position: absolute;
             top: 0;
             left: 0;
-            width: ${measurements.baseUnit * 2.5}em;
-            height: ${measurements.baseUnit * 2.5}em;
-            line-height: ${measurements.baseUnit * 2.5}em;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
             background: ${colors.bg.dark};
             color: white;
             text-align: center;
           }
           ol {
             list-style: none;
-            margin: ${measurements.baseUnit}em 0 ${measurements.baseUnit}em ${measurements.baseUnit * 6}em;
+            margin: ${measurements.baseUnit}em 0 ${measurements.baseUnit}em ${measurements.baseUnit * 7}em;
             padding: 0;
-          }
-          li {
-            border-bottom: 1px solid ${colors.border.light};
+            line-height: initial;
           }
           a {
             display: block;
@@ -148,7 +143,8 @@ export class CountriesList extends React.Component {
             display: block;
             position: absolute;
             top: 6px;
-            right: 2px
+            right: 2px;
+            color: ${colors.text.highlight};
           }
           select {
             -webkit-appearance: none;
@@ -175,8 +171,10 @@ export class CountriesList extends React.Component {
               flex-wrap: wrap;
             }
             li {
-              width: 50%;
-              border: none;
+              margin-right: ${measurements.baseUnit}em
+            }
+            .top {
+              bottom: 0;
             }
           }
           @media (min-width: ${breakpoints.md}) {
@@ -186,17 +184,11 @@ export class CountriesList extends React.Component {
             .group {
               margin-bottom: ${measurements.baseUnit * 4}em;
               padding-bottom: ${measurements.baseUnit * 4}em;
-              min-height: ${measurements.baseUnit * 5}em;
-              border-bottom: 1px solid ${colors.border.light};
             }
             h2 {
             }
             ol {
               margin: 0 0 0 ${measurements.baseUnit * 8}em
-            }
-            li {
-              width: 33.3%;
-              padding-right: ${measurements.baseUnit * 2}em
             }
             .styled-select {
               top: ${measurements.baseUnit * -6.5}em

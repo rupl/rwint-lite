@@ -1,12 +1,14 @@
 import { colors } from '../../theme/variables'
 
-const Arrow = ({direction, color}) => (
-  <svg width='47px' height='25px' viewBox='0 0 47 25' aria-hidden='true' className={`${direction} ${color}`}>
+export const Arrow = ({direction}) => (
+  <svg width='47px' height='25px' viewBox='0 0 47 25' aria-hidden='true' className={`${direction}`}>
     <path d='M33.4031632,35.6954709 C32.5059669,35.6954709 32.0573688,35.2468728 31.8330697,35.0225737 L12.9919482,16.1814522 C12.094752,15.2842559 11.6461538,14.1627606 11.6461538,12.8169662 C11.6461538,11.4711718 12.094752,10.3496765 12.9919482,9.45248023 L31.8330697,-9.38864127 C32.2816679,-9.8372394 32.730266,-10.0615385 33.4031632,-10.0615385 C34.0760604,-10.0615385 34.5246585,-9.8372394 34.9732566,-9.38864127 C35.4218548,-8.94004313 35.6461538,-8.491445 35.6461538,-7.81854781 C35.6461538,-7.14565061 35.4218548,-6.69705248 34.9732566,-6.24845435 L16.1321352,12.5926671 L16.1321352,12.5926671 C16.1321352,12.5926671 16.1321352,12.5926671 16.1321352,12.8169662 L16.1321352,13.2655643 L34.9732566,31.8823868 C35.8704529,32.779583 35.8704529,34.1253774 34.9732566,35.0225737 C34.7489576,35.2468728 34.3003595,35.6954709 33.4031632,35.6954709 Z' transform='translate(23.646154, 12.816966) rotate(90.000000) translate(-23.646154, -12.816966) ' />
     <style jsx>{`
       svg {
         width: 100%;
         height: 100%;
+        fill: currentColor;
+        transition: fill 0.3s ease;
       }
       svg.right {
         transform: rotate(90deg);
@@ -14,17 +16,11 @@ const Arrow = ({direction, color}) => (
       svg.down {
         transform: rotate(180deg);
       }
-      svg.globalHeader {
-        fill: ${colors.text.globalHeader}
-      }
-      svg.highlight {
-        fill: ${colors.border.highlight}
-      }
     `}</style>
   </svg>
 )
 
-const Cancel = () => (
+export const Cancel = () => (
   <svg width='32' height='32' viewBox='0 0 32 32' aria-hidden='true'>
     <path d='M16.8 16l7.6-7.7c0.2-0.2 0.2-0.6 0-0.8s-0.6-0.2-0.8 0l-7.6 7.6-7.7-7.6c-0.2-0.2-0.6-0.2-0.8 0s-0.2 0.6 0 0.8l7.6 7.7-7.6 7.7c-0.2 0.2-0.2 0.6 0 0.8 0.1 0.1 0.3 0.2 0.4 0.2 0.2 0 0.3-0.1 0.4-0.2l7.6-7.7 7.6 7.7c0.1 0.1 0.3 0.2 0.4 0.2 0.2 0 0.3-0.1 0.4-0.2 0.2-0.2 0.2-0.6 0-0.8l-7.5-7.7z' />
     <style jsx>{`
@@ -35,7 +31,7 @@ const Cancel = () => (
   </svg>
 )
 
-const Menu = () => (
+export const Menu = () => (
   <svg width='32' height='32' viewBox='0 0 32 32' aria-hidden='true'>
     <path d='M3.8 7.8h24.5v1.4h-24.5v-1.4z' />
     <path d='M3.8 15.3h24.5v1.4h-24.5v-1.4z' />
@@ -48,7 +44,7 @@ const Menu = () => (
   </svg>
 )
 
-const SearchIcon = () => (
+export const SearchIcon = () => (
   <svg width='32' height='32' viewBox='0 0 32 32' aria-hidden='true'>
     <path d='M19.427 20.427c-1.39 0.99-3.090 1.573-4.927 1.573-4.694 0-8.5-3.806-8.5-8.5s3.806-8.5 8.5-8.5c4.694 0 8.5 3.806 8.5 8.5 0 2.347-0.951 4.472-2.49 6.010l5.997 5.997c0.275 0.275 0.268 0.716-0.008 0.992-0.278 0.278-0.72 0.28-0.992 0.008l-6.081-6.081zM14.5 21c4.142 0 7.5-3.358 7.5-7.5s-3.358-7.5-7.5-7.5c-4.142 0-7.5 3.358-7.5 7.5s3.358 7.5 7.5 7.5v0z' />
     <style jsx>{`
@@ -61,4 +57,16 @@ const SearchIcon = () => (
   </svg>
 )
 
-export { Arrow, Cancel, Menu, SearchIcon }
+export const Star = () => (
+  <svg width='24' height='24' viewBox='0 0 24 24' aria-hidden='true'>
+    <path d='M12 17.25l-6.188 3.75 1.641-7.031-5.438-4.734 7.172-0.609 2.813-6.609 2.813 6.609 7.172 0.609-5.438 4.734 1.641 7.031z' />
+    <style jsx>{`
+      svg {
+        width: 100%;
+        height: 100%;
+        fill: currentColor;
+        transition: fill 0.3s ease;
+      }
+    `}</style>
+  </svg>
+)

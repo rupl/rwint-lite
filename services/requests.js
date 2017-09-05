@@ -61,7 +61,8 @@ const requestCountry = async function (id) {
 }
 
 const requestCountries = async function () {
-  const requestBody = constructRequestBody(300, 0, ['name:asc'], ['name', 'iso3'])
+  //(limit = 20, offset = 0, sort = [], fields = [], filter, preset, query)
+  const requestBody = constructRequestBody(300, 0, ['name:asc'], ['name', 'featured'])
   let res, data
   try {
     res = await fetch(`${apiEndpoint}countries?appname=${appName}`, {
