@@ -14,16 +14,12 @@ const getAltText = (str) => {
     return str.substring(startPoint, endPoint)
   }
 
-  if (str.indexOf('humanitarianresponse.info') !== -1) {
-    return 'HumanitarianResponse.info'
+  const hrefs = str.split('href="')
+  const href = hrefs[1].substring(0, hrefs[1].indexOf('"'))
+  if (href.substring(0, 4) === 'http') {
+    return `Link to ${href}`
   }
-  if (str.indexOf('unhcr.org') !== -1) {
-    return 'UNHCR'
-  }
-  if (str.indexOf('fts.unocha.org') !== -1) {
-    return 'Financial Tracking Service'
-  }
-  return ''
+  return 'Link'
 }
 
 const formatImg = (li) => {
@@ -96,7 +92,7 @@ export class CountryBody extends React.Component {
         </article>
         <aside>
           <SectionHeading heading='Latest Updates' />
-          <ReportsList />
+          <ReportsList headingLevel='3' />
           <div className='btn-container'>
             <Link prefetch as={`/report/listing?search=country.exact:"${report.fields.name}"`}
               href={`/updates?search=country.exact:"${report.fields.name}"`}>

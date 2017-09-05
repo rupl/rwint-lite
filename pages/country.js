@@ -16,7 +16,6 @@ export class Country extends React.Component {
     })[0]
 
     await store.dispatch(getUpdates(1, false, false, `country.exact:"${report.fields.name}"`, 6))
-    // const updates = store.getState().updates
     return {
       report: report
     }

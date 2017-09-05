@@ -6,6 +6,7 @@ import { breakpoints } from '../theme/variables'
 export class ReportsList extends React.Component {
   render () {
     const {updates} = this.props
+    const headingLevel = this.props.headingLevel || '2'
     return (
       <div>
         <div className='reports-wrapper'>
@@ -13,7 +14,7 @@ export class ReportsList extends React.Component {
             <p>No results found</p>
           }
           {updates.reports && updates.reports.length > 0 &&
-            updates.reports.map((report, i) => <ReportLink key={report.id} report={report} focusId={updates.focusId} />)
+            updates.reports.map((report, i) => <ReportLink key={report.id} report={report} focusId={updates.focusId} headingLevel={headingLevel} />)
           }
         </div>
         <style jsx>{`
