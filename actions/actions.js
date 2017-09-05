@@ -1,5 +1,5 @@
 import * as actionTypes from '../constants/actionTypes'
-import { requestCountry, requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../services/requests'
+import { requestCountry, requestCountries, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../services/requests'
 
 // helpers
 const shouldUpdate = (lastFetched, threshold = 1) => {
@@ -109,3 +109,31 @@ export const getCountries = () => {
     }
   }
 }
+
+export const getDisasters = (pageNumber = 1, loadMore = false, pagination = false, query, num = 10) => {
+  return async (dispatch, getState) => {
+    const limit = num
+    let offset = (pageNumber - 1) * limit
+    const goingBackToPaginatedPage = pageNumber > 1 && !loadMore && !pagination
+    const shouldRefreshFirstPage = query || (pageNumber === 1 && shouldUpdate(getState().disasters.lastFetched))
+    // if going back client side or is page one and recently fetched dont re-fetch data
+    if ((goingBackToPaginatedPage || (pageNumber === 1 && !shouldRefreshFirstPage))) {
+      return
+    }
+    let response = await requestDisasters(offset, limit, query)
+    let dispatchObj = {
+      type: actionTypes.GET_DISASTERS,
+      items: response,
+      loadMore: loadMore,
+      pageNumber: pageNumber,
+      pagination: pagination
+    }
+    if (query) {
+      dispatchObj.isQuery = true
+    }
+    dispatch(dispatchObj)
+  }
+}
+
+// TO DO
+// Remove duplication

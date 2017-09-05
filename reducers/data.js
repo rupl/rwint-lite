@@ -12,6 +12,14 @@ export const theInitialState = {
     items: []
   },
   countryReports: [],
+  disasters: {
+    canLoadMore: false,
+    currentPage: 0,
+    focusId: '',
+    lastFetched: '',
+    items: [],
+    totalCount: 0
+  },
   featured: {
     lastFetched: '',
     items: []
@@ -25,7 +33,7 @@ export const theInitialState = {
     currentPage: 0,
     focusId: '',
     lastFetched: '',
-    reports: [],
+    items: [],
     totalCount: 0
   },
   updateReports: []
@@ -45,12 +53,12 @@ export const reducer = (state = theInitialState, action) => {
     case actionTypes.GET_UPDATES:
       const canLoadMore = action.items.totalCount > (action.pageNumber * reportsPerPage)
       const d = action.pagination || action.isQuery ? '' : new Date() // dont save last fetched if loading a paginated page
-      let newReports = action.loadMore ? [...state.updates.reports, ...action.items.data] : action.items.data
+      let newReports = action.loadMore ? [...state.updates.items, ...action.items.data] : action.items.data
       let focusId = ''
 
       if (action.loadMore) {
         newReports = removeDuplicates(newReports, 'id')
-        focusId = newReports[state.updates.reports.length].id
+        focusId = newReports[state.updates.items.length].id
       }
 
       let newUpdates = {
@@ -58,7 +66,7 @@ export const reducer = (state = theInitialState, action) => {
         currentPage: action.pageNumber,
         focusId: focusId,
         lastFetched: d.toString(),
-        reports: newReports,
+        items: newReports,
         totalCount: action.items.totalCount
       }
 
@@ -106,6 +114,31 @@ export const reducer = (state = theInitialState, action) => {
       return {
         ...state,
         countries: newCountries
+      }
+
+    case actionTypes.GET_DISASTERS:
+      const canLoadMoreDisasters = action.items.totalCount > (action.pageNumber * reportsPerPage)
+      const dateDiasters = action.pagination || action.isQuery ? '' : new Date() // dont save last fetched if loading a paginated page
+      let newItems = action.loadMore ? [...state.disasters.items, ...action.items.data] : action.items.data
+      let focusIdDisasters = ''
+
+      if (action.loadMore) {
+        newItems = removeDuplicates(newItems, 'id')
+        focusIdDisasters = newItems[state.disasters.items.length].id
+      }
+
+      let newDisasters = {
+        canLoadMore: canLoadMoreDisasters,
+        currentPage: action.pageNumber,
+        focusId: focusIdDisasters,
+        lastFetched: dateDiasters.toString(),
+        items: newItems,
+        totalCount: action.items.totalCount
+      }
+
+      return {
+        ...state,
+        disasters: newDisasters
       }
 
     default: return state

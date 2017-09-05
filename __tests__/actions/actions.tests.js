@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import * as actions from '../../actions/actions'
 import * as actionTypes from '../../constants/actionTypes'
-import { mockCountry, mockCountries, mockFeatured, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
+import { mockCountry, mockCountries, mockDisasters, mockFeatured, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
 
 jest.mock('../../services/requests')
 
@@ -239,6 +239,100 @@ describe('Get Countries', () => {
       }
     })
     return store.dispatch(actions.getCountries()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('Get Disasters', () => {
+  it('creates GET_DISASTERS when has fetched updates and returns the items and info', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_DISASTERS,
+      items: mockDisasters,
+      loadMore: false,
+      pageNumber: 1,
+      pagination: false
+    }]
+    const store = mockStore({
+      disasters: {}
+    })
+    return store.dispatch(actions.getDisasters()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('returns the correct page number and loadMore flag to GET_DISASTERS when load more', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_DISASTERS,
+      items: mockDisasters,
+      loadMore: true,
+      pageNumber: 2,
+      pagination: false
+    }]
+    const store = mockStore({
+      disasters: {}
+    })
+    return store.dispatch(actions.getDisasters(2, true)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('returns the correct page number and loadMore flag to GET_DISASTERS when load a paginated page', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_DISASTERS,
+      items: mockDisasters,
+      loadMore: false,
+      pageNumber: 4,
+      pagination: true
+    }]
+    const store = mockStore({
+      disasters: {}
+    })
+    return store.dispatch(actions.getDisasters(4, false, true)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('does not create GET_DISASTERS if have recently fetched data', () => {
+    const d = new Date()
+    d.setSeconds(d.getSeconds() - 30)
+
+    const expectedActions = []
+    const store = mockStore({
+      disasters: {
+        lastFetched: d.toString()
+      }
+    })
+    return store.dispatch(actions.getDisasters(1)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('does not create GET_DISASTERS if going back to a paginated page', () => {
+    const expectedActions = []
+    const store = mockStore({
+      disasters: {}
+    })
+    return store.dispatch(actions.getDisasters(5, false, false)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('Get Disasters with query', () => {
+  it('creates GET_DISASTERS when has fetched disasters and returns the items, info and isQuery flag', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_DISASTERS,
+      items: mockDisasters,
+      loadMore: false,
+      pageNumber: 1,
+      pagination: false,
+      isQuery: true
+    }]
+    const store = mockStore({
+      disasters: {}
+    })
+    return store.dispatch(actions.getDisasters(1, false, false, 'congo')).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })

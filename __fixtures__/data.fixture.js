@@ -11,18 +11,49 @@ export const mockCountries = [
   {id: '19', fields: {name: 'Z country name 9'}}
 ]
 
-export const mockDisasters = [
-  {id: '30', fields: {name: 'Oh no: A disaster name - 0'}},
-  {id: '21', fields: {name: 'Oh no: A disaster name - 1'}},
-  {id: '22', fields: {name: 'Oh no: A disaster name - 2'}},
-  {id: '23', fields: {name: 'Oh no: A disaster name - 3'}},
-  {id: '24', fields: {name: 'Oh no: A disaster name - 4'}},
-  {id: '25', fields: {name: 'Oh no: A disaster name - 5'}},
-  {id: '26', fields: {name: 'Oh no: A disaster name - 6'}},
-  {id: '27', fields: {name: 'Oh no: A disaster name - 7'}},
-  {id: '28', fields: {name: 'Oh no: A disaster name - 8'}},
-  {id: '29', fields: {name: 'Oh no: A disaster name - 9'}}
-]
+export const mockDisasters = {
+  totalCount: 12,
+  data: [
+    {
+      id: '20',
+      fields: {
+        name: 'Oh no: A disaster name - 0',
+        primary_country: {
+          shortname: 'So Yo'
+        },
+        primary_type: {
+          name: 'Cyclone'
+        }
+      }
+    },
+    {
+      id: '21',
+      fields: {
+        name: 'Oh no: A disaster name - 1',
+        primary_country: {
+          name: 'South Yorkshire'
+        }
+      }
+    },
+    {id: '22', fields: {name: 'Oh no: A disaster name - 2'}},
+    {id: '23', fields: {name: 'Oh no: A disaster name - 3'}},
+    {id: '24', fields: {name: 'Oh no: A disaster name - 4'}},
+    {id: '25', fields: {name: 'Oh no: A disaster name - 5'}},
+    {id: '26', fields: {name: 'Oh no: A disaster name - 6'}},
+    {id: '27', fields: {name: 'Oh no: A disaster name - 7'}},
+    {id: '28', fields: {name: 'Oh no: A disaster name - 8'}},
+    {id: '29', fields: {name: 'Oh no: A disaster name - 9'}}
+  ]
+}
+
+export const mockDisastersPage2 = {
+  totalCount: 12,
+  data: [
+    {id: '29', fields: {name: 'Oh no: A disaster name - 9'}},
+    {id: '30', fields: {name: 'Oh no: A disaster name - 10'}},
+    {id: '31', fields: {name: 'Oh no: A disaster name - 11'}}
+  ]
+}
 
 export const mockFeatured = [
   {id: '10', fields: {name: 'A country name 0'}},
@@ -180,8 +211,7 @@ export const mockCountry2 = {
 export const mockEndpoints = {
   country: 'https://api.reliefweb.int/v1/countries/100?appname=rwmob-dev',
   countries: 'https://api.reliefweb.int/v1/countries?appname=rwmob-dev',
-  featuredCountries: 'https://api.reliefweb.int/v1/countries?appname=rwmob-dev',
-  featuredDisasters: 'https://api.reliefweb.int/v1/disasters?appname=rwmob-dev',
+  disasters: 'https://api.reliefweb.int/v1/disasters?appname=rwmob-dev',
   headlines: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev',
   updates: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev',
   update: 'https://api.reliefweb.int/v1/reports/100?appname=rwmob-dev'
