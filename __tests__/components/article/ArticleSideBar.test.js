@@ -4,7 +4,7 @@ import React from 'react'
 import ArticleSideBar from '../../../components/article/ArticleSideBar.js'
 import { mockUpdate } from '../../../__fixtures__/data.fixture'
 
-describe('Article Attachments component', () => {
+describe('Article Side Bar component', () => {
   let attachmentInfo, countryInfo, disastersInfo, disasterTypeInfo, formatInfo, languageInfo, report,
     sourceInfo, themeInfo, vulnerableGroupInfo, wrapper
 

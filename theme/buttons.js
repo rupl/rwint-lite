@@ -1,6 +1,6 @@
-import { colors, fontSizes, measurements } from './variables'
+import { colors, measurements } from './variables'
 
-const primaryButton = `
+export const primaryButton = `.btn-primary {
   display: block;
   border: none;
   background: ${colors.bg.primaryButton};
@@ -12,16 +12,13 @@ const primaryButton = `
   padding: ${measurements.baseUnit * 1.5}em;
   width: 100%;
   box-shadow: 0 1px 1px 0 rgba(0,0,0,0.31);
-`
-const smallButton = `
-  border: none;
+}
+.btn-primary:hover {
+  opacity: 0.9;
+  color: white;
+}
+.btn-primary:focus {
+  outline: -webkit-focus-ring-color auto 5px;
   background: ${colors.bg.primaryButton};
-  color: ${colors.text.primaryButton};
-  font-size: ${fontSizes.small};
-  text-decoration: none;
-  text-align: center;
-  padding: ${measurements.baseUnit / 2}em;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.31);
-`
-
-export { primaryButton, smallButton }
+  color: white;
+}`

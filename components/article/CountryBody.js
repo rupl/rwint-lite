@@ -1,10 +1,6 @@
 import React from 'react'
 import sanitizeHtml from 'sanitize-html'
-import ReportsList from '../../components/ReportsList'
-import SectionHeading from '../../components/SectionHeading'
-import Link from 'next/link'
-import { primaryButton } from '../../theme/buttons'
-import { breakpoints, colors, fonts, fontSizes, measurements } from '../../theme/variables'
+import { breakpoints, colors, fonts, measurements } from '../../theme/variables'
 
 const getAltText = (str) => {
   const startPoint = str.indexOf('<strong>') + '<strong>'.length
@@ -79,29 +75,8 @@ export class CountryBody extends React.Component {
     })
 
     return (
-      <div className='article-container'>
-        <article>
-          <header>
-            {report.fields.name &&
-              <h1>{report.fields.name}</h1>
-            }
-          </header>
-          {body &&
-            <div className='country-report' dangerouslySetInnerHTML={{__html: body}} />
-          }
-        </article>
-        <aside>
-          <SectionHeading heading='Latest Updates' />
-          <ReportsList headingLevel='3' />
-          <div className='btn-container'>
-            <Link prefetch as={`/report/listing?search=country.exact:"${report.fields.name}"`}
-              href={`/updates?search=country.exact:"${report.fields.name}"`}>
-              <a className='more'>
-                View more {report.fields.name} updates
-              </a>
-            </Link>
-          </div>
-        </aside>
+      <div>
+        <div className='country-report' dangerouslySetInnerHTML={{__html: body}} />
         <style jsx global>{`
           .has-img {
             display: flex;
@@ -165,44 +140,6 @@ export class CountryBody extends React.Component {
           @media (min-width: ${breakpoints.md}) {
             .country-report h2 {
               margin: ${measurements.baseUnit}em 0 ${measurements.baseUnit}em 0;
-            }
-          }
-        `}</style>
-        <style jsx>{`
-          .article-container {
-            padding-top: ${measurements.baseUnit * 2.25}em;
-          }
-          header {
-            border-bottom: 1px solid ${colors.border.highlight};
-            padding-bottom: ${measurements.baseUnit * 2}em;
-            margin-bottom: ${measurements.baseUnit * 2}em;
-          }
-          h1 {
-            color: ${colors.text.dark};
-            font-size: ${fontSizes.medium};
-          }
-          .country-report {
-            margin-bottom: ${measurements.baseUnit * 2}em;
-          }
-          .btn-container {
-            max-width: 320px;
-            margin: ${measurements.baseUnit * 2}em auto;
-          }
-          a {
-            ${primaryButton}
-          }
-          a:hover {
-            opacity: 0.9;
-            color: white;
-          }
-
-          @media (min-width: ${breakpoints.md}) {
-            .article-container {
-              padding-top: ${measurements.baseUnit * 4}em;
-              overflow: auto;
-            }
-            h1 {
-              font-size: ${fontSizes.large};
             }
           }
         `}</style>

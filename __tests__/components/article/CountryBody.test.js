@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import { shallow } from 'enzyme'
 import React from 'react'
-import CountryBody from '../../../components/country/CountryBody.js'
+import CountryBody from '../../../components/article/CountryBody.js'
 import { mockCountry } from '../../../__fixtures__/data.fixture'
 
 describe('Country Body component', () => {
@@ -14,10 +14,6 @@ describe('Country Body component', () => {
 
   it('renders the component', () => {
     expect(wrapper.exists()).toBe(true)
-  })
-
-  it('renders the name', () => {
-    expect(wrapper.find('h1').text()).toContain(mockCountry.fields.name)
   })
 
   it('renders the body', () => {

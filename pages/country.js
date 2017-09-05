@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
 import { getCountry, getUpdates } from '../actions/actions'
 import withRedux from 'next-redux-wrapper'
-import CountryBody from '../components/country/CountryBody'
+import ArticleLayout from '../components/article/ArticleLayout'
 
 export class Country extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
@@ -24,7 +24,7 @@ export class Country extends React.Component {
   render () {
     return (
       <Layout title={this.props.report.fields.name}>
-        <CountryBody report={this.props.report} />
+        <ArticleLayout report={this.props.report} type='country' />
       </Layout>
     )
   }
