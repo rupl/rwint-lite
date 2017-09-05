@@ -31,6 +31,17 @@ https://standardjs.com/
 
 `npm run lint`
 
+## pa11y
+
+[pa11y-ci](https://github.com/pa11y/ci) is used for automated accessibility testing.
+
+To run locally:
+
+`npm run test:pa11y`
+
+Add new pages to test to .pa11yci
+
+
 ## Using the docker image
 
 Get the docker image (latest dev branch is being pulled in the example below)
