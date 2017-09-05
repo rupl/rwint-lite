@@ -8,20 +8,18 @@ import CountriesList from '../components/CountriesList'
 import SectionHeading from '../components/SectionHeading'
 
 export class Countries extends React.Component {
-  static async getInitialProps ({store}) {
+  static async getInitialProps ({store, isServer, pathname, query}) {
     await store.dispatch(getCountries())
+    return {
+      searchQuery: query.search
+    }
   }
 
   render () {
     return (
       <Layout title='Countries'>
-        <div>
-          <SectionHeading heading='Countries' level='1' />
-          <CountriesList />
-        </div>
-        <style>{`
-
-        `}</style>
+        <SectionHeading heading='Countries' level='1' />
+        <CountriesList searchQuery={this.props.searchQuery} />
       </Layout>
     )
   }

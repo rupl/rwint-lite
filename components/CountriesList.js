@@ -27,6 +27,10 @@ const groupCountries = (countries) => {
   return grouped
 }
 
+const filterCountries = (countries, searchQuery) => {
+  return countries.filter(country => country.fields.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1)
+}
+
 export class CountriesList extends React.Component {
   constructor (props) {
     super(props)
@@ -38,7 +42,12 @@ export class CountriesList extends React.Component {
   }
 
   render () {
-    const groupedCountries = groupCountries(this.props.countries.items)
+    let countries = [...this.props.countries.items]
+    const searchQuery = this.props.searchQuery
+    if (searchQuery) {
+      countries = filterCountries(countries, searchQuery)
+    }
+    const groupedCountries = groupCountries(countries)
 
     return (
       <div className='countries'>

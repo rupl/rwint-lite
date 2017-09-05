@@ -6,12 +6,32 @@ import { breakpoints, colors, fonts, fontSizes, measurements } from '../../theme
 export class SearchForm extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {value: ''}
+    let value = ''
+    let placeholder = 'Search for updates'
+    let search = 'updates'
+    this.state = {
+      value,
+      placeholder,
+      search
+    }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentWillReceiveProps () {
+  componentDidMount () {
+    if (Router && Router.router) {
+      if (Router.router.route === '/countries') {
+        let placeholder = 'Search for countries'
+        let search = 'countries'
+        this.setState({
+          placeholder,
+          search
+        })
+      }
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
     const value = Router.router.query && Router.router.query.search ? Router.router.query.search : ''
     this.setState({
       value: value
@@ -24,15 +44,17 @@ export class SearchForm extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault()
+    const searchPath = this.state.search === 'updates' ? '/report/listing/?search=' : '/country/listing/?search='
+    const searchPathAs = this.state.search === 'updates' ? '/updates?search=' : '/countries?search='
     const searchTerm = this.state.value.replace(/\W+/g, ' ')
-    Router.push(`/updates?search=${searchTerm}`, `/report/listing/?search=${searchTerm}`)
+    Router.push(`${searchPathAs}${searchTerm}`, `${searchPath}${searchTerm}`)
   }
 
   render () {
     return (
       <form role='search' onSubmit={this.handleSubmit}>
-        <label className='sr-only' htmlFor='search'>Search for updates</label>
-        <input type='search' id='search' value={this.state.value} onChange={this.handleChange} placeholder='Search for updates' />
+        <label className='sr-only' htmlFor='search'>{this.state.placeholder}</label>
+        <input type='search' id='search' value={this.state.value} onChange={this.handleChange} placeholder={this.state.placeholder} />
         <button type='submit'>
           <SearchIcon />
           <span className='sr-only'>Search</span>

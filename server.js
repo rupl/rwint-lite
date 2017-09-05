@@ -33,7 +33,6 @@ app.prepare()
   server.get('/report/listing', (req, res) => {
     const actualPage = '/updates'
     const queryParams = { page: req.query.page, search: req.query.search }
-    // console.log('req', req)
     app.render(req, res, actualPage, queryParams)
   })
   server.get('/report/:id/:country/:title', (req, res) => {
@@ -43,7 +42,8 @@ app.prepare()
   })
   server.get('/country/listing', (req, res) => {
     const actualPage = '/countries'
-    app.render(req, res, actualPage)
+    const queryParams = { search: req.query.search }
+    app.render(req, res, actualPage, queryParams)
   })
   server.get('/country/:id/:name', (req, res) => {
     const actualPage = '/country'
