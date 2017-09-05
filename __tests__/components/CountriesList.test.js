@@ -56,4 +56,18 @@ describe('CountriesList component', () => {
       expect(wrapper.find('.top').length).toBe(5)
     })
   })
+
+  describe('Searching countries', () => {
+    beforeAll(() => {
+      wrapper = shallow(<CountriesList countries={{items: mockCountries}} searchQuery='find' />)
+      groups = wrapper.find('.group')
+      links = wrapper.find('SimpleLink')
+    })
+
+    it('only displays countries that match the search form', () => {
+      expect(links.length).toBe(2)
+      expect(links.at(0).prop('link')).toEqual(mockCountries[4])
+      expect(links.at(1).prop('link')).toEqual(mockCountries[7])
+    })
+  })
 })

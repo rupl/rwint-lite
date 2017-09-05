@@ -100,7 +100,7 @@ export const getCountry = (id) => {
 
 export const getCountries = () => {
   return async (dispatch, getState) => {
-    if (shouldUpdate(getState().countries.lastFetched, 10)) {
+    if (shouldUpdate(getState().countries.lastFetched, 30)) {
       let response = await requestCountries()
       dispatch({
         type: actionTypes.GET_COUNTRIES,
