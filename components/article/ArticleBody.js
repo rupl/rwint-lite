@@ -3,7 +3,7 @@ import sanitizeHtml from 'sanitize-html'
 import formatDate from '../../helpers/formatDate'
 import ArticleSideBar from './ArticleSideBar'
 import InfoLinks from '../links/InfoLinks'
-import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
+import { breakpoints, colors, fonts, fontSizes, measurements } from '../../theme/variables'
 
 export class ArticleBody extends React.Component {
   render () {
@@ -48,6 +48,7 @@ export class ArticleBody extends React.Component {
           }
           h1 {
             color: ${colors.text.dark};
+            font-size: ${fontSizes.medium};
           }
           .header-info {
             margin: ${measurements.baseUnit * 1.5}em 0 0 0;
@@ -67,6 +68,12 @@ export class ArticleBody extends React.Component {
           .original:hover, .original:focus {
             text-decoration: underline;
           }
+          h2 {
+            font-family: ${fonts.body};
+            font-weight: bold;
+            padding-bottom: ${measurements.baseUnit / 2}em;
+            margin: ${measurements.baseUnit}em 0 0 0;
+          }
           @media (min-width: ${breakpoints.md}) {
             .article-container {
               padding-top: ${measurements.baseUnit * 4}em;
@@ -84,6 +91,9 @@ export class ArticleBody extends React.Component {
             h1 {
               font-size: ${fontSizes.large};
               margin: 0 0 ${measurements.baseUnit}em 0;
+            }
+            h2 {
+              margin: ${measurements.baseUnit}em 0 ${measurements.baseUnit}em 0;
             }
           }
         `}</style>

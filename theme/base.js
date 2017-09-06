@@ -29,10 +29,12 @@ const base = `
     margin: 0 auto;
     max-width: ${measurements.containerMaxWidth};
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-size: 100%;
+  h1 {
     font-weight: normal;
     font-family: ${fonts.heading};
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
   }
   p, ul, ol {
     line-height: 1.5;

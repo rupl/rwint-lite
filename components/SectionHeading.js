@@ -1,4 +1,4 @@
-import { breakpoints, colors, fontSizes, measurements } from '../theme/variables'
+import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/variables'
 
 const SectionHeading = ({heading, level = '2'}) => {
   return (
@@ -12,6 +12,8 @@ const SectionHeading = ({heading, level = '2'}) => {
       <style jsx>{`
         .section-heading {
           font-size: ${fontSizes.medium};
+          font-family: ${fonts.heading};
+          font-weight: normal;
           border-bottom: 1px solid ${colors.border.highlight};
           padding-bottom: ${measurements.baseUnit / 2}em;
           margin: ${measurements.baseUnit * 1.5}em 0 0 0;

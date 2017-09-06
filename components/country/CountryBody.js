@@ -4,7 +4,7 @@ import ReportsList from '../../components/ReportsList'
 import SectionHeading from '../../components/SectionHeading'
 import Link from 'next/link'
 import { primaryButton } from '../../theme/buttons'
-import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
+import { breakpoints, colors, fonts, fontSizes, measurements } from '../../theme/variables'
 
 const getAltText = (str) => {
   const startPoint = str.indexOf('<strong>') + '<strong>'.length
@@ -153,7 +153,8 @@ export class CountryBody extends React.Component {
             margin: 0;
           }
           .country-report h2 {
-            font-size: ${fontSizes.medium};
+            font-family: ${fonts.body};
+            font-weight: bold;
             padding-bottom: ${measurements.baseUnit / 2}em;
             margin: ${measurements.baseUnit}em 0 0 0;
             clear: both;
@@ -163,7 +164,6 @@ export class CountryBody extends React.Component {
           }
           @media (min-width: ${breakpoints.md}) {
             .country-report h2 {
-              font-size: ${fontSizes.large};
               margin: ${measurements.baseUnit}em 0 ${measurements.baseUnit}em 0;
             }
           }
@@ -179,6 +179,7 @@ export class CountryBody extends React.Component {
           }
           h1 {
             color: ${colors.text.dark};
+            font-size: ${fontSizes.medium};
           }
           .country-report {
             margin-bottom: ${measurements.baseUnit * 2}em;

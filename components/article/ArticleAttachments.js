@@ -72,6 +72,9 @@ class ArticleAttachments extends React.Component {
             text-decoration: none;
             word-break: break-word;
           }
+          a:hover {
+            text-decoration: underline;
+          }
         `}</style>
       </div>
     )
