@@ -40,13 +40,8 @@ const base = `
   a {
     color: ${colors.link.default};
   }
-  a:hover, a:active {
-    color: ${colors.link.hover};
-  }
   a:focus {
-    background: ${colors.link.focusBg};
-    color: ${colors.link.focus};
-    outline: 3px solid ${colors.link.focusBg};
+    outline: thin dotted;
   }
   button {
     -webkit-appearance: none;

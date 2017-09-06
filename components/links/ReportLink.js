@@ -58,16 +58,11 @@ class ReportLink extends React.Component {
             margin-bottom: ${measurements.baseUnit}em;
           }
           .title a {
-            color: ${colors.text.dark};
+            color: ${colors.text.body};
+            font-weight: bold;
             text-decoration: none;
           }
           .title a:hover {
-            color: ${colors.link.hover};
-          }
-          .title a:focus {
-            color: ${colors.link.focus};
-          }
-          .title a:hover, .title a:focus {
             text-decoration: underline;
           }
           .date {

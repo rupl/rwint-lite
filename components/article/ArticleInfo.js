@@ -44,6 +44,9 @@ class ArticleInfo extends React.Component {
             font-weight: bold;
             text-decoration: none;
           }
+          a:hover {
+            text-decoration: underline;
+          }
           span {
             display: inline-block;
           }

@@ -61,19 +61,9 @@ class InfoLinks extends React.Component {
           a {
             display: inline-block;
             text-decoration: none;
-
             padding: ${measurements.baseUnit * 0.67}em 0;
           }
-          .summary a {
-            color: ${colors.text.light};
-          }
-          a:hover, .title a:hover {
-            color: ${colors.link.hover};
-          }
-          a:focus {
-            color: ${colors.link.focus};
-          }
-          a:hover, a:focus {
+          a:hover {
             text-decoration: underline;
           }
           .divider {
