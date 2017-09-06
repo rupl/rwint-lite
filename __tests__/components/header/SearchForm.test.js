@@ -37,6 +37,35 @@ describe('Search Form component', () => {
     })
   })
 
+  describe('Handling special characters in search input', function () {
+    beforeAll(() => {
+      Router.router = {
+        route: '/updates'
+      }
+      wrapper = mount(<SearchForm />)
+      form = wrapper.find('form')
+      input = wrapper.find('input[type="search"]')
+    })
+
+    it('replaces special characters with spaces', () => {
+      const inputString = 'Hello+Good-bye&&guten||tag!auf(weidersehn}{pet}[hola]bonjour^hallo"salut"~bored*now?nearly:at\\theend'
+      const searchString = 'Hello Good bye guten tag auf weidersehn pet hola bonjour hallo salut bored now nearly at theend'
+      input.simulate('change', { target: { value: inputString } })
+      form.simulate('submit', fakeEvent)
+      expect(Router.push).toHaveBeenCalledWith(`/updates?search=${searchString}`, `/report/listing/?search=${searchString}`)
+    })
+
+    it('does not replace accented characters', () => {
+      input.simulate('change', { target: { value: 'Curaçao' } })
+      form.simulate('submit', fakeEvent)
+      expect(Router.push).toHaveBeenCalledWith('/updates?search=Curaçao', '/report/listing/?search=Curaçao')
+
+      input.simulate('change', { target: { value: '1585 ressortissantes et ressortissants haïtiens rapatriés à Belladère au cours du mois d’août 2017 Spécial' } })
+      form.simulate('submit', fakeEvent)
+      expect(Router.push).toHaveBeenCalledWith('/updates?search=1585 ressortissantes et ressortissants haïtiens rapatriés à Belladère au cours du mois d’août 2017 Spécial', '/report/listing/?search=1585 ressortissantes et ressortissants haïtiens rapatriés à Belladère au cours du mois d’août 2017 Spécial')
+    })
+  })
+
   describe('Searching for updates', function () {
     beforeAll(() => {
       Router.router = {

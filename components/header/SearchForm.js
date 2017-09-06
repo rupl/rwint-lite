@@ -46,7 +46,7 @@ export class SearchForm extends React.Component {
     event.preventDefault()
     const searchPath = this.state.search === 'updates' ? '/report/listing/?search=' : '/country/listing/?search='
     const searchPathAs = this.state.search === 'updates' ? '/updates?search=' : '/countries?search='
-    const searchTerm = this.state.value.replace(/\W+/g, ' ')
+    const searchTerm = this.state.value.replace(/([!*+\-=<>&|()[\]{}^~?:\\/"])+/g, ' ')
     Router.push(`${searchPathAs}${searchTerm}`, `${searchPath}${searchTerm}`)
   }
 
