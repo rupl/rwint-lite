@@ -33,20 +33,15 @@ const SimpleLink = ({link}) => (
           color: ${colors.text.body};
           height: 100%;
           background: white;
-          transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease;
+          transition: background 0.3s ease, color 0.3s ease
         }
         a:hover, a:focus {
           background: ${colors.bg.headerFooter};
           color: white;
           outline: none;
-          padding-left: ${measurements.baseUnit * 2.5}em;
-          padding-right: ${measurements.baseUnit * 1.5}em;
         }
         a:hover .icon, a:focus .icon {
           color: white;
-        }
-        a:hover .arrow, a:focus .arrow {
-          transform: translateX(4px);
         }
         .name {
           display: flex;
