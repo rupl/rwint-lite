@@ -5,6 +5,8 @@
         "localhost:3000/report/2201904/myanmar/myanmar-picking-up-pieces-and-stitching-a-new-life",
         "localhost:3000/report/2201869/guinea/wfp-guinea-country-brief-june-2017",
         "localhost:3000/country/listing",
-        "localhost:3000/country/226/syrian-arab-republic"
+        "localhost:3000/country/226/syrian-arab-republic",
+        "localhost:3000/disaster/listing",
+        "localhost:3000/disaster/43824/hurricane-irma-sep-2017"
     ]
 }

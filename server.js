@@ -52,7 +52,8 @@ app.prepare()
   })
   server.get('/disaster/listing', (req, res) => {
     const actualPage = '/disasters'
-    app.render(req, res, actualPage)
+    const queryParams = { page: req.query.page, search: req.query.search }
+    app.render(req, res, actualPage, queryParams)
   })
   server.get('/disaster/:id/:name', (req, res) => {
     const actualPage = '/disaster'

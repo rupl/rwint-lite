@@ -179,4 +179,29 @@ const requestUpdates = async function (offset, limit = 10, query) {
   }
 }
 
-export { requestCountry, requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }
+const requestDisasters = async function (offset, limit = 10, query) {
+  const sort = []
+  const fields = ['name', 'primary_country.name', 'primary_country.shortname', 'primary_type']
+  const requestBody = constructRequestBody(limit, offset, sort, fields, '', 'latest', query)
+  let res, data
+  try {
+    res = await fetch(`${apiEndpoint}disasters?appname=${appName}`, {
+      method: 'post',
+      body: JSON.stringify(requestBody)
+    })
+    data = await res.json()
+    data.data.map(item => {
+      if (item.fields.primary_country) {
+        item.urlCountry = item.fields.primary_country.shortname ? formatStringForUrl(item.fields.primary_country.shortname) : formatStringForUrl(item.fields.primary_country.name)
+      }
+      if (item.fields.name) {
+        item.urlTitle = formatStringForUrl(item.fields.name)
+      }
+    })
+    return data
+  } catch (e) {
+    console.log('error', e)
+  }
+}
+
+export { requestCountry, requestCountries, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }

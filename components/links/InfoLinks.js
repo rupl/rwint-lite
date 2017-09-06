@@ -4,10 +4,11 @@ import { colors, fontSizes, measurements } from '../../theme/variables'
 
 class InfoLinks extends React.Component {
   render () {
-    const {country, sources} = this.props
+    const {country, infoType, sources} = this.props
     const countryName = this.props.type === 'summary' ? (country.shortname || country.name) : country.name
 
     const countryQueryString = `?search=country.exact:"${countryName}"`
+    const infoTypeQueryString = infoType ? `?search=disaster_type.exact:"${infoType.name}"` : ''
     const sourceQueryString = '?search=source.exact:'
 
     const numSourcesToShow = 2
@@ -21,19 +22,30 @@ class InfoLinks extends React.Component {
             <a className='country'>{countryName}</a>
           </Link>
         }
-        <span className='divider'>|</span>
-        {sources &&
-          displaySources.map((source, i) =>
+        {infoType &&
+          <span>
+            <span className='divider'>|</span>
+            <Link as={`/report/listing${infoTypeQueryString}`} href={`/updates${infoTypeQueryString}`}>
+              <a className='country'>{infoType.name}</a>
+            </Link>
+          </span>
+        }
+        {sources.length > 0 &&
+          <span>
+            <span className='divider'>|</span>
+            {displaySources.map((source, i) =>
 
-            <span className='sources' key={i}>
-              <Link prefetch as={`/report/listing${sourceQueryString}"${source.name}"`} href={`/updates${sourceQueryString}"${source.name}"`}>
-                <a>{this.props.type === 'summary' ? (source.shortname || source.name) : source.name }</a>
-              </Link>
-              {i < displaySources.length && i + 1 !== sources.length &&
-                <span>,</span>
-              }
-            </span>
-          )}
+              <span className='sources' key={i}>
+                <Link prefetch as={`/report/listing${sourceQueryString}"${source.name}"`} href={`/updates${sourceQueryString}"${source.name}"`}>
+                  <a>{this.props.type === 'summary' ? (source.shortname || source.name) : source.name }</a>
+                </Link>
+                {i < displaySources.length && i + 1 !== sources.length &&
+                  <span>,</span>
+                }
+              </span>
+            )}
+          </span>
+        }
         {moreSourcesNumber > 0 &&
           <span className='sources-more'>+{moreSourcesNumber} more</span>
         }

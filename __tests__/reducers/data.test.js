@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import { reducer } from '../../reducers/data'
 import * as actionTypes from '../../constants/actionTypes'
-import { mockCountries, mockCountry, mockCountry2, mockFeatured, mockHeadlines, mockReports, mockReportsPage2,
+import { mockCountries, mockCountry, mockCountry2, mockDisasters, mockDisastersPage2, mockFeatured, mockHeadlines, mockReports, mockReportsPage2,
   mockUpdate, mockUpdate2 } from '../../__fixtures__/data.fixture'
 
 describe('data reducer', () => {
@@ -13,6 +13,14 @@ describe('data reducer', () => {
           lastFetched: ''
         },
         countryReports: [],
+        disasters: {
+          canLoadMore: false,
+          currentPage: 0,
+          focusId: '',
+          items: [],
+          lastFetched: '',
+          totalCount: 0
+        },
         featured: {
           items: [],
           lastFetched: ''
@@ -25,7 +33,7 @@ describe('data reducer', () => {
           canLoadMore: false,
           currentPage: 0,
           focusId: '',
-          reports: [],
+          items: [],
           lastFetched: '',
           totalCount: 0
         },
@@ -73,7 +81,7 @@ describe('data reducer', () => {
           canLoadMore: false,
           currentPage: 3,
           focusId: '',
-          reports: mockReports.data,
+          items: mockReports.data,
           lastFetched: d.toString(),
           totalCount: mockReports.totalCount
         }
@@ -94,7 +102,7 @@ describe('data reducer', () => {
           canLoadMore: true,
           currentPage: 1,
           focusId: '',
-          reports: mockReports.data,
+          items: mockReports.data,
           lastFetched: d.toString(),
           totalCount: mockReports.totalCount
         }
@@ -106,7 +114,7 @@ describe('data reducer', () => {
       const page2 = [mockReportsPage2.data[1], mockReportsPage2.data[2]]
 
       expect(
-        reducer({updates: {reports: mockReports.data}}, {
+        reducer({updates: {items: mockReports.data}}, {
           type: actionTypes.GET_UPDATES,
           items: mockReportsPage2,
           loadMore: true,
@@ -117,7 +125,7 @@ describe('data reducer', () => {
           canLoadMore: true,
           currentPage: 1,
           focusId: '40',
-          reports: [...mockReports.data, ...page2],
+          items: [...mockReports.data, ...page2],
           lastFetched: d.toString(),
           totalCount: mockReportsPage2.totalCount
         }
@@ -137,7 +145,7 @@ describe('data reducer', () => {
           canLoadMore: true,
           currentPage: 2,
           focusId: '',
-          reports: mockReports.data,
+          items: mockReports.data,
           lastFetched: '',
           totalCount: mockReports.totalCount
         }
@@ -216,6 +224,92 @@ describe('data reducer', () => {
         })
       ).toEqual({
         countryReports: [mockCountry, mockCountry2]
+      })
+    })
+  })
+
+  describe('Handle GET_DISASTERS', () => {
+    it('should handle Get Disasters', () => {
+      const d = new Date()
+      expect(
+        reducer([], {
+          type: actionTypes.GET_DISASTERS,
+          items: mockDisasters,
+          pageNumber: 1
+        })
+      ).toEqual({
+        disasters: {
+          canLoadMore: true,
+          currentPage: 1,
+          focusId: '',
+          items: mockDisasters.data,
+          lastFetched: d.toString(),
+          totalCount: mockDisasters.totalCount
+        }
+      })
+    })
+
+    it('should set the load more flag', () => {
+      const d = new Date()
+
+      expect(
+        reducer([], {
+          type: actionTypes.GET_DISASTERS,
+          items: mockDisasters,
+          pageNumber: 3
+        })
+      ).toEqual({
+        disasters: {
+          canLoadMore: false,
+          currentPage: 3,
+          focusId: '',
+          items: mockDisasters.data,
+          lastFetched: d.toString(),
+          totalCount: mockDisasters.totalCount
+        }
+      })
+    })
+
+    it('should remove duplicates and set the focusId if loading more', () => {
+      const d = new Date()
+      const page2 = [mockDisastersPage2.data[1], mockDisastersPage2.data[2]]
+
+      expect(
+        reducer({disasters: {items: mockDisasters.data}}, {
+          type: actionTypes.GET_DISASTERS,
+          items: mockDisastersPage2,
+          loadMore: true,
+          pageNumber: 1
+        })
+      ).toEqual({
+        disasters: {
+          canLoadMore: true,
+          currentPage: 1,
+          focusId: '30',
+          items: [...mockDisasters.data, ...page2],
+          lastFetched: d.toString(),
+          totalCount: mockDisastersPage2.totalCount
+        }
+      })
+    })
+
+    it('should not set lastFetched if paginated page', () => {
+      expect(
+        reducer([], {
+          type: actionTypes.GET_DISASTERS,
+          items: mockDisasters,
+          pageNumber: 2,
+          pagination: true
+        })
+      ).toEqual({
+        disasters: {
+          canLoadMore: false,
+          currentPage: 2,
+          focusId: '',
+          items: mockDisasters.data,
+          lastFetched: '',
+          totalCount: mockDisasters.totalCount
+        }
       })
     })
   })

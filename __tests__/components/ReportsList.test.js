@@ -8,7 +8,7 @@ import ConnectedReportsList, { ReportsList } from '../../components/ReportsList.
 describe('ReportsList component', () => {
   let container, reportLinks, store, wrapper
   const initialState = {
-    reports: mockReports.data
+    items: mockReports.data
   }
   const mockStore = configureStore()
 
@@ -23,7 +23,7 @@ describe('ReportsList component', () => {
     })
 
     it('renders passes the headlines items from the store', () => {
-      expect(container.prop('reports')).toEqual(mockReports.data)
+      expect(container.prop('items')).toEqual(mockReports.data)
     })
   })
 

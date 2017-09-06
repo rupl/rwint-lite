@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { requestCountry, requestCountries, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../../services/requests.js'
+import { requestCountry, requestCountries, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../../services/requests.js'
 import { mockCountry, mockCountries, mockDisasters, mockEndpoints, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
 jest.mock('../../helpers/shuffleArray')
 const fetchMock = require('fetch-mock')
@@ -9,14 +9,14 @@ describe('API requests', () => {
 
   describe('Get Featured', () => {
     beforeAll(async () => {
-      fetchMock.post(mockEndpoints.featuredCountries, {data: mockCountries})
-      fetchMock.post(mockEndpoints.featuredDisasters, {data: mockDisasters})
+      fetchMock.post(mockEndpoints.countries, {data: mockCountries})
+      fetchMock.post(mockEndpoints.disasters, {data: mockDisasters.data})
       result = await requestFeatured()
     })
     afterAll(fetchMock.restore)
 
     it('posts to the featured countries endpoint', () => {
-      expect(fetchMock.called(mockEndpoints.featuredCountries)).toEqual(true)
+      expect(fetchMock.called(mockEndpoints.countries)).toEqual(true)
       expectedBody = {
         filter: {
           field: 'featured',
@@ -30,7 +30,7 @@ describe('API requests', () => {
     })
 
     it('posts to the featured disasters endpoint', () => {
-      expect(fetchMock.called(mockEndpoints.featuredDisasters)).toEqual(true)
+      expect(fetchMock.called(mockEndpoints.disasters)).toEqual(true)
       expectedBody = {
         filter: {
           field: 'featured',
@@ -47,7 +47,7 @@ describe('API requests', () => {
       // shuffle is mocked to return first and last 4 items of the array
       expect(result.length).toBe(6)
       expect(result[0].id).toEqual(mockCountries[0].id)
-      expect(result[5].id).toEqual(mockDisasters[7].id)
+      expect(result[5].id).toEqual(mockDisasters.data[7].id)
     })
 
     it('adds the type to each result', () => {
@@ -274,6 +274,104 @@ describe('API requests', () => {
     it('returns the data', () => {
       expect(result.id).toEqual(mockCountry.id)
       expect(result.fields.name).toEqual(mockCountry.fields.name)
+    })
+  })
+
+  describe('Get Disasters', () => {
+    beforeAll(async () => {
+      fetchMock.post(mockEndpoints.disasters, mockDisasters)
+      result = await requestDisasters()
+    })
+    afterAll(fetchMock.restore)
+
+    it('sends a post request with the correct body data', () => {
+      expect(fetchMock.called(mockEndpoints.disasters)).toEqual(true)
+      expectedBody = {
+        limit: 10,
+        offset: 0,
+        preset: 'latest',
+        fields: {
+          include: ['name', 'primary_country.name', 'primary_country.shortname', 'primary_type']
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
+    })
+
+    it('returns the data', () => {
+      expect(result.data[0].id).toEqual(mockDisasters.data[0].id)
+      expect(result.data[1].fields.name).toEqual(mockDisasters.data[1].fields.name)
+    })
+
+    it('formats and adds the url-friendly country using the shortname if present to each result', () => {
+      expect(result.data[0].urlCountry).toBe('so-yo')
+    })
+
+    it('formats and adds the url-friendly country using the name if no shortname to each result', () => {
+      expect(result.data[1].urlCountry).toBe('south-yorkshire')
+    })
+
+    it('formats and adds the url-friendly title to each result', () => {
+      expect(result.data[0].urlTitle).toBe('oh-no-a-disaster-name-0')
+    })
+  })
+
+  describe('Get next page of disasters', () => {
+    beforeAll(async () => {
+      fetchMock.post(mockEndpoints.disasters, mockDisasters)
+      result = await requestDisasters(10)
+    })
+    afterAll(fetchMock.restore)
+
+    it('sends the post request with offset set to 10', () => {
+      expect(fetchMock.called(mockEndpoints.disasters)).toEqual(true)
+      expectedBody = {
+        limit: 10,
+        offset: 10,
+        preset: 'latest',
+        fields: {
+          include: ['name', 'primary_country.name', 'primary_country.shortname', 'primary_type']
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
+    })
+  })
+
+  describe('Get queried disasters', () => {
+    beforeAll(async () => {
+      fetchMock.post(mockEndpoints.disasters, mockDisasters)
+      result = await requestDisasters(0, 10, 'Syria')
+    })
+    afterAll(fetchMock.restore)
+
+    it('sends the post request with the query', () => {
+      expect(fetchMock.called(mockEndpoints.disasters)).toEqual(true)
+      expectedBody = {
+        limit: 10,
+        offset: 0,
+        preset: 'latest',
+        fields: {
+          include: ['name', 'primary_country.name', 'primary_country.shortname', 'primary_type']
+        },
+        query: {
+          value: 'Syria',
+          operator: 'AND'
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
+    })
+
+    it('returns the data', () => {
+      expect(result.data[0].id).toEqual(mockDisasters.data[0].id)
+      expect(result.data[1].fields.name).toEqual(mockDisasters.data[1].fields.name)
     })
   })
 })

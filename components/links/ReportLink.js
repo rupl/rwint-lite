@@ -15,27 +15,36 @@ class ReportLink extends React.Component {
   render () {
     const { id, fields, urlCountry, urlTitle } = this.props.report
     const headingLevel = this.props.headingLevel || '2'
+    const title = fields.title ? fields.title : fields.name
+    const sources = fields.source ? fields.source : []
+    const infoType = fields.primary_type ? fields.primary_type : ''
+    let linkPath = `/report/${id}/${urlCountry}/${urlTitle}`
+    let hrefPath = `/report?id=${id}`
+    if (this.props.reportsType === 'disaster') {
+      linkPath = `/disaster/${id}/${urlTitle}`
+      hrefPath = `/disaster?id=${id}`
+    }
 
     return (
       <div className='report'>
         {headingLevel === '2' &&
           <h2 className='title'>
-            <Link prefetch as={`/report/${id}/${urlCountry}/${urlTitle}`} href={`/report?id=${id}`}>
-              <a ref='theLink'>{fields.title}</a>
+            <Link prefetch as={linkPath} href={hrefPath}>
+              <a ref='theLink'>{title}</a>
             </Link>
           </h2>
         }
         {headingLevel === '3' &&
           <h3 className='title'>
-            <Link prefetch as={`/report/${id}/${urlCountry}/${urlTitle}`} href={`/report?id=${id}`}>
-              <a ref='theLink'>{fields.title}</a>
+            <Link prefetch as={linkPath} href={hrefPath}>
+              <a ref='theLink'>{title}</a>
             </Link>
           </h3>
         }
         {fields.date &&
           <p className='date'>{formatDate(fields.date.created)}</p>
         }
-        <InfoLinks country={fields.primary_country} sources={fields.source} type='summary' />
+        <InfoLinks country={fields.primary_country} sources={sources} infoType={infoType} type='summary' />
         <style jsx>{`
           .report {
             border-bottom: 1px solid ${colors.border.light}
