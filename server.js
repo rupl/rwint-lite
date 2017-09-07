@@ -62,11 +62,23 @@ app.prepare()
   })
   server.get('/job/listing', (req, res) => {
     const actualPage = '/jobs'
-    app.render(req, res, actualPage)
+    const queryParams = { page: req.query.page, search: req.query.search }
+    app.render(req, res, actualPage, queryParams)
+  })
+  server.get('/job/:id/:name', (req, res) => {
+    const actualPage = '/job'
+    const queryParams = { id: req.params.id, name: req.params.name }
+    app.render(req, res, actualPage, queryParams)
   })
   server.get('/training/listing', (req, res) => {
+    const actualPage = '/trainings'
+    const queryParams = { page: req.query.page, search: req.query.search }
+    app.render(req, res, actualPage, queryParams)
+  })
+  server.get('/training/:id/:name', (req, res) => {
     const actualPage = '/training'
-    app.render(req, res, actualPage)
+    const queryParams = { id: req.params.id, name: req.params.name }
+    app.render(req, res, actualPage, queryParams)
   })
 
   server.get('*', (req, res) => {

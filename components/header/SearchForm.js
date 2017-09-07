@@ -20,9 +20,22 @@ export class SearchForm extends React.Component {
 
   componentDidMount () {
     if (Router && Router.router) {
-      if (Router.router.route === '/countries') {
-        let placeholder = 'Search for countries'
-        let search = 'countries'
+      const route = Router.router.route
+      if (route !== '/' && route !== '/updates' && route !== '/update') {
+        let search = route.replace('/', '')
+        if (route === '/disaster') {
+          search = 'disasters'
+        }
+        if (route === '/job') {
+          search = 'jobs'
+        }
+        if (route === '/training') {
+          search = 'trainings' // lets pretend this is actually the plural
+        }
+        let placeholder = `Search for ${search}`
+        if (route === '/training' || route === '/trainings') {
+          placeholder = `Search for training`
+        }
         this.setState({
           placeholder,
           search
@@ -44,10 +57,32 @@ export class SearchForm extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault()
-    const searchPath = this.state.search === 'updates' ? '/report/listing/?search=' : '/country/listing/?search='
-    const searchPathAs = this.state.search === 'updates' ? '/updates?search=' : '/countries?search='
+    const paths = {
+      countries: {
+        href: '/countries',
+        as: '/country/listing'
+      },
+      disasters: {
+        href: '/disasters',
+        as: '/disaster/listing'
+      },
+      jobs: {
+        href: '/jobs',
+        as: '/job/listing'
+      },
+      trainings: {
+        href: '/trainings',
+        as: '/training/listing'
+      },
+      updates: {
+        href: '/updates',
+        as: '/report/listing'
+      }
+    }
+    const searchPathAs = `${paths[this.state.search].as}?search=`
+    const searchPath = `${paths[this.state.search].href}?search=`
     const searchTerm = this.state.value.replace(/([!*+\-=<>&|()[\]{}^~?:\\/"])+/g, ' ')
-    Router.push(`${searchPathAs}${searchTerm}`, `${searchPath}${searchTerm}`)
+    Router.push(`${searchPath}${searchTerm}`, `${searchPathAs}${searchTerm}`)
   }
 
   render () {
