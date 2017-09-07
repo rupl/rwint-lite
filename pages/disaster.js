@@ -1,25 +1,40 @@
-import Layout from '../components/Layout.js'
-import fetch from 'isomorphic-unfetch'
+import React from 'react'
+import Layout from '../components/Layout'
+import { bindActionCreators } from 'redux'
+import { initStore } from '../store'
+import { getDisaster, getUpdates } from '../actions/actions'
+import withRedux from 'next-redux-wrapper'
+import ArticleLayout from '../components/article/ArticleLayout'
 
-const Disaster = (props) => (
-  <Layout title={props.disaster.fields.name}>
-    <h1>{props.disaster.fields.name}</h1>
-    <div>{props.disaster.fields.description}</div>
-    <style jsx>{`
-      div {
-        white-space: pre-wrap;
-      }
-    `}</style>
-  </Layout>
-)
+export class Disaster extends React.Component {
+  static async getInitialProps ({store, isServer, pathname, query}) {
+    const id = query.id
+    await store.dispatch(getDisaster(id))
+    const reports = store.getState().disasterReports
+    const report = reports.filter((obj) => {
+      return parseInt(obj.id, 10) === parseInt(id, 10)
+    })[0]
 
-Disaster.getInitialProps = async function (context) {
-  const { id } = context.query
-  const disastersEndpoint = `https://api.reliefweb.int/v1/disasters/${id}?appname=rwmob-dev`
-  const res = await fetch(disastersEndpoint)
-  const data = await res.json()
-  const disaster = data.data[0]
-  return { disaster }
+    await store.dispatch(getUpdates(1, false, false, `disaster.exact:"${report.fields.name}"`, 6))
+    return {
+      report: report
+    }
+  }
+
+  render () {
+    return (
+      <Layout title={this.props.report.fields.name}>
+        <ArticleLayout report={this.props.report} type='disaster' />
+      </Layout>
+    )
+  }
 }
 
-export default Disaster
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getDisaster: bindActionCreators(getDisaster, dispatch),
+    getUpdates: bindActionCreators(getUpdates, dispatch)
+  }
+}
+
+export default withRedux(initStore, null, mapDispatchToProps)(Disaster)

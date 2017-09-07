@@ -25,6 +25,9 @@ class ArticleSideBar extends React.Component {
         {report.fields.disaster_type &&
           <ArticleInfo heading='Disaster type' type='disaster_type' items={report.fields.disaster_type} />
         }
+        {report.fields.type &&
+          <ArticleInfo heading='Disaster type' type='disaster_type' items={report.fields.type} />
+        }
         {report.fields.vulnerable_groups &&
           <ArticleInfo heading='Vulnerable group' type='vulnerable_groups' items={report.fields.vulnerable_groups} />
         }
@@ -37,9 +40,11 @@ class ArticleSideBar extends React.Component {
         {report.fields.file &&
           <ArticleAttachments heading='Attachment' items={report.fields.file} />
         }
-        <Link prefetch as='report/listing' href='/updates'>
-          <a className='btn-primary'>View latest updates</a>
-        </Link>
+        {this.props.type !== 'disaster' &&
+          <Link prefetch as='report/listing' href='/updates'>
+            <a className='btn-primary'>View latest updates</a>
+          </Link>
+        }
         <style jsx>{primaryButton}</style>
         <style jsx>{`
           .btn-primary {

@@ -202,15 +202,34 @@ export const mockCountry = {
 export const mockCountry2 = {
   id: 101,
   fields: {
-    id: 100,
+    id: 101,
     name: 'I am another country',
     'description-html': '<p>ddd</p>'
+  }
+}
+
+export const mockDisaster = {
+  id: 200,
+  fields: {
+    id: 200,
+    name: 'I am a disaster',
+    'description-html': '<p>sdgsg</p>'
+  }
+}
+
+export const mockDisaster2 = {
+  id: 201,
+  fields: {
+    id: 201,
+    name: 'I am a disaster to',
+    'description-html': '<p>sdgsg</p>'
   }
 }
 
 export const mockEndpoints = {
   country: 'https://api.reliefweb.int/v1/countries/100?appname=rwmob-dev',
   countries: 'https://api.reliefweb.int/v1/countries?appname=rwmob-dev',
+  disaster: 'https://api.reliefweb.int/v1/disasters/200?appname=rwmob-dev',
   disasters: 'https://api.reliefweb.int/v1/disasters?appname=rwmob-dev',
   headlines: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev',
   updates: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev',

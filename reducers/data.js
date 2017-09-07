@@ -20,6 +20,7 @@ export const theInitialState = {
     items: [],
     totalCount: 0
   },
+  disasterReports: [],
   featured: {
     lastFetched: '',
     items: []
@@ -114,6 +115,14 @@ export const reducer = (state = theInitialState, action) => {
       return {
         ...state,
         countries: newCountries
+      }
+
+    case actionTypes.GET_DISASTER:
+      let newDisasterReports = [...state.disasterReports]
+      newDisasterReports.push(action.item)
+      return {
+        ...state,
+        disasterReports: newDisasterReports
       }
 
     case actionTypes.GET_DISASTERS:

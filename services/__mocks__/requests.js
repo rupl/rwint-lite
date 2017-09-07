@@ -1,8 +1,9 @@
 /* eslint-env jest */
-import { mockCountry, mockCountries, mockDisasters, mockDisastersPage2, mockFeatured, mockHeadlines, mockReports, mockReportsPage2, mockUpdate } from '../../__fixtures__/data.fixture'
+import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockDisastersPage2, mockFeatured, mockHeadlines, mockReports, mockReportsPage2, mockUpdate } from '../../__fixtures__/data.fixture'
 
 const requestCountry = jest.fn(() => Promise.resolve([mockCountry]))
 const requestCountries = jest.fn(() => Promise.resolve(mockCountries))
+const requestDisaster = jest.fn(() => Promise.resolve([mockDisaster]))
 const requestDisasters = jest.fn((x) => {
   let returnDisasters = x === '1' ? mockDisastersPage2 : mockDisasters
   return Promise.resolve(returnDisasters)
@@ -15,4 +16,4 @@ const requestUpdates = jest.fn((x) => {
 })
 const requestUpdate = jest.fn(() => Promise.resolve([mockUpdate]))
 
-export { requestCountry, requestCountries, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }
+export { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }
