@@ -105,7 +105,7 @@ export class CountriesList extends React.Component {
           }
           ol {
             list-style: none;
-            margin: ${measurements.baseUnit}em 0 ${measurements.baseUnit}em ${measurements.baseUnit * 7}em;
+            margin: ${measurements.baseUnit}em 0 ${measurements.baseUnit}em ${measurements.baseUnit * 8}em;
             padding: 0;
             line-height: initial;
           }
@@ -132,28 +132,29 @@ export class CountriesList extends React.Component {
             margin-left: 8px;
           }
           .styled-select {
-            width: 88px;
+            width: ${measurements.baseUnit * 15}em;
             position: absolute;
             right: 0;
-            top: ${measurements.baseUnit * -5}em;
+            top: ${measurements.baseUnit * -6}em;
+            height: ${measurements.baseUnit * 4.5}em;
+            border: 1px solid ${colors.border.default};
           }
           .styled-select label {
-            color: ${colors.text.highlight};
-            font-size: ${fontSizes.small};
+            font-weight: bold;
             position: absolute;
             top: 0;
             left: 0;
-            height: ${measurements.baseUnit * 4}em;
-            line-height: ${measurements.baseUnit * 4}em;
+            height: ${measurements.baseUnit * 4.5}em;
+            line-height: ${measurements.baseUnit * 4.5}em;
+            padding-left: ${measurements.baseUnit}em;
           }
           .styled-select span {
             width:10px;
             height:10px;
             display: block;
             position: absolute;
-            top: 6px;
-            right: 2px;
-            color: ${colors.text.highlight};
+            top: 9px;
+            right: 6px;
           }
           select {
             -webkit-appearance: none;
@@ -161,12 +162,12 @@ export class CountriesList extends React.Component {
             border: none;
             width: 100%;
             height: ${measurements.baseUnit * 4.5}em;
-            padding: 0 0 0 2px;;
             text-align-last:right;
             position: absolute;
             z-index: 1;
             opacity: 0;
             color: white;
+            font-size: ${fontSizes.base};
           }
           select:focus {
             opacity: 0.5;
@@ -200,7 +201,7 @@ export class CountriesList extends React.Component {
               margin: 0 0 0 ${measurements.baseUnit * 8}em
             }
             .styled-select {
-              top: ${measurements.baseUnit * -6.5}em
+              top: ${measurements.baseUnit * -7.5}em
             }
           }
        `}</style>
