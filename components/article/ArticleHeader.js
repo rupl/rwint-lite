@@ -34,6 +34,7 @@ const ArticleHeader = ({report, hasInfo}) => (
       h1 {
         color: ${colors.text.dark};
         font-size: ${fontSizes.medium};
+        margin: 0 0 ${measurements.baseUnit / 2}em 0;
       }
       .header-info {
         margin: 0 0 ${measurements.baseUnit * 1.5}em 0;
