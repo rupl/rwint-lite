@@ -14,7 +14,6 @@ export class ArticleLayout extends React.Component {
     const {report} = this.props
     const body = report.fields['body-html'] || report.fields['description-html'] || ''
     const hasInfo = this.props.type !== 'country'
-    console.log('Layout', this.props.type)
 
     return (
       <div>

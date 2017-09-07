@@ -4,13 +4,11 @@ import { colors, fontSizes, measurements } from '../../theme/variables'
 
 class InfoLinks extends React.Component {
   render () {
-    const {country, disasterType, primaryType, sources} = this.props
+    const {country, primaryType, sources} = this.props
     const countryName = this.props.type === 'summary' ? (country.shortname || country.name) : country.name
-    console.log('disasterType', disasterType)
     const countryQueryString = `?search=country.exact:"${countryName}"`
     const primaryTypeQueryString = primaryType ? `?search=disaster_type.exact:"${primaryType.name}"` : ''
     const sourceQueryString = '?search=source.exact:'
-
     const numSourcesToShow = 2
     const displaySources = sources && sources.length > numSourcesToShow ? [sources[0], sources[1]] : sources
     const moreSourcesNumber = sources && sources.length > numSourcesToShow ? sources.length - numSourcesToShow : 0
