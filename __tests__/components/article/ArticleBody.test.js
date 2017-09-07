@@ -15,18 +15,6 @@ describe('Article Body component', () => {
     expect(wrapper.exists()).toBe(true)
   })
 
-  it('renders the title', () => {
-    expect(wrapper.find('h1').text()).toContain(mockUpdate.fields.title)
-  })
-
-  it('renders the publish date', () => {
-    expect(wrapper.find('.date').text()).toContain('Published on 23 August 2017')
-  })
-
-  it('renders a link to the original', () => {
-    expect(wrapper.find('.original').text()).toContain('View original')
-  })
-
   it('renders the body', () => {
     expect(wrapper.find('.body').exists()).toBe(true)
   })

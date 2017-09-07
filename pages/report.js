@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
 import { getUpdate } from '../actions/actions'
 import withRedux from 'next-redux-wrapper'
-import ArticleBody from '../components/article/ArticleBody'
+import ArticleLayout from '../components/article/ArticleLayout'
 
 export class Report extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
@@ -22,7 +22,7 @@ export class Report extends React.Component {
   render () {
     return (
       <Layout title={this.props.report.fields.title}>
-        <ArticleBody report={this.props.report} />
+        <ArticleLayout report={this.props.report} />
       </Layout>
     )
   }
