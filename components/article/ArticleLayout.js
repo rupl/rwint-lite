@@ -14,6 +14,7 @@ export class ArticleLayout extends React.Component {
     const {report} = this.props
     const body = report.fields['body-html'] || report.fields['description-html'] || ''
     const hasInfo = this.props.type !== 'country'
+    console.log('Layout', this.props.type)
 
     return (
       <div>
@@ -21,20 +22,23 @@ export class ArticleLayout extends React.Component {
           <div className='article-container'>
             <article className='article-main'>
               <ArticleHeader report={report} hasInfo={hasInfo} />
-              {this.props.type === 'country' &&
+              {(this.props.type === 'country' || this.props.type === 'disaster') &&
                 <CountryBody report={report} />
               }
-              {this.props.type !== 'country' &&
+              {this.props.type !== 'country' && this.props.type !== 'disaster' &&
                 <ArticleBody report={report} />
               }
             </article>
             <aside className='article-secondary'>
               <div className='sidebar'>
-                {this.props.type === 'country' &&
-                  <ArticleSideBarReports country={report} />
-                }
                 {this.props.type !== 'country' &&
-                  <ArticleSideBar report={report} />
+                  <ArticleSideBar report={report} type={this.props.type} />
+                }
+                {this.props.type === 'disaster' &&
+                  <span className='divider' />
+                }
+                {(this.props.type === 'country' || this.props.type === 'disaster') &&
+                  <ArticleSideBarReports country={report} />
                 }
               </div>
             </aside>
@@ -64,6 +68,11 @@ export class ArticleLayout extends React.Component {
             border-bottom: 1px solid ${colors.border.highlight};
             padding: ${measurements.baseUnit * 2}em 0 0 0;
             margin-bottom: ${measurements.baseUnit * 3}em;
+          }
+          .divider {
+            display: block;
+            margin: ${measurements.baseUnit * 2}em 0;
+            border-bottom: 1px solid ${colors.border.highlight};
           }
           .btn-container {
             max-width: 320px;

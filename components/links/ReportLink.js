@@ -17,7 +17,7 @@ class ReportLink extends React.Component {
     const headingLevel = this.props.headingLevel || '2'
     const title = fields.title ? fields.title : fields.name
     const sources = fields.source ? fields.source : []
-    const infoType = fields.primary_type ? fields.primary_type : ''
+    const primaryType = fields.primary_type ? fields.primary_type : ''
     let linkPath = `/report/${id}/${urlCountry}/${urlTitle}`
     let hrefPath = `/report?id=${id}`
     if (this.props.reportsType === 'disaster') {
@@ -44,7 +44,7 @@ class ReportLink extends React.Component {
         {fields.date &&
           <p className='date'>{formatDate(fields.date.created)}</p>
         }
-        <InfoLinks country={fields.primary_country} sources={sources} infoType={infoType} type='summary' />
+        <InfoLinks country={fields.primary_country} sources={sources} primaryType={primaryType} type='summary' />
         <style jsx>{`
           .report {
             border-bottom: 1px solid ${colors.border.light}

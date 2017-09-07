@@ -11,6 +11,9 @@ export class ArticleSideBarReports extends React.Component {
     return (
       <div>
         <h2>Latest updates</h2>
+        {!updates.items &&
+          <p>No updates</p>
+        }
         {updates.items && updates.items.length > 0 &&
           <ul>
             {updates.items.map((item, i) => <li key={item.id}><ReportLinkSmall report={item} /></li>)}

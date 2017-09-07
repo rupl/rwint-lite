@@ -4,16 +4,16 @@ import { colors, fontSizes, measurements } from '../../theme/variables'
 
 class InfoLinks extends React.Component {
   render () {
-    const {country, infoType, sources} = this.props
+    const {country, disasterType, primaryType, sources} = this.props
     const countryName = this.props.type === 'summary' ? (country.shortname || country.name) : country.name
-
+    console.log('disasterType', disasterType)
     const countryQueryString = `?search=country.exact:"${countryName}"`
-    const infoTypeQueryString = infoType ? `?search=disaster_type.exact:"${infoType.name}"` : ''
+    const primaryTypeQueryString = primaryType ? `?search=disaster_type.exact:"${primaryType.name}"` : ''
     const sourceQueryString = '?search=source.exact:'
 
     const numSourcesToShow = 2
-    const displaySources = sources.length > numSourcesToShow ? [sources[0], sources[1]] : sources
-    const moreSourcesNumber = sources.length > numSourcesToShow ? sources.length - numSourcesToShow : 0
+    const displaySources = sources && sources.length > numSourcesToShow ? [sources[0], sources[1]] : sources
+    const moreSourcesNumber = sources && sources.length > numSourcesToShow ? sources.length - numSourcesToShow : 0
 
     return (
       <div className={this.props.type}>
@@ -22,15 +22,15 @@ class InfoLinks extends React.Component {
             <a className='country'>{countryName}</a>
           </Link>
         }
-        {infoType &&
+        {primaryType &&
           <span>
             <span className='divider'>|</span>
-            <Link as={`/report/listing${infoTypeQueryString}`} href={`/updates${infoTypeQueryString}`}>
-              <a className='country'>{infoType.name}</a>
+            <Link as={`/report/listing${primaryTypeQueryString}`} href={`/updates${primaryTypeQueryString}`}>
+              <a className='country'>{primaryType.name}</a>
             </Link>
           </span>
         }
-        {sources.length > 0 &&
+        {sources && sources.length > 0 &&
           <span>
             <span className='divider'>|</span>
             {displaySources.map((source, i) =>

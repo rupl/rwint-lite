@@ -123,6 +123,27 @@ describe('Article Side Bar component', () => {
     })
   })
 
+  describe('Disaster types on disasters info', () => {
+    it('renders the disasters type if present', () => {
+      report.fields.type = [
+        {name: 'Drought'},
+        {name: 'Other'}
+      ]
+      wrapper = shallow(<ArticleSideBar report={report} />)
+      disasterTypeInfo = wrapper.find('ArticleInfo[heading="Disaster type"]')
+      expect(disasterTypeInfo.exists()).toBe(true)
+      expect(disasterTypeInfo.prop('items')).toEqual(report.fields.type)
+      expect(disasterTypeInfo.prop('type')).toEqual('disaster_type')
+    })
+
+    it('does not render the disasters type on disasters if not present', () => {
+      report.fields = {}
+      wrapper = shallow(<ArticleSideBar report={report} />)
+      disasterTypeInfo = wrapper.find('ArticleInfo[heading="Disaster type"]')
+      expect(disasterTypeInfo.exists()).toBe(false)
+    })
+  })
+
   describe('Vulnerable groups info', () => {
     it('renders the vulnerable groups type if present', () => {
       report.fields.vulnerable_groups = [

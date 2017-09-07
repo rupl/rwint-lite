@@ -179,6 +179,18 @@ const requestUpdates = async function (offset, limit = 10, query) {
   }
 }
 
+const requestDisaster = async function (id) {
+  const endpoint = `${apiEndpoint}disasters/${id}?appname=${appName}`
+  let res, data
+  try {
+    res = await fetch(endpoint)
+    data = await res.json()
+    return data.data
+  } catch (e) {
+    console.log('error', e)
+  }
+}
+
 const requestDisasters = async function (offset, limit = 10, query) {
   const sort = []
   const fields = ['name', 'primary_country.name', 'primary_country.shortname', 'primary_type']
@@ -204,4 +216,4 @@ const requestDisasters = async function (offset, limit = 10, query) {
   }
 }
 
-export { requestCountry, requestCountries, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }
+export { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }

@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import * as actions from '../../actions/actions'
 import * as actionTypes from '../../constants/actionTypes'
-import { mockCountry, mockCountries, mockDisasters, mockFeatured, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
+import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockFeatured, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
 
 jest.mock('../../services/requests')
 
@@ -333,6 +333,31 @@ describe('Get Disasters with query', () => {
       disasters: {}
     })
     return store.dispatch(actions.getDisasters(1, false, false, 'congo')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('Get a Disaster', () => {
+  it('creates GET_DISASTER when has fetched disaster and returns the disaster', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_DISASTER,
+      item: mockDisaster
+    }]
+    const store = mockStore({
+      disasterReports: []
+    })
+    return store.dispatch(actions.getDisaster(mockDisaster.id)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('does not create GET_DISASTER when disaster has already been fetched', () => {
+    const expectedActions = []
+    const store = mockStore({
+      disasterReports: [mockDisaster]
+    })
+    return store.dispatch(actions.getDisaster(mockDisaster.id)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })

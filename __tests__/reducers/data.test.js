@@ -1,8 +1,8 @@
 /* eslint-env jest */
 import { reducer } from '../../reducers/data'
 import * as actionTypes from '../../constants/actionTypes'
-import { mockCountries, mockCountry, mockCountry2, mockDisasters, mockDisastersPage2, mockFeatured, mockHeadlines, mockReports, mockReportsPage2,
-  mockUpdate, mockUpdate2 } from '../../__fixtures__/data.fixture'
+import { mockCountries, mockCountry, mockCountry2, mockDisaster, mockDisaster2, mockDisasters, mockDisastersPage2,
+  mockFeatured, mockHeadlines, mockReports, mockReportsPage2, mockUpdate, mockUpdate2 } from '../../__fixtures__/data.fixture'
 
 describe('data reducer', () => {
   it('should return the initial state', () => {
@@ -21,6 +21,7 @@ describe('data reducer', () => {
           lastFetched: '',
           totalCount: 0
         },
+        disasterReports: [],
         featured: {
           items: [],
           lastFetched: ''
@@ -310,6 +311,30 @@ describe('data reducer', () => {
           lastFetched: '',
           totalCount: mockDisasters.totalCount
         }
+      })
+    })
+  })
+
+  describe('Handle GET_DISASTER', () => {
+    it('should handle get disaster', () => {
+      expect(
+        reducer({disasterReports: []}, {
+          type: actionTypes.GET_DISASTER,
+          item: mockDisaster
+        })
+      ).toEqual({
+        disasterReports: [mockDisaster]
+      })
+    })
+
+    it('should store multiple updates', () => {
+      expect(
+        reducer({disasterReports: [mockDisaster]}, {
+          type: actionTypes.GET_DISASTER,
+          item: mockDisaster2
+        })
+      ).toEqual({
+        disasterReports: [mockDisaster, mockDisaster2]
       })
     })
   })

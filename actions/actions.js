@@ -1,5 +1,5 @@
 import * as actionTypes from '../constants/actionTypes'
-import { requestCountry, requestCountries, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../services/requests'
+import { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../services/requests'
 
 // helpers
 const shouldUpdate = (lastFetched, threshold = 1) => {
@@ -107,6 +107,23 @@ export const getCountries = () => {
         items: response
       })
     }
+  }
+}
+
+export const getDisaster = (id) => {
+  return async (dispatch, getState) => {
+    const reports = getState().disasterReports
+    if (reports) {
+      const index = reports.map((x) => { return x.id }).indexOf(id)
+      if (index !== -1) {
+        return
+      }
+    }
+    let response = await requestDisaster(id)
+    dispatch({
+      type: actionTypes.GET_DISASTER,
+      item: response[0]
+    })
   }
 }
 
