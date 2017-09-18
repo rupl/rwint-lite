@@ -23,6 +23,8 @@ const formatImg = (li) => {
   for (let i = 0; i < imgs.length; i++) {
     if (imgs[i].indexOf('src=') !== -1) {
       imgs[i] = `<img alt="${getAltText(li)}" ${imgs[i]}`
+    } else if (imgs[i].indexOf('</a>') !== -1) {
+      imgs[i] = `<img src="" ${imgs[i]}`
     }
   }
 
@@ -47,8 +49,19 @@ const formatLinks = (li) => {
   return links.join('')
 }
 
+const formatUsefulLinks = (body) => {
+  let sections = body.split('<h2>')
+  for (let i = 0; i < sections.length; i++) {
+    if (sections[i].indexOf('Useful Links') !== -1) {
+      sections[i] = sections[i].replace('<ul>', '<ul class="links-list">')
+    }
+  }
+  return sections.join('<h2>')
+}
+
 const formatBodyHtml = (body) => {
   let formattedBody = body.split('h3').join('h2')
+  formattedBody = formatUsefulLinks(formattedBody)
   formattedBody = formattedBody.split('<li>')
   for (let i = 0; i < formattedBody.length; i++) {
     if (formattedBody[i].indexOf('</li>') !== -1) {
@@ -71,7 +84,7 @@ export class CountryBody extends React.Component {
     let body = report.fields['description-html'] ? formatBodyHtml(report.fields['description-html']) : ''
     body = sanitizeHtml(body, {
       allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img', 'h2' ]),
-      allowedAttributes: {img: ['src', 'width', 'height', 'alt'], li: ['class'], a: ['href', 'class']}
+      allowedAttributes: {img: ['src', 'width', 'height', 'alt'], li: ['class'], a: ['href', 'class'], ul: ['class']}
     })
 
     return (
@@ -119,6 +132,12 @@ export class CountryBody extends React.Component {
           }
           .country-report ul {
             padding: 0;
+          }
+          .country-report ul.links-list {
+            padding-left: ${measurements.baseUnit * 3}em;
+          }
+          .country-report ul.links-list li {
+            display: list-item;
           }
           .country-report li {
             margin-bottom: ${measurements.baseUnit}em;

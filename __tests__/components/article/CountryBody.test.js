@@ -25,20 +25,24 @@ describe('Country Body component', () => {
     expect(bodyContent).toContain('<h2>Appeals and Funding</h2>')
   })
 
-  it('adds a class to list items the contain an image', function () {
+  it('adds a class to list items the contain an image', () => {
     expect(bodyContent).toContain('<li class="has-img"><strong>document name</strong><a class="tb-img" href="#"><img alt="document name" src="#" /></a></li>')
   })
 
-  it('adds a class to links the contain an image', function () {
+  it('adds a class to links the contain an image', () => {
     expect(bodyContent).toContain('<a class="tb-img" href="#"><img alt="document name" src="#" /></a>')
     expect(bodyContent).toContain('<a href="#">A link</a>')
   })
 
-  it('adds the document description as the image alt text if present', function () {
+  it('adds the document description as the image alt text if present', () => {
     expect(bodyContent).toContain('<img alt="document name" src="#" />')
   })
 
-  it('adds the url as alt text to image links with no description', function () {
+  it('adds the url as alt text to image links with no description', () => {
     expect(bodyContent).toContain('<a class="tb-img" href="https://www.humanitarianresponse.info/something"><img alt="Link to https://www.humanitarianresponse.info/something" src="#" /></a>')
+  })
+
+  it('adds a class to the Useful Links list', () => {
+    expect(bodyContent).toContain('<ul class="links-list">')
   })
 })
