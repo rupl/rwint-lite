@@ -24,7 +24,7 @@ const Layout = (props) => (
     </Head>
     <div className='page-wrapper'>
       <a href='#main' className='skip-link'>Skip to content</a>
-      <Header home={props.home} />
+      <Header home={props.home} query={props.query} />
       <div id='main' role='main' className='container'>
         {props.children}
       </div>

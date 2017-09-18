@@ -10,7 +10,7 @@ const Header = (props) => (
     <div className='cd-site-header'>
       <div className='container cd-site-header__inner'>
         <Logo home={props.home} />
-        <SearchForm />
+        <SearchForm query={props.query} />
         <Nav />
       </div>
     </div>

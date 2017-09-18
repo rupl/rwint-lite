@@ -6,7 +6,7 @@ import { breakpoints, colors, fonts, fontSizes, measurements } from '../../theme
 export class SearchForm extends React.Component {
   constructor (props) {
     super(props)
-    let value = ''
+    const value = props.query ? props.query : ''
     let placeholder = 'Search for updates'
     let search = 'updates'
     this.state = {
@@ -20,6 +20,8 @@ export class SearchForm extends React.Component {
 
   componentDidMount () {
     if (Router && Router.router) {
+      const value = Router.router.query && Router.router.query.search ? Router.router.query.search : ''
+
       const route = Router.router.route
       if (route !== '/' && route !== '/updates' && route !== '/update') {
         let search = route.replace('/', '')
@@ -38,7 +40,8 @@ export class SearchForm extends React.Component {
         }
         this.setState({
           placeholder,
-          search
+          search,
+          value
         })
       }
     }
