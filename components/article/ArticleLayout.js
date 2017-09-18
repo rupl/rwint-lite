@@ -37,7 +37,7 @@ export class ArticleLayout extends React.Component {
                   <span className='divider' />
                 }
                 {(this.props.type === 'country' || this.props.type === 'disaster') &&
-                  <ArticleSideBarReports country={report} />
+                  <ArticleSideBarReports item={report} type={this.props.type} />
                 }
               </div>
             </aside>
