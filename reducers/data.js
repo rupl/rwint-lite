@@ -91,7 +91,7 @@ export const reducer = (state = theInitialState, action) => {
       const headlinesDate = new Date()
       let newHeadlines = {
         lastFetched: headlinesDate.toString(),
-        items: action.items
+        items: action.items.data
       }
       return {
         ...state,
@@ -110,7 +110,7 @@ export const reducer = (state = theInitialState, action) => {
       const countriesDate = new Date()
       let newCountries = {
         lastFetched: countriesDate.toString(),
-        items: action.items
+        items: action.items.data
       }
       return {
         ...state,

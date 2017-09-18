@@ -9,7 +9,7 @@ describe('CountriesList component', () => {
   let container, groups, links, store, wrapper
   const initialState = {
     countries: {
-      items: mockCountries
+      items: mockCountries.data
     }
   }
   const mockStore = configureStore()
@@ -25,13 +25,13 @@ describe('CountriesList component', () => {
     })
 
     it('renders passes the countries from the store', () => {
-      expect(container.prop('countries')).toEqual({items: mockCountries})
+      expect(container.prop('countries')).toEqual({items: mockCountries.data})
     })
   })
 
   describe('Simple component', () => {
     beforeAll(() => {
-      wrapper = shallow(<CountriesList countries={{items: mockCountries}} />)
+      wrapper = shallow(<CountriesList countries={{items: mockCountries.data}} />)
       groups = wrapper.find('.group')
       links = wrapper.find('SimpleLink')
     })
@@ -59,15 +59,15 @@ describe('CountriesList component', () => {
 
   describe('Searching countries', () => {
     beforeAll(() => {
-      wrapper = shallow(<CountriesList countries={{items: mockCountries}} searchQuery='find' />)
+      wrapper = shallow(<CountriesList countries={{items: mockCountries.data}} searchQuery='find' />)
       groups = wrapper.find('.group')
       links = wrapper.find('SimpleLink')
     })
 
     it('only displays countries that match the search form', () => {
       expect(links.length).toBe(2)
-      expect(links.at(0).prop('link')).toEqual(mockCountries[4])
-      expect(links.at(1).prop('link')).toEqual(mockCountries[7])
+      expect(links.at(0).prop('link')).toEqual(mockCountries.data[4])
+      expect(links.at(1).prop('link')).toEqual(mockCountries.data[7])
     })
   })
 })
