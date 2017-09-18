@@ -48,8 +48,8 @@ const constructRequestBody = (limit = 20, offset = 0, sort = [], fields = [], fi
   return requestBody
 }
 
-const requestCountry = async function (id) {
-  const endpoint = `${apiEndpoint}countries/${id}?appname=${appName}`
+const getSingleItem = async (type, id) => {
+  const endpoint = `${apiEndpoint}${type}/${id}?appname=${appName}`
   let res, data
   try {
     res = await fetch(endpoint)
@@ -60,23 +60,51 @@ const requestCountry = async function (id) {
   }
 }
 
-const requestCountries = async function () {
-  const requestBody = constructRequestBody(300, 0, ['name:asc'], ['name', 'featured'])
+const getItems = async (type, limit, offset, sort, fields, transformFn, filter, preset, query) => {
+  const requestBody = constructRequestBody(limit, offset, sort, fields, filter, preset, query)
   let res, data
   try {
-    res = await fetch(`${apiEndpoint}countries?appname=${appName}`, {
+    res = await fetch(`${apiEndpoint}${type}?appname=${appName}`, {
       method: 'post',
       body: JSON.stringify(requestBody)
     })
     data = await res.json()
-    data.data.map(item => {
-      item.type = 'country'
-      item.urlName = formatStringForUrl(item.fields.name)
-    })
-    return data.data
+    if (transformFn) {
+      transformFn(data)
+    }
+    return data
   } catch (e) {
     console.log('error', e)
   }
+}
+
+const transformCountries = (data) => {
+  return data.data.map(item => {
+    item.type = 'country'
+    item.urlName = formatStringForUrl(item.fields.name)
+  })
+}
+
+const transformItems = (data) => {
+  return data.data.map(item => {
+    if (item.fields.primary_country) {
+      item.urlCountry = item.fields.primary_country.shortname ? formatStringForUrl(item.fields.primary_country.shortname) : formatStringForUrl(item.fields.primary_country.name)
+    }
+    if (item.fields.name) {
+      item.urlTitle = formatStringForUrl(item.fields.name)
+    }
+    if (item.fields.title) {
+      item.urlTitle = formatStringForUrl(item.fields.title)
+    }
+  })
+}
+
+const requestCountry = async function (id) {
+  return getSingleItem('countries', id)
+}
+
+const requestCountries = async function () {
+  return getItems('countries', 300, 0, ['name:asc'], ['name', 'featured'], transformCountries)
 }
 
 const requestFeatured = async function () {
@@ -117,103 +145,30 @@ const requestFeatured = async function () {
   }
 }
 
-const requestHeadlines = async function () {
-  const sort = ['date:desc']
-  const fields = ['headline.title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
-  const requestBody = constructRequestBody(16, 0, sort, fields, 'headline')
-  let res, data
-  try {
-    res = await fetch(`${apiEndpoint}reports?appname=${appName}`, {
-      method: 'post',
-      body: JSON.stringify(requestBody)
-    })
-    data = await res.json()
-    data.data.map(item => {
-      if (item.fields.primary_country) {
-        item.urlCountry = item.fields.primary_country.shortname ? formatStringForUrl(item.fields.primary_country.shortname) : formatStringForUrl(item.fields.primary_country.name)
-      }
-      if (item.fields.title) {
-        item.urlTitle = formatStringForUrl(item.fields.title)
-      }
-    })
-    return data.data
-  } catch (e) {
-    console.log('error', e)
-  }
-}
-
-const requestUpdate = async function (id) {
-  const endpoint = `${apiEndpoint}reports/${id}?appname=${appName}`
-  let res, data
-  try {
-    res = await fetch(endpoint)
-    data = await res.json()
-    return data.data
-  } catch (e) {
-    console.log('error', e)
-  }
-}
-
-const requestUpdates = async function (offset, limit = 10, query) {
-  const sort = ['date:desc']
-  const fields = ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
-  const requestBody = constructRequestBody(limit, offset, sort, fields, '', 'latest', query)
-  let res, data
-  try {
-    res = await fetch(`${apiEndpoint}reports?appname=${appName}`, {
-      method: 'post',
-      body: JSON.stringify(requestBody)
-    })
-    data = await res.json()
-    data.data.map(item => {
-      if (item.fields.primary_country) {
-        item.urlCountry = item.fields.primary_country.shortname ? formatStringForUrl(item.fields.primary_country.shortname) : formatStringForUrl(item.fields.primary_country.name)
-      }
-      if (item.fields.title) {
-        item.urlTitle = formatStringForUrl(item.fields.title)
-      }
-    })
-    return data
-  } catch (e) {
-    console.log('error', e)
-  }
-}
-
 const requestDisaster = async function (id) {
-  const endpoint = `${apiEndpoint}disasters/${id}?appname=${appName}`
-  let res, data
-  try {
-    res = await fetch(endpoint)
-    data = await res.json()
-    return data.data
-  } catch (e) {
-    console.log('error', e)
-  }
+  return getSingleItem('disasters', id)
 }
 
 const requestDisasters = async function (offset, limit = 10, query) {
   const sort = []
   const fields = ['name', 'primary_country.name', 'primary_country.shortname', 'primary_type']
-  const requestBody = constructRequestBody(limit, offset, sort, fields, '', 'latest', query)
-  let res, data
-  try {
-    res = await fetch(`${apiEndpoint}disasters?appname=${appName}`, {
-      method: 'post',
-      body: JSON.stringify(requestBody)
-    })
-    data = await res.json()
-    data.data.map(item => {
-      if (item.fields.primary_country) {
-        item.urlCountry = item.fields.primary_country.shortname ? formatStringForUrl(item.fields.primary_country.shortname) : formatStringForUrl(item.fields.primary_country.name)
-      }
-      if (item.fields.name) {
-        item.urlTitle = formatStringForUrl(item.fields.name)
-      }
-    })
-    return data
-  } catch (e) {
-    console.log('error', e)
-  }
+  return getItems('disasters', limit, offset, sort, fields, transformItems, '', 'latest', query)
+}
+
+const requestHeadlines = async function () {
+  const sort = ['date:desc']
+  const fields = ['headline.title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
+  return getItems('reports', 16, 0, sort, fields, transformItems, 'headline')
+}
+
+const requestUpdate = async function (id) {
+  return getSingleItem('reports', id)
+}
+
+const requestUpdates = async function (offset, limit = 10, query) {
+  const sort = ['date:desc']
+  const fields = ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
+  return getItems('reports', limit, offset, sort, fields, transformItems, '', 'latest', query)
 }
 
 export { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }

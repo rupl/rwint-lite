@@ -181,7 +181,7 @@ describe('data reducer', () => {
         })
       ).toEqual({
         headlines: {
-          items: mockHeadlines,
+          items: mockHeadlines.data,
           lastFetched: d.toString()
         }
       })
@@ -198,7 +198,7 @@ describe('data reducer', () => {
         })
       ).toEqual({
         countries: {
-          items: mockCountries,
+          items: mockCountries.data,
           lastFetched: d.toString()
         }
       })

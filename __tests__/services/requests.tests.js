@@ -9,7 +9,7 @@ describe('API requests', () => {
 
   describe('Get Featured', () => {
     beforeAll(async () => {
-      fetchMock.post(mockEndpoints.countries, {data: mockCountries})
+      fetchMock.post(mockEndpoints.countries, {data: mockCountries.data})
       fetchMock.post(mockEndpoints.disasters, {data: mockDisasters.data})
       result = await requestFeatured()
     })
@@ -46,7 +46,7 @@ describe('API requests', () => {
     it('returns 6 from the merged and shuffled array data', () => {
       // shuffle is mocked to return first and last 4 items of the array
       expect(result.length).toBe(6)
-      expect(result[0].id).toEqual(mockCountries[0].id)
+      expect(result[0].id).toEqual(mockCountries.data[0].id)
       expect(result[5].id).toEqual(mockDisasters.data[7].id)
     })
 
@@ -88,20 +88,20 @@ describe('API requests', () => {
     })
 
     it('returns the data', () => {
-      expect(result[0].id).toEqual(mockHeadlines[0].id)
-      expect(result[1].fields.title).toEqual(mockHeadlines[1].fields.title)
+      expect(result.data[0].id).toEqual(mockHeadlines.data[0].id)
+      expect(result.data[1].fields.title).toEqual(mockHeadlines.data[1].fields.title)
     })
 
     it('formats and adds the url-friendly country using the shortname if present to each result', () => {
-      expect(result[0].urlCountry).toBe('so-yo')
+      expect(result.data[0].urlCountry).toBe('so-yo')
     })
 
     it('formats and adds the url-friendly country using the name if no shortname to each result', () => {
-      expect(result[1].urlCountry).toBe('south-yorkshire')
+      expect(result.data[1].urlCountry).toBe('south-yorkshire')
     })
 
     it('formats and adds the url-friendly title to each result', () => {
-      expect(result[0].urlTitle).toBe('report-something-words-en-uk-0')
+      expect(result.data[0].urlTitle).toBe('report-something-words-en-uk-0')
     })
   })
 
@@ -208,7 +208,7 @@ describe('API requests', () => {
 
   describe('Get Countries', () => {
     beforeAll(async () => {
-      fetchMock.post(mockEndpoints.countries, {data: mockCountries})
+      fetchMock.post(mockEndpoints.countries, {data: mockCountries.data})
       result = await requestCountries()
     })
     afterAll(fetchMock.restore)
@@ -230,16 +230,16 @@ describe('API requests', () => {
     })
 
     it('returns the data', () => {
-      expect(result[0].id).toEqual(mockCountries[0].id)
-      expect(result[1].fields.title).toEqual(mockCountries[1].fields.title)
+      expect(result.data[0].id).toEqual(mockCountries.data[0].id)
+      expect(result.data[1].fields.title).toEqual(mockCountries.data[1].fields.title)
     })
 
     it('adds the type to each result', () => {
-      expect(result[0].type).toBe('country')
+      expect(result.data[0].type).toBe('country')
     })
 
     it('formats and adds the url name to each result', () => {
-      expect(result[0].urlName).toBe('a-country-name-0')
+      expect(result.data[0].urlName).toBe('a-country-name-0')
     })
   })
 

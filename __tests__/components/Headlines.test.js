@@ -8,7 +8,7 @@ import { mockHeadlines } from '../../__fixtures__/data.fixture'
 describe('Headlines component', () => {
   let container, reportLinks, store, wrapper
   const initialState = {
-    items: mockHeadlines
+    items: mockHeadlines.data
   }
   const mockStore = configureStore()
 
@@ -23,7 +23,7 @@ describe('Headlines component', () => {
     })
 
     it('renders passes the headlines items from the store', () => {
-      expect(container.prop('items')).toEqual(mockHeadlines)
+      expect(container.prop('items')).toEqual(mockHeadlines.data)
     })
   })
 
@@ -43,7 +43,7 @@ describe('Headlines component', () => {
 
     it('passes the report to the ReportLink', function () {
       const first = reportLinks.nodes[0]
-      expect(first.props.report).toEqual(mockHeadlines[0])
+      expect(first.props.report).toEqual(mockHeadlines.data[0])
     })
   })
 })

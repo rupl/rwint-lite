@@ -1,15 +1,17 @@
-export const mockCountries = [
-  {id: '10', fields: {name: 'A country name 0'}},
-  {id: '11', fields: {name: 'A country name 1'}},
-  {id: '12', fields: {name: 'B country name 2'}},
-  {id: '13', fields: {name: 'C country name 3'}},
-  {id: '14', fields: {name: 'C country find 4'}},
-  {id: '15', fields: {name: 'D country name 5'}},
-  {id: '16', fields: {name: 'D country name 6'}},
-  {id: '17', fields: {name: 'Z find me name 7'}},
-  {id: '18', fields: {name: 'Z country name 8'}},
-  {id: '19', fields: {name: 'Z country name 9'}}
-]
+export const mockCountries = {
+  data: [
+    {id: '10', fields: {name: 'A country name 0'}},
+    {id: '11', fields: {name: 'A country name 1'}},
+    {id: '12', fields: {name: 'B country name 2'}},
+    {id: '13', fields: {name: 'C country name 3'}},
+    {id: '14', fields: {name: 'C country find 4'}},
+    {id: '15', fields: {name: 'D country name 5'}},
+    {id: '16', fields: {name: 'D country name 6'}},
+    {id: '17', fields: {name: 'Z find me name 7'}},
+    {id: '18', fields: {name: 'Z country name 8'}},
+    {id: '19', fields: {name: 'Z country name 9'}}
+  ]
+}
 
 export const mockDisasters = {
   totalCount: 12,
@@ -64,45 +66,47 @@ export const mockFeatured = [
   {id: '19', fields: {name: 'A country name 9'}}
 ]
 
-export const mockHeadlines = [
-  {
-    id: '30',
-    fields: {
-      date: {
-        created: '2017-08-03T13:20:12+00:00'
-      },
-      primary_country: {
-        shortname: 'So Yo'
-      },
-      source: [
-        {
-          shortname: 'Now Then'
+export const mockHeadlines = {
+  data: [
+    {
+      id: '30',
+      fields: {
+        date: {
+          created: '2017-08-03T13:20:12+00:00'
         },
-        {
-          name: 'Exposed'
-        }
-      ],
-      title: 'Report: Something - words [EN/UK] 0'
-    }
-  },
-  {
-    id: '31',
-    fields: {
-      title: 'Report: Something - words [EN/UK] 1',
-      primary_country: {
-        name: 'South Yorkshire'
+        primary_country: {
+          shortname: 'So Yo'
+        },
+        source: [
+          {
+            shortname: 'Now Then'
+          },
+          {
+            name: 'Exposed'
+          }
+        ],
+        title: 'Report: Something - words [EN/UK] 0'
       }
-    }
-  },
-  {id: '32', fields: {title: 'Report: Something - words [EN/UK] 2'}},
-  {id: '33', fields: {title: 'Report: Something - words [EN/UK] 3'}},
-  {id: '34', fields: {title: 'Report: Something - words [EN/UK] 4'}},
-  {id: '35', fields: {title: 'Report: Something - words [EN/UK] 5'}},
-  {id: '36', fields: {title: 'Report: Something - words [EN/UK] 6'}},
-  {id: '37', fields: {title: 'Report: Something - words [EN/UK] 7'}},
-  {id: '38', fields: {title: 'Report: Something - words [EN/UK] 8'}},
-  {id: '39', fields: {title: 'Report: Something - words [EN/UK] 9'}}
-]
+    },
+    {
+      id: '31',
+      fields: {
+        title: 'Report: Something - words [EN/UK] 1',
+        primary_country: {
+          name: 'South Yorkshire'
+        }
+      }
+    },
+    {id: '32', fields: {title: 'Report: Something - words [EN/UK] 2'}},
+    {id: '33', fields: {title: 'Report: Something - words [EN/UK] 3'}},
+    {id: '34', fields: {title: 'Report: Something - words [EN/UK] 4'}},
+    {id: '35', fields: {title: 'Report: Something - words [EN/UK] 5'}},
+    {id: '36', fields: {title: 'Report: Something - words [EN/UK] 6'}},
+    {id: '37', fields: {title: 'Report: Something - words [EN/UK] 7'}},
+    {id: '38', fields: {title: 'Report: Something - words [EN/UK] 8'}},
+    {id: '39', fields: {title: 'Report: Something - words [EN/UK] 9'}}
+  ]
+}
 
 export const mockReports = {
   totalCount: 22,
