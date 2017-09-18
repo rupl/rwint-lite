@@ -6,12 +6,12 @@ const getTitle = (report) => {
   return report.fields.title || report.fields.name
 }
 
-const ArticleHeader = ({report, hasInfo}) => (
+const ArticleHeader = ({report, hasInfo, showDate}) => (
   <header>
     {getTitle(report) &&
       <h1>{getTitle(report)}</h1>
     }
-    {hasInfo &&
+    {(hasInfo || showDate) &&
       <div>
         <p className='header-info'>
           {report.fields.date && report.fields.date.created &&
@@ -21,9 +21,11 @@ const ArticleHeader = ({report, hasInfo}) => (
             <a href={report.fields.origin} className='original'>View original</a>
           }
         </p>
-        <div className='header-info'>
-          <InfoLinks country={report.fields.primary_country} sources={report.fields.source} primaryType={report.fields.primary_type} />
-        </div>
+        {hasInfo &&
+          <div className='header-info'>
+            <InfoLinks country={report.fields.primary_country} sources={report.fields.source} primaryType={report.fields.primary_type} />
+          </div>
+        }
       </div>
     }
     <style jsx>{`

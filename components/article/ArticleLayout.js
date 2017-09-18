@@ -14,13 +14,14 @@ export class ArticleLayout extends React.Component {
     const {report} = this.props
     const body = report.fields['body-html'] || report.fields['description-html'] || ''
     const hasInfo = this.props.type !== 'country' && this.props.type !== 'disaster'
+    const showDate = this.props.type === 'disaster'
 
     return (
       <div>
         {body &&
           <div className='article-container'>
             <article className='article-main'>
-              <ArticleHeader report={report} hasInfo={hasInfo} />
+              <ArticleHeader report={report} hasInfo={hasInfo} showDate={showDate} />
               {(this.props.type === 'country' || this.props.type === 'disaster') &&
                 <CountryBody report={report} />
               }

@@ -24,7 +24,7 @@ const formatImg = (li) => {
     if (imgs[i].indexOf('src=') !== -1) {
       imgs[i] = `<img alt="${getAltText(li)}" ${imgs[i]}`
     } else if (imgs[i].indexOf('</a>') !== -1) {
-      imgs[i] = `<img src="" ${imgs[i]}`
+      imgs[i] = `<img src="" alt="${getAltText(li)}" ${imgs[i]}`
     }
   }
 
