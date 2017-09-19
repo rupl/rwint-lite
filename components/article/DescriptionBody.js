@@ -31,24 +31,6 @@ const formatImg = (li) => {
   return imgs.join('')
 }
 
-const formatLinks = (li) => {
-  let links = li.split('<a')
-  for (let i = 0; i < links.length; i++) {
-    if (links[i].indexOf('href') !== -1) {
-      const startPoint = links[i].indexOf('<a>') + '<a>'.length
-      const endPoint = links[i].indexOf('</a>')
-      const link = links[i].substring(startPoint, endPoint)
-
-      if (link.indexOf('img') !== -1) {
-        links[i] = `<a class="tb-img" ${links[i]}`
-      } else {
-        links[i] = `<a ${links[i]}`
-      }
-    }
-  }
-  return links.join('')
-}
-
 const formatUsefulLinks = (body) => {
   let sections = body.split('<h2>')
   for (let i = 0; i < sections.length; i++) {
@@ -66,8 +48,6 @@ const formatBodyHtml = (body) => {
   for (let i = 0; i < formattedBody.length; i++) {
     if (formattedBody[i].indexOf('</li>') !== -1) {
       if (formattedBody[i].indexOf('img') !== -1) {
-        formattedBody[i] = `<li class="has-img">${formattedBody[i]}`
-        formattedBody[i] = formatLinks(formattedBody[i])
         formattedBody[i] = formatImg(formattedBody[i])
       } else {
         formattedBody[i] = `<li>${formattedBody[i]}`
@@ -78,7 +58,7 @@ const formatBodyHtml = (body) => {
   return formattedBody.join('')
 }
 
-export class CountryBody extends React.Component {
+export class DescriptionBody extends React.Component {
   render () {
     const {report} = this.props
     let body = report.fields['description-html'] ? formatBodyHtml(report.fields['description-html']) : ''
@@ -91,26 +71,7 @@ export class CountryBody extends React.Component {
       <div>
         <div className='country-report' dangerouslySetInnerHTML={{__html: body}} />
         <style jsx global>{`
-          .has-img {
-            display: flex;
-            overflow: auto'
-          }
-          .has-img p {
-            display: flex;
-          }
-          .has-img img, .has-img .tb-img {
-            order: -1;
-            margin-left: 0;
-            margin-right: ${measurements.baseUnit}em;
-          }
-          .has-img .tb-img img {
-            margin-right: 0;
-          }
-          .has-img img {
-            overflow: hidden;
-            position: relative;
-          }
-          .has-img img:after {
+          .img:after {
             content: "Image not found";
             position: absolute;
             background: white;
@@ -122,13 +83,6 @@ export class CountryBody extends React.Component {
             height: 100%;
             display: flex;
             align-items: center;
-          }
-          .has-img a {
-            margin-left: ${measurements.baseUnit}em;
-          }
-          .tb-img:focus {
-            background: none;
-            outline: -webkit-focus-ring-color auto 5px;
           }
           .country-report ul {
             padding: 0;
@@ -153,9 +107,6 @@ export class CountryBody extends React.Component {
             margin: ${measurements.baseUnit}em 0 0 0;
             clear: both;
           }
-          .country-report img {
-            float: left;
-          }
           @media (min-width: ${breakpoints.md}) {
             .country-report h2 {
               margin: ${measurements.baseUnit}em 0 ${measurements.baseUnit}em 0;
@@ -167,4 +118,4 @@ export class CountryBody extends React.Component {
   }
 }
 
-export default CountryBody
+export default DescriptionBody

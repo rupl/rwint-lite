@@ -48,8 +48,12 @@ const constructRequestBody = (limit = 20, offset = 0, sort = [], fields = [], fi
   return requestBody
 }
 
-const getSingleItem = async (type, id) => {
-  const endpoint = `${apiEndpoint}${type}/${id}?appname=${appName}`
+const getSingleItem = async (type, id, fields = []) => {
+  let endpoint = `${apiEndpoint}${type}/${id}?appname=${appName}`
+  for (let fieldValue of fields) {
+    endpoint += `&fields[include][]=${fieldValue}`
+  }
+
   let res, data
   try {
     res = await fetch(endpoint)
@@ -100,7 +104,7 @@ const transformItems = (data) => {
 }
 
 const requestCountry = async function (id) {
-  return getSingleItem('countries', id)
+  return getSingleItem('countries', id, ['name', 'iso3'])
 }
 
 const requestCountries = async function () {

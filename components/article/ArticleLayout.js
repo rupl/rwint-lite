@@ -1,61 +1,42 @@
 import React from 'react'
-import Link from 'next/link'
 import ArticleHeader from './ArticleHeader'
 import ArticleBody from './ArticleBody'
 import ArticleSideBar from './ArticleSideBar'
-import CountryBody from './CountryBody'
+import DescriptionBody from './DescriptionBody'
 import ArticleSideBarReports from './ArticleSideBarReports'
-import ReportsList from '../ReportsList'
 import { primaryButton } from '../../theme/buttons'
 import { breakpoints, colors, measurements } from '../../theme/variables'
 
 export class ArticleLayout extends React.Component {
   render () {
     const {report} = this.props
-    const body = report.fields['body-html'] || report.fields['description-html'] || ''
-    const hasInfo = this.props.type !== 'country' && this.props.type !== 'disaster'
+    const hasInfo = this.props.type !== 'disaster'
     const showDate = this.props.type === 'disaster'
 
     return (
       <div>
-        {body &&
+        {this.props.type !== 'country' &&
           <div className='article-container'>
             <article className='article-main'>
               <ArticleHeader report={report} hasInfo={hasInfo} showDate={showDate} />
-              {(this.props.type === 'country' || this.props.type === 'disaster') &&
-                <CountryBody report={report} />
+              {this.props.type === 'disaster' &&
+                <DescriptionBody report={report} />
               }
-              {this.props.type !== 'country' && this.props.type !== 'disaster' &&
+              {this.props.type !== 'disaster' &&
                 <ArticleBody report={report} />
               }
             </article>
             <aside className='article-secondary'>
               <div className='sidebar'>
-                {this.props.type !== 'country' &&
-                  <ArticleSideBar report={report} type={this.props.type} />
-                }
+                <ArticleSideBar report={report} type={this.props.type} />
                 {this.props.type === 'disaster' &&
-                  <span className='divider' />
-                }
-                {(this.props.type === 'country' || this.props.type === 'disaster') &&
-                  <ArticleSideBarReports item={report} type={this.props.type} />
+                  <div>
+                    <span className='divider' />
+                    <ArticleSideBarReports item={report} type={this.props.type} />
+                  </div>
                 }
               </div>
             </aside>
-          </div>
-        }
-        {!body &&
-          <div className='article-container'>
-            <ArticleHeader report={report} hasInfo={hasInfo} />
-            <ReportsList headingLevel='3' />
-            <div className='btn-container'>
-              <Link prefetch as={`/report/listing?search=country.exact:"${report.fields.name}"`}
-                href={`/updates?search=country.exact:"${report.fields.name}"`}>
-                <a className='btn-primary'>
-                  View more {report.fields.name} updates
-                </a>
-              </Link>
-            </div>
           </div>
         }
         <style jsx>{primaryButton}</style>
