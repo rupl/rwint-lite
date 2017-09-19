@@ -59,7 +59,7 @@ export class PaginatedReportsList extends React.Component {
   render () {
     const reports = this.props[`${this.props.reportsType}s`]
     const nextPage = parseInt(reports.currentPage, 10) + 1
-    const path = this.props.reportsType
+    const path = this.props.reportsType === 'update' ? 'report' : this.props.reportsType
     return (
       <div>
         <div className='reports-wrapper'>

@@ -87,7 +87,7 @@ describe('PaginatedReportsList component', () => {
         loadMoreButton = wrapper.find('LoadMoreButton')
         expect(loadMoreButton.exists()).toBe(true)
         expect(loadMoreButton.prop('nextPage')).toBe(2)
-        expect(loadMoreButton.prop('path')).toBe('update')
+        expect(loadMoreButton.prop('path')).toBe('report')
       })
 
       it('renders calls the getUpdates action when load more', () => {
@@ -114,7 +114,7 @@ describe('PaginatedReportsList component', () => {
         paginationButtons = wrapper.find('PaginationButtons')
         expect(paginationButtons.exists()).toBe(true)
         expect(paginationButtons.prop('currentPage')).toBe(5)
-        expect(paginationButtons.prop('path')).toBe('update')
+        expect(paginationButtons.prop('path')).toBe('report')
       })
 
       it('renders calls the getUpdates action when load next page', () => {
