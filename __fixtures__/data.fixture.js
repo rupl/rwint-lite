@@ -203,6 +203,7 @@ export const mockCountry = {
   fields: {
     id: 100,
     name: 'I am a country',
+    iso3: 'qwe',
     'description-html': mockCountryDescription
   }
 }
@@ -235,7 +236,7 @@ export const mockDisaster2 = {
 }
 
 export const mockEndpoints = {
-  country: 'https://api.reliefweb.int/v1/countries/100?appname=rwmob-dev',
+  country: 'https://api.reliefweb.int/v1/countries/100?appname=rwmob-dev&fields[include][]=name&fields[include][]=iso3',
   countries: 'https://api.reliefweb.int/v1/countries?appname=rwmob-dev',
   disaster: 'https://api.reliefweb.int/v1/disasters/200?appname=rwmob-dev',
   disasters: 'https://api.reliefweb.int/v1/disasters?appname=rwmob-dev',
