@@ -16,17 +16,18 @@ class GlobalHeader extends React.Component {
     })
   }
   render () {
+    let isHidden = this.state.isOpen ? 'false' : 'true'
     return (
       <div className='cd-global-header'>
         <div className='container cd-global-header__inner'>
           <div className='cd-global-header__sites'>
             <button type='button' onClick={this.toggle} className='cd-global-header__sites-btn' id='cd-related-platforms-toggle'>
-              Related Platforms
+              Related Platforms {this.state.isOpen}
               <span className='cd-global-header__sites-icon'>
                 <Arrow direction='down' color='globalHeader' />
               </span>
             </button>
-            <ul className='cd-global-header__sites-dropdown' aria-labelledby='cd-related-platforms-toggle' aria-hidden={!this.state.isOpen}>
+            <ul className='cd-global-header__sites-dropdown' aria-labelledby='cd-related-platforms-toggle' aria-hidden={isHidden}>
               <li><a href='https://fts.unocha.org/'>Financial Tracking Service</a></li>
               <li><a href='https://humdata.org/'>Humanitarian Data Exchange</a></li>
               <li><a href='https://humanitarian.id/'>Humanitarian ID</a></li>
