@@ -1,5 +1,6 @@
 import * as actionTypes from '../constants/actionTypes'
-import { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../services/requests'
+import { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestHeadlines,
+  requestJobs, requestTrainings, requestUpdate, requestUpdates } from '../services/requests'
 
 // helpers
 const shouldUpdate = (lastFetched, threshold = 1) => {
@@ -13,6 +14,31 @@ const shouldUpdate = (lastFetched, threshold = 1) => {
     return true
   }
   return false
+}
+
+const getPaginatedItems = async (actionType, requestFn, offset, loadMore, limit, pageNumber, pagination, query) => {
+  let response = await requestFn(offset, limit, query)
+  let dispatchObj = {
+    type: actionTypes[actionType],
+    items: response,
+    loadMore: loadMore,
+    pageNumber: pageNumber,
+    pagination: pagination
+  }
+  if (query) {
+    dispatchObj.isQuery = true
+  }
+  return dispatchObj
+}
+
+const shouldFetch = (lastFetched, loadMore, pageNumber, pagination, query) => {
+  const goingBackToPaginatedPage = pageNumber > 1 && !loadMore && !pagination
+  const shouldRefreshFirstPage = query || (pageNumber === 1 && shouldUpdate(lastFetched))
+  // if going back client side or is page one and recently fetched dont re-fetch data
+  if ((goingBackToPaginatedPage || (pageNumber === 1 && !shouldRefreshFirstPage))) {
+    return false
+  }
+  return true
 }
 
 export const getUpdate = (id) => {
@@ -32,27 +58,13 @@ export const getUpdate = (id) => {
   }
 }
 
-export const getUpdates = (pageNumber = 1, loadMore = false, pagination = false, query, num = 10) => {
+export const getUpdates = (pageNumber = 1, loadMore = false, pagination = false, query, limit = 10) => {
   return async (dispatch, getState) => {
-    const limit = num
     let offset = (pageNumber - 1) * limit
-    const goingBackToPaginatedPage = pageNumber > 1 && !loadMore && !pagination
-    const shouldRefreshFirstPage = query || (pageNumber === 1 && shouldUpdate(getState().updates.lastFetched))
-    // if going back client side or is page one and recently fetched dont re-fetch data
-    if ((goingBackToPaginatedPage || (pageNumber === 1 && !shouldRefreshFirstPage))) {
+    if (!shouldFetch(getState().updates.lastFetched, loadMore, pageNumber, pagination, query)) {
       return
     }
-    let response = await requestUpdates(offset, limit, query)
-    let dispatchObj = {
-      type: actionTypes.GET_UPDATES,
-      items: response,
-      loadMore: loadMore,
-      pageNumber: pageNumber,
-      pagination: pagination
-    }
-    if (query) {
-      dispatchObj.isQuery = true
-    }
+    let dispatchObj = await getPaginatedItems('GET_UPDATES', requestUpdates, offset, loadMore, limit, pageNumber, pagination, query)
     dispatch(dispatchObj)
   }
 }
@@ -127,30 +139,35 @@ export const getDisaster = (id) => {
   }
 }
 
-export const getDisasters = (pageNumber = 1, loadMore = false, pagination = false, query, num = 10) => {
+export const getDisasters = (pageNumber = 1, loadMore = false, pagination = false, query, limit = 10) => {
   return async (dispatch, getState) => {
-    const limit = num
     let offset = (pageNumber - 1) * limit
-    const goingBackToPaginatedPage = pageNumber > 1 && !loadMore && !pagination
-    const shouldRefreshFirstPage = query || (pageNumber === 1 && shouldUpdate(getState().disasters.lastFetched))
-    // if going back client side or is page one and recently fetched dont re-fetch data
-    if ((goingBackToPaginatedPage || (pageNumber === 1 && !shouldRefreshFirstPage))) {
+    if (!shouldFetch(getState().disasters.lastFetched, loadMore, pageNumber, pagination, query)) {
       return
     }
-    let response = await requestDisasters(offset, limit, query)
-    let dispatchObj = {
-      type: actionTypes.GET_DISASTERS,
-      items: response,
-      loadMore: loadMore,
-      pageNumber: pageNumber,
-      pagination: pagination
-    }
-    if (query) {
-      dispatchObj.isQuery = true
-    }
+    let dispatchObj = await getPaginatedItems('GET_DISASTERS', requestDisasters, offset, loadMore, limit, pageNumber, pagination, query)
     dispatch(dispatchObj)
   }
 }
 
-// TO DO
-// Remove duplication
+export const getJobs = (pageNumber = 1, loadMore = false, pagination = false, query, limit = 10) => {
+  return async (dispatch, getState) => {
+    let offset = (pageNumber - 1) * limit
+    if (!shouldFetch(getState().jobs.lastFetched, loadMore, pageNumber, pagination, query)) {
+      return
+    }
+    let dispatchObj = await getPaginatedItems('GET_JOBS', requestJobs, offset, loadMore, limit, pageNumber, pagination, query)
+    dispatch(dispatchObj)
+  }
+}
+
+export const getTrainings = (pageNumber = 1, loadMore = false, pagination = false, query, limit = 10) => {
+  return async (dispatch, getState) => {
+    let offset = (pageNumber - 1) * limit
+    if (!shouldFetch(getState().trainings.lastFetched, loadMore, pageNumber, pagination, query)) {
+      return
+    }
+    let dispatchObj = await getPaginatedItems('GET_TRAININGS', requestTrainings, offset, loadMore, limit, pageNumber, pagination, query)
+    dispatch(dispatchObj)
+  }
+}

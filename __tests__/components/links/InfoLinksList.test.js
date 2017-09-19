@@ -41,9 +41,29 @@ describe('Info Links List component', () => {
       expect(links.at(0).find('a').text()).toContain('Sheffield Star')
     })
 
-    it('renders the correct href and as values on the Link', () => {
+    // it('renders the correct href and as values on the Link', () => {
+    //   expect(links.at(0).prop('href')).toBe('/updates?search=source.exact:"Sheffield Star"')
+    //   expect(links.at(0).prop('as')).toBe('/report/listing?search=source.exact:"Sheffield Star"')
+    // })
+  })
+
+  describe('Setting the correct search path', () => {
+    beforeAll(function () {
+
+    })
+
+    it('links to updates search by default', () => {
+      wrapper = shallow(<InfoLinksList dataType='source' items={singleItem} />)
+      links = wrapper.find('Link')
       expect(links.at(0).prop('href')).toBe('/updates?search=source.exact:"Sheffield Star"')
       expect(links.at(0).prop('as')).toBe('/report/listing?search=source.exact:"Sheffield Star"')
+    })
+
+    it('links to jobs search if set', () => {
+      wrapper = shallow(<InfoLinksList dataType='source' items={singleItem} searchType='job' />)
+      links = wrapper.find('Link')
+      expect(links.at(0).prop('href')).toBe('/jobs?search=source.exact:"Sheffield Star"')
+      expect(links.at(0).prop('as')).toBe('/job/listing?search=source.exact:"Sheffield Star"')
     })
   })
 

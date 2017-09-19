@@ -4,9 +4,11 @@ import { measurements } from '../../theme/variables'
 
 class InfoLinksList extends React.Component {
   render () {
-    const { dataType, divider, items, type } = this.props
+    const { dataType, divider, items, searchType, type } = this.props
     const totalItems = items.length
     const queryString = `?search=${dataType}.exact:`
+    const asPath = searchType === 'job' ? '/job/listing' : '/report/listing'
+    const hrefPath = searchType === 'job' ? '/jobs' : '/updates'
     const numToShow = 2
     const displayItems = items && items.length > numToShow ? [items[0], items[1]] : items
     const moreNumber = items && items.length > numToShow ? items.length - numToShow : 0
@@ -19,8 +21,8 @@ class InfoLinksList extends React.Component {
         {displayItems.map((item, i) =>
           <span className='item' key={i}>
             <Link prefetch
-              as={`/report/listing${queryString}"${item.name}"`}
-              href={`/updates${queryString}"${item.name}"`}>
+              as={`${asPath}${queryString}"${item.name}"`}
+              href={`${hrefPath}${queryString}"${item.name}"`}>
               <a>{type === 'summary' ? (item.shortname || item.name) : item.name }</a>
             </Link>
             {i < items.length && i + 1 !== totalItems &&

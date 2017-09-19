@@ -8,7 +8,7 @@ import { mockFeatured } from '../../__fixtures__/data.fixture'
 describe('Featured component', () => {
   let store, container, simpleLinks, wrapper
   const initialState = {
-    items: mockFeatured
+    items: mockFeatured.data
   }
   const mockStore = configureStore()
 
@@ -23,7 +23,7 @@ describe('Featured component', () => {
     })
 
     it('renders passes the featured items from the store', () => {
-      expect(container.prop('items')).toEqual(mockFeatured)
+      expect(container.prop('items')).toEqual(mockFeatured.data)
     })
   })
 
@@ -43,7 +43,7 @@ describe('Featured component', () => {
 
     it('passes the link to the SimpleLink', function () {
       const first = simpleLinks.nodes[0]
-      expect(first.props.link).toEqual(mockFeatured[0])
+      expect(first.props.link).toEqual(mockFeatured.data[0])
     })
   })
 })

@@ -25,6 +25,10 @@ class ReportLink extends React.Component {
       linkPath = `/disaster/${id}/${urlTitle}`
       hrefPath = `/disaster?id=${id}`
     }
+    if (this.props.reportsType === 'job') {
+      linkPath = `/job/${id}/${urlTitle}`
+      hrefPath = `/job?id=${id}`
+    }
 
     return (
       <div className='report'>
@@ -42,13 +46,16 @@ class ReportLink extends React.Component {
             </Link>
           </h3>
         }
-        {fields.date &&
+        {fields.date && fields.date.created &&
           <p className='date'>{formatDate(fields.date.created)}</p>
+        }
+        {fields.date && fields.date.closing &&
+          <p className='date'>Valid until {formatDate(fields.date.closing)}</p>
         }
         {fields.status &&
           <p className={`status ${fields.status}`}>{fields.status}</p>
         }
-        <InfoLinks countries={countries} sources={sources} disasterTypes={disasterTypes} type='summary' />
+        <InfoLinks countries={countries} sources={sources} disasterTypes={disasterTypes} searchType={this.props.reportsType} type='summary' />
         <style jsx>{`
           .report {
             border-bottom: 1px solid ${colors.border.light}
