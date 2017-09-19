@@ -61,21 +61,41 @@ export class SearchForm extends React.Component {
   handleSubmit (event) {
     event.preventDefault()
     const paths = {
+      country: {
+        href: '/countries',
+        as: '/country/listing'
+      },
       countries: {
         href: '/countries',
         as: '/country/listing'
+      },
+      disaster: {
+        href: '/disasters',
+        as: '/disaster/listing'
       },
       disasters: {
         href: '/disasters',
         as: '/disaster/listing'
       },
+      job: {
+        href: '/jobs',
+        as: '/job/listing'
+      },
       jobs: {
         href: '/jobs',
         as: '/job/listing'
       },
+      training: {
+        href: '/trainings',
+        as: '/training/listing'
+      },
       trainings: {
         href: '/trainings',
         as: '/training/listing'
+      },
+      report: {
+        href: '/updates',
+        as: '/report/listing'
       },
       updates: {
         href: '/updates',
