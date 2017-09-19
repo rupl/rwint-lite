@@ -3,11 +3,18 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import InfoLinks from '../../../components/links/InfoLinks.js'
 
-let linkEl, sourcesLinks, wrapper
-const country = {
-  name: 'South Yorkshire',
-  shortname: 'SoYo'
-}
+let countriesList, disasterTypesList, sourcesList, wrapper
+const countries = [
+  {
+    name: 'South Yorkshire',
+    shortname: 'SoYo'
+  }
+]
+const disasterTypes = [
+  {
+    name: 'cyclone'
+  }
+]
 const sources = [
   {
     name: 'Sheffield Star',
@@ -24,62 +31,43 @@ const sources = [
 describe('Info Links component', () => {
   describe('Standard version', () => {
     beforeAll(function () {
-      wrapper = shallow(<InfoLinks country={country} sources={sources} />)
-      sourcesLinks = wrapper.find('.sources')
+      wrapper = shallow(<InfoLinks countries={countries} disasterTypes={disasterTypes} sources={sources} />)
     })
 
     it('renders the component', () => {
       expect(wrapper.exists()).toBe(true)
     })
 
-    it('renders the country links', () => {
-      linkEl = wrapper.find('Link').at(0)
-      expect(linkEl.find('a').text()).toContain('South Yorkshire')
-      expect(linkEl.prop('href')).toBe('/updates?search=country.exact:"South Yorkshire"')
-      expect(linkEl.prop('as')).toBe('/report/listing?search=country.exact:"South Yorkshire"')
+    it('renders the InfoLinksList for countries', () => {
+      countriesList = wrapper.find('InfoLinksList').at(0)
+      expect(countriesList.exists()).toBe(true)
+      expect(countriesList.prop('dataType')).toBe('country')
+      expect(countriesList.prop('items')).toEqual(countries)
     })
 
-    it('renders the source links', () => {
-      expect(sourcesLinks.at(0).find('a').text()).toContain('Sheffield Star')
-      expect(sourcesLinks.at(1).find('a').text()).toContain('Sheffield Telegraph')
-      expect(sourcesLinks.at(0).find('Link').prop('href')).toBe('/updates?search=source.exact:"Sheffield Star"')
-      expect(sourcesLinks.at(0).find('Link').prop('as')).toBe('/report/listing?search=source.exact:"Sheffield Star"')
+    it('renders the InfoLinksList for disaster types', () => {
+      disasterTypesList = wrapper.find('InfoLinksList').at(1)
+      expect(disasterTypesList.exists()).toBe(true)
+      expect(disasterTypesList.prop('dataType')).toBe('disaster_type')
+      expect(disasterTypesList.prop('items')).toEqual(disasterTypes)
     })
 
-    it('only shows up to 2 sources', () => {
-      expect(sourcesLinks.length).toBe(2)
-      expect(wrapper.find('.sources-more').text()).toEqual('+1 more')
+    it('renders the InfoLinksList for sources', () => {
+      sourcesList = wrapper.find('InfoLinksList').at(2)
+      expect(sourcesList.exists()).toBe(true)
+      expect(sourcesList.prop('dataType')).toBe('source')
+      expect(sourcesList.prop('items')).toEqual(sources)
     })
   })
 
   describe('Summary version', () => {
     beforeAll(function () {
-      wrapper = shallow(<InfoLinks country={country} sources={sources} type='summary' />)
-      sourcesLinks = wrapper.find('.sources')
+      wrapper = shallow(<InfoLinks sources={sources} type='summary' />)
     })
 
-    it('renders the component', () => {
+    it('adds the summary className to the component', () => {
       expect(wrapper.exists()).toBe(true)
       expect(wrapper.find('.summary').exists()).toBe(true)
-    })
-
-    it('renders the country links using the shortname if available', () => {
-      linkEl = wrapper.find('Link').at(0)
-      expect(linkEl.find('a').text()).toContain('SoYo')
-      expect(linkEl.prop('href')).toBe('/updates?search=country.exact:"SoYo"')
-      expect(linkEl.prop('as')).toBe('/report/listing?search=country.exact:"SoYo"')
-    })
-
-    it('renders the source links using the shortname if available', () => {
-      expect(sourcesLinks.at(0).find('a').text()).toContain('Star')
-      expect(sourcesLinks.at(1).find('a').text()).toContain('Sheffield Telegraph')
-      expect(sourcesLinks.at(0).find('Link').prop('href')).toBe('/updates?search=source.exact:"Sheffield Star"')
-      expect(sourcesLinks.at(0).find('Link').prop('as')).toBe('/report/listing?search=source.exact:"Sheffield Star"')
-    })
-
-    it('only shows up to 2 sources', () => {
-      expect(sourcesLinks.length).toBe(2)
-      expect(wrapper.find('.sources-more').text()).toEqual('+1 more')
     })
   })
 })

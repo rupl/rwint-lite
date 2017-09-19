@@ -17,7 +17,8 @@ class ReportLink extends React.Component {
     const headingLevel = this.props.headingLevel || '2'
     const title = fields.title ? fields.title : fields.name
     const sources = fields.source ? fields.source : []
-    const primaryType = fields.primary_type ? fields.primary_type : ''
+    const disasterTypes = fields.type ? fields.type : ''
+    const countries = fields.primary_country ? [fields.primary_country] : fields.country
     let linkPath = `/report/${id}/${urlCountry}/${urlTitle}`
     let hrefPath = `/report?id=${id}`
     if (this.props.reportsType === 'disaster') {
@@ -44,7 +45,10 @@ class ReportLink extends React.Component {
         {fields.date &&
           <p className='date'>{formatDate(fields.date.created)}</p>
         }
-        <InfoLinks country={fields.primary_country} sources={sources} primaryType={primaryType} type='summary' />
+        {fields.status &&
+          <p className={`status ${fields.status}`}>{fields.status}</p>
+        }
+        <InfoLinks countries={countries} sources={sources} disasterTypes={disasterTypes} type='summary' />
         <style jsx>{`
           .report {
             border-bottom: 1px solid ${colors.border.light}
@@ -65,9 +69,31 @@ class ReportLink extends React.Component {
           .title a:hover {
             text-decoration: underline;
           }
-          .date {
+          .date, .status {
             font-size: ${fontSizes.small};
             margin-bottom: ${measurements.baseUnit * 1.5}em;
+          }
+          .status {
+            text-transform: uppercase;
+            font-size: ${fontSizes.tiny};
+            display: flex;
+            align-items: center;
+            line-height: 1;
+          }
+          .status:before {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            margin-right: 4px;
+            border-radius: 100%;
+            background: ${colors.status.past};
+          }
+          .status.alert:before {
+            background: ${colors.status.alert};
+          }
+          .status.current:before {
+            background: ${colors.status.current};
           }
           @media (min-width: ${breakpoints.md}) {
             .report {
