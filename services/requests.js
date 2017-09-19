@@ -155,7 +155,7 @@ const requestDisaster = async function (id) {
 
 const requestDisasters = async function (offset, limit = 10, query) {
   const sort = []
-  const fields = ['name', 'primary_country.name', 'primary_country.shortname', 'primary_type']
+  const fields = ['name', 'country.id', 'country.name', 'country.shortname', 'type', 'status']
   return getItems('disasters', limit, offset, sort, fields, transformItems, '', 'latest', query)
 }
 

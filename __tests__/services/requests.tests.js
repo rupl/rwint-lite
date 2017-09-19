@@ -291,7 +291,7 @@ describe('API requests', () => {
         offset: 0,
         preset: 'latest',
         fields: {
-          include: ['name', 'primary_country.name', 'primary_country.shortname', 'primary_type']
+          include: ['name', 'country.id', 'country.name', 'country.shortname', 'type', 'status']
         }
       }
       expect(fetchMock.lastOptions()).toEqual({
@@ -332,7 +332,7 @@ describe('API requests', () => {
         offset: 10,
         preset: 'latest',
         fields: {
-          include: ['name', 'primary_country.name', 'primary_country.shortname', 'primary_type']
+          include: ['name', 'country.id', 'country.name', 'country.shortname', 'type', 'status']
         }
       }
       expect(fetchMock.lastOptions()).toEqual({
@@ -356,7 +356,7 @@ describe('API requests', () => {
         offset: 0,
         preset: 'latest',
         fields: {
-          include: ['name', 'primary_country.name', 'primary_country.shortname', 'primary_type']
+          include: ['name', 'country.id', 'country.name', 'country.shortname', 'type', 'status']
         },
         query: {
           value: 'Syria',

@@ -23,7 +23,7 @@ const ArticleHeader = ({report, hasInfo, showDate}) => (
         </p>
         {hasInfo &&
           <div className='header-info'>
-            <InfoLinks country={report.fields.primary_country} sources={report.fields.source} primaryType={report.fields.primary_type} />
+            <InfoLinks countries={[report.fields.primary_country]} sources={report.fields.source} />
           </div>
         }
       </div>

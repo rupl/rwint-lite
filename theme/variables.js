@@ -37,6 +37,11 @@ const colors = ({
     header: purple,
     globalHeader: 'white',
     primaryButton: 'white'
+  },
+  status: {
+    alert: '#e83838',
+    current: '#e88e38',
+    past: '#B7BDCC'
   }
 })
 
