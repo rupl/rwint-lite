@@ -7,8 +7,21 @@ const getTitle = (report) => {
 }
 
 const getDate = (date, type) => {
+  let dateStr = ''
   if (type === 'job' && date.closing) {
     return `Application before ${formatDate(date.closing, true)}`
+  }
+  if (type === 'training') {
+    if (!date.start && !date.end) {
+      return 'Ongoing course'
+    }
+    if (date.start && date.end) {
+      dateStr = date.start === date.end ? `On ${formatDate(date.start)}` : `From ${formatDate(date.start)} to ${formatDate(date.end)}`
+    }
+    if (date.registration) {
+      dateStr += ` - Registration before ${formatDate(date.registration)}`
+    }
+    return dateStr
   }
   if (date.created) {
     return `Published on ${formatDate(date.created, true)}`
