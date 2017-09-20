@@ -5,6 +5,34 @@ import formatDate from '../../helpers/formatDate'
 import InfoLinks from '../links/InfoLinks'
 import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
 
+const renderDate = (date) => {
+  let dateStr = ''
+  if (date.created) {
+    return formatDate(date.created)
+  }
+  if (date.closing) {
+    return `Valid until ${formatDate(date.closing)}`
+  }
+  if (date.start && date.end) {
+    dateStr = date.start === date.end ? `On ${formatDate(date.start)}` : `From ${formatDate(date.start)} to ${formatDate(date.end)}`
+  }
+  if (date.registration) {
+    dateStr += ` - Registration before ${formatDate(date.registration)}`
+  }
+  return dateStr
+}
+
+const formatPaths = (report, reportsType = 'update') => {
+  const { id, urlCountry, urlTitle } = report
+  const type = reportsType === 'update' ? 'report' : reportsType
+  let hrefPath = `/${type}?id=${id}`
+  let linkPath = urlCountry && reportsType !== 'disaster' ? `/${type}/${id}/${urlCountry}/${urlTitle}` : `/${type}/${id}/${urlTitle}`
+  return {
+    href: hrefPath,
+    link: linkPath
+  }
+}
+
 class ReportLink extends React.Component {
   componentDidMount () {
     if (this.props.focusId === this.props.report.id) {
@@ -13,23 +41,14 @@ class ReportLink extends React.Component {
   }
 
   render () {
-    const { id, fields, urlCountry, urlTitle } = this.props.report
+    const { fields } = this.props.report
     const headingLevel = this.props.headingLevel || '2'
     const title = fields.title ? fields.title : fields.name
     const sources = fields.source ? fields.source : []
     const disasterTypes = fields.type ? fields.type : ''
     const countries = fields.primary_country ? [fields.primary_country] : fields.country
-    let linkPath = `/report/${id}/${urlCountry}/${urlTitle}`
-    let hrefPath = `/report?id=${id}`
-    if (this.props.reportsType === 'disaster') {
-      linkPath = `/disaster/${id}/${urlTitle}`
-      hrefPath = `/disaster?id=${id}`
-    }
-    if (this.props.reportsType === 'job') {
-      linkPath = `/job/${id}/${urlTitle}`
-      hrefPath = `/job?id=${id}`
-    }
-
+    const linkPath = formatPaths(this.props.report, this.props.reportsType).link
+    const hrefPath = formatPaths(this.props.report, this.props.reportsType).href
     return (
       <div className='report'>
         {headingLevel === '2' &&
@@ -46,11 +65,11 @@ class ReportLink extends React.Component {
             </Link>
           </h3>
         }
-        {fields.date && fields.date.created &&
-          <p className='date'>{formatDate(fields.date.created)}</p>
+        {fields.date &&
+          <p className='date'>{renderDate(fields.date)}</p>
         }
-        {fields.date && fields.date.closing &&
-          <p className='date'>Valid until {formatDate(fields.date.closing)}</p>
+        {!fields.date && this.props.reportsType === 'training' &&
+          <p className='date'>Ongoing course</p>
         }
         {fields.status &&
           <p className={`status ${fields.status}`}>{fields.status}</p>

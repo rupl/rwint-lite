@@ -94,6 +94,9 @@ const transformItems = (data) => {
     if (item.fields.primary_country) {
       item.urlCountry = item.fields.primary_country.shortname ? formatStringForUrl(item.fields.primary_country.shortname) : formatStringForUrl(item.fields.primary_country.name)
     }
+    if (!item.fields.primary_country && item.fields.country && item.fields.country.length === 1) {
+      item.urlCountry = item.fields.country[0].shortname ? formatStringForUrl(item.fields.country[0].shortname) : formatStringForUrl(item.fields.country[0].name)
+    }
     if (item.fields.name) {
       item.urlTitle = formatStringForUrl(item.fields.name)
     }

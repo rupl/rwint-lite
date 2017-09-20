@@ -400,7 +400,7 @@ describe('PaginatedReportsList component', () => {
       beforeAll(() => {
         jobsStore = {
           currentPage: 4,
-          items: mockJobs.data,
+          items: mockJobs.data
         }
       })
       it('passes the query to getJobs when load more', () => {

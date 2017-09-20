@@ -2,13 +2,22 @@ import Link from 'next/link'
 import React from 'react'
 import { measurements } from '../../theme/variables'
 
+const formatSearchPaths = (type = 'update') => {
+  const asPath = type === 'update' ? '/report/listing' : `/${type}/listing`
+  const hrefPath = `/${type}s`
+  return {
+    as: asPath,
+    href: hrefPath
+  }
+}
+
 class InfoLinksList extends React.Component {
   render () {
     const { dataType, divider, items, searchType, type } = this.props
     const totalItems = items.length
     const queryString = `?search=${dataType}.exact:`
-    const asPath = searchType === 'job' ? '/job/listing' : '/report/listing'
-    const hrefPath = searchType === 'job' ? '/jobs' : '/updates'
+    const asPath = formatSearchPaths(searchType).as
+    const hrefPath = formatSearchPaths(searchType).href
     const numToShow = 2
     const displayItems = items && items.length > numToShow ? [items[0], items[1]] : items
     const moreNumber = items && items.length > numToShow ? items.length - numToShow : 0
