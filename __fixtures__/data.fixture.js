@@ -323,9 +323,11 @@ export const mockTraining = {
     title: 'This is the title',
     date: {
       end: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)'),
-      start: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)')
+      start: new Date('Thu Aug 24 2017 17:11:26 GMT+0100 (BST)'),
+      registration: new Date('Tue Aug 22 2017 17:11:26 GMT+0100 (BST)')
     },
-    'body-html': '<p>All about the training</p>'
+    'body-html': '<p>All about the training</p>',
+    'how_to_register-html': '<p>Registration info</p>'
   }
 }
 
@@ -335,8 +337,7 @@ export const mockTraining2 = {
     id: 401,
     title: 'This is the title 2',
     date: {
-      end: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)'),
-      start: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)')
+      created: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)')
     },
     'body-html': '<p>All about the trainnig 2</p>'
   }

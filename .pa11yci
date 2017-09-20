@@ -10,6 +10,7 @@
         "localhost:3000/disaster/43824/hurricane-irma-sep-2017",
         "localhost:3000/job/listing",
         "localhost:3000/job/2230514/madagascar/chief-of-party-senior-reading-expert",
-        "localhost:3000/training/listing"
+        "localhost:3000/training/listing",
+        "localhost:3000/training/2229579/uk/2-day-personal-security-with-first-aid-course-london"
     ]
 }

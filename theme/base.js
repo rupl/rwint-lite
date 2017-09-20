@@ -41,7 +41,7 @@ const base = `
   }
   a {
     color: ${colors.link.default};
-    word-break: break-all;
+    word-break: break-word;
   }
   a:focus {
     outline: thin dotted;

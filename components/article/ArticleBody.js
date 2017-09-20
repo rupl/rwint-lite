@@ -7,6 +7,7 @@ export class ArticleBody extends React.Component {
     const {report} = this.props
     const body = report.fields['body-html'] ? sanitizeHtml(report.fields['body-html']) : ''
     const howApply = report.fields['how_to_apply-html'] ? sanitizeHtml(report.fields['how_to_apply-html']) : ''
+    const regInfo = report.fields['how_to_register-html'] ? sanitizeHtml(report.fields['how_to_register-html']) : ''
     return (
       <div>
         <div className='body' dangerouslySetInnerHTML={{__html: body}} />
@@ -14,6 +15,12 @@ export class ArticleBody extends React.Component {
           <div>
             <h2>How to apply</h2>
             <div className='apply' dangerouslySetInnerHTML={{__html: howApply}} />
+          </div>
+        }
+        {regInfo &&
+          <div>
+            <h2>How to register</h2>
+            <div className='reg' dangerouslySetInnerHTML={{__html: regInfo}} />
           </div>
         }
         <style jsx>{`

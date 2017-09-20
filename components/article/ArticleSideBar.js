@@ -71,8 +71,3 @@ class ArticleSideBar extends React.Component {
 }
 
 export default ArticleSideBar
-
-// city
-// career category
-// years of experience
-// type
