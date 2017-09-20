@@ -70,6 +70,11 @@ app.prepare()
     const queryParams = { id: req.params.id, name: req.params.name }
     app.render(req, res, actualPage, queryParams)
   })
+  server.get('/job/:id/:country/:title', (req, res) => {
+    const actualPage = '/job'
+    const queryParams = { id: req.params.id }
+    app.render(req, res, actualPage, queryParams)
+  })
   server.get('/training/listing', (req, res) => {
     const actualPage = '/trainings'
     const queryParams = { page: req.query.page, search: req.query.search }
@@ -78,6 +83,11 @@ app.prepare()
   server.get('/training/:id/:name', (req, res) => {
     const actualPage = '/training'
     const queryParams = { id: req.params.id, name: req.params.name }
+    app.render(req, res, actualPage, queryParams)
+  })
+  server.get('/training/:id/:country/:title', (req, res) => {
+    const actualPage = '/training'
+    const queryParams = { id: req.params.id }
     app.render(req, res, actualPage, queryParams)
   })
 

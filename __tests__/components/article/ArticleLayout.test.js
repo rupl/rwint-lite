@@ -19,7 +19,6 @@ describe('Article Layout component', () => {
     it('renders the header', () => {
       expect(wrapper.find('ArticleHeader').exists()).toBe(true)
       expect(wrapper.find('ArticleHeader').prop('report')).toEqual(mockUpdate)
-      expect(wrapper.find('ArticleHeader').prop('hasInfo')).toBe(true)
     })
 
     it('renders the body', () => {

@@ -3,8 +3,8 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import * as actions from '../../actions/actions'
 import * as actionTypes from '../../constants/actionTypes'
-import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockFeatured, mockHeadlines, mockJobs,
-  mockReports, mockTrainings, mockUpdate } from '../../__fixtures__/data.fixture'
+import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockFeatured, mockHeadlines, mockJob, mockJobs,
+  mockReports, mockTraining, mockTrainings, mockUpdate } from '../../__fixtures__/data.fixture'
 
 jest.mock('../../services/requests')
 
@@ -458,6 +458,31 @@ describe('Get Jobs with query', () => {
   })
 })
 
+describe('Get a Job', () => {
+  it('creates GET_JOB when has fetched job and returns the job', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_JOB,
+      item: mockJob
+    }]
+    const store = mockStore({
+      jobReports: []
+    })
+    return store.dispatch(actions.getJob(mockJob.id)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('does not create GET_JOB when job has already been fetched', () => {
+    const expectedActions = []
+    const store = mockStore({
+      jobReports: [mockJob]
+    })
+    return store.dispatch(actions.getJob(mockJob.id)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
 describe('Get Trainings', () => {
   it('creates GET_TRAININGS when has fetched trainings and returns the items and info', () => {
     const expectedActions = [{
@@ -547,6 +572,31 @@ describe('Get Trainings with query', () => {
       trainings: {}
     })
     return store.dispatch(actions.getTrainings(1, false, false, 'congo')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('Get a Training', () => {
+  it('creates GET_TRAINING when has fetched training and returns the training', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_TRAINING,
+      item: mockTraining
+    }]
+    const store = mockStore({
+      trainingReports: []
+    })
+    return store.dispatch(actions.getTraining(mockTraining.id)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('does not create GET_TRAINING when training has already been fetched', () => {
+    const expectedActions = []
+    const store = mockStore({
+      trainingReports: [mockTraining]
+    })
+    return store.dispatch(actions.getTraining(mockTraining.id)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })

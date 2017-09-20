@@ -1,6 +1,6 @@
 import * as actionTypes from '../constants/actionTypes'
 import { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestHeadlines,
-  requestJobs, requestTrainings, requestUpdate, requestUpdates } from '../services/requests'
+  requestJob, requestJobs, requestTraining, requestTrainings, requestUpdate, requestUpdates } from '../services/requests'
 
 // helpers
 const shouldUpdate = (lastFetched, threshold = 1) => {
@@ -31,6 +31,21 @@ const getPaginatedItems = async (actionType, requestFn, offset, loadMore, limit,
   return dispatchObj
 }
 
+const getItem = async (dispatch, getState, id, reportsType, requestFn, action) => {
+  const reports = getState()[reportsType]
+  if (reports) {
+    const index = reports.map((x) => { return x.id }).indexOf(id)
+    if (index !== -1) {
+      return
+    }
+  }
+  let response = await requestFn(id)
+  dispatch({
+    type: actionTypes[action],
+    item: response[0]
+  })
+}
+
 const shouldFetch = (lastFetched, loadMore, pageNumber, pagination, query) => {
   const goingBackToPaginatedPage = pageNumber > 1 && !loadMore && !pagination
   const shouldRefreshFirstPage = query || (pageNumber === 1 && shouldUpdate(lastFetched))
@@ -43,18 +58,7 @@ const shouldFetch = (lastFetched, loadMore, pageNumber, pagination, query) => {
 
 export const getUpdate = (id) => {
   return async (dispatch, getState) => {
-    const reports = getState().updateReports
-    if (reports) {
-      const index = reports.map((x) => { return x.id }).indexOf(id)
-      if (index !== -1) {
-        return
-      }
-    }
-    let response = await requestUpdate(id)
-    dispatch({
-      type: actionTypes.GET_UPDATE,
-      item: response[0]
-    })
+    return getItem(dispatch, getState, id, 'updateReports', requestUpdate, 'GET_UPDATE')
   }
 }
 
@@ -95,18 +99,7 @@ export const getHeadlines = () => {
 
 export const getCountry = (id) => {
   return async (dispatch, getState) => {
-    const reports = getState().countryReports
-    if (reports) {
-      const index = reports.map((x) => { return x.id }).indexOf(id)
-      if (index !== -1) {
-        return
-      }
-    }
-    let response = await requestCountry(id)
-    dispatch({
-      type: actionTypes.GET_COUNTRY,
-      item: response[0]
-    })
+    return getItem(dispatch, getState, id, 'countryReports', requestCountry, 'GET_COUNTRY')
   }
 }
 
@@ -124,18 +117,7 @@ export const getCountries = () => {
 
 export const getDisaster = (id) => {
   return async (dispatch, getState) => {
-    const reports = getState().disasterReports
-    if (reports) {
-      const index = reports.map((x) => { return x.id }).indexOf(id)
-      if (index !== -1) {
-        return
-      }
-    }
-    let response = await requestDisaster(id)
-    dispatch({
-      type: actionTypes.GET_DISASTER,
-      item: response[0]
-    })
+    return getItem(dispatch, getState, id, 'disasterReports', requestDisaster, 'GET_DISASTER')
   }
 }
 
@@ -150,6 +132,12 @@ export const getDisasters = (pageNumber = 1, loadMore = false, pagination = fals
   }
 }
 
+export const getJob = (id) => {
+  return async (dispatch, getState) => {
+    return getItem(dispatch, getState, id, 'jobReports', requestJob, 'GET_JOB')
+  }
+}
+
 export const getJobs = (pageNumber = 1, loadMore = false, pagination = false, query, limit = 10) => {
   return async (dispatch, getState) => {
     let offset = (pageNumber - 1) * limit
@@ -158,6 +146,12 @@ export const getJobs = (pageNumber = 1, loadMore = false, pagination = false, qu
     }
     let dispatchObj = await getPaginatedItems('GET_JOBS', requestJobs, offset, loadMore, limit, pageNumber, pagination, query)
     dispatch(dispatchObj)
+  }
+}
+
+export const getTraining = (id) => {
+  return async (dispatch, getState) => {
+    return getItem(dispatch, getState, id, 'trainingReports', requestTraining, 'GET_TRAINING')
   }
 }
 

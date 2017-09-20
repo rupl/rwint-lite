@@ -12,16 +12,27 @@ const formatHeading = (heading, itemsLength) => {
   return `${heading}s`
 }
 
+const formatSearchPaths = (type = 'update') => {
+  const asPath = type === 'update' ? '/report/listing' : `/${type}/listing`
+  const hrefPath = `/${type}s`
+  return {
+    as: asPath,
+    href: hrefPath
+  }
+}
+
 class ArticleInfo extends React.Component {
   render () {
     const heading = formatHeading(this.props.heading, this.props.items.length)
     const queryString = `?search=${this.props.type}.exact:`
+    const asPath = formatSearchPaths(this.props.searchType).as
+    const hrefPath = formatSearchPaths(this.props.searchType).href
     return (
       <div>
         <h2>{heading}</h2>
         {this.props.items.map((item, i) =>
           <span key={i}>
-            <Link prefetch as={`/report/listing${queryString}"${item.name}"`} href={`/updates${queryString}"${item.name}"`}>
+            <Link prefetch as={`${asPath}${queryString}"${item.name}"`} href={`${hrefPath}${queryString}"${item.name}"`}>
               <a>{item.name}</a>
             </Link>
             {i + 1 < this.props.items.length &&

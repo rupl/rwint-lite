@@ -2,7 +2,8 @@
 import { reducer } from '../../reducers/data'
 import * as actionTypes from '../../constants/actionTypes'
 import { mockCountries, mockCountry, mockCountry2, mockDisaster, mockDisaster2, mockDisasters, mockDisastersPage2,
-  mockFeatured, mockHeadlines, mockJobs, mockJobsPage2, mockReports, mockReportsPage2, mockTrainings, mockTrainingsPage2, mockUpdate, mockUpdate2 } from '../../__fixtures__/data.fixture'
+  mockFeatured, mockHeadlines, mockJob, mockJob2, mockJobs, mockJobsPage2, mockReports, mockReportsPage2,
+  mockTraining, mockTraining2, mockTrainings, mockTrainingsPage2, mockUpdate, mockUpdate2 } from '../../__fixtures__/data.fixture'
 
 describe('data reducer', () => {
   it('should return the initial state', () => {
@@ -30,6 +31,7 @@ describe('data reducer', () => {
           items: [],
           lastFetched: ''
         },
+        jobReports: [],
         jobs: {
           canLoadMore: false,
           currentPage: 0,
@@ -38,6 +40,7 @@ describe('data reducer', () => {
           items: [],
           totalCount: 0
         },
+        trainingReports: [],
         trainings: {
           canLoadMore: false,
           currentPage: 0,
@@ -210,6 +213,30 @@ describe('data reducer', () => {
     })
   })
 
+  describe('Handle GET_JOB', () => {
+    it('should handle get job', () => {
+      expect(
+        reducer({jobReports: []}, {
+          type: actionTypes.GET_JOB,
+          item: mockJob
+        })
+      ).toEqual({
+        jobReports: [mockJob]
+      })
+    })
+
+    it('should store multiple updates', () => {
+      expect(
+        reducer({jobReports: [mockJob]}, {
+          type: actionTypes.GET_JOB,
+          item: mockJob2
+        })
+      ).toEqual({
+        jobReports: [mockJob, mockJob2]
+      })
+    })
+  })
+
   describe('Handle GET_JOBS', () => {
     it('should handle Get Jobs', () => {
       const d = new Date()
@@ -326,6 +353,30 @@ describe('data reducer', () => {
           items: mockHeadlines.data,
           lastFetched: d.toString()
         }
+      })
+    })
+  })
+
+  describe('Handle GET_TRAINING', () => {
+    it('should handle get training', () => {
+      expect(
+        reducer({trainingReports: []}, {
+          type: actionTypes.GET_TRAINING,
+          item: mockTraining
+        })
+      ).toEqual({
+        trainingReports: [mockTraining]
+      })
+    })
+
+    it('should store multiple updates', () => {
+      expect(
+        reducer({trainingReports: [mockTraining]}, {
+          type: actionTypes.GET_TRAINING,
+          item: mockTraining2
+        })
+      ).toEqual({
+        trainingReports: [mockTraining, mockTraining2]
       })
     })
   })

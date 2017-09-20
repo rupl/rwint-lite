@@ -237,6 +237,33 @@ export const mockJobsPage2 = {
   ]
 }
 
+export const mockJob = {
+  id: 300,
+  fields: {
+    id: 300,
+    title: 'This is the title',
+    date: {
+      created: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)'),
+      closing: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)')
+    },
+    'body-html': '<p>All about the job</p>',
+    'how_to_apply-html': '<p>how to apply info</p>'
+  }
+}
+
+export const mockJob2 = {
+  id: 301,
+  fields: {
+    id: 301,
+    title: 'This is the title 2',
+    date: {
+      created: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)'),
+      closing: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)')
+    },
+    'body-html': '<p>All about the job 2</p>'
+  }
+}
+
 export const mockTrainings = {
   totalCount: 12,
   data: [
@@ -289,6 +316,32 @@ export const mockTrainingsPage2 = {
   ]
 }
 
+export const mockTraining = {
+  id: 400,
+  fields: {
+    id: 400,
+    title: 'This is the title',
+    date: {
+      end: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)'),
+      start: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)')
+    },
+    'body-html': '<p>All about the training</p>'
+  }
+}
+
+export const mockTraining2 = {
+  id: 401,
+  fields: {
+    id: 401,
+    title: 'This is the title 2',
+    date: {
+      end: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)'),
+      start: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)')
+    },
+    'body-html': '<p>All about the trainnig 2</p>'
+  }
+}
+
 const mockCountryDescription = `
   <h3>Appeals and Funding</h3>
   <ul>
@@ -328,6 +381,9 @@ export const mockDisaster = {
   fields: {
     id: 200,
     name: 'I am a disaster',
+    date: {
+      created: new Date('Wed Aug 23 2017 17:11:26 GMT+0100 (BST)')
+    },
     'description-html': '<p>sdgsg</p>'
   }
 }
@@ -347,7 +403,9 @@ export const mockEndpoints = {
   disaster: 'https://api.reliefweb.int/v1/disasters/200?appname=rwmob-dev',
   disasters: 'https://api.reliefweb.int/v1/disasters?appname=rwmob-dev',
   headlines: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev',
+  job: 'https://api.reliefweb.int/v1/jobs/300?appname=rwmob-dev',
   jobs: 'https://api.reliefweb.int/v1/jobs?appname=rwmob-dev',
+  training: 'https://api.reliefweb.int/v1/training/400?appname=rwmob-dev',
   trainings: 'https://api.reliefweb.int/v1/training?appname=rwmob-dev',
   updates: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev',
   update: 'https://api.reliefweb.int/v1/reports/100?appname=rwmob-dev'
