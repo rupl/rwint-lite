@@ -94,6 +94,9 @@ const transformItems = (data) => {
     if (item.fields.primary_country) {
       item.urlCountry = item.fields.primary_country.shortname ? formatStringForUrl(item.fields.primary_country.shortname) : formatStringForUrl(item.fields.primary_country.name)
     }
+    if (!item.fields.primary_country && item.fields.country && item.fields.country.length === 1) {
+      item.urlCountry = item.fields.country[0].shortname ? formatStringForUrl(item.fields.country[0].shortname) : formatStringForUrl(item.fields.country[0].name)
+    }
     if (item.fields.name) {
       item.urlTitle = formatStringForUrl(item.fields.name)
     }
@@ -169,10 +172,22 @@ const requestUpdate = async function (id) {
   return getSingleItem('reports', id)
 }
 
+const requestJobs = async function (offset, limit = 10, query) {
+  const sort = ['date.created:desc']
+  const fields = ['title', 'date.closing', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
+  return getItems('jobs', limit, offset, sort, fields, transformItems, '', '', query)
+}
+
+const requestTrainings = async function (offset, limit = 10, query) {
+  const sort = ['date.created:desc']
+  const fields = ['title', 'date.registration', 'date.start', 'date.end', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
+  return getItems('training', limit, offset, sort, fields, transformItems, '', '', query)
+}
+
 const requestUpdates = async function (offset, limit = 10, query) {
   const sort = ['date:desc']
   const fields = ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
   return getItems('reports', limit, offset, sort, fields, transformItems, '', 'latest', query)
 }
 
-export { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates }
+export { requestCountry, requestCountries, requestDisaster, requestDisasters, requestTrainings, requestFeatured, requestHeadlines, requestJobs, requestUpdate, requestUpdates }

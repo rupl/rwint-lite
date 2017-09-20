@@ -3,7 +3,8 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import * as actions from '../../actions/actions'
 import * as actionTypes from '../../constants/actionTypes'
-import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockFeatured, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
+import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockFeatured, mockHeadlines, mockJobs,
+  mockReports, mockTrainings, mockUpdate } from '../../__fixtures__/data.fixture'
 
 jest.mock('../../services/requests')
 
@@ -358,6 +359,194 @@ describe('Get a Disaster', () => {
       disasterReports: [mockDisaster]
     })
     return store.dispatch(actions.getDisaster(mockDisaster.id)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('Get Jobs', () => {
+  it('creates GET_JOBS when has fetched jobs and returns the items and info', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_JOBS,
+      items: mockJobs,
+      loadMore: false,
+      pageNumber: 1,
+      pagination: false
+    }]
+    const store = mockStore({
+      jobs: {}
+    })
+    return store.dispatch(actions.getJobs()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('returns the correct page number and loadMore flag to GET_JOBS when load more', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_JOBS,
+      items: mockJobs,
+      loadMore: true,
+      pageNumber: 2,
+      pagination: false
+    }]
+    const store = mockStore({
+      jobs: {}
+    })
+    return store.dispatch(actions.getJobs(2, true)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('returns the correct page number and loadMore flag to GET_JOBS when load a paginated page', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_JOBS,
+      items: mockJobs,
+      loadMore: false,
+      pageNumber: 4,
+      pagination: true
+    }]
+    const store = mockStore({
+      jobs: {}
+    })
+    return store.dispatch(actions.getJobs(4, false, true)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('does not create GET_JOBS if have recently fetched data', () => {
+    const d = new Date()
+    d.setSeconds(d.getSeconds() - 30)
+
+    const expectedActions = []
+    const store = mockStore({
+      jobs: {
+        lastFetched: d.toString()
+      }
+    })
+    return store.dispatch(actions.getJobs(1)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('does not create GET_UPDATES if going back to a paginated page', () => {
+    const expectedActions = []
+    const store = mockStore({
+      jobs: {}
+    })
+    return store.dispatch(actions.getJobs(5, false, false)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('Get Jobs with query', () => {
+  it('creates GET_JOBS when has fetched jobs and returns the items, info and isQuery flag', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_JOBS,
+      items: mockJobs,
+      loadMore: false,
+      pageNumber: 1,
+      pagination: false,
+      isQuery: true
+    }]
+    const store = mockStore({
+      jobs: {}
+    })
+    return store.dispatch(actions.getJobs(1, false, false, 'congo')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('Get Trainings', () => {
+  it('creates GET_TRAININGS when has fetched trainings and returns the items and info', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_TRAININGS,
+      items: mockTrainings,
+      loadMore: false,
+      pageNumber: 1,
+      pagination: false
+    }]
+    const store = mockStore({
+      trainings: {}
+    })
+    return store.dispatch(actions.getTrainings()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('returns the correct page number and loadMore flag to GET_TRAININGS when load more', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_TRAININGS,
+      items: mockTrainings,
+      loadMore: true,
+      pageNumber: 2,
+      pagination: false
+    }]
+    const store = mockStore({
+      trainings: {}
+    })
+    return store.dispatch(actions.getTrainings(2, true)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('returns the correct page number and loadMore flag to GET_TRAININGS when load a paginated page', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_TRAININGS,
+      items: mockTrainings,
+      loadMore: false,
+      pageNumber: 4,
+      pagination: true
+    }]
+    const store = mockStore({
+      trainings: {}
+    })
+    return store.dispatch(actions.getTrainings(4, false, true)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('does not create GET_TRAININGS if have recently fetched data', () => {
+    const d = new Date()
+    d.setSeconds(d.getSeconds() - 30)
+
+    const expectedActions = []
+    const store = mockStore({
+      trainings: {
+        lastFetched: d.toString()
+      }
+    })
+    return store.dispatch(actions.getTrainings(1)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  it('does not create GET_UPDATES if going back to a paginated page', () => {
+    const expectedActions = []
+    const store = mockStore({
+      trainings: {}
+    })
+    return store.dispatch(actions.getTrainings(5, false, false)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('Get Trainings with query', () => {
+  it('creates GET_TRAININGS when has fetched trainings and returns the items, info and isQuery flag', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_TRAININGS,
+      items: mockTrainings,
+      loadMore: false,
+      pageNumber: 1,
+      pagination: false,
+      isQuery: true
+    }]
+    const store = mockStore({
+      trainings: {}
+    })
+    return store.dispatch(actions.getTrainings(1, false, false, 'congo')).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })

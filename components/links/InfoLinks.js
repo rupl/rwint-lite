@@ -4,17 +4,18 @@ import { colors, fontSizes } from '../../theme/variables'
 
 class InfoLinks extends React.Component {
   render () {
-    const {countries, disasterTypes, type, sources} = this.props
+    const {countries, disasterTypes, searchType, sources, type} = this.props
+    const showDivider = countries && countries.length
     return (
       <div className={type}>
         {countries && countries.length > 0 &&
-          <InfoLinksList dataType='country' items={countries} type={type} />
+          <InfoLinksList dataType='country' items={countries} searchType={searchType} type={type} />
         }
         {disasterTypes && disasterTypes.length > 0 &&
-          <InfoLinksList dataType='disaster_type' divider='true' items={disasterTypes} type={type} />
+          <InfoLinksList dataType='disaster_type' divider={showDivider} items={disasterTypes} searchType={searchType} type={type} />
         }
         {sources && sources.length > 0 &&
-          <InfoLinksList dataType='source' divider='true' items={sources} type={type} />
+          <InfoLinksList dataType='source' divider={showDivider} items={sources} searchType={searchType} type={type} />
         }
         <style jsx>{`
           div {

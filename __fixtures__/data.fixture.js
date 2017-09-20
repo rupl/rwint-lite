@@ -57,14 +57,16 @@ export const mockDisastersPage2 = {
   ]
 }
 
-export const mockFeatured = [
-  {id: '10', fields: {name: 'A country name 0'}},
-  {id: '11', fields: {name: 'A country name 1'}},
-  {id: '23', fields: {name: 'Oh no: A disaster name - 3'}},
-  {id: '24', fields: {name: 'Oh no: A disaster name - 4'}},
-  {id: '18', fields: {name: 'A country name 8'}},
-  {id: '19', fields: {name: 'A country name 9'}}
-]
+export const mockFeatured = {
+  data: [
+    {id: '10', fields: {name: 'A country name 0'}},
+    {id: '11', fields: {name: 'A country name 1'}},
+    {id: '23', fields: {name: 'Oh no: A disaster name - 3'}},
+    {id: '24', fields: {name: 'Oh no: A disaster name - 4'}},
+    {id: '18', fields: {name: 'A country name 8'}},
+    {id: '19', fields: {name: 'A country name 9'}}
+  ]
+}
 
 export const mockHeadlines = {
   data: [
@@ -183,6 +185,110 @@ export const mockUpdate2 = {
   }
 }
 
+export const mockJobs = {
+  totalCount: 12,
+  data: [
+    {
+      id: '50',
+      fields: {
+        title: 'Job title 0',
+        primary_country: {
+          shortname: 'So Yo'
+        },
+        source: [
+          {
+            shortname: 'Now Then'
+          },
+          {
+            name: 'Exposed'
+          },
+          {
+            name: 'The Star'
+          }
+        ]
+      }
+    },
+    {
+      id: '51',
+      fields: {
+        title: 'Job title 1',
+        primary_country: {
+          name: 'South Yorkshire'
+        }
+      }
+    },
+    {id: '52', fields: {title: 'Job title 2'}},
+    {id: '53', fields: {title: 'Job title 3'}},
+    {id: '54', fields: {title: 'Job title 4'}},
+    {id: '55', fields: {title: 'Job title 5'}},
+    {id: '56', fields: {title: 'Job title 6'}},
+    {id: '57', fields: {title: 'Job title 7'}},
+    {id: '58', fields: {title: 'Job title 8'}},
+    {id: '59', fields: {title: 'Job title 9'}}
+  ]
+}
+
+export const mockJobsPage2 = {
+  totalCount: 12,
+  data: [
+    {id: '59', fields: {title: 'Job title 9'}},
+    {id: '60', fields: {title: 'Job title 10'}},
+    {id: '61', fields: {title: 'Job title 11'}}
+  ]
+}
+
+export const mockTrainings = {
+  totalCount: 12,
+  data: [
+    {
+      id: '70',
+      fields: {
+        title: 'Training title 0',
+        primary_country: {
+          shortname: 'So Yo'
+        },
+        source: [
+          {
+            shortname: 'Now Then'
+          },
+          {
+            name: 'Exposed'
+          },
+          {
+            name: 'The Star'
+          }
+        ]
+      }
+    },
+    {
+      id: '71',
+      fields: {
+        title: 'Training title 1',
+        primary_country: {
+          name: 'South Yorkshire'
+        }
+      }
+    },
+    {id: '72', fields: {title: 'Training title 2'}},
+    {id: '73', fields: {title: 'Training title 3'}},
+    {id: '74', fields: {title: 'Training title 4'}},
+    {id: '75', fields: {title: 'Training title 5'}},
+    {id: '76', fields: {title: 'Training title 6'}},
+    {id: '77', fields: {title: 'Training title 7'}},
+    {id: '78', fields: {title: 'Training title 8'}},
+    {id: '79', fields: {title: 'Training title 9'}}
+  ]
+}
+
+export const mockTrainingsPage2 = {
+  totalCount: 12,
+  data: [
+    {id: '79', fields: {title: 'Training title 9'}},
+    {id: '80', fields: {title: 'Training title 10'}},
+    {id: '81', fields: {title: 'Training title 11'}}
+  ]
+}
+
 const mockCountryDescription = `
   <h3>Appeals and Funding</h3>
   <ul>
@@ -241,6 +347,8 @@ export const mockEndpoints = {
   disaster: 'https://api.reliefweb.int/v1/disasters/200?appname=rwmob-dev',
   disasters: 'https://api.reliefweb.int/v1/disasters?appname=rwmob-dev',
   headlines: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev',
+  jobs: 'https://api.reliefweb.int/v1/jobs?appname=rwmob-dev',
+  trainings: 'https://api.reliefweb.int/v1/training?appname=rwmob-dev',
   updates: 'https://api.reliefweb.int/v1/reports?appname=rwmob-dev',
   update: 'https://api.reliefweb.int/v1/reports/100?appname=rwmob-dev'
 }

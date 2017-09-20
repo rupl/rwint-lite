@@ -1,20 +1,20 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
-import { getJobs } from '../actions/actions'
+import { getTrainings } from '../actions/actions'
 import withRedux from 'next-redux-wrapper'
 import Layout from '../components/Layout'
 import PaginatedReportsList from '../components/lists/PaginatedReportsList'
 import SectionHeading from '../components/SectionHeading'
 
-export class Jobs extends React.Component {
+export class Trainings extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
     let pageNumber = query && query.page ? query.page : 1
     const showPagination = isServer && pageNumber > 1
     const searchQuery = query.search
-    await store.dispatch(getJobs(pageNumber, false, showPagination, searchQuery))
+    await store.dispatch(getTrainings(pageNumber, false, showPagination, searchQuery))
     return {
-      canLoadMore: store.getState().jobs.canLoadMore,
+      canLoadMore: store.getState().trainings.canLoadMore,
       currentPage: pageNumber,
       showPagination: showPagination,
       query: searchQuery
@@ -23,12 +23,12 @@ export class Jobs extends React.Component {
 
   render () {
     return (
-      <Layout title='Jobs' query={this.props.query}>
-        <SectionHeading heading='Jobs' level='1' />
+      <Layout title='Training' query={this.props.query}>
+        <SectionHeading heading='Training' level='1' />
         <PaginatedReportsList
           canLoadMore={this.props.canLoadMore}
           query={this.props.query}
-          reportsType='job'
+          reportsType='training'
           showPagination={this.props.showPagination} />
       </Layout>
     )
@@ -37,14 +37,14 @@ export class Jobs extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getJobs: bindActionCreators(getJobs, dispatch)
+    getTrainings: bindActionCreators(getTrainings, dispatch)
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    currentPage: state.jobs.currentPage
+    currentPage: state.trainings.currentPage
   }
 }
 
-export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Jobs)
+export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Trainings)

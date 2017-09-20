@@ -1,6 +1,6 @@
 /* eslint-env jest */
-import { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestHeadlines, requestUpdate, requestUpdates } from '../../services/requests.js'
-import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockEndpoints, mockHeadlines, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
+import { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestJobs, requestHeadlines, requestTrainings, requestUpdate, requestUpdates } from '../../services/requests.js'
+import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockEndpoints, mockHeadlines, mockJobs, mockTrainings, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
 jest.mock('../../helpers/shuffleArray')
 const fetchMock = require('fetch-mock')
 
@@ -389,6 +389,202 @@ describe('API requests', () => {
     it('returns the data', () => {
       expect(result.id).toEqual(mockDisaster.id)
       expect(result.fields.name).toEqual(mockDisaster.fields.name)
+    })
+  })
+
+  describe('Get Jobs', () => {
+    beforeAll(async () => {
+      fetchMock.post(mockEndpoints.jobs, mockJobs)
+      result = await requestJobs()
+    })
+    afterAll(fetchMock.restore)
+
+    it('sends a post request with the correct body data', () => {
+      expect(fetchMock.called(mockEndpoints.jobs)).toEqual(true)
+      expectedBody = {
+        limit: 10,
+        offset: 0,
+        sort: ['date.created:desc'],
+        fields: {
+          include: ['title', 'date.closing', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
+    })
+
+    it('returns the data', () => {
+      expect(result.data[0].id).toEqual(mockJobs.data[0].id)
+      expect(result.data[1].fields.title).toEqual(mockJobs.data[1].fields.title)
+    })
+
+    it('formats and adds the url-friendly country using the shortname if present to each result', () => {
+      expect(result.data[0].urlCountry).toBe('so-yo')
+    })
+
+    it('formats and adds the url-friendly country using the name if no shortname to each result', () => {
+      expect(result.data[1].urlCountry).toBe('south-yorkshire')
+    })
+
+    it('formats and adds the url-friendly title to each result', () => {
+      expect(result.data[0].urlTitle).toBe('job-title-0')
+    })
+  })
+
+  describe('Get next page of jobs', () => {
+    beforeAll(async () => {
+      fetchMock.post(mockEndpoints.jobs, mockJobs)
+      result = await requestJobs(10)
+    })
+    afterAll(fetchMock.restore)
+
+    it('sends the post request with offset set to 10', () => {
+      expect(fetchMock.called(mockEndpoints.jobs)).toEqual(true)
+      expectedBody = {
+        limit: 10,
+        offset: 10,
+        sort: ['date.created:desc'],
+        fields: {
+          include: ['title', 'date.closing', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
+    })
+  })
+
+  describe('Get queried jobs', () => {
+    beforeAll(async () => {
+      fetchMock.post(mockEndpoints.jobs, mockJobs)
+      result = await requestJobs(0, 10, 'Syria')
+    })
+    afterAll(fetchMock.restore)
+
+    it('sends the post request with the query', () => {
+      expect(fetchMock.called(mockEndpoints.jobs)).toEqual(true)
+      expectedBody = {
+        limit: 10,
+        offset: 0,
+        sort: ['date.created:desc'],
+        fields: {
+          include: ['title', 'date.closing', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
+        },
+        query: {
+          value: 'Syria',
+          operator: 'AND'
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
+    })
+
+    it('returns the data', () => {
+      expect(result.data[0].id).toEqual(mockJobs.data[0].id)
+      expect(result.data[1].fields.title).toEqual(mockJobs.data[1].fields.title)
+    })
+  })
+
+  describe('Get Trainings', () => {
+    beforeAll(async () => {
+      fetchMock.post(mockEndpoints.trainings, mockTrainings)
+      result = await requestTrainings()
+    })
+    afterAll(fetchMock.restore)
+
+    it('sends a post request with the correct body data', () => {
+      expect(fetchMock.called(mockEndpoints.trainings)).toEqual(true)
+      expectedBody = {
+        limit: 10,
+        offset: 0,
+        sort: ['date.created:desc'],
+        fields: {
+          include: ['title', 'date.registration', 'date.start', 'date.end', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
+    })
+
+    it('returns the data', () => {
+      expect(result.data[0].id).toEqual(mockTrainings.data[0].id)
+      expect(result.data[1].fields.title).toEqual(mockTrainings.data[1].fields.title)
+    })
+
+    it('formats and adds the url-friendly country using the shortname if present to each result', () => {
+      expect(result.data[0].urlCountry).toBe('so-yo')
+    })
+
+    it('formats and adds the url-friendly country using the name if no shortname to each result', () => {
+      expect(result.data[1].urlCountry).toBe('south-yorkshire')
+    })
+
+    it('formats and adds the url-friendly title to each result', () => {
+      expect(result.data[0].urlTitle).toBe('training-title-0')
+    })
+  })
+
+  describe('Get next page of trainings', () => {
+    beforeAll(async () => {
+      fetchMock.post(mockEndpoints.trainings, mockTrainings)
+      result = await requestTrainings(10)
+    })
+    afterAll(fetchMock.restore)
+
+    it('sends the post request with offset set to 10', () => {
+      expect(fetchMock.called(mockEndpoints.trainings)).toEqual(true)
+      expectedBody = {
+        limit: 10,
+        offset: 10,
+        sort: ['date.created:desc'],
+        fields: {
+          include: ['title', 'date.registration', 'date.start', 'date.end', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
+    })
+  })
+
+  describe('Get queried trainings', () => {
+    beforeAll(async () => {
+      fetchMock.post(mockEndpoints.trainings, mockTrainings)
+      result = await requestTrainings(0, 10, 'Syria')
+    })
+    afterAll(fetchMock.restore)
+
+    it('sends the post request with the query', () => {
+      expect(fetchMock.called(mockEndpoints.trainings)).toEqual(true)
+      expectedBody = {
+        limit: 10,
+        offset: 0,
+        sort: ['date.created:desc'],
+        fields: {
+          include: ['title', 'date.registration', 'date.start', 'date.end', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
+        },
+        query: {
+          value: 'Syria',
+          operator: 'AND'
+        }
+      }
+      expect(fetchMock.lastOptions()).toEqual({
+        method: 'post',
+        body: JSON.stringify(expectedBody)
+      })
+    })
+
+    it('returns the data', () => {
+      expect(result.data[0].id).toEqual(mockTrainings.data[0].id)
+      expect(result.data[1].fields.title).toEqual(mockTrainings.data[1].fields.title)
     })
   })
 })

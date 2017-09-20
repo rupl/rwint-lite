@@ -6,7 +6,7 @@ import ReportLink from '../links/ReportLink'
 import LoadMoreButton from './LoadMoreButton'
 import PaginationButtons from './PaginationButtons'
 import { breakpoints, measurements } from '../../theme/variables'
-import { getDisasters, getUpdates } from '../../actions/actions'
+import { getDisasters, getJobs, getTrainings, getUpdates } from '../../actions/actions'
 
 export class PaginatedReportsList extends React.Component {
   constructor (props) {
@@ -28,7 +28,17 @@ export class PaginatedReportsList extends React.Component {
   async loadPage (props, loadMore = true, pagination = false, prev = false) {
     const currentPage = parseInt(props[`${props.reportsType}s`].currentPage, 10)
     const pageNumber = prev ? currentPage - 1 : currentPage + 1
-    const getFn = props.reportsType === 'update' ? 'getUpdates' : 'getDisasters'
+    let getFn = 'getUpdates'
+    if (props.reportsType === 'disaster') {
+      getFn = 'getDisasters'
+    }
+    if (props.reportsType === 'job') {
+      getFn = 'getJobs'
+    }
+    if (props.reportsType === 'training') {
+      getFn = 'getTrainings'
+    }
+
     await props[getFn](pageNumber, loadMore, pagination, props.query)
     if (pagination) {
       this.updatePagination(pageNumber, props.query)
@@ -60,6 +70,7 @@ export class PaginatedReportsList extends React.Component {
     const reports = this.props[`${this.props.reportsType}s`]
     const nextPage = parseInt(reports.currentPage, 10) + 1
     const path = this.props.reportsType === 'update' ? 'report' : this.props.reportsType
+    const canLoadMore = this.props[`${this.props.reportsType}s`].canLoadMore
     return (
       <div>
         <div className='reports-wrapper'>
@@ -76,7 +87,7 @@ export class PaginatedReportsList extends React.Component {
             )
           }
         </div>
-        {this.props.canLoadMore && this.props.showPagination &&
+        {canLoadMore && this.props.showPagination &&
           <PaginationButtons
             prevClick={this.loadPrevPage}
             nextClick={this.loadNextPage}
@@ -84,7 +95,7 @@ export class PaginatedReportsList extends React.Component {
             path={path}
             supportsPush={this.state.supportsPush} />
         }
-        {this.props.canLoadMore && !this.props.showPagination &&
+        {canLoadMore && !this.props.showPagination &&
           <div className='btn-container'>
             <LoadMoreButton
               click={this.loadMore}
@@ -117,6 +128,8 @@ export class PaginatedReportsList extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     getDisasters: bindActionCreators(getDisasters, dispatch),
+    getJobs: bindActionCreators(getJobs, dispatch),
+    getTrainings: bindActionCreators(getTrainings, dispatch),
     getUpdates: bindActionCreators(getUpdates, dispatch)
   }
 }
