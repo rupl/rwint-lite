@@ -29,6 +29,7 @@ export const theInitialState = {
     lastFetched: '',
     items: []
   },
+  jobReports: [],
   jobs: {
     canLoadMore: false,
     currentPage: 0,
@@ -37,6 +38,7 @@ export const theInitialState = {
     items: [],
     totalCount: 0
   },
+  trainingReports: [],
   trainings: {
     canLoadMore: false,
     currentPage: 0,
@@ -121,8 +123,14 @@ export const reducer = (state = theInitialState, action) => {
     case actionTypes.GET_HEADLINES:
       return getItems(action, state, 'headlines')
 
+    case actionTypes.GET_JOB:
+      return getItem(action, state, 'jobReports')
+
     case actionTypes.GET_JOBS:
       return getPaginatedItems(action, state, 'jobs')
+
+    case actionTypes.GET_TRAINING:
+      return getItem(action, state, 'trainingReports')
 
     case actionTypes.GET_TRAININGS:
       return getPaginatedItems(action, state, 'trainings')

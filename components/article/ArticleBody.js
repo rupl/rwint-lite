@@ -6,10 +6,16 @@ export class ArticleBody extends React.Component {
   render () {
     const {report} = this.props
     const body = report.fields['body-html'] ? sanitizeHtml(report.fields['body-html']) : ''
-
+    const howApply = report.fields['how_to_apply-html'] ? sanitizeHtml(report.fields['how_to_apply-html']) : ''
     return (
       <div>
         <div className='body' dangerouslySetInnerHTML={{__html: body}} />
+        {howApply &&
+          <div>
+            <h2>How to apply</h2>
+            <div className='apply' dangerouslySetInnerHTML={{__html: howApply}} />
+          </div>
+        }
         <style jsx>{`
           h2 {
             font-family: ${fonts.body};

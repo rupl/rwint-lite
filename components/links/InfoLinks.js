@@ -12,7 +12,7 @@ class InfoLinks extends React.Component {
           <InfoLinksList dataType='country' items={countries} searchType={searchType} type={type} />
         }
         {disasterTypes && disasterTypes.length > 0 &&
-          <InfoLinksList dataType='disaster_type' divider={showDivider} items={disasterTypes} searchType={searchType} type={type} />
+          <InfoLinksList dataType='type' divider={showDivider} items={disasterTypes} searchType={searchType} type={type} />
         }
         {sources && sources.length > 0 &&
           <InfoLinksList dataType='source' divider={showDivider} items={sources} searchType={searchType} type={type} />

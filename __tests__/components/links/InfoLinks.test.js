@@ -49,7 +49,7 @@ describe('Info Links component', () => {
 
     it('renders the InfoLinksList for disaster types', () => {
       expect(disasterTypesList.exists()).toBe(true)
-      expect(disasterTypesList.prop('dataType')).toBe('disaster_type')
+      expect(disasterTypesList.prop('dataType')).toBe('type')
       expect(disasterTypesList.prop('items')).toEqual(disasterTypes)
     })
 

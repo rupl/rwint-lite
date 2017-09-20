@@ -106,15 +106,15 @@ const transformItems = (data) => {
   })
 }
 
-const requestCountry = async function (id) {
+export const requestCountry = async function (id) {
   return getSingleItem('countries', id, ['name', 'iso3'])
 }
 
-const requestCountries = async function () {
+export const requestCountries = async function () {
   return getItems('countries', 300, 0, ['name:asc'], ['name', 'featured'], transformCountries)
 }
 
-const requestFeatured = async function () {
+export const requestFeatured = async function () {
   const requestBody = {
     filter: {
       field: 'featured',
@@ -152,42 +152,48 @@ const requestFeatured = async function () {
   }
 }
 
-const requestDisaster = async function (id) {
+export const requestDisaster = async function (id) {
   return getSingleItem('disasters', id)
 }
 
-const requestDisasters = async function (offset, limit = 10, query) {
+export const requestDisasters = async function (offset, limit = 10, query) {
   const sort = []
   const fields = ['name', 'country.id', 'country.name', 'country.shortname', 'type', 'status']
   return getItems('disasters', limit, offset, sort, fields, transformItems, '', 'latest', query)
 }
 
-const requestHeadlines = async function () {
+export const requestHeadlines = async function () {
   const sort = ['date:desc']
   const fields = ['headline.title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
   return getItems('reports', 16, 0, sort, fields, transformItems, 'headline')
 }
 
-const requestUpdate = async function (id) {
-  return getSingleItem('reports', id)
+export const requestJob = async function (id) {
+  return getSingleItem('jobs', id)
 }
 
-const requestJobs = async function (offset, limit = 10, query) {
+export const requestJobs = async function (offset, limit = 10, query) {
   const sort = ['date.created:desc']
   const fields = ['title', 'date.closing', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
   return getItems('jobs', limit, offset, sort, fields, transformItems, '', '', query)
 }
 
-const requestTrainings = async function (offset, limit = 10, query) {
+export const requestTraining = async function (id) {
+  return getSingleItem('training', id)
+}
+
+export const requestTrainings = async function (offset, limit = 10, query) {
   const sort = ['date.created:desc']
   const fields = ['title', 'date.registration', 'date.start', 'date.end', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
   return getItems('training', limit, offset, sort, fields, transformItems, '', '', query)
 }
 
-const requestUpdates = async function (offset, limit = 10, query) {
+export const requestUpdate = async function (id) {
+  return getSingleItem('reports', id)
+}
+
+export const requestUpdates = async function (offset, limit = 10, query) {
   const sort = ['date:desc']
   const fields = ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
   return getItems('reports', limit, offset, sort, fields, transformItems, '', 'latest', query)
 }
-
-export { requestCountry, requestCountries, requestDisaster, requestDisasters, requestTrainings, requestFeatured, requestHeadlines, requestJobs, requestUpdate, requestUpdates }

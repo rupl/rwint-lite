@@ -1,6 +1,8 @@
 /* eslint-env jest */
-import { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestJobs, requestHeadlines, requestTrainings, requestUpdate, requestUpdates } from '../../services/requests.js'
-import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockEndpoints, mockHeadlines, mockJobs, mockTrainings, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
+import { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestJob, requestJobs,
+  requestHeadlines, requestTraining, requestTrainings, requestUpdate, requestUpdates } from '../../services/requests.js'
+import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockEndpoints, mockHeadlines, mockJob, mockJobs, mockTraining,
+ mockTrainings, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
 jest.mock('../../helpers/shuffleArray')
 const fetchMock = require('fetch-mock')
 
@@ -490,6 +492,23 @@ describe('API requests', () => {
     })
   })
 
+  describe('Get a Job', () => {
+    beforeAll(async () => {
+      fetchMock.get(mockEndpoints.job, {data: mockJob})
+      result = await requestJob(300)
+    })
+    afterAll(fetchMock.restore)
+
+    it('calls the job endpoint', () => {
+      expect(fetchMock.called(mockEndpoints.job)).toBe(true)
+    })
+
+    it('returns the data', () => {
+      expect(result.id).toEqual(mockJob.id)
+      expect(result.fields.title).toEqual(mockJob.fields.title)
+    })
+  })
+
   describe('Get Trainings', () => {
     beforeAll(async () => {
       fetchMock.post(mockEndpoints.trainings, mockTrainings)
@@ -585,6 +604,23 @@ describe('API requests', () => {
     it('returns the data', () => {
       expect(result.data[0].id).toEqual(mockTrainings.data[0].id)
       expect(result.data[1].fields.title).toEqual(mockTrainings.data[1].fields.title)
+    })
+  })
+
+  describe('Get a Training', () => {
+    beforeAll(async () => {
+      fetchMock.get(mockEndpoints.training, {data: mockTraining})
+      result = await requestTraining(400)
+    })
+    afterAll(fetchMock.restore)
+
+    it('calls the training endpoint', () => {
+      expect(fetchMock.called(mockEndpoints.training)).toBe(true)
+    })
+
+    it('returns the data', () => {
+      expect(result.id).toEqual(mockTraining.id)
+      expect(result.fields.title).toEqual(mockTraining.fields.title)
     })
   })
 })

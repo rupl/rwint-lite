@@ -6,22 +6,39 @@ const getTitle = (report) => {
   return report.fields.title || report.fields.name
 }
 
-const ArticleHeader = ({report, hasInfo, showDate}) => (
+const getDate = (date, type) => {
+  if (type === 'job' && date.closing) {
+    return `Application before ${formatDate(date.closing, true)}`
+  }
+  if (date.created) {
+    return `Published on ${formatDate(date.created, true)}`
+  }
+}
+
+const showInfoSection = (type) => {
+  return type !== 'country'
+}
+
+const showInfoLinks = (type) => {
+  return type === 'update'
+}
+
+const ArticleHeader = ({report, type}) => (
   <header>
     {getTitle(report) &&
       <h1>{getTitle(report)}</h1>
     }
-    {(hasInfo || showDate) &&
+    {showInfoSection(type) &&
       <div>
         <p className='header-info'>
-          {report.fields.date && report.fields.date.created &&
-            <span className='date'>Published on {formatDate(report.fields.date.created, true)}</span>
+          {report.fields.date &&
+            <span className='date'>{getDate(report.fields.date, type)}</span>
           }
           {report.fields.origin &&
             <a href={report.fields.origin} className='original'>View original</a>
           }
         </p>
-        {hasInfo &&
+        {showInfoLinks(type) &&
           <div className='header-info'>
             <InfoLinks countries={[report.fields.primary_country]} sources={report.fields.source} />
           </div>

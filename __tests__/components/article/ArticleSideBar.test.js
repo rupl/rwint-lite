@@ -5,8 +5,8 @@ import ArticleSideBar from '../../../components/article/ArticleSideBar.js'
 import { mockUpdate } from '../../../__fixtures__/data.fixture'
 
 describe('Article Side Bar component', () => {
-  let attachmentInfo, countryInfo, disastersInfo, disasterTypeInfo, formatInfo, languageInfo, report,
-    sourceInfo, themeInfo, vulnerableGroupInfo, wrapper
+  let attachmentInfo, careerInfo, cityInfo, countryInfo, disastersInfo, disasterTypeInfo, experienceInfo, formatInfo,
+    languageInfo, report, sourceInfo, themeInfo, typeInfo, vulnerableGroupInfo, wrapper
 
   beforeEach(() => {
     report = [...mockUpdate]
@@ -129,11 +129,11 @@ describe('Article Side Bar component', () => {
         {name: 'Drought'},
         {name: 'Other'}
       ]
-      wrapper = shallow(<ArticleSideBar report={report} />)
+      wrapper = shallow(<ArticleSideBar report={report} type='disaster' />)
       disasterTypeInfo = wrapper.find('ArticleInfo[heading="Disaster type"]')
       expect(disasterTypeInfo.exists()).toBe(true)
       expect(disasterTypeInfo.prop('items')).toEqual(report.fields.type)
-      expect(disasterTypeInfo.prop('type')).toEqual('disaster_type')
+      expect(disasterTypeInfo.prop('type')).toEqual('type')
     })
 
     it('does not render the disasters type on disasters if not present', () => {
@@ -224,6 +224,90 @@ describe('Article Side Bar component', () => {
       wrapper = shallow(<ArticleSideBar report={report} />)
       attachmentInfo = wrapper.find('ArticleAttachments[heading="Attachment"]')
       expect(attachmentInfo.exists()).toBe(false)
+    })
+  })
+
+  describe('City info', () => {
+    it('renders the cities if present', () => {
+      report.fields.city = [
+        {name: 'Sheffield'},
+        {name: 'Rotherham'}
+      ]
+      wrapper = shallow(<ArticleSideBar report={report} />)
+      cityInfo = wrapper.find('ArticleInfo[heading="City"]')
+      expect(cityInfo.exists()).toBe(true)
+      expect(cityInfo.prop('items')).toEqual(report.fields.city)
+      expect(cityInfo.prop('type')).toEqual('city')
+    })
+
+    it('does not render the city if not present', () => {
+      report.fields = {}
+      wrapper = shallow(<ArticleSideBar report={report} />)
+      cityInfo = wrapper.find('ArticleInfo[heading="City"]')
+      expect(cityInfo.exists()).toBe(false)
+    })
+  })
+
+  describe('Career Category info', () => {
+    it('renders the career categories if present', () => {
+      report.fields.career_categories = [
+        {name: 'Cat'},
+        {name: 'Dog'}
+      ]
+      wrapper = shallow(<ArticleSideBar report={report} />)
+      careerInfo = wrapper.find('ArticleInfo[heading="Career category"]')
+      expect(careerInfo.exists()).toBe(true)
+      expect(careerInfo.prop('items')).toEqual(report.fields.career_categories)
+      expect(careerInfo.prop('type')).toEqual('career_categories')
+    })
+
+    it('does not render the career categories if not present', () => {
+      report.fields = {}
+      wrapper = shallow(<ArticleSideBar report={report} />)
+      careerInfo = wrapper.find('ArticleInfo[heading="Career category"]')
+      expect(careerInfo.exists()).toBe(false)
+    })
+  })
+
+  describe('Experience info', () => {
+    it('renders the years of experience if present', () => {
+      report.fields.experience = [
+        {name: '1'},
+        {name: '2'}
+      ]
+      wrapper = shallow(<ArticleSideBar report={report} />)
+      experienceInfo = wrapper.find('ArticleInfo[heading="Years of experience"]')
+      expect(experienceInfo.exists()).toBe(true)
+      expect(experienceInfo.prop('items')).toEqual(report.fields.experience)
+      expect(experienceInfo.prop('type')).toEqual('experience')
+    })
+
+    it('does not render the years of experience if not present', () => {
+      report.fields = {}
+      wrapper = shallow(<ArticleSideBar report={report} />)
+      experienceInfo = wrapper.find('ArticleInfo[heading="Years of experience"]')
+      expect(experienceInfo.exists()).toBe(false)
+    })
+  })
+
+  describe('Types info', () => {
+    it('renders the type if present', () => {
+      report.fields.type = [
+        {name: 'Job'},
+        {name: 'whatevs'}
+      ]
+      wrapper = shallow(<ArticleSideBar report={report} type='job' />)
+      typeInfo = wrapper.find('ArticleInfo[heading="type"]')
+      expect(typeInfo.exists()).toBe(true)
+      expect(typeInfo.prop('items')).toEqual(report.fields.type)
+      expect(typeInfo.prop('type')).toEqual('type')
+    })
+
+    it('does not render the disasters type on disasters if not present', () => {
+      report.fields = {}
+      wrapper = shallow(<ArticleSideBar report={report} />)
+      typeInfo = wrapper.find('ArticleInfo[heading="type"]')
+      expect(typeInfo.exists()).toBe(false)
     })
   })
 })

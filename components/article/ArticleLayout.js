@@ -10,15 +10,13 @@ import { breakpoints, colors, measurements } from '../../theme/variables'
 export class ArticleLayout extends React.Component {
   render () {
     const {report} = this.props
-    const hasInfo = this.props.type !== 'disaster'
-    const showDate = this.props.type === 'disaster'
 
     return (
       <div>
         {this.props.type !== 'country' &&
           <div className='article-container'>
             <article className='article-main'>
-              <ArticleHeader report={report} hasInfo={hasInfo} showDate={showDate} />
+              <ArticleHeader report={report} type={this.props.type} />
               {this.props.type === 'disaster' &&
                 <DescriptionBody report={report} />
               }

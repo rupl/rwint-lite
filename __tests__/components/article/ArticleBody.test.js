@@ -2,20 +2,44 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import ArticleBody from '../../../components/article/ArticleBody.js'
-import { mockUpdate } from '../../../__fixtures__/data.fixture'
+import { mockJob, mockUpdate } from '../../../__fixtures__/data.fixture'
 
 describe('Article Body component', () => {
   let wrapper
 
-  beforeAll(() => {
-    wrapper = shallow(<ArticleBody report={mockUpdate} />)
+  describe('Update', () => {
+    beforeAll(() => {
+      wrapper = shallow(<ArticleBody report={mockUpdate} />)
+    })
+
+    it('renders the component', () => {
+      expect(wrapper.exists()).toBe(true)
+    })
+
+    it('renders the body', () => {
+      expect(wrapper.find('.body').exists()).toBe(true)
+    })
+
+    it('does not render how to apply', () => {
+      expect(wrapper.find('.apply').exists()).toBe(false)
+    })
   })
 
-  it('renders the component', () => {
-    expect(wrapper.exists()).toBe(true)
-  })
+  describe('Job', () => {
+    beforeAll(() => {
+      wrapper = shallow(<ArticleBody report={mockJob} />)
+    })
 
-  it('renders the body', () => {
-    expect(wrapper.find('.body').exists()).toBe(true)
+    it('renders the component', () => {
+      expect(wrapper.exists()).toBe(true)
+    })
+
+    it('renders the body', () => {
+      expect(wrapper.find('.body').exists()).toBe(true)
+    })
+
+    it('renders how to apply', () => {
+      expect(wrapper.find('.apply').exists()).toBe(true)
+    })
   })
 })
