@@ -86,7 +86,6 @@ const getItems = (action, state, type) => {
 }
 
 const getPaginatedItems = (action, state, type) => {
-  console.log('action', action)
   if (action.error) {
     return state
   }
