@@ -16,8 +16,16 @@ export const requestJobs = jest.fn((x) => {
   let returnJobs = x === '1' ? mockJobsPage2 : mockJobs
   return Promise.resolve(returnJobs)
 })
-export const requestTraining = jest.fn(() => Promise.resolve([mockTraining]))
+export const requestTraining = jest.fn((x) => {
+  if (x === 'error') {
+    return Promise.resolve({ok: false, status: 404})
+  }
+  return Promise.resolve([mockTraining])
+})
 export const requestTrainings = jest.fn((x) => {
+  if (x === 990) { // use an arbitrary offset value to trigger error response
+    return Promise.resolve({ok: false, status: 404})
+  }
   let returnTrainings = x === '1' ? mockTrainingsPage2 : mockTrainings
   return Promise.resolve(returnTrainings)
 })

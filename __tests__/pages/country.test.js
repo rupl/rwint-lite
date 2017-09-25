@@ -106,3 +106,33 @@ describe('Country page', () => {
     })
   })
 })
+
+describe('Country page error handling', () => {
+  let fakeStore, wrapper
+  beforeAll(() => {
+    wrapper = shallow(<Country error={404} />)
+  })
+
+  it('returns a 404 error to props', () => {
+    fakeStore = {
+      dispatch: function () {},
+      getState: function () {
+        return {
+          countryReports: []
+        }
+      }
+    }
+    return Country.getInitialProps({store: fakeStore, isServer: true, pathname: '', query: {id: 400}}).then(function (data) {
+      expect(data.report).toBe(undefined)
+      expect(data.error).toBe(404)
+    })
+  })
+
+  it('renders the error page', () => {
+    expect(wrapper.find('Error').exists()).toBe(true)
+  })
+
+  it('does not render the article layout', () => {
+    expect(wrapper.find('ArticleLayout').exists()).toBe(false)
+  })
+})

@@ -59,6 +59,9 @@ export const theInitialState = {
 }
 
 const getItem = (action, state, type) => {
+  if (action.error) {
+    return state
+  }
   let newItems = [...state[type]]
   newItems.push(action.item)
   return {
@@ -68,6 +71,9 @@ const getItem = (action, state, type) => {
 }
 
 const getItems = (action, state, type) => {
+  if (action.error) {
+    return state
+  }
   const d = new Date()
   let newItems = {
     lastFetched: d.toString(),
@@ -80,8 +86,12 @@ const getItems = (action, state, type) => {
 }
 
 const getPaginatedItems = (action, state, type) => {
+  console.log('action', action)
+  if (action.error) {
+    return state
+  }
   const reportsPerPage = 10
-  const canLoadMore = action.items.totalCount > (action.pageNumber * reportsPerPage)
+  const canLoadMore = action.items && (action.items.totalCount > (action.pageNumber * reportsPerPage))
   const d = action.pagination || action.isQuery ? '' : new Date() // dont save last fetched if loading a paginated page
   let newItems = action.loadMore ? [...state[type].items, ...action.items.data] : action.items.data
   let focusId = ''
