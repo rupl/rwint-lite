@@ -182,7 +182,7 @@ export const requestJob = async function (id) {
 export const requestJobs = async function (offset, limit = 10, query) {
   const sort = ['date.created:desc']
   const fields = ['title', 'date.closing', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
-  return getItems('jobs', limit, offset, sort, fields, transformItems, '', '', query)
+  return getItems('jobs', limit, offset, sort, fields, transformItems, '', 'latest', query)
 }
 
 export const requestTraining = async function (id) {
@@ -192,7 +192,7 @@ export const requestTraining = async function (id) {
 export const requestTrainings = async function (offset, limit = 10, query) {
   const sort = ['date.created:desc']
   const fields = ['title', 'date.registration', 'date.start', 'date.end', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
-  return getItems('training', limit, offset, sort, fields, transformItems, '', '', query)
+  return getItems('training', limit, offset, sort, fields, transformItems, '', 'latest', query)
 }
 
 export const requestUpdate = async function (id) {

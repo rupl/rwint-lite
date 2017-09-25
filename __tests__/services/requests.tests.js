@@ -406,6 +406,7 @@ describe('API requests', () => {
       expectedBody = {
         limit: 10,
         offset: 0,
+        preset: 'latest',
         sort: ['date.created:desc'],
         fields: {
           include: ['title', 'date.closing', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
@@ -447,6 +448,7 @@ describe('API requests', () => {
       expectedBody = {
         limit: 10,
         offset: 10,
+        preset: 'latest',
         sort: ['date.created:desc'],
         fields: {
           include: ['title', 'date.closing', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
@@ -471,6 +473,7 @@ describe('API requests', () => {
       expectedBody = {
         limit: 10,
         offset: 0,
+        preset: 'latest',
         sort: ['date.created:desc'],
         fields: {
           include: ['title', 'date.closing', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
@@ -521,6 +524,7 @@ describe('API requests', () => {
       expectedBody = {
         limit: 10,
         offset: 0,
+        preset: 'latest',
         sort: ['date.created:desc'],
         fields: {
           include: ['title', 'date.registration', 'date.start', 'date.end', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
@@ -562,6 +566,7 @@ describe('API requests', () => {
       expectedBody = {
         limit: 10,
         offset: 10,
+        preset: 'latest',
         sort: ['date.created:desc'],
         fields: {
           include: ['title', 'date.registration', 'date.start', 'date.end', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
@@ -586,6 +591,7 @@ describe('API requests', () => {
       expectedBody = {
         limit: 10,
         offset: 0,
+        preset: 'latest',
         sort: ['date.created:desc'],
         fields: {
           include: ['title', 'date.registration', 'date.start', 'date.end', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
