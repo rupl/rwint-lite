@@ -11,7 +11,7 @@ const renderDate = (date) => {
     return formatDate(date.created)
   }
   if (date.closing) {
-    return `Valid until ${formatDate(date.closing)}`
+    return `Closing date: ${formatDate(date.closing)}`
   }
   if (date.start && date.end) {
     dateStr = date.start === date.end ? `On ${formatDate(date.start)}` : `From ${formatDate(date.start)} to ${formatDate(date.end)}`

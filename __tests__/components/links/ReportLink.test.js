@@ -50,7 +50,7 @@ describe('Report Link component', () => {
         closing: '2017-08-03T13:20:12+00:00'
       }
       wrapper = shallow(<Component report={report} reportsType='job' />)
-      expect(wrapper.find('.date').text()).toContain('Valid until 03 Aug 2017')
+      expect(wrapper.find('.date').text()).toContain('Closing date: 03 Aug 2017')
     })
 
     it('formats and renders the training dates', () => {

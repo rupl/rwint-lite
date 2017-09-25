@@ -9,7 +9,7 @@ const getTitle = (report) => {
 const getDate = (date, type) => {
   let dateStr = ''
   if (type === 'job' && date.closing) {
-    return `Application before ${formatDate(date.closing, true)}`
+    return `Closing date: ${formatDate(date.closing, true)}`
   }
   if (type === 'training') {
     if (!date.start && !date.end) {

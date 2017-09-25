@@ -71,7 +71,7 @@ describe('Article Header component', () => {
     })
 
     it('renders the application date', () => {
-      expect(wrapper.find('.date').text()).toContain('Application before 23 August 2017')
+      expect(wrapper.find('.date').text()).toContain('Closing date: 23 August 2017')
     })
   })
 
