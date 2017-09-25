@@ -48,7 +48,7 @@ const formatBodyHtml = (body) => {
   for (let i = 0; i < formattedBody.length; i++) {
     if (formattedBody[i].indexOf('</li>') !== -1) {
       if (formattedBody[i].indexOf('img') !== -1) {
-        formattedBody[i] = formatImg(formattedBody[i])
+        formattedBody[i] = `<li>${formatImg(formattedBody[i])}`
       } else {
         formattedBody[i] = `<li>${formattedBody[i]}`
       }
@@ -61,7 +61,8 @@ const formatBodyHtml = (body) => {
 export class DescriptionBody extends React.Component {
   render () {
     const {report} = this.props
-    let body = report.fields['description-html'] ? formatBodyHtml(report.fields['description-html']) : ''
+    console.log(report.fields['description-html'])
+    let body = report.fields && report.fields['description-html'] ? formatBodyHtml(report.fields['description-html']) : ''
     body = sanitizeHtml(body, {
       allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img', 'h2' ]),
       allowedAttributes: {img: ['src', 'width', 'height', 'alt'], li: ['class'], a: ['href', 'class'], ul: ['class']}
@@ -71,18 +72,9 @@ export class DescriptionBody extends React.Component {
       <div>
         <div className='country-report' dangerouslySetInnerHTML={{__html: body}} />
         <style jsx global>{`
-          .img:after {
-            content: "Image not found";
-            position: absolute;
-            background: white;
-            border: 1px solid ${colors.border.default};
-            text-align: center;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
+          .country-report img {
+            display: block;
+            overflow: hidden;
           }
           .country-report ul {
             padding: 0;
@@ -106,6 +98,9 @@ export class DescriptionBody extends React.Component {
             padding-bottom: ${measurements.baseUnit / 2}em;
             margin: ${measurements.baseUnit}em 0 0 0;
             clear: both;
+          }
+          .links-list img {
+            display: inline-block;
           }
           @media (min-width: ${breakpoints.md}) {
             .country-report h2 {
