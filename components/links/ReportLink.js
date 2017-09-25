@@ -6,7 +6,6 @@ import InfoLinks from '../links/InfoLinks'
 import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
 
 const renderDate = (date) => {
-  let dateStr = ''
   if (date.created) {
     return formatDate(date.created)
   }
@@ -14,12 +13,8 @@ const renderDate = (date) => {
     return `Closing date: ${formatDate(date.closing)}`
   }
   if (date.start && date.end) {
-    dateStr = date.start === date.end ? `On ${formatDate(date.start)}` : `From ${formatDate(date.start)} to ${formatDate(date.end)}`
+    return date.start === date.end ? `On ${formatDate(date.start)}` : `From ${formatDate(date.start)} to ${formatDate(date.end)}`
   }
-  if (date.registration) {
-    dateStr += ` - Registration before ${formatDate(date.registration)}`
-  }
-  return dateStr
 }
 
 const formatPaths = (report, reportsType = 'update') => {
@@ -66,7 +61,12 @@ class ReportLink extends React.Component {
           </h3>
         }
         {fields.date &&
-          <p className='date'>{renderDate(fields.date)}</p>
+          <p className='date'>
+            {renderDate(fields.date)}
+            {fields.date.registration &&
+              <span className='reg'> Registration before {formatDate(fields.date.registration)}</span>
+            }
+          </p>
         }
         {!fields.date && this.props.reportsType === 'training' &&
           <p className='date'>Ongoing course</p>
@@ -121,6 +121,10 @@ class ReportLink extends React.Component {
           .status.current:before {
             background: ${colors.status.current};
           }
+          .reg {
+            display: block;
+            margin-top: ${measurements.baseUnit * 1.5}em;
+          }
           @media (min-width: ${breakpoints.md}) {
             .report {
               float: left;
@@ -131,6 +135,14 @@ class ReportLink extends React.Component {
             }
             .report:nth-child(even) {
               margin-left: 1%;
+            }
+            .reg {
+              display: inline;
+              margin-top: 0;
+            }
+            .reg:before {
+              content: "-";
+              margin-left: 4px;
             }
           }
         `}</style>

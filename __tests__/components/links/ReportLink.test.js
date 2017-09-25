@@ -61,7 +61,7 @@ describe('Report Link component', () => {
         start: '2017-08-03T13:20:12+00:00'
       }
       wrapper = shallow(<Component report={report} reportsType='training' />)
-      expect(wrapper.find('.date').text()).toContain('From 03 Aug 2017 to 05 Aug 2017 - Registration before 30 Jul 2017')
+      expect(wrapper.find('.date').text()).toContain('From 03 Aug 2017 to 05 Aug 2017 Registration before 30 Jul 2017')
     })
 
     it('formats and renders the training dates for a single day course', () => {
@@ -72,7 +72,7 @@ describe('Report Link component', () => {
         start: '2017-08-03T13:20:12+00:00'
       }
       wrapper = shallow(<Component report={report} reportsType='training' />)
-      expect(wrapper.find('.date').text()).toContain('On 03 Aug 2017 - Registration before 30 Jul 2017')
+      expect(wrapper.find('.date').text()).toContain('On 03 Aug 2017 Registration before 30 Jul 2017')
     })
     it('formats and renders the training dates for an ongoing course', () => {
       report = reports[0]

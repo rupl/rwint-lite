@@ -68,6 +68,10 @@ describe('Article Body component', () => {
       expect(wrapper.find('.reg').exists()).toBe(true)
     })
 
+    it('renders fee information', () => {
+      expect(wrapper.find('.fee').exists()).toBe(true)
+    })
+
     it('does not render how to apply', () => {
       expect(wrapper.find('.apply').exists()).toBe(false)
     })

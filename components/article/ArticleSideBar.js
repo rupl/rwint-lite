@@ -44,7 +44,10 @@ class ArticleSideBar extends React.Component {
           <ArticleInfo heading='Format' searchType={this.props.type} type='format' items={report.fields.format} />
         }
         {report.fields.language &&
-          <ArticleInfo heading='Language' searchType={this.props.type} type='language' items={report.fields.language} />
+          <ArticleInfo heading={this.props.type && this.props.type === 'training' ? 'Course language' : 'Language'} searchType={this.props.type} type='language' items={report.fields.language} />
+        }
+        {report.fields.cost &&
+          <ArticleInfo heading='Cost' searchType={this.props.type} type='cost' items={report.fields.cost} />
         }
         {report.fields.file &&
           <ArticleAttachments heading='Attachment' items={report.fields.file} />

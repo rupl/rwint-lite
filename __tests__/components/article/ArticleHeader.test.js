@@ -89,7 +89,7 @@ describe('Article Header component', () => {
     })
 
     it('renders the application date', () => {
-      expect(wrapper.find('.date').text()).toContain('From 24 Aug 2017 to 23 Aug 2017 - Registration before 22 Aug 2017')
+      expect(wrapper.find('.date').text()).toContain('From 24 Aug 2017 to 23 Aug 2017 Registration before 22 Aug 2017')
     })
   })
 

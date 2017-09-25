@@ -5,7 +5,7 @@ import ArticleSideBar from '../../../components/article/ArticleSideBar.js'
 import { mockUpdate } from '../../../__fixtures__/data.fixture'
 
 describe('Article Side Bar component', () => {
-  let attachmentInfo, careerInfo, cityInfo, countryInfo, disastersInfo, disasterTypeInfo, experienceInfo, formatInfo,
+  let attachmentInfo, careerInfo, cityInfo, costInfo, countryInfo, disastersInfo, disasterTypeInfo, experienceInfo, formatInfo,
     languageInfo, report, sourceInfo, themeInfo, typeInfo, vulnerableGroupInfo, wrapper
 
   beforeEach(() => {
@@ -192,7 +192,7 @@ describe('Article Side Bar component', () => {
         {name: 'Coordination'},
         {name: 'Wash'}
       ]
-      wrapper = shallow(<ArticleSideBar report={report} />)
+      wrapper = shallow(<ArticleSideBar report={report} type='update' />)
       languageInfo = wrapper.find('ArticleInfo[heading="Language"]')
       expect(languageInfo.exists()).toBe(true)
       expect(languageInfo.prop('items')).toEqual(report.fields.language)
@@ -203,6 +203,27 @@ describe('Article Side Bar component', () => {
       report.fields = {}
       wrapper = shallow(<ArticleSideBar report={report} />)
       languageInfo = wrapper.find('ArticleInfo[heading="Language"]')
+      expect(languageInfo.exists()).toBe(false)
+    })
+  })
+
+  describe('Languages info on training courses', () => {
+    it('renders the languages if present', () => {
+      report.fields.language = [
+        {name: 'Coordination'},
+        {name: 'Wash'}
+      ]
+      wrapper = shallow(<ArticleSideBar report={report} type='training' />)
+      languageInfo = wrapper.find('ArticleInfo[heading="Course language"]')
+      expect(languageInfo.exists()).toBe(true)
+      expect(languageInfo.prop('items')).toEqual(report.fields.language)
+      expect(languageInfo.prop('type')).toEqual('language')
+    })
+
+    it('does not render the languages if not present', () => {
+      report.fields = {}
+      wrapper = shallow(<ArticleSideBar report={report} />)
+      languageInfo = wrapper.find('ArticleInfo[heading="Course language"]')
       expect(languageInfo.exists()).toBe(false)
     })
   })
@@ -308,6 +329,24 @@ describe('Article Side Bar component', () => {
       wrapper = shallow(<ArticleSideBar report={report} />)
       typeInfo = wrapper.find('ArticleInfo[heading="type"]')
       expect(typeInfo.exists()).toBe(false)
+    })
+  })
+
+  describe('Cost info', () => {
+    it('renders the cost if present', () => {
+      report.fields.cost = 'fee-based'
+      wrapper = shallow(<ArticleSideBar report={report} type='cost' />)
+      costInfo = wrapper.find('ArticleInfo[heading="Cost"]')
+      expect(costInfo.exists()).toBe(true)
+      expect(costInfo.prop('items')).toEqual(report.fields.cost)
+      expect(costInfo.prop('type')).toEqual('cost')
+    })
+
+    it('does not render the disasters cost on disasters if not present', () => {
+      report.fields = {}
+      wrapper = shallow(<ArticleSideBar report={report} />)
+      costInfo = wrapper.find('ArticleInfo[heading="Cost"]')
+      expect(costInfo.exists()).toBe(false)
     })
   })
 })

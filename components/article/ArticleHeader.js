@@ -7,7 +7,6 @@ const getTitle = (report) => {
 }
 
 const getDate = (date, type) => {
-  let dateStr = ''
   if (type === 'job' && date.closing) {
     return `Closing date: ${formatDate(date.closing, true)}`
   }
@@ -16,12 +15,8 @@ const getDate = (date, type) => {
       return 'Ongoing course'
     }
     if (date.start && date.end) {
-      dateStr = date.start === date.end ? `On ${formatDate(date.start)}` : `From ${formatDate(date.start)} to ${formatDate(date.end)}`
+      return date.start === date.end ? `On ${formatDate(date.start)}` : `From ${formatDate(date.start)} to ${formatDate(date.end)}`
     }
-    if (date.registration) {
-      dateStr += ` - Registration before ${formatDate(date.registration)}`
-    }
-    return dateStr
   }
   if (date.created) {
     return `Published on ${formatDate(date.created, true)}`
@@ -45,7 +40,12 @@ const ArticleHeader = ({report, type}) => (
       <div>
         <p className='header-info'>
           {report.fields.date &&
-            <span className='date'>{getDate(report.fields.date, type)}</span>
+            <span className='date'>
+              {getDate(report.fields.date, type)}
+              {report.fields.date.registration &&
+                <span className='reg'> Registration before {formatDate(report.fields.date.registration)}</span>
+              }
+            </span>
           }
           {report.fields.origin &&
             <a href={report.fields.origin} className='original'>View original</a>
@@ -89,10 +89,22 @@ const ArticleHeader = ({report, type}) => (
       .original:hover, .original:focus {
         text-decoration: underline;
       }
+      .reg {
+        display: block;
+        margin-top: ${measurements.baseUnit * 1.5}em;
+      }
       @media (min-width: ${breakpoints.md}) {
         h1 {
           font-size: ${fontSizes.large};
           margin: 0 0 ${measurements.baseUnit}em 0;
+        }
+        .reg {
+          display: inline;
+          margin-top: 0;
+        }
+        .reg:before {
+          content: "-";
+          margin-left: 4px;
         }
       }
     `}</style>

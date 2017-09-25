@@ -1,6 +1,6 @@
 import React from 'react'
 import sanitizeHtml from 'sanitize-html'
-import { breakpoints, colors, fonts, measurements } from '../../theme/variables'
+import { breakpoints, fonts, measurements } from '../../theme/variables'
 
 const getAltText = (str) => {
   const startPoint = str.indexOf('<strong>') + '<strong>'.length
@@ -61,7 +61,6 @@ const formatBodyHtml = (body) => {
 export class DescriptionBody extends React.Component {
   render () {
     const {report} = this.props
-    console.log(report.fields['description-html'])
     let body = report.fields && report.fields['description-html'] ? formatBodyHtml(report.fields['description-html']) : ''
     body = sanitizeHtml(body, {
       allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img', 'h2' ]),

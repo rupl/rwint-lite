@@ -8,6 +8,8 @@ export class ArticleBody extends React.Component {
     const body = report.fields && report.fields['body-html'] ? sanitizeHtml(report.fields['body-html']) : ''
     const howApply = report.fields && report.fields['how_to_apply-html'] ? sanitizeHtml(report.fields['how_to_apply-html']) : ''
     const regInfo = report.fields && report.fields['how_to_register-html'] ? sanitizeHtml(report.fields['how_to_register-html']) : ''
+    const feeInfo = report.fields && report.fields.fee_information ? report.fields.fee_information : ''
+
     return (
       <div>
         <div className='body' dangerouslySetInnerHTML={{__html: body}} />
@@ -15,6 +17,12 @@ export class ArticleBody extends React.Component {
           <div className='block'>
             <h2>How to apply</h2>
             <div className='apply' dangerouslySetInnerHTML={{__html: howApply}} />
+          </div>
+        }
+        {feeInfo &&
+          <div className='fee'>
+            <h2>Fee information</h2>
+            <p>{feeInfo}</p>
           </div>
         }
         {regInfo &&
@@ -32,16 +40,20 @@ export class ArticleBody extends React.Component {
           }
           .block {
             border-top: 1px solid ${colors.border.highlight};
-            padding-top: ${measurements.baseUnit * 1.5}em;
-            margin-top: ${measurements.baseUnit * 3}em;
+            border-bottom: 1px solid ${colors.border.highlight};
+            background: ${colors.bg.body};
+            padding: ${measurements.baseUnit}em ${measurements.baseUnit * 2}em;
+            margin: ${measurements.baseUnit * 3}em 0;
           }
           @media (min-width: ${breakpoints.md}) {
             h2 {
               margin: ${measurements.baseUnit}em 0 ${measurements.baseUnit}em 0;
             }
             .block {
-              padding-top: ${measurements.baseUnit * 2}em;
-              margin-top: ${measurements.baseUnit * 4}em;
+              margin-bottom: 0;
+            }
+            .block p:last-child {
+              margin-bottom: 0;
             }
           }
         `}</style>

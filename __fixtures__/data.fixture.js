@@ -327,7 +327,8 @@ export const mockTraining = {
       registration: new Date('Tue Aug 22 2017 17:11:26 GMT+0100 (BST)')
     },
     'body-html': '<p>All about the training</p>',
-    'how_to_register-html': '<p>Registration info</p>'
+    'how_to_register-html': '<p>Registration info</p>',
+    fee_information: 'monies'
   }
 }
 

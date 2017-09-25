@@ -58,7 +58,7 @@ class Nav extends React.Component {
             </li>
             <li className='cd-nav__item'>
               <Link prefetch as='/training/listing' href='/trainings'>
-                <a className={`cd-nav__link ${(this.state.activeLink === '/trainings') ? 'cd-nav__link--active' : ''}`}>
+                <a className={`cd-nav__link ${(this.state.activeLink === '/trainings' || this.state.activeLink === '/training') ? 'cd-nav__link--active' : ''}`}>
                   Training
                 </a>
               </Link>
