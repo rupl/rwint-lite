@@ -1,6 +1,6 @@
 import React from 'react'
 import sanitizeHtml from 'sanitize-html'
-import { breakpoints, colors, fonts, measurements } from '../../theme/variables'
+import { breakpoints, colors, fonts, fontSizes, measurements } from '../../theme/variables'
 
 export class ArticleBody extends React.Component {
   render () {
@@ -31,10 +31,16 @@ export class ArticleBody extends React.Component {
             <div className='reg' dangerouslySetInnerHTML={{__html: regInfo}} />
           </div>
         }
+        <style jsx global>{`
+          .block p:last-of-type {
+            margin-bottom: 0;
+          }
+        `}</style>
         <style jsx>{`
           h2 {
             font-family: ${fonts.body};
             font-weight: bold;
+            font-size: ${fontSizes.medium};
             padding-bottom: ${measurements.baseUnit / 2}em;
             margin: ${measurements.baseUnit}em 0 0 0;
           }
@@ -42,17 +48,17 @@ export class ArticleBody extends React.Component {
             border-top: 1px solid ${colors.border.highlight};
             border-bottom: 1px solid ${colors.border.highlight};
             background: ${colors.bg.body};
-            padding: ${measurements.baseUnit}em ${measurements.baseUnit * 2}em;
+            padding: ${measurements.baseUnit * 2.5}em ${measurements.baseUnit * 2}em;
             margin: ${measurements.baseUnit * 3}em 0;
+          }
+          .block h2 {
+            margin-top: 0;
           }
           @media (min-width: ${breakpoints.md}) {
             h2 {
-              margin: ${measurements.baseUnit}em 0 ${measurements.baseUnit}em 0;
+              margin: ${measurements.baseUnit * 2.5}em 0 ${measurements.baseUnit}em 0;
             }
             .block {
-              margin-bottom: 0;
-            }
-            .block p:last-child {
               margin-bottom: 0;
             }
           }

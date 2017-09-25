@@ -65,7 +65,7 @@ const ArticleHeader = ({report, type}) => (
       }
       h1 {
         color: ${colors.text.dark};
-        font-size: ${fontSizes.medium};
+        font-size: ${fontSizes.mediumLarge};
         margin: 0 0 ${measurements.baseUnit / 2}em 0;
       }
       .header-info {

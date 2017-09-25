@@ -1,6 +1,6 @@
 import React from 'react'
 import sanitizeHtml from 'sanitize-html'
-import { breakpoints, fonts, measurements } from '../../theme/variables'
+import { breakpoints, fonts, fontSizes, measurements } from '../../theme/variables'
 
 const getAltText = (str) => {
   const startPoint = str.indexOf('<strong>') + '<strong>'.length
@@ -69,31 +69,32 @@ export class DescriptionBody extends React.Component {
 
     return (
       <div>
-        <div className='country-report' dangerouslySetInnerHTML={{__html: body}} />
+        <div className='description-body' dangerouslySetInnerHTML={{__html: body}} />
         <style jsx global>{`
-          .country-report img {
+          .description-body img {
             display: block;
             overflow: hidden;
           }
-          .country-report ul {
+          .description-body ul {
             padding: 0;
           }
-          .country-report ul.links-list {
+          .description-body ul.links-list {
             padding-left: ${measurements.baseUnit * 3}em;
           }
-          .country-report ul.links-list li {
+          .description-body ul.links-list li {
             display: list-item;
           }
-          .country-report li {
+          .description-body li {
             margin-bottom: ${measurements.baseUnit}em;
             clear: both;
           }
-          .country-report li p {
+          .description-body li p {
             margin: 0;
           }
-          .country-report h2 {
+          .description-body h2 {
             font-family: ${fonts.body};
             font-weight: bold;
+            font-size: ${fontSizes.medium};
             padding-bottom: ${measurements.baseUnit / 2}em;
             margin: ${measurements.baseUnit}em 0 0 0;
             clear: both;
@@ -102,8 +103,8 @@ export class DescriptionBody extends React.Component {
             display: inline-block;
           }
           @media (min-width: ${breakpoints.md}) {
-            .country-report h2 {
-              margin: ${measurements.baseUnit}em 0 ${measurements.baseUnit}em 0;
+            .description-body h2 {
+              margin: ${measurements.baseUnit * 2.5}em 0 ${measurements.baseUnit}em 0;
             }
           }
         `}</style>

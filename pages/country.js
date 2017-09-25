@@ -59,7 +59,7 @@ export class Country extends React.Component {
                 position: relative;
               }
               .section-heading {
-                font-size: ${fontSizes.medium};
+                font-size: ${fontSizes.mediumLarge};
                 font-family: ${fonts.heading};
                 font-weight: normal;
                 border-bottom: 1px solid ${colors.border.highlight};

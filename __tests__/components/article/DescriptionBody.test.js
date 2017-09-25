@@ -9,7 +9,7 @@ describe('Description Body component', () => {
 
   beforeAll(() => {
     wrapper = shallow(<DescriptionBody report={mockCountry} />)
-    bodyContent = wrapper.find('.country-report').node.props.dangerouslySetInnerHTML.__html
+    bodyContent = wrapper.find('.description-body').node.props.dangerouslySetInnerHTML.__html
   })
 
   it('renders the component', () => {
@@ -17,7 +17,7 @@ describe('Description Body component', () => {
   })
 
   it('renders the body', () => {
-    expect(wrapper.find('.country-report').exists()).toBe(true)
+    expect(wrapper.find('.description-body').exists()).toBe(true)
   })
 
   it('changes h3 to h2 in the body', () => {
