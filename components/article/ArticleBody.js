@@ -5,9 +5,9 @@ import { breakpoints, fonts, measurements } from '../../theme/variables'
 export class ArticleBody extends React.Component {
   render () {
     const {report} = this.props
-    const body = report.fields['body-html'] ? sanitizeHtml(report.fields['body-html']) : ''
-    const howApply = report.fields['how_to_apply-html'] ? sanitizeHtml(report.fields['how_to_apply-html']) : ''
-    const regInfo = report.fields['how_to_register-html'] ? sanitizeHtml(report.fields['how_to_register-html']) : ''
+    const body = report.fields && report.fields['body-html'] ? sanitizeHtml(report.fields['body-html']) : ''
+    const howApply = report.fields && report.fields['how_to_apply-html'] ? sanitizeHtml(report.fields['how_to_apply-html']) : ''
+    const regInfo = report.fields && report.fields['how_to_register-html'] ? sanitizeHtml(report.fields['how_to_register-html']) : ''
     return (
       <div>
         <div className='body' dangerouslySetInnerHTML={{__html: body}} />

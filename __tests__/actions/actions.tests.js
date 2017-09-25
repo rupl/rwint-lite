@@ -601,3 +601,33 @@ describe('Get a Training', () => {
     })
   })
 })
+
+describe('Handling errors when get a single item', () => {
+  it('creates creates the action and returns the error', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_TRAINING,
+      error: 404
+    }]
+    const store = mockStore({
+      trainingReports: []
+    })
+    return store.dispatch(actions.getTraining('error')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('Handling errors when get items', () => {
+  it('creates creates the action and returns the error', () => {
+    const expectedActions = [{
+      type: actionTypes.GET_TRAININGS,
+      error: 404
+    }]
+    const store = mockStore({
+      trainings: []
+    })
+    return store.dispatch(actions.getTrainings(100, false, true)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})

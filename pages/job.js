@@ -5,6 +5,7 @@ import { initStore } from '../store'
 import { getJob } from '../actions/actions'
 import withRedux from 'next-redux-wrapper'
 import ArticleLayout from '../components/article/ArticleLayout'
+import Error from './_error'
 
 export class Job extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
@@ -14,16 +15,21 @@ export class Job extends React.Component {
     const report = reports.filter((obj) => {
       return parseInt(obj.id, 10) === parseInt(id, 10)
     })[0]
-    return {
-      report: report
-    }
+    return report ? { report } : { error: 404 }
   }
 
   render () {
     return (
-      <Layout title={this.props.report.fields.title}>
-        <ArticleLayout report={this.props.report} type='job' />
-      </Layout>
+      <div>
+        {!this.props.error &&
+          <Layout title={this.props.report.fields.title}>
+            <ArticleLayout report={this.props.report} type='job' />
+          </Layout>
+        }
+        {this.props.error &&
+          <Error statusCode={this.props.error} />
+        }
+      </div>
     )
   }
 }

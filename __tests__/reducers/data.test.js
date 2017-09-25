@@ -577,4 +577,45 @@ describe('data reducer', () => {
       })
     })
   })
+
+  describe('Handle errors', () => {
+    describe('Get single item', () => {
+      it('should return state if get an error response from the action', () => {
+        expect(
+          reducer({updateReports: []}, {
+            type: actionTypes.GET_UPDATE,
+            error: 404
+          })
+        ).toEqual({
+          updateReports: []
+        })
+      })
+    })
+
+    describe('Get items', () => {
+      it('should return state if get an error response from the action', () => {
+        expect(
+          reducer({countries: []}, {
+            type: actionTypes.GET_COUNTRIES,
+            error: 404
+          })
+        ).toEqual({
+          countries: []
+        })
+      })
+    })
+
+    describe('Get paginted items', () => {
+      it('should return state if get an error response from the action', () => {
+        expect(
+          reducer({updates: []}, {
+            type: actionTypes.GET_UPDATES,
+            error: 404
+          })
+        ).toEqual({
+          updates: []
+        })
+      })
+    })
+  })
 })

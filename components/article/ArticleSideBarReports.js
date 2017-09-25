@@ -11,20 +11,22 @@ export class ArticleSideBarReports extends React.Component {
     return (
       <div>
         <h2>Latest updates</h2>
-        {!updates.items &&
+        {(!updates || !updates.items) &&
           <p>No updates</p>
         }
-        {updates.items && updates.items.length > 0 &&
-          <ul>
-            {updates.items.map((item, i) => <li key={item.id}><ReportLinkSmall report={item} /></li>)}
-          </ul>
+        {updates && updates.items && updates.items.length > 0 &&
+          <div>
+            <ul>
+              {updates.items.map((item, i) => <li key={item.id}><ReportLinkSmall report={item} /></li>)}
+            </ul>
+            <Link prefetch as={`/report/listing?search=${this.props.type}.exact:"${this.props.item.fields.name}"`}
+              href={`/updates?search=${this.props.type}.exact:"${this.props.item.fields.name}"`}>
+              <a className='btn-primary'>
+                View more {this.props.item.fields.name} updates
+              </a>
+            </Link>
+          </div>
         }
-        <Link prefetch as={`/report/listing?search=${this.props.type}.exact:"${this.props.item.fields.name}"`}
-          href={`/updates?search=${this.props.type}.exact:"${this.props.item.fields.name}"`}>
-          <a className='btn-primary'>
-            View more {this.props.item.fields.name} updates
-          </a>
-        </Link>
         <style jsx>{primaryButton}</style>
         <style jsx>{`
           h2 {

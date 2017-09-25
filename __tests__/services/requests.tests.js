@@ -623,4 +623,43 @@ describe('API requests', () => {
       expect(result.fields.title).toEqual(mockTraining.fields.title)
     })
   })
+
+  describe('Handle error when get single item', () => {
+    beforeAll(async () => {
+      fetchMock.get(mockEndpoints.training, {ok: false, status: 404})
+      result = await requestTraining(400)
+    })
+    afterAll(fetchMock.restore)
+
+    it('returns the error response', () => {
+      expect(result.ok).toBe(false)
+      expect(result.status).toBe(404)
+    })
+  })
+
+  describe('Handle error when get items', () => {
+    beforeAll(async () => {
+      fetchMock.post(mockEndpoints.trainings, {ok: false, status: 404})
+      result = await requestTrainings()
+    })
+    afterAll(fetchMock.restore)
+
+    it('returns the error response', () => {
+      expect(result.ok).toBe(false)
+      expect(result.status).toBe(404)
+    })
+  })
+
+  describe('Handle error when get featured', () => {
+    beforeAll(async () => {
+      fetchMock.post(mockEndpoints.countries, {ok: false, status: 404})
+      fetchMock.post(mockEndpoints.disasters, {ok: false, status: 404})
+      result = await requestFeatured()
+    })
+    afterAll(fetchMock.restore)
+
+    it('returns the error response', () => {
+      expect(result.ok).toBe(false)
+    })
+  })
 })

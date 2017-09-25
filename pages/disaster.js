@@ -5,6 +5,7 @@ import { initStore } from '../store'
 import { getDisaster, getUpdates } from '../actions/actions'
 import withRedux from 'next-redux-wrapper'
 import ArticleLayout from '../components/article/ArticleLayout'
+import Error from './_error'
 
 export class Disaster extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
@@ -14,18 +15,25 @@ export class Disaster extends React.Component {
     const report = reports.filter((obj) => {
       return parseInt(obj.id, 10) === parseInt(id, 10)
     })[0]
-
-    await store.dispatch(getUpdates(1, false, false, `disaster.exact:"${report.fields.name}"`, 6))
-    return {
-      report: report
+    if (report) {
+      await store.dispatch(getUpdates(1, false, false, `disaster.exact:"${report.fields.name}"`, 6))
+      return { report }
     }
+    return { error: 404 }
   }
 
   render () {
     return (
-      <Layout title={this.props.report.fields.name}>
-        <ArticleLayout report={this.props.report} type='disaster' />
-      </Layout>
+      <div>
+        {!this.props.error &&
+          <Layout title={this.props.report.fields.name}>
+            <ArticleLayout report={this.props.report} type='disaster' />
+          </Layout>
+        }
+        {this.props.error &&
+          <Error statusCode={this.props.error} />
+        }
+      </div>
     )
   }
 }

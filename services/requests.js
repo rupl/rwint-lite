@@ -53,12 +53,14 @@ const getSingleItem = async (type, id, fields = []) => {
   for (let fieldValue of fields) {
     endpoint += `&fields[include][]=${fieldValue}`
   }
-
   let res, data
   try {
     res = await fetch(endpoint)
-    data = await res.json()
-    return data.data
+    if (res.ok) {
+      data = await res.json()
+      return data.data
+    }
+    return res
   } catch (e) {
     console.log('error', e)
   }
@@ -72,11 +74,14 @@ const getItems = async (type, limit, offset, sort, fields, transformFn, filter, 
       method: 'post',
       body: JSON.stringify(requestBody)
     })
-    data = await res.json()
-    if (transformFn) {
-      transformFn(data)
+    if (res.ok) {
+      data = await res.json()
+      if (transformFn) {
+        transformFn(data)
+      }
+      return data
     }
-    return data
+    return res
   } catch (e) {
     console.log('error', e)
   }
@@ -133,20 +138,22 @@ export const requestFeatured = async function () {
 
   try {
     [res1, res2] = await Promise.all([countriesPromise, disastersPromise])
-    countriesData = await res1.json()
-    disastersData = await res2.json()
-    countriesData.data.map(item => {
-      item.type = 'country'
-      item.urlName = formatStringForUrl(item.fields.name)
-    })
-    disastersData.data.map(item => {
-      item.type = 'disaster'
-      item.urlName = formatStringForUrl(item.fields.name)
-    })
-
-    featured = [...countriesData.data, ...disastersData.data]
-    const shuffled = shuffleArray(featured)
-    return shuffled.slice(0, 6)
+    if (res1.ok && res2.ok) {
+      countriesData = await res1.json()
+      disastersData = await res2.json()
+      countriesData.data.map(item => {
+        item.type = 'country'
+        item.urlName = formatStringForUrl(item.fields.name)
+      })
+      disastersData.data.map(item => {
+        item.type = 'disaster'
+        item.urlName = formatStringForUrl(item.fields.name)
+      })
+      featured = [...countriesData.data, ...disastersData.data]
+      const shuffled = shuffleArray(featured)
+      return shuffled.slice(0, 6)
+    }
+    return {ok: false}
   } catch (e) {
     console.log('error', e)
   }

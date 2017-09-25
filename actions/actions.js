@@ -17,16 +17,24 @@ const shouldUpdate = (lastFetched, threshold = 1) => {
 }
 
 const getPaginatedItems = async (actionType, requestFn, offset, loadMore, limit, pageNumber, pagination, query) => {
+  let dispatchObj = {}
   let response = await requestFn(offset, limit, query)
-  let dispatchObj = {
-    type: actionTypes[actionType],
-    items: response,
-    loadMore: loadMore,
-    pageNumber: pageNumber,
-    pagination: pagination
-  }
-  if (query) {
-    dispatchObj.isQuery = true
+  if (response.ok === false) {
+    dispatchObj = {
+      type: actionTypes[actionType],
+      error: response.status
+    }
+  } else {
+    dispatchObj = {
+      type: actionTypes[actionType],
+      items: response,
+      loadMore: loadMore,
+      pageNumber: pageNumber,
+      pagination: pagination
+    }
+    if (query) {
+      dispatchObj.isQuery = true
+    }
   }
   return dispatchObj
 }
@@ -40,6 +48,13 @@ const getItem = async (dispatch, getState, id, reportsType, requestFn, action) =
     }
   }
   let response = await requestFn(id)
+  if (response.ok === false) {
+    dispatch({
+      type: actionTypes[action],
+      error: response.status
+    })
+    return
+  }
   dispatch({
     type: actionTypes[action],
     item: response[0]
