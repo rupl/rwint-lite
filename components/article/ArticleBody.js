@@ -1,6 +1,6 @@
 import React from 'react'
 import sanitizeHtml from 'sanitize-html'
-import { breakpoints, fonts, measurements } from '../../theme/variables'
+import { breakpoints, colors, fonts, measurements } from '../../theme/variables'
 
 export class ArticleBody extends React.Component {
   render () {
@@ -12,13 +12,13 @@ export class ArticleBody extends React.Component {
       <div>
         <div className='body' dangerouslySetInnerHTML={{__html: body}} />
         {howApply &&
-          <div>
+          <div className='block'>
             <h2>How to apply</h2>
             <div className='apply' dangerouslySetInnerHTML={{__html: howApply}} />
           </div>
         }
         {regInfo &&
-          <div>
+          <div className='block'>
             <h2>How to register</h2>
             <div className='reg' dangerouslySetInnerHTML={{__html: regInfo}} />
           </div>
@@ -30,9 +30,18 @@ export class ArticleBody extends React.Component {
             padding-bottom: ${measurements.baseUnit / 2}em;
             margin: ${measurements.baseUnit}em 0 0 0;
           }
+          .block {
+            border-top: 1px solid ${colors.border.highlight};
+            padding-top: ${measurements.baseUnit * 1.5}em;
+            margin-top: ${measurements.baseUnit * 3}em;
+          }
           @media (min-width: ${breakpoints.md}) {
             h2 {
               margin: ${measurements.baseUnit}em 0 ${measurements.baseUnit}em 0;
+            }
+            .block {
+              padding-top: ${measurements.baseUnit * 2}em;
+              margin-top: ${measurements.baseUnit * 4}em;
             }
           }
         `}</style>
