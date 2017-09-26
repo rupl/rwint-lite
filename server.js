@@ -30,6 +30,11 @@ app.prepare()
     }))
   }
 
+  server.get('/sw.js', (req, res) => {
+    res.setHeader('content-type', 'text/javascript')
+    fs.createReadStream('./offline/serviceWorker.js').pipe(res)
+  })
+
   server.get('/report/listing', (req, res) => {
     const actualPage = '/updates'
     const queryParams = { page: req.query.page, search: req.query.search }

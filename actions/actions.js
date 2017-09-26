@@ -19,7 +19,13 @@ const shouldUpdate = (lastFetched, threshold = 1) => {
 const getPaginatedItems = async (actionType, requestFn, offset, loadMore, limit, pageNumber, pagination, query) => {
   let dispatchObj = {}
   let response = await requestFn(offset, limit, query)
-  if (response.ok === false) {
+  if (typeof response === 'undefined') {
+    return {
+      type: actionTypes[actionType],
+      error: 0
+    }
+  }
+  if (response && response.ok === false) {
     dispatchObj = {
       type: actionTypes[actionType],
       error: response.status
@@ -48,7 +54,14 @@ const getItem = async (dispatch, getState, id, reportsType, requestFn, action) =
     }
   }
   let response = await requestFn(id)
-  if (response.ok === false) {
+  if (typeof response === 'undefined') {
+    dispatch({
+      type: actionTypes[action],
+      error: 0
+    })
+    return
+  }
+  if (response && response.ok === false) {
     dispatch({
       type: actionTypes[action],
       error: response.status
@@ -92,6 +105,13 @@ export const getFeatured = () => {
   return async (dispatch, getState) => {
     if (shouldUpdate(getState().featured.lastFetched, 10)) {
       let response = await requestFeatured()
+      if (typeof response === 'undefined') {
+        dispatch({
+          type: actionTypes.GET_FEATURED,
+          error: 0
+        })
+        return
+      }
       dispatch({
         type: actionTypes.GET_FEATURED,
         items: response
@@ -104,6 +124,13 @@ export const getHeadlines = () => {
   return async (dispatch, getState) => {
     if (shouldUpdate(getState().headlines.lastFetched, 1)) {
       let response = await requestHeadlines()
+      if (typeof response === 'undefined') {
+        dispatch({
+          type: actionTypes.GET_HEADLINES,
+          error: 0
+        })
+        return
+      }
       dispatch({
         type: actionTypes.GET_HEADLINES,
         items: response
@@ -122,6 +149,13 @@ export const getCountries = () => {
   return async (dispatch, getState) => {
     if (shouldUpdate(getState().countries.lastFetched, 30)) {
       let response = await requestCountries()
+      if (typeof response === 'undefined') {
+        dispatch({
+          type: actionTypes.GET_COUNTRIES,
+          error: 0
+        })
+        return
+      }
       dispatch({
         type: actionTypes.GET_COUNTRIES,
         items: response

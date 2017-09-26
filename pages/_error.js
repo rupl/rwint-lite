@@ -12,19 +12,23 @@ export default class Error extends React.Component {
   }
 
   render () {
-    const sectionHeading = this.props.statusCode === 404 ? 'Page not found' : 'Error'
+    const offline = typeof navigator !== 'undefined' && !navigator.onLine
+    let sectionHeading = this.props.statusCode === 404 ? 'Page not found' : 'Error'
+    let msg = this.props.statusCode === 404 ? 'The requested page does not exist.' : 'Something\'s gone wrong!'
+    if (offline) {
+      sectionHeading = 'You are currently offline'
+      msg = 'Please check your internet connection and try again.'
+    }
     return (
       <Layout title={sectionHeading}>
         <SectionHeading heading={sectionHeading} level='1' />
-        {this.props.statusCode === 404 &&
-          <div>
-            <p>The requested page does not exist.</p>
-            <p>
-              <Link prefetch href='/'>
-                <a>Go to the home page</a>
-              </Link>
-            </p>
-          </div>
+        <p>{msg}</p>
+        {!offline &&
+          <p>
+            <Link prefetch href='/'>
+              <a>Go to the home page</a>
+            </Link>
+          </p>
         }
       </Layout>
     )

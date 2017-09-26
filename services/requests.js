@@ -74,7 +74,7 @@ const getItems = async (type, limit, offset, sort, fields, transformFn, filter, 
       method: 'post',
       body: JSON.stringify(requestBody)
     })
-    if (res.ok) {
+    if (res && res.ok) {
       data = await res.json()
       if (transformFn) {
         transformFn(data)

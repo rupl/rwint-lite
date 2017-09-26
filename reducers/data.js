@@ -59,7 +59,7 @@ export const theInitialState = {
 }
 
 const getItem = (action, state, type) => {
-  if (action.error) {
+  if (action.error || action.error === 0) {
     return state
   }
   let newItems = [...state[type]]
@@ -71,7 +71,7 @@ const getItem = (action, state, type) => {
 }
 
 const getItems = (action, state, type) => {
-  if (action.error) {
+  if (action.error || action.error === 0) {
     return state
   }
   const d = new Date()
@@ -86,7 +86,7 @@ const getItems = (action, state, type) => {
 }
 
 const getPaginatedItems = (action, state, type) => {
-  if (action.error) {
+  if (action.error || action.error === 0) {
     return state
   }
   const reportsPerPage = 10

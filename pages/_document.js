@@ -9,6 +9,7 @@ const polyfill = () => {
 export default class MyDocument extends Document {
   render () {
     const { html } = this.props
+    const dev = process.env.NODE_ENV !== 'production'
 
     return (
       <html lang='en'>
@@ -18,6 +19,9 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          {!dev &&
+            <script src='/static/companion.js' data-service-worker='/sw.js' />
+          }
         </body>
       </html>
     )
