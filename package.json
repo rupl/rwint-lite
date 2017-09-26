@@ -32,7 +32,6 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "sanitize-html": "^1.14.1",
-    "sw-precache": "^5.2.0",
     "sw-toolbox": "^3.6.0",
     "thunk": "0.0.1",
     "winston": "^2.3.1"

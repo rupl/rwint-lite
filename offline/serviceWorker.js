@@ -1,27 +1,27 @@
-/* global importScripts, Request, toolbox */
+/* global caches, importScripts, Request, self, toolbox */
 importScripts('/static/sw-toolbox.js')
-toolbox.router.default = toolbox.networkFirst
-toolbox.router.get('/static/*', toolbox.cacheFirst)
-toolbox.precache([
-  '/',
-  '/report/listing',
-  '/country/listing',
-  '/disaster/listing',
-  '/job/listing',
-  '/training/listing',
-  '/static/rw-logo.svg',
-  '/static/rw-logo-mobile.svg',
-  '/static/offline.html'
-])
+
+var cacheName = 'v1'
+var cacheFiles = [
+  './static/rw-logo.svg',
+  './static/rw-logo-mobile.svg',
+  './static/offline.html'
+]
+
+self.addEventListener('install', function (e) {
+  e.waitUntil(
+    caches.open(cacheName).then(function (cache) {
+      return cache.addAll(cacheFiles.map(url => new Request(url, {credentials: 'same-origin'})))
+    })
+  )
+})
 
 toolbox.router.get('/(.*)', function (req, vals, opts) {
-  if (req.url.indexOf('/static/') !== -1) {
-    return toolbox.cacheOnly(req, vals, opts)
-  }
   return toolbox.cacheFirst(req, vals, opts)
     .catch(function (error) {
+      console.log('catch')
       if (req.method === 'GET' && req.headers.get('accept').includes('text/html')) {
-        return toolbox.cacheOnly(new Request('/static/offline.html'), vals, opts)
+        return caches.match('./static/offline.html')
       }
       throw error
     })
