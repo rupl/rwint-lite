@@ -17,7 +17,7 @@ const Layout = (props) => (
     <Head>
       <title>{pageTitle(props.home, props.title)}</title>
       <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-      <link rel='manifest' href='/static/manifest.json' />
+      <link rel='manifest' href='/static/manifest.json' crossOrigin='use-credentials' />
       {!dev &&
         <NewRelic />
       }
