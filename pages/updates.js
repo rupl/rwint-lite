@@ -23,7 +23,7 @@ export class Updates extends React.Component {
 
   render () {
     return (
-      <Layout title='Updates' query={this.props.query}>
+      <Layout title='Updates' url='https://reliefweb.int/updates' query={this.props.query}>
         <SectionHeading heading='Updates' level='1' />
         <PaginatedReportsList
           canLoadMore={this.props.canLoadMore}

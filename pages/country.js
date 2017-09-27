@@ -37,13 +37,16 @@ export class Country extends React.Component {
   }
 
   render () {
+    const { country } = this.props
+    const title = country && country.fields && country.fields.name ? country.fields.name : ''
+    const url = country && country.fields && country.fields.url_alias ? country.fields.url_alias : ''
     return (
       <div>
         {!this.props.error &&
-          <Layout title={this.props.country.fields.name}>
+          <Layout title={title} url={url}>
             <div className='heading-container'>
-              <h1 className='section-heading'>{this.props.country.fields.name}</h1>
-              <a href={`https://reliefweb.int/country/${this.props.country.fields.iso3}`} target='_blank' className='btn-small'>
+              <h1 className='section-heading'>{title}</h1>
+              <a href={`https://reliefweb.int/country/${country.fields.iso3}`} target='_blank' className='btn-small'>
                 Full country information
                 <span className='icon-holder'><Arrow direction='right' /></span>
               </a>

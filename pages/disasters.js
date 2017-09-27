@@ -23,7 +23,7 @@ export class Disasters extends React.Component {
 
   render () {
     return (
-      <Layout title='Disasters'>
+      <Layout title='Disasters' url='https://reliefweb.int/disasters'>
         <SectionHeading heading='Disasters' level='1' />
         <PaginatedReportsList
           canLoadMore={this.props.canLoadMore}

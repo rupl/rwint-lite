@@ -17,7 +17,7 @@ export class Countries extends React.Component {
 
   render () {
     return (
-      <Layout title='Countries'>
+      <Layout title='Countries' url='https://reliefweb.int/countries'>
         <SectionHeading heading='Countries' level='1' />
         <CountriesList searchQuery={this.props.searchQuery} />
       </Layout>

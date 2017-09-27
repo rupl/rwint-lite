@@ -19,11 +19,14 @@ export class Report extends React.Component {
   }
 
   render () {
+    const { report } = this.props
+    const title = report && report.fields && report.fields.title ? report.fields.title : ''
+    const url = report && report.fields && report.fields.url_alias ? report.fields.url_alias : ''
     return (
       <div>
         {!this.props.error &&
-          <Layout title={this.props.report.fields.title}>
-            <ArticleLayout report={this.props.report} />
+          <Layout title={title} url={url}>
+            <ArticleLayout report={report} />
           </Layout>
         }
         {this.props.error &&

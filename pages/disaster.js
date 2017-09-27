@@ -23,11 +23,14 @@ export class Disaster extends React.Component {
   }
 
   render () {
+    const { report } = this.props
+    const title = report && report.fields && report.fields.name ? report.fields.name : ''
+    const url = report && report.fields && report.fields.url_alias ? report.fields.url_alias : ''
     return (
       <div>
         {!this.props.error &&
-          <Layout title={this.props.report.fields.name}>
-            <ArticleLayout report={this.props.report} type='disaster' />
+          <Layout title={title} url={url}>
+            <ArticleLayout report={report} type='disaster' />
           </Layout>
         }
         {this.props.error &&
