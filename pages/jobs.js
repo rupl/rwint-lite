@@ -11,7 +11,11 @@ export class Jobs extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
     let pageNumber = query && query.page ? query.page : 1
     const showPagination = isServer && pageNumber > 1
-    const searchQuery = query.search
+    let searchQuery = query.search
+    // Handle searching for 10+ years experience
+    if (searchQuery && searchQuery.indexOf('experience.exact') !== -1 && searchQuery.indexOf('plus years') !== -1) {
+      searchQuery = searchQuery.replace('plus years', '+ years')
+    }
     await store.dispatch(getJobs(pageNumber, false, showPagination, searchQuery))
     return {
       canLoadMore: store.getState().jobs.canLoadMore,

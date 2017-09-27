@@ -18,12 +18,18 @@ const formatHeading = (heading, itemsLength) => {
   return `${heading}s`
 }
 
-const formatSearchPaths = (type = 'update') => {
-  const asPath = type === 'update' ? '/report/listing' : `/${type}/listing`
-  const hrefPath = `/${type}s`
+const formatPaths = (searchType = 'update', itemType, name) => {
+  const queryString = itemType === 'cost' ? `?search=${itemType}:` : `?search=${itemType}.exact:`
+  const asPath = searchType === 'update' ? '/report/listing' : `/${searchType}/listing`
+  const hrefPath = `/${searchType}s`
+  let searchTerm = name
+  // Handle searching for 10+ years experience
+  if (itemType === 'experience' && searchType === 'job' && name.indexOf('+ years') !== -1) {
+    searchTerm = searchTerm.replace('+ years', 'plus years')
+  }
   return {
-    as: asPath,
-    href: hrefPath
+    as: `${asPath}${queryString}"${searchTerm}"`,
+    href: `${hrefPath}${queryString}"${searchTerm}"`
   }
 }
 
@@ -31,16 +37,14 @@ class ArticleInfo extends React.Component {
   render () {
     const itemsLength = typeof this.props.items === 'string' ? 1 : this.props.items.length
     const heading = formatHeading(this.props.heading, itemsLength)
-    const queryString = this.props.type === 'cost' ? `?search=${this.props.type}:` : `?search=${this.props.type}.exact:`
-    const asPath = formatSearchPaths(this.props.searchType).as
-    const hrefPath = formatSearchPaths(this.props.searchType).href
     const items = typeof this.props.items === 'string' ? [{name: this.props.items}] : this.props.items
     return (
       <div>
         <h2>{heading}</h2>
         {items.map((item, i) =>
           <span key={i}>
-            <Link prefetch as={`${asPath}${queryString}"${item.name}"`} href={`${hrefPath}${queryString}"${item.name}"`}>
+            <Link prefetch as={formatPaths(this.props.searchType, this.props.type, item.name).as}
+              href={formatPaths(this.props.searchType, this.props.type, item.name).href}>
               <a>{item.name}</a>
             </Link>
             {i + 1 < items.length &&

@@ -104,7 +104,13 @@ export class SearchForm extends React.Component {
     }
     const searchPathAs = `${paths[this.state.search].as}?search=`
     const searchPath = `${paths[this.state.search].href}?search=`
-    const searchTerm = this.state.value.replace(/([!*+\-=<>&|()[\]{}^~?:\\/"])+/g, ' ')
+    let searchTerm = this.state.value
+    // Handle searching for 10+ years experience
+    if (searchTerm.indexOf('experience.exact') !== -1 && searchTerm.indexOf('+ years') !== -1) {
+      searchTerm = searchTerm.replace('+ years', 'plus years')
+    }
+    const regEx = searchTerm.indexOf('.exact:') !== -1 ? /([!*+\-=<>&|()[\]{}^~?\\/])+/g : /([!*+\-=<>&|()[\]{}^~?:\\/"])+/g
+    searchTerm = searchTerm.replace(regEx, ' ')
     Router.push(`${searchPath}${searchTerm}`, `${searchPathAs}${searchTerm}`)
   }
 

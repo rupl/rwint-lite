@@ -147,5 +147,21 @@ describe('Jobs page', () => {
         expect(data.showPagination).toBe(false)
       })
     })
+
+    it('sets convert 10plus years experience in the search query back to 10+ for the api call', () => {
+      fakeStore = {
+        dispatch: mockDispatch,
+        getState: function () {
+          return {
+            jobs: {
+              canLoadMore: true
+            }
+          }
+        }
+      }
+      return Jobs.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {search: 'experience.exact:"10plus years"'}}).then(function (data) {
+        expect(data.query).toBe('experience.exact:"10+ years"')
+      })
+    })
   })
 })

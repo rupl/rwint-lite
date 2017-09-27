@@ -64,6 +64,18 @@ describe('Search Form component', () => {
       form.simulate('submit', fakeEvent)
       expect(Router.push).toHaveBeenCalledWith('/updates?search=1585 ressortissantes et ressortissants haïtiens rapatriés à Belladère au cours du mois d’août 2017 Spécial', '/report/listing?search=1585 ressortissantes et ressortissants haïtiens rapatriés à Belladère au cours du mois d’août 2017 Spécial')
     })
+
+    it('replaces + years experience to plus years if searching for experience', () => {
+      input.simulate('change', { target: { value: 'experience.exact:"10+ years"' } })
+      form.simulate('submit', fakeEvent)
+      expect(Router.push).toHaveBeenCalledWith('/updates?search=experience.exact:"10plus years"', '/report/listing?search=experience.exact:"10plus years"')
+    })
+
+    it('does not remove colons and quotes if searching for an exact type', () => {
+      input.simulate('change', { target: { value: 'source.exact:"something: somewhere"' } })
+      form.simulate('submit', fakeEvent)
+      expect(Router.push).toHaveBeenCalledWith('/updates?search=source.exact:"something: somewhere"', '/report/listing?search=source.exact:"something: somewhere"')
+    })
   })
 
   describe('Searching for updates', function () {
