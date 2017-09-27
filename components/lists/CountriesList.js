@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import SimpleLink from './links/SimpleLink'
-import { Arrow } from './icons/Icons'
-import { breakpoints, colors, fontSizes, measurements } from '../theme/variables'
+import SimpleLink from '../links/SimpleLink'
+import { Arrow } from '../icons/Icons'
+import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
 
 const sortAlphabetically = (countries) => {
   countries.sort((a, b) => {
@@ -57,11 +57,9 @@ export class CountriesList extends React.Component {
       countries = filterCountries(countries, searchQuery)
     }
     const groupedCountries = groupCountries(countries)
-    const online = typeof navigator !== 'undefined' && navigator.onLine
 
     return (
       <div className='countries'>
-
         <div className='styled-select'>
           <label htmlFor='selectLetter'>Go to letter</label>
           <select name='selectLetter' id='selectLetter' onChange={this.handleChange}>

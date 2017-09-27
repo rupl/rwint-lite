@@ -2,8 +2,8 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import configureStore from 'redux-mock-store'
-import { mockCountries } from '../../__fixtures__/data.fixture'
-import ConnectedCountriesList, { CountriesList } from '../../components/CountriesList.js'
+import { mockCountries } from '../../../__fixtures__/data.fixture'
+import ConnectedCountriesList, { CountriesList } from '../../../components/lists/CountriesList.js'
 
 describe('CountriesList component', () => {
   let container, groups, links, store, wrapper

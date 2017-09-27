@@ -4,7 +4,7 @@ import { initStore } from '../store'
 import { getCountries } from '../actions/actions'
 import withRedux from 'next-redux-wrapper'
 import Layout from '../components/Layout'
-import CountriesList from '../components/CountriesList'
+import CountriesList from '../components/lists/CountriesList'
 import SectionHeading from '../components/SectionHeading'
 
 export class Countries extends React.Component {
