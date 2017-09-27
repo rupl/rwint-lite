@@ -1,7 +1,8 @@
 /* global caches, importScripts, Request, self, toolbox */
 importScripts('/static/sw-toolbox.js')
 
-var cacheName = 'v1'
+var cacheName = 'static-v1'
+var expectedCaches = [cacheName]
 var cacheFiles = [
   './static/rw-logo.svg',
   './static/rw-logo-mobile.svg',
@@ -13,6 +14,19 @@ self.addEventListener('install', function (e) {
     caches.open(cacheName).then(function (cache) {
       return cache.addAll(cacheFiles.map(url => new Request(url, {credentials: 'same-origin'})))
     })
+  )
+})
+
+self.addEventListener('activate', event => {
+  // delete any caches that aren't in expectedCaches
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(
+      keys.map(key => {
+        if (!expectedCaches.includes(key)) {
+          return caches.delete(key)
+        }
+      })
+    ))
   )
 })
 
