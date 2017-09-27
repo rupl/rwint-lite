@@ -112,7 +112,7 @@ const transformItems = (data) => {
 }
 
 export const requestCountry = async function (id) {
-  return getSingleItem('countries', id, ['name', 'iso3'])
+  return getSingleItem('countries', id, ['name', 'iso3', 'url_alias'])
 }
 
 export const requestCountries = async function () {

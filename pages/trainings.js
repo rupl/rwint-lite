@@ -23,7 +23,7 @@ export class Trainings extends React.Component {
 
   render () {
     return (
-      <Layout title='Training' query={this.props.query}>
+      <Layout title='Training' url='https://reliefweb.int/training' query={this.props.query}>
         <SectionHeading heading='Training' level='1' />
         <PaginatedReportsList
           canLoadMore={this.props.canLoadMore}

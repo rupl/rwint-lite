@@ -23,7 +23,7 @@ export class Jobs extends React.Component {
 
   render () {
     return (
-      <Layout title='Jobs' query={this.props.query}>
+      <Layout title='Jobs' url='https://reliefweb.int/jobs' query={this.props.query}>
         <SectionHeading heading='Jobs' level='1' />
         <PaginatedReportsList
           canLoadMore={this.props.canLoadMore}
