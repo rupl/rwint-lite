@@ -28,5 +28,5 @@ toolbox.router.get('/(.*)', function (req, vals, opts) {
 })
 
 toolbox.router.post(/^https:\/\/api.reliefweb.int\//, function (req, vals, opts) {
-  return toolbox.cacheFirst(req, vals, opts)
+  return toolbox.networkFirst(req, vals, opts)
 })
