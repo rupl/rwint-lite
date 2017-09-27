@@ -4,6 +4,7 @@ importScripts('/static/sw-toolbox.js')
 var cacheName = 'static-v1'
 var expectedCaches = [cacheName]
 var cacheFiles = [
+  '/',
   './static/rw-logo.svg',
   './static/rw-logo-mobile.svg',
   './static/offline.html'
