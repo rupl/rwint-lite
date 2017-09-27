@@ -15,12 +15,14 @@ export class PaginatedReportsList extends React.Component {
     this.loadNextPage = this.loadNextPage.bind(this)
     this.loadPrevPage = this.loadPrevPage.bind(this)
     this.state = {
+      online: true,
       supportsPush: false
     }
   }
 
   componentDidMount () {
     this.setState({
+      online: typeof navigator !== 'undefined' && navigator.onLine,
       supportsPush: true
     })
   }
@@ -71,14 +73,13 @@ export class PaginatedReportsList extends React.Component {
     const nextPage = parseInt(reports.currentPage, 10) + 1
     const path = this.props.reportsType === 'update' ? 'report' : this.props.reportsType
     const canLoadMore = this.props[`${this.props.reportsType}s`].canLoadMore
-    const online = typeof navigator !== 'undefined' && navigator.onLine
     return (
       <div>
         <div className='reports-wrapper'>
-          {!reports.items.length && online &&
+          {!reports.items.length && this.state.online &&
             <p>No results found.</p>
           }
-          {!reports.items.length && !online &&
+          {!reports.items.length && !this.state.online &&
             <p><em>Unable to fetch data while offline.</em></p>
           }
           {reports.items && reports.items.length > 0 &&

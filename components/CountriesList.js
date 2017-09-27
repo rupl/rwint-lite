@@ -35,10 +35,19 @@ export class CountriesList extends React.Component {
   constructor (props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
+    this.state = {
+      online: true
+    }
   }
 
   handleChange (event) {
     window.location.hash = '#' + event.target.value
+  }
+
+  componentDidMount () {
+    this.setState({
+      online: typeof navigator !== 'undefined' && navigator.onLine
+    })
   }
 
   render () {
@@ -64,10 +73,10 @@ export class CountriesList extends React.Component {
           <span><Arrow direction='down' /></span>
         </div>
 
-        {!countries.length && online &&
+        {!countries.length && this.state.online &&
           <p>No results found.</p>
         }
-        {!countries.length && !online &&
+        {!countries.length && !this.state.online &&
           <p><em>Unable to fetch data while offline.</em></p>
         }
 
