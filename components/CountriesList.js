@@ -48,6 +48,7 @@ export class CountriesList extends React.Component {
       countries = filterCountries(countries, searchQuery)
     }
     const groupedCountries = groupCountries(countries)
+    const online = typeof navigator !== 'undefined' && navigator.onLine
 
     return (
       <div className='countries'>
@@ -62,6 +63,13 @@ export class CountriesList extends React.Component {
           </select>
           <span><Arrow direction='down' /></span>
         </div>
+
+        {!countries.length && online &&
+          <p>No results found.</p>
+        }
+        {!countries.length && !online &&
+          <p><em>Unable to fetch data while offline.</em></p>
+        }
 
         {groupedCountries.map((group, i) =>
           <div className='group' key={i}>

@@ -7,9 +7,16 @@ import { breakpoints } from '../theme/variables'
 export class Headlines extends React.Component {
   render () {
     const {headlines} = this.props
+    const online = typeof navigator !== 'undefined' && navigator.onLine
     return (
       <div>
         <SectionHeading heading='Latest Headlines' />
+        {!headlines.items.length && online &&
+          <p>No results found.</p>
+        }
+        {!headlines.items.length && !online &&
+          <p><em>Unable to fetch data while offline.</em></p>
+        }
         <div className='reports-wrapper'>
           {headlines.items && headlines.items.length > 0 &&
             headlines.items.map((item, i) => <ReportLink key={item.id} headingLevel='3' report={item} />)

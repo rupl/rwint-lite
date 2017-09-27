@@ -7,9 +7,16 @@ import SimpleLink from './links/SimpleLink'
 export class Featured extends React.Component {
   render () {
     const {featured} = this.props
+    const online = typeof navigator !== 'undefined' && navigator.onLine
     return (
       <div>
         <SectionHeading heading='Featured' />
+        {!featured.items.length && online &&
+          <p>No results found.</p>
+        }
+        {!featured.items.length && !online &&
+          <p><em>Unable to fetch data while offline.</em></p>
+        }
         <ul>
           {featured.items && featured.items.length > 0 &&
             featured.items.map((item, i) => (

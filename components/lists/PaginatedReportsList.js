@@ -71,11 +71,15 @@ export class PaginatedReportsList extends React.Component {
     const nextPage = parseInt(reports.currentPage, 10) + 1
     const path = this.props.reportsType === 'update' ? 'report' : this.props.reportsType
     const canLoadMore = this.props[`${this.props.reportsType}s`].canLoadMore
+    const online = typeof navigator !== 'undefined' && navigator.onLine
     return (
       <div>
         <div className='reports-wrapper'>
-          {!reports.items.length &&
-            <p>No results found</p>
+          {!reports.items.length && online &&
+            <p>No results found.</p>
+          }
+          {!reports.items.length && !online &&
+            <p><em>Unable to fetch data while offline.</em></p>
           }
           {reports.items && reports.items.length > 0 &&
             reports.items.map((report, i) =>
