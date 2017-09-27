@@ -10,7 +10,8 @@
       "presets": [
         ["env", { "modules": "commonjs" }],
         "next/babel"
-      ]
+      ],
+      "plugins": ["transform-runtime"]
     }
   }
 }
