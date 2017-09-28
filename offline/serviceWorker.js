@@ -1,12 +1,14 @@
 /* global caches, importScripts, Request, self, toolbox */
 importScripts('/static/sw-toolbox.js')
 
-var cacheName = 'static-v1'
+var cacheName = 'static-v1.1'
 var expectedCaches = [cacheName]
 var cacheFiles = [
   './static/rw-logo.svg',
   './static/rw-logo-mobile.svg',
-  './static/offline.html'
+  './static/offline.html',
+  './static/favicon-16x16.png',
+  './static/favicon-32x32.png'
 ]
 
 self.addEventListener('install', function (e) {
