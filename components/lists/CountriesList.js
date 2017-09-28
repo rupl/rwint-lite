@@ -63,7 +63,6 @@ export class CountriesList extends React.Component {
         <div className='styled-select'>
           <label htmlFor='selectLetter'>Go to letter</label>
           <select name='selectLetter' id='selectLetter' onChange={this.handleChange}>
-            <option />
             {groupedCountries.map((group, i) =>
               <option key={i} value={group.id}>{group.id}</option>
             )}
