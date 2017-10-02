@@ -10,7 +10,6 @@ import { breakpoints, colors, measurements } from '../../theme/variables'
 export class ArticleLayout extends React.Component {
   render () {
     const {report} = this.props
-
     return (
       <div>
         {this.props.type !== 'country' &&

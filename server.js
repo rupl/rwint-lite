@@ -36,7 +36,7 @@ app.prepare()
   })
 
   server.get('/report/listing', (req, res) => {
-    const actualPage = '/updates'
+    const actualPage = '/report-listing'
     const queryParams = { page: req.query.page, search: req.query.search }
     app.render(req, res, actualPage, queryParams)
   })
@@ -46,7 +46,7 @@ app.prepare()
     app.render(req, res, actualPage, queryParams)
   })
   server.get('/country/listing', (req, res) => {
-    const actualPage = '/countries'
+    const actualPage = '/country-listing'
     const queryParams = { search: req.query.search }
     app.render(req, res, actualPage, queryParams)
   })
@@ -56,7 +56,7 @@ app.prepare()
     app.render(req, res, actualPage, queryParams)
   })
   server.get('/disaster/listing', (req, res) => {
-    const actualPage = '/disasters'
+    const actualPage = '/disaster-listing'
     const queryParams = { page: req.query.page, search: req.query.search }
     app.render(req, res, actualPage, queryParams)
   })
@@ -66,7 +66,7 @@ app.prepare()
     app.render(req, res, actualPage, queryParams)
   })
   server.get('/job/listing', (req, res) => {
-    const actualPage = '/jobs'
+    const actualPage = '/job-listing'
     const queryParams = { page: req.query.page, search: req.query.search }
     app.render(req, res, actualPage, queryParams)
   })
@@ -81,7 +81,7 @@ app.prepare()
     app.render(req, res, actualPage, queryParams)
   })
   server.get('/training/listing', (req, res) => {
-    const actualPage = '/trainings'
+    const actualPage = '/training-listing'
     const queryParams = { page: req.query.page, search: req.query.search }
     app.render(req, res, actualPage, queryParams)
   })

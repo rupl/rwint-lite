@@ -18,10 +18,10 @@ const formatHeading = (heading, itemsLength) => {
   return `${heading}s`
 }
 
-const formatPaths = (searchType = 'update', itemType, name) => {
+const formatPaths = (searchType = 'report', itemType, name) => {
   const queryString = itemType === 'cost' ? `?search=${itemType}:` : `?search=${itemType}.exact:`
-  const asPath = searchType === 'update' ? '/report/listing' : `/${searchType}/listing`
-  const hrefPath = `/${searchType}s`
+  const asPath = `/${searchType}/listing`
+  const hrefPath = `/${searchType}-listing`
   let searchTerm = name
   // Handle searching for 10+ years experience
   if (itemType === 'experience' && searchType === 'job' && name.indexOf('+ years') !== -1) {

@@ -28,7 +28,7 @@ const showInfoSection = (type) => {
 }
 
 const showInfoLinks = (type) => {
-  return type === 'update'
+  return type === 'report'
 }
 
 const ArticleHeader = ({report, type}) => (

@@ -120,7 +120,7 @@ describe('Report Link component', () => {
       report.urlTitle = 'report-something-words-en-uk-0'
     })
     it('renders the correct links paths for updates', () => {
-      wrapper = shallow(<Component report={report} reportsType='update' />)
+      wrapper = shallow(<Component report={report} reportsType='report' />)
       linkEl = wrapper.find('h2').find('Link')
       expect(linkEl.prop('href')).toBe('/report?id=30')
       expect(linkEl.prop('as')).toBe('/report/30/so-yo/report-something-words-en-uk-0')

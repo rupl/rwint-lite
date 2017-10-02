@@ -47,7 +47,7 @@ export const theInitialState = {
     items: [],
     totalCount: 0
   },
-  updates: {
+  reports: {
     canLoadMore: false,
     currentPage: 0,
     focusId: '',
@@ -147,8 +147,8 @@ export const reducer = (state = theInitialState, action) => {
     case actionTypes.GET_UPDATE:
       return getItem(action, state, 'updateReports')
 
-    case actionTypes.GET_UPDATES:
-      return getPaginatedItems(action, state, 'updates')
+    case actionTypes.GET_REPORTS:
+      return getPaginatedItems(action, state, 'reports')
 
     default: return state
   }

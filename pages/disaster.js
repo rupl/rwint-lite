@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '../components/Layout'
 import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
-import { getDisaster, getUpdates } from '../actions/actions'
+import { getDisaster, getReports } from '../actions/actions'
 import withRedux from 'next-redux-wrapper'
 import ArticleLayout from '../components/article/ArticleLayout'
 import Error from './_error'
@@ -16,7 +16,7 @@ export class Disaster extends React.Component {
       return parseInt(obj.id, 10) === parseInt(id, 10)
     })[0]
     if (report) {
-      await store.dispatch(getUpdates(1, false, false, `disaster.exact:"${report.fields.name}"`, 6))
+      await store.dispatch(getReports(1, false, false, `disaster.exact:"${report.fields.name}"`, 6))
       return { report }
     }
     return { error: 404 }
@@ -44,7 +44,7 @@ export class Disaster extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     getDisaster: bindActionCreators(getDisaster, dispatch),
-    getUpdates: bindActionCreators(getUpdates, dispatch)
+    getReports: bindActionCreators(getReports, dispatch)
   }
 }
 

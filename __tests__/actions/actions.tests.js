@@ -12,84 +12,84 @@ const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
 describe('Get Updates', () => {
-  it('creates GET_UPDATES when has fetched updates and returns the items and info', () => {
+  it('creates GET_REPORTS when has fetched updates and returns the items and info', () => {
     const expectedActions = [{
-      type: actionTypes.GET_UPDATES,
+      type: actionTypes.GET_REPORTS,
       items: mockReports,
       loadMore: false,
       pageNumber: 1,
       pagination: false
     }]
     const store = mockStore({
-      updates: {}
+      reports: {}
     })
-    return store.dispatch(actions.getUpdates()).then(() => {
+    return store.dispatch(actions.getReports()).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
 
-  it('returns the correct page number and loadMore flag to GET_UPDATES when load more', () => {
+  it('returns the correct page number and loadMore flag to GET_REPORTS when load more', () => {
     const expectedActions = [{
-      type: actionTypes.GET_UPDATES,
+      type: actionTypes.GET_REPORTS,
       items: mockReports,
       loadMore: true,
       pageNumber: 2,
       pagination: false
     }]
     const store = mockStore({
-      updates: {}
+      reports: {}
     })
-    return store.dispatch(actions.getUpdates(2, true)).then(() => {
+    return store.dispatch(actions.getReports(2, true)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
 
-  it('returns the correct page number and loadMore flag to GET_UPDATES when load a paginated page', () => {
+  it('returns the correct page number and loadMore flag to GET_REPORTS when load a paginated page', () => {
     const expectedActions = [{
-      type: actionTypes.GET_UPDATES,
+      type: actionTypes.GET_REPORTS,
       items: mockReports,
       loadMore: false,
       pageNumber: 4,
       pagination: true
     }]
     const store = mockStore({
-      updates: {}
+      reports: {}
     })
-    return store.dispatch(actions.getUpdates(4, false, true)).then(() => {
+    return store.dispatch(actions.getReports(4, false, true)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
 
-  it('does not create GET_UPDATES if have recently fetched data', () => {
+  it('does not create GET_REPORTS if have recently fetched data', () => {
     const d = new Date()
     d.setSeconds(d.getSeconds() - 30)
 
     const expectedActions = []
     const store = mockStore({
-      updates: {
+      reports: {
         lastFetched: d.toString()
       }
     })
-    return store.dispatch(actions.getUpdates(1)).then(() => {
+    return store.dispatch(actions.getReports(1)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
 
-  it('does not create GET_UPDATES if going back to a paginated page', () => {
+  it('does not create GET_REPORTS if going back to a paginated page', () => {
     const expectedActions = []
     const store = mockStore({
-      updates: {}
+      reports: {}
     })
-    return store.dispatch(actions.getUpdates(5, false, false)).then(() => {
+    return store.dispatch(actions.getReports(5, false, false)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
 })
 
 describe('Get Updates with query', () => {
-  it('creates GET_UPDATES when has fetched updates and returns the items, info and isQuery flag', () => {
+  it('creates GET_REPORTS when has fetched updates and returns the items, info and isQuery flag', () => {
     const expectedActions = [{
-      type: actionTypes.GET_UPDATES,
+      type: actionTypes.GET_REPORTS,
       items: mockReports,
       loadMore: false,
       pageNumber: 1,
@@ -97,9 +97,9 @@ describe('Get Updates with query', () => {
       isQuery: true
     }]
     const store = mockStore({
-      updates: {}
+      reports: {}
     })
-    return store.dispatch(actions.getUpdates(1, false, false, 'country.exact:"Syria"')).then(() => {
+    return store.dispatch(actions.getReports(1, false, false, 'country.exact:"Syria"')).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
@@ -428,7 +428,7 @@ describe('Get Jobs', () => {
     })
   })
 
-  it('does not create GET_UPDATES if going back to a paginated page', () => {
+  it('does not create GET_REPORTS if going back to a paginated page', () => {
     const expectedActions = []
     const store = mockStore({
       jobs: {}
@@ -547,7 +547,7 @@ describe('Get Trainings', () => {
     })
   })
 
-  it('does not create GET_UPDATES if going back to a paginated page', () => {
+  it('does not create GET_REPORTS if going back to a paginated page', () => {
     const expectedActions = []
     const store = mockStore({
       trainings: {}

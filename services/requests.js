@@ -199,7 +199,7 @@ export const requestUpdate = async function (id) {
   return getSingleItem('reports', id)
 }
 
-export const requestUpdates = async function (offset, limit = 10, query) {
+export const requestReports = async function (offset, limit = 10, query) {
   const sort = ['date:desc']
   const fields = ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
   return getItems('reports', limit, offset, sort, fields, transformItems, '', 'latest', query)

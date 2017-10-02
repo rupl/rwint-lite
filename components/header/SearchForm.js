@@ -3,16 +3,29 @@ import Router from 'next/router'
 import { SearchIcon } from '../icons/Icons'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../../theme/variables'
 
+function setPlaceHolder (type) {
+  if (type === 'report') {
+    return 'Search for updates'
+  }
+  if (type === 'country') {
+    return 'Search for countries'
+  }
+  if (type === 'training') {
+    return 'Search for training'
+  }
+  return `Search for ${type}s`
+}
+
 export class SearchForm extends React.Component {
   constructor (props) {
     super(props)
     const value = props.query ? props.query : ''
     let placeholder = 'Search for updates'
-    let search = 'updates'
+    let searchType = 'report'
     this.state = {
       value,
       placeholder,
-      search
+      searchType
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,24 +36,12 @@ export class SearchForm extends React.Component {
       const value = Router.router.query && Router.router.query.search ? Router.router.query.search : ''
 
       const route = Router.router.route
-      if (route !== '/' && route !== '/updates' && route !== '/update') {
-        let search = route.replace('/', '')
-        if (route === '/disaster') {
-          search = 'disasters'
-        }
-        if (route === '/job') {
-          search = 'jobs'
-        }
-        if (route === '/training') {
-          search = 'trainings' // lets pretend this is actually the plural
-        }
-        let placeholder = `Search for ${search}`
-        if (route === '/training' || route === '/trainings') {
-          placeholder = `Search for training`
-        }
+      if (route !== '/' && route !== '/report-listing' && route !== '/report') {
+        let searchType = route.replace('/', '')
+        searchType = searchType.replace('-listing', '')
         this.setState({
-          placeholder,
-          search,
+          placeholder: setPlaceHolder(searchType),
+          searchType,
           value
         })
       }
@@ -60,50 +61,8 @@ export class SearchForm extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault()
-    const paths = {
-      country: {
-        href: '/countries',
-        as: '/country/listing'
-      },
-      countries: {
-        href: '/countries',
-        as: '/country/listing'
-      },
-      disaster: {
-        href: '/disasters',
-        as: '/disaster/listing'
-      },
-      disasters: {
-        href: '/disasters',
-        as: '/disaster/listing'
-      },
-      job: {
-        href: '/jobs',
-        as: '/job/listing'
-      },
-      jobs: {
-        href: '/jobs',
-        as: '/job/listing'
-      },
-      training: {
-        href: '/trainings',
-        as: '/training/listing'
-      },
-      trainings: {
-        href: '/trainings',
-        as: '/training/listing'
-      },
-      report: {
-        href: '/updates',
-        as: '/report/listing'
-      },
-      updates: {
-        href: '/updates',
-        as: '/report/listing'
-      }
-    }
-    const searchPathAs = `${paths[this.state.search].as}?search=`
-    const searchPath = `${paths[this.state.search].href}?search=`
+    const searchPathAs = `/${this.state.searchType}/listing?search=`
+    const searchPath = `/${this.state.searchType}-listing?search=`
     let searchTerm = this.state.value
     // Handle searching for 10+ years experience
     if (searchTerm.indexOf('experience.exact') !== -1 && searchTerm.indexOf('+ years') !== -1) {

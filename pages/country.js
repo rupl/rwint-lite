@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '../components/Layout'
 import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
-import { getCountry, getUpdates } from '../actions/actions'
+import { getCountry, getReports } from '../actions/actions'
 import withRedux from 'next-redux-wrapper'
 import PaginatedReportsList from '../components/lists/PaginatedReportsList'
 import { Arrow } from '../components/icons/Icons'
@@ -22,9 +22,9 @@ export class Country extends React.Component {
     })[0]
     if (country) {
       const searchQuery = `country.exact:"${country.fields.name}"`
-      await store.dispatch(getUpdates(1, false, true, searchQuery))
+      await store.dispatch(getReports(1, false, true, searchQuery))
       return {
-        canLoadMore: store.getState().updates.canLoadMore,
+        canLoadMore: store.getState().reports.canLoadMore,
         currentPage: pageNumber,
         showPagination: showPagination,
         query: searchQuery,
@@ -54,7 +54,7 @@ export class Country extends React.Component {
             <PaginatedReportsList
               canLoadMore={this.props.canLoadMore}
               query={this.props.query}
-              reportsType='update'
+              reportsType='report'
               showPagination={this.props.showPagination} />
             <style jsx>{smallButton}</style>
             <style jsx>{`
@@ -105,7 +105,7 @@ export class Country extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     getCountry: bindActionCreators(getCountry, dispatch),
-    getUpdates: bindActionCreators(getUpdates, dispatch)
+    getReports: bindActionCreators(getReports, dispatch)
   }
 }
 

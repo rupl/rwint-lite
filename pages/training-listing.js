@@ -7,7 +7,7 @@ import Layout from '../components/Layout'
 import PaginatedReportsList from '../components/lists/PaginatedReportsList'
 import SectionHeading from '../components/SectionHeading'
 
-export class Trainings extends React.Component {
+export class TrainingListing extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
     let pageNumber = query && query.page ? query.page : 1
     const showPagination = isServer && pageNumber > 1
@@ -47,4 +47,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Trainings)
+export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(TrainingListing)

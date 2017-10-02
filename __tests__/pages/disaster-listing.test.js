@@ -2,15 +2,15 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import configureStore from 'redux-mock-store'
-import ConnectedUpdates, { Updates } from '../../pages/updates.js'
+import ConnectedDisasterListing, { DisasterListing } from '../../pages/disaster-listing.js'
 
-describe('Updates page', () => {
+describe('Disasters page', () => {
   let container, fakeStore, store, wrapper
   const mockStore = configureStore()
   const mockDispatch = jest.fn(() => function () {})
 
   const initialState = {
-    updates: {
+    disasters: {
       canLoadMore: true,
       currentPage: 4
     }
@@ -19,7 +19,7 @@ describe('Updates page', () => {
   describe('Connected component', () => {
     beforeAll(function () {
       store = mockStore(initialState)
-      container = shallow(<ConnectedUpdates store={store} />)
+      container = shallow(<ConnectedDisasterListing store={store} />)
     })
 
     it('renders the page', () => {
@@ -29,7 +29,7 @@ describe('Updates page', () => {
 
   describe('Simple component', () => {
     beforeAll(() => {
-      wrapper = shallow(<Updates />)
+      wrapper = shallow(<DisasterListing />)
     })
 
     it('renders the page', () => {
@@ -41,13 +41,13 @@ describe('Updates page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            updates: {
+            disasters: {
               canLoadMore: false
             }
           }
         }
       }
-      return Updates.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {}}).then(function (data) {
+      return DisasterListing.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {}}).then(function (data) {
         expect(data.canLoadMore).toBe(false)
       })
     })
@@ -57,13 +57,13 @@ describe('Updates page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            updates: {
+            disasters: {
               canLoadMore: true
             }
           }
         }
       }
-      return Updates.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {}}).then(function (data) {
+      return DisasterListing.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {}}).then(function (data) {
         expect(data.currentPage).toBe(1)
       })
     })
@@ -73,13 +73,13 @@ describe('Updates page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            updates: {
+            disasters: {
               canLoadMore: true
             }
           }
         }
       }
-      return Updates.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {page: 12}}).then(function (data) {
+      return DisasterListing.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {page: 12}}).then(function (data) {
         expect(data.currentPage).toBe(12)
       })
     })
@@ -89,13 +89,13 @@ describe('Updates page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            updates: {
+            disasters: {
               canLoadMore: true
             }
           }
         }
       }
-      return Updates.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {search: 'Syria'}}).then(function (data) {
+      return DisasterListing.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {search: 'Syria'}}).then(function (data) {
         expect(data.query).toBe('Syria')
       })
     })
@@ -105,13 +105,13 @@ describe('Updates page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            updates: {
+            disasters: {
               canLoadMore: true
             }
           }
         }
       }
-      return Updates.getInitialProps({store: fakeStore, isServer: true, pathname: 'blah', query: {page: 3}}).then(function (data) {
+      return DisasterListing.getInitialProps({store: fakeStore, isServer: true, pathname: 'blah', query: {page: 3}}).then(function (data) {
         expect(data.showPagination).toBe(true)
       })
     })
@@ -121,13 +121,13 @@ describe('Updates page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            updates: {
+            disasters: {
               canLoadMore: true
             }
           }
         }
       }
-      return Updates.getInitialProps({store: fakeStore, isServer: true, pathname: 'blah', query: {}}).then(function (data) {
+      return DisasterListing.getInitialProps({store: fakeStore, isServer: true, pathname: 'blah', query: {}}).then(function (data) {
         expect(data.showPagination).toBe(false)
       })
     })
@@ -137,13 +137,13 @@ describe('Updates page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            updates: {
+            disasters: {
               canLoadMore: true
             }
           }
         }
       }
-      return Updates.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {page: 3}}).then(function (data) {
+      return DisasterListing.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {page: 3}}).then(function (data) {
         expect(data.showPagination).toBe(false)
       })
     })

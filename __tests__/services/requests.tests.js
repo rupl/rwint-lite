@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestJob, requestJobs,
-  requestHeadlines, requestTraining, requestTrainings, requestUpdate, requestUpdates } from '../../services/requests.js'
+  requestHeadlines, requestTraining, requestTrainings, requestUpdate, requestReports } from '../../services/requests.js'
 import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockEndpoints, mockHeadlines, mockJob, mockJobs, mockTraining,
  mockTrainings, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
 jest.mock('../../helpers/shuffleArray')
@@ -110,7 +110,7 @@ describe('API requests', () => {
   describe('Get Updates', () => {
     beforeAll(async () => {
       fetchMock.post(mockEndpoints.updates, mockReports)
-      result = await requestUpdates()
+      result = await requestReports()
     })
     afterAll(fetchMock.restore)
 
@@ -152,7 +152,7 @@ describe('API requests', () => {
   describe('Get next page of updates', () => {
     beforeAll(async () => {
       fetchMock.post(mockEndpoints.updates, mockReports)
-      result = await requestUpdates(10)
+      result = await requestReports(10)
     })
     afterAll(fetchMock.restore)
 
@@ -177,7 +177,7 @@ describe('API requests', () => {
   describe('Get queried updates', () => {
     beforeAll(async () => {
       fetchMock.post(mockEndpoints.updates, mockReports)
-      result = await requestUpdates(0, 10, 'country.exact:"Syria"')
+      result = await requestReports(0, 10, 'country.exact:"Syria"')
     })
     afterAll(fetchMock.restore)
 

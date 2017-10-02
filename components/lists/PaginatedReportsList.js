@@ -6,7 +6,7 @@ import ReportLink from '../links/ReportLink'
 import LoadMoreButton from './LoadMoreButton'
 import PaginationButtons from './PaginationButtons'
 import { breakpoints, measurements } from '../../theme/variables'
-import { getDisasters, getJobs, getTrainings, getUpdates } from '../../actions/actions'
+import { getDisasters, getJobs, getTrainings, getReports } from '../../actions/actions'
 
 export class PaginatedReportsList extends React.Component {
   constructor (props) {
@@ -30,7 +30,7 @@ export class PaginatedReportsList extends React.Component {
   async loadPage (props, loadMore = true, pagination = false, prev = false) {
     const currentPage = parseInt(props[`${props.reportsType}s`].currentPage, 10)
     const pageNumber = prev ? currentPage - 1 : currentPage + 1
-    let getFn = 'getUpdates'
+    let getFn = 'getReports'
     if (props.reportsType === 'disaster') {
       getFn = 'getDisasters'
     }
@@ -57,7 +57,8 @@ export class PaginatedReportsList extends React.Component {
       queryString += `search=${query}&`
     }
     queryString += `page=${pageNumber}`
-    Router.push(`/updates${queryString}`, `/report/listing${queryString}`, {shallow: true})
+    // check this - shoudl be hard coded to report?
+    Router.push(`/report-listing${queryString}`, `/report/listing${queryString}`, {shallow: true})
   }
 
   loadNextPage () {
@@ -71,7 +72,7 @@ export class PaginatedReportsList extends React.Component {
   render () {
     const reports = this.props[`${this.props.reportsType}s`]
     const nextPage = parseInt(reports.currentPage, 10) + 1
-    const path = this.props.reportsType === 'update' ? 'report' : this.props.reportsType
+    const path = this.props.reportsType
     const canLoadMore = this.props[`${this.props.reportsType}s`].canLoadMore
     return (
       <div>
@@ -135,7 +136,7 @@ const mapDispatchToProps = (dispatch) => {
     getDisasters: bindActionCreators(getDisasters, dispatch),
     getJobs: bindActionCreators(getJobs, dispatch),
     getTrainings: bindActionCreators(getTrainings, dispatch),
-    getUpdates: bindActionCreators(getUpdates, dispatch)
+    getReports: bindActionCreators(getReports, dispatch)
   }
 }
 

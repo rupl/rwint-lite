@@ -1,6 +1,6 @@
 import * as actionTypes from '../constants/actionTypes'
 import { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestHeadlines,
-  requestJob, requestJobs, requestTraining, requestTrainings, requestUpdate, requestUpdates } from '../services/requests'
+  requestJob, requestJobs, requestTraining, requestTrainings, requestUpdate, requestReports } from '../services/requests'
 
 // helpers
 const shouldUpdate = (lastFetched, threshold = 1) => {
@@ -90,13 +90,13 @@ export const getUpdate = (id) => {
   }
 }
 
-export const getUpdates = (pageNumber = 1, loadMore = false, pagination = false, query, limit = 10) => {
+export const getReports = (pageNumber = 1, loadMore = false, pagination = false, query, limit = 10) => {
   return async (dispatch, getState) => {
     let offset = (pageNumber - 1) * limit
-    if (!shouldFetch(getState().updates.lastFetched, loadMore, pageNumber, pagination, query)) {
+    if (!shouldFetch(getState().reports.lastFetched, loadMore, pageNumber, pagination, query)) {
       return
     }
-    let dispatchObj = await getPaginatedItems('GET_UPDATES', requestUpdates, offset, loadMore, limit, pageNumber, pagination, query)
+    let dispatchObj = await getPaginatedItems('GET_REPORTS', requestReports, offset, loadMore, limit, pageNumber, pagination, query)
     dispatch(dispatchObj)
   }
 }

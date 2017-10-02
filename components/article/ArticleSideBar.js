@@ -52,8 +52,8 @@ class ArticleSideBar extends React.Component {
         {report.fields.file &&
           <ArticleAttachments heading='Attachment' items={report.fields.file} />
         }
-        {this.props.type === 'update' &&
-          <Link prefetch as='report/listing' href='/updates'>
+        {this.props.type === 'report' &&
+          <Link prefetch as='report/listing' href='/report-listing'>
             <a className='btn-primary'>View latest updates</a>
           </Link>
         }

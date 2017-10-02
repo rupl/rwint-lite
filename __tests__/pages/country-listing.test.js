@@ -2,7 +2,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import configureStore from 'redux-mock-store'
-import ConnectedCountries from '../../pages/countries.js'
+import ConnectedCountryListing from '../../pages/country-listing.js'
 import { mockCountries } from '../../__fixtures__/data.fixture'
 
 describe('Countries page', () => {
@@ -18,7 +18,7 @@ describe('Countries page', () => {
   describe('Connected component', () => {
     beforeAll(function () {
       store = mockStore(initialState)
-      container = shallow(<ConnectedCountries store={store} />)
+      container = shallow(<ConnectedCountryListing store={store} />)
     })
 
     it('renders the page', () => {
