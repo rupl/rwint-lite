@@ -37,7 +37,7 @@ toolbox.router.get('/(.*)', function (req, vals, opts) {
   if (req.url.indexOf('api.reliefweb.int') !== -1) {
     return toolbox.networkFirst(req, vals, opts)
   }
-  return toolbox.cacheFirst(req, vals, opts)
+  return toolbox.fastest(req, vals, opts)
     .catch(function (error) {
       if (req.method === 'GET' && req.headers.get('accept').includes('text/html')) {
         return caches.match('./static/offline.html')
