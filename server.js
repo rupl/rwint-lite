@@ -21,14 +21,14 @@ app.prepare()
   const server = express()
   server.use(compression())
 
-  if (!dev) {
-    server.use(expressWinston.logger({
-      transports: [
-        new winston.transports.Console(),
-        new (winston.transports.File)({filename: `${logDir}/access.log`})
-      ]
-    }))
-  }
+  // if (!dev) {
+  //   server.use(expressWinston.logger({
+  //     transports: [
+  //       new winston.transports.Console(),
+  //       new (winston.transports.File)({filename: `${logDir}/access.log`})
+  //     ]
+  //   }))
+  // }
 
   server.get('/sw.js', (req, res) => {
     res.setHeader('content-type', 'text/javascript')

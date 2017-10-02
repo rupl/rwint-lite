@@ -13,6 +13,15 @@ export class Index extends React.Component {
     await store.dispatch(getHeadlines())
   }
 
+  componentDidMount () {
+    const dev = process.env.NODE_ENV !== 'production'
+    console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+    if (!dev && 'serviceWorker' in navigator) {
+      console.log('here')
+      navigator.serviceWorker.register('/sw.js').catch(err => console.error('Service worker registration failed', err))
+    }
+  }
+
   render () {
     return (
       <Layout home='true'>
