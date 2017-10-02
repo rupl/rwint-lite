@@ -15,7 +15,8 @@ export class Index extends React.Component {
 
   componentDidMount () {
     const dev = process.env.NODE_ENV !== 'production'
-    if (!dev && 'serviceWorker' in navigator) {
+    const staging = window.location.origin.indexOf('dev.m.rwdev.org') !== -1
+    if (!dev && !staging && 'serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(err => console.error('Service worker registration failed', err))
     }
   }
