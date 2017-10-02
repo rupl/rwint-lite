@@ -29,36 +29,36 @@ class Nav extends React.Component {
         <nav className='cd-site-header__nav' role='navigation' aria-hidden={!this.state.isOpen}>
           <ul className='cd-nav'>
             <li className='cd-nav__item'>
-              <Link prefetch as='/report/listing' href='/updates'>
-                <a className={`cd-nav__link ${(this.state.activeLink === '/updates' || this.state.activeLink === '/report') ? 'cd-nav__link--active' : ''}`}>
+              <Link prefetch as='/report/listing' href='/report-listing'>
+                <a className={`cd-nav__link ${(this.state.activeLink === '/report-listing' || this.state.activeLink === '/report') ? 'cd-nav__link--active' : ''}`}>
                   Updates
                 </a>
               </Link>
             </li>
             <li className='cd-nav__item'>
-              <Link prefetch as='/country/listing' href='/countries'>
-                <a className={`cd-nav__link ${(this.state.activeLink === '/countries' || this.state.activeLink === '/country') ? 'cd-nav__link--active' : ''}`}>
+              <Link prefetch as='/country/listing' href='/country-listing'>
+                <a className={`cd-nav__link ${(this.state.activeLink === '/country-listing' || this.state.activeLink === '/country') ? 'cd-nav__link--active' : ''}`}>
                   Countries
                 </a>
               </Link>
             </li>
             <li className='cd-nav__item'>
-              <Link prefetch as='/disaster/listing' href='/disasters'>
-                <a className={`cd-nav__link ${(this.state.activeLink === '/disasters' || this.state.activeLink === '/disaster') ? 'cd-nav__link--active' : ''}`}>
+              <Link prefetch as='/disaster/listing' href='/disaster-listing'>
+                <a className={`cd-nav__link ${(this.state.activeLink === '/disaster-listing' || this.state.activeLink === '/disaster') ? 'cd-nav__link--active' : ''}`}>
                   Disasters
                 </a>
               </Link>
             </li>
             <li className='cd-nav__item'>
-              <Link prefetch as='/job/listing' href='/jobs'>
-                <a className={`cd-nav__link ${(this.state.activeLink === '/jobs' || this.state.activeLink === '/job') ? 'cd-nav__link--active' : ''}`}>
+              <Link prefetch as='/job/listing' href='/job-listing'>
+                <a className={`cd-nav__link ${(this.state.activeLink === '/job-listing' || this.state.activeLink === '/job') ? 'cd-nav__link--active' : ''}`}>
                   Jobs
                 </a>
               </Link>
             </li>
             <li className='cd-nav__item'>
-              <Link prefetch as='/training/listing' href='/trainings'>
-                <a className={`cd-nav__link ${(this.state.activeLink === '/trainings' || this.state.activeLink === '/training') ? 'cd-nav__link--active' : ''}`}>
+              <Link prefetch as='/training/listing' href='/training-listing'>
+                <a className={`cd-nav__link ${(this.state.activeLink === '/training-listing' || this.state.activeLink === '/training') ? 'cd-nav__link--active' : ''}`}>
                   Training
                 </a>
               </Link>

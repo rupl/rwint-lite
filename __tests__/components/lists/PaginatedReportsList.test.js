@@ -6,12 +6,12 @@ import Router from 'next/router'
 import { mockDisasters, mockJobs, mockReports } from '../../../__fixtures__/data.fixture'
 import ConnectedPaginatedReportsList, { PaginatedReportsList } from '../../../components/lists/PaginatedReportsList.js'
 Router['push'] = jest.fn(() => function () {})
-const mockGetUpdates = jest.fn(() => function () {})
+const mockGetReports = jest.fn(() => function () {})
 const mockGetDisasters = jest.fn(() => function () {})
 const mockGetJobs = jest.fn(() => function () {})
 
 describe('PaginatedReportsList component', () => {
-  let container, disastersStore, jobsStore, loadMoreButton, paginationButtons, reportLinks, store, updatesStore, wrapper
+  let container, disastersStore, jobsStore, loadMoreButton, paginationButtons, reportLinks, store, reportsStore, wrapper
   const initialState = {
     disasters: {
       items: mockDisasters.data
@@ -19,7 +19,7 @@ describe('PaginatedReportsList component', () => {
     jobs: {
       items: mockJobs.data
     },
-    updates: {
+    reports: {
       items: mockReports.data
     }
   }
@@ -32,15 +32,15 @@ describe('PaginatedReportsList component', () => {
   describe('Connected component', () => {
     beforeAll(() => {
       store = mockStore(initialState)
-      container = shallow(<ConnectedPaginatedReportsList store={store} reportsType='update' />)
+      container = shallow(<ConnectedPaginatedReportsList store={store} reportsType='report' />)
     })
 
     it('renders the component', () => {
       expect(container.exists()).toBe(true)
     })
 
-    it('can access the updates from the store', () => {
-      expect(container.prop('updates').items).toEqual(mockReports.data)
+    it('can access the reports from the store', () => {
+      expect(container.prop('reports').items).toEqual(mockReports.data)
     })
 
     it('can access the disasters from the store', () => {
@@ -49,15 +49,15 @@ describe('PaginatedReportsList component', () => {
   })
 
   describe('Updates', () => {
-    describe('Renders the updates', () => {
+    describe('Renders the reports', () => {
       beforeAll(() => {
-        updatesStore = {
+        reportsStore = {
           items: mockReports.data,
           focusId: 10
         }
         wrapper = shallow(<PaginatedReportsList
-          updates={updatesStore}
-          reportsType='update' />)
+          reports={reportsStore}
+          reportsType='report' />)
         reportLinks = wrapper.find('ReportLink')
       })
 
@@ -69,51 +69,51 @@ describe('PaginatedReportsList component', () => {
         expect(reportLinks.length).toBe(10)
         expect(reportLinks.at(0).prop('report')).toEqual(mockReports.data[0])
         expect(reportLinks.at(0).prop('focusId')).toEqual(10)
-        expect(reportLinks.at(0).prop('reportsType')).toEqual('update')
+        expect(reportLinks.at(0).prop('reportsType')).toEqual('report')
       })
     })
 
-    describe('Show more updates', () => {
+    describe('Show more reports', () => {
       beforeAll(() => {
-        updatesStore = {
+        reportsStore = {
           currentPage: 1,
           items: mockReports.data,
           canLoadMore: true
         }
         wrapper = shallow(<PaginatedReportsList
-          updates={updatesStore}
-          getUpdates={mockGetUpdates}
+          reports={reportsStore}
+          getReports={mockGetReports}
           canLoadMore
           showPagination={false}
-          reportsType='update' />)
+          reportsType='report' />)
       })
 
-      it('renders Show more button if can load more updates and not showing pagination buttons', () => {
+      it('renders Show more button if can load more reports and not showing pagination buttons', () => {
         loadMoreButton = wrapper.find('LoadMoreButton')
         expect(loadMoreButton.exists()).toBe(true)
         expect(loadMoreButton.prop('nextPage')).toBe(2)
         expect(loadMoreButton.prop('path')).toBe('report')
       })
 
-      it('renders calls the getUpdates action when load more', () => {
+      it('calls the getReports action when load more', () => {
         wrapper.instance().loadMore()
-        expect(mockGetUpdates).toHaveBeenCalledWith(2, true, false, undefined)
+        expect(mockGetReports).toHaveBeenCalledWith(2, true, false, undefined)
       })
     })
 
     describe('Pagination buttons', () => {
       beforeAll(() => {
-        updatesStore = {
+        reportsStore = {
           currentPage: 5,
           items: mockReports.data,
           canLoadMore: true
         }
         wrapper = shallow(<PaginatedReportsList
-          updates={updatesStore}
-          getUpdates={mockGetUpdates}
+          reports={reportsStore}
+          getReports={mockGetReports}
           canLoadMore
           showPagination
-          reportsType='update' />)
+          reportsType='report' />)
       })
 
       it('renders pagination buttons if can load more and should show them', () => {
@@ -123,58 +123,58 @@ describe('PaginatedReportsList component', () => {
         expect(paginationButtons.prop('path')).toBe('report')
       })
 
-      it('renders calls the getUpdates action when load next page', () => {
+      it('calls the getReports action when load next page', () => {
         wrapper.instance().loadNextPage()
-        expect(mockGetUpdates).toHaveBeenCalledWith(6, false, true, undefined)
+        expect(mockGetReports).toHaveBeenCalledWith(6, false, true, undefined)
       })
 
-      it('renders calls the getUpdates action when load previous page', () => {
+      it('calls the getReports action when load previous page', () => {
         wrapper.instance().loadPrevPage()
-        expect(mockGetUpdates).toHaveBeenCalledWith(4, false, true, undefined)
+        expect(mockGetReports).toHaveBeenCalledWith(4, false, true, undefined)
       })
     })
 
     describe('Queried reports', () => {
       beforeAll(() => {
-        updatesStore = {
+        reportsStore = {
           currentPage: 4,
           items: mockReports.data
         }
       })
-      it('passes the query to getUpdates when load more', () => {
+      it('passes the query to getReports when load more', () => {
         wrapper = shallow(<PaginatedReportsList
-          updates={updatesStore}
-          getUpdates={mockGetUpdates}
+          reports={reportsStore}
+          getReports={mockGetReports}
           canLoadMore
           query='country.exact:"Syria"'
           showPagination={false}
-          reportsType='update' />)
+          reportsType='report' />)
         wrapper.instance().loadMore()
-        expect(mockGetUpdates).toHaveBeenCalledWith(5, true, false, 'country.exact:"Syria"')
+        expect(mockGetReports).toHaveBeenCalledWith(5, true, false, 'country.exact:"Syria"')
       })
 
-      it('passes the query to getUpdates when load next page', () => {
+      it('passes the query to getReports when load next page', () => {
         wrapper = shallow(<PaginatedReportsList
-          updates={updatesStore}
-          getUpdates={mockGetUpdates}
+          reports={reportsStore}
+          getReports={mockGetReports}
           canLoadMore
           query='country.exact:"Syria"'
           showPagination
-          reportsType='update' />)
+          reportsType='report' />)
         wrapper.instance().loadNextPage()
-        expect(mockGetUpdates).toHaveBeenCalledWith(5, false, true, 'country.exact:"Syria"')
+        expect(mockGetReports).toHaveBeenCalledWith(5, false, true, 'country.exact:"Syria"')
       })
 
-      it('passes the query to getUpdates when load previous page', () => {
+      it('passes the query to getReports when load previous page', () => {
         wrapper = shallow(<PaginatedReportsList
-          updates={updatesStore}
-          getUpdates={mockGetUpdates}
+          reports={reportsStore}
+          getReports={mockGetReports}
           canLoadMore
           query='country.exact:"Syria"'
           showPagination
-          reportsType='update' />)
+          reportsType='report' />)
         wrapper.instance().loadPrevPage()
-        expect(mockGetUpdates).toHaveBeenCalledWith(3, false, true, 'country.exact:"Syria"')
+        expect(mockGetReports).toHaveBeenCalledWith(3, false, true, 'country.exact:"Syria"')
       })
     })
   })

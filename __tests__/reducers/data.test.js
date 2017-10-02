@@ -49,7 +49,7 @@ describe('data reducer', () => {
           items: [],
           totalCount: 0
         },
-        updates: {
+        reports: {
           canLoadMore: false,
           currentPage: 0,
           focusId: '',
@@ -74,7 +74,7 @@ describe('data reducer', () => {
       })
     })
 
-    it('should store multiple updates', () => {
+    it('should store multiple reports', () => {
       expect(
         reducer({countryReports: [mockCountry]}, {
           type: actionTypes.GET_COUNTRY,
@@ -115,7 +115,7 @@ describe('data reducer', () => {
       })
     })
 
-    it('should store multiple updates', () => {
+    it('should store multiple reports', () => {
       expect(
         reducer({disasterReports: [mockDisaster]}, {
           type: actionTypes.GET_DISASTER,
@@ -225,7 +225,7 @@ describe('data reducer', () => {
       })
     })
 
-    it('should store multiple updates', () => {
+    it('should store multiple reports', () => {
       expect(
         reducer({jobReports: [mockJob]}, {
           type: actionTypes.GET_JOB,
@@ -369,7 +369,7 @@ describe('data reducer', () => {
       })
     })
 
-    it('should store multiple updates', () => {
+    it('should store multiple reports', () => {
       expect(
         reducer({trainingReports: [mockTraining]}, {
           type: actionTypes.GET_TRAINING,
@@ -479,7 +479,7 @@ describe('data reducer', () => {
       })
     })
 
-    it('should store multiple updates', () => {
+    it('should store multiple reports', () => {
       expect(
         reducer({updateReports: [mockUpdate]}, {
           type: actionTypes.GET_UPDATE,
@@ -491,18 +491,18 @@ describe('data reducer', () => {
     })
   })
 
-  describe('Handle GET_UPDATES', () => {
-    it('should handle Get Updates', () => {
+  describe('Handle GET_REPORTS', () => {
+    it('should handle Get Reports', () => {
       const d = new Date()
 
       expect(
         reducer({}, {
-          type: actionTypes.GET_UPDATES,
+          type: actionTypes.GET_REPORTS,
           items: mockReports,
           pageNumber: 3
         })
       ).toEqual({
-        updates: {
+        reports: {
           canLoadMore: false,
           currentPage: 3,
           focusId: '',
@@ -518,12 +518,12 @@ describe('data reducer', () => {
 
       expect(
         reducer([], {
-          type: actionTypes.GET_UPDATES,
+          type: actionTypes.GET_REPORTS,
           items: mockReports,
           pageNumber: 1
         })
       ).toEqual({
-        updates: {
+        reports: {
           canLoadMore: true,
           currentPage: 1,
           focusId: '',
@@ -539,14 +539,14 @@ describe('data reducer', () => {
       const page2 = [mockReportsPage2.data[1], mockReportsPage2.data[2]]
 
       expect(
-        reducer({updates: {items: mockReports.data}}, {
-          type: actionTypes.GET_UPDATES,
+        reducer({reports: {items: mockReports.data}}, {
+          type: actionTypes.GET_REPORTS,
           items: mockReportsPage2,
           loadMore: true,
           pageNumber: 1
         })
       ).toEqual({
-        updates: {
+        reports: {
           canLoadMore: true,
           currentPage: 1,
           focusId: '40',
@@ -560,13 +560,13 @@ describe('data reducer', () => {
     it('should not set lastFetched if paginated page', () => {
       expect(
         reducer([], {
-          type: actionTypes.GET_UPDATES,
+          type: actionTypes.GET_REPORTS,
           items: mockReports,
           pageNumber: 2,
           pagination: true
         })
       ).toEqual({
-        updates: {
+        reports: {
           canLoadMore: true,
           currentPage: 2,
           focusId: '',
@@ -608,12 +608,12 @@ describe('data reducer', () => {
     describe('Get paginted items', () => {
       it('should return state if get an error response from the action', () => {
         expect(
-          reducer({updates: []}, {
-            type: actionTypes.GET_UPDATES,
+          reducer({reports: []}, {
+            type: actionTypes.GET_REPORTS,
             error: 404
           })
         ).toEqual({
-          updates: []
+          reports: []
         })
       })
     })

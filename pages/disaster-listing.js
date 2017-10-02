@@ -1,24 +1,20 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
-import { getJobs } from '../actions/actions'
+import { getDisasters } from '../actions/actions'
 import withRedux from 'next-redux-wrapper'
 import Layout from '../components/Layout'
 import PaginatedReportsList from '../components/lists/PaginatedReportsList'
 import SectionHeading from '../components/SectionHeading'
 
-export class Jobs extends React.Component {
+export class DisasterListing extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
     let pageNumber = query && query.page ? query.page : 1
     const showPagination = isServer && pageNumber > 1
-    let searchQuery = query.search
-    // Handle searching for 10+ years experience
-    if (searchQuery && searchQuery.indexOf('experience.exact') !== -1 && searchQuery.indexOf('plus years') !== -1) {
-      searchQuery = searchQuery.replace('plus years', '+ years')
-    }
-    await store.dispatch(getJobs(pageNumber, false, showPagination, searchQuery))
+    const searchQuery = query.search
+    await store.dispatch(getDisasters(pageNumber, false, showPagination, searchQuery))
     return {
-      canLoadMore: store.getState().jobs.canLoadMore,
+      canLoadMore: store.getState().disasters.canLoadMore,
       currentPage: pageNumber,
       showPagination: showPagination,
       query: searchQuery
@@ -27,12 +23,12 @@ export class Jobs extends React.Component {
 
   render () {
     return (
-      <Layout title='Jobs' url='https://reliefweb.int/jobs' query={this.props.query}>
-        <SectionHeading heading='Jobs' level='1' />
+      <Layout title='Disasters' url='https://reliefweb.int/disasters'>
+        <SectionHeading heading='Disasters' level='1' />
         <PaginatedReportsList
           canLoadMore={this.props.canLoadMore}
           query={this.props.query}
-          reportsType='job'
+          reportsType='disaster'
           showPagination={this.props.showPagination} />
       </Layout>
     )
@@ -41,14 +37,14 @@ export class Jobs extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getJobs: bindActionCreators(getJobs, dispatch)
+    getDisasters: bindActionCreators(getDisasters, dispatch)
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    currentPage: state.jobs.currentPage
+    currentPage: state.disasters.currentPage
   }
 }
 
-export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Jobs)
+export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(DisasterListing)

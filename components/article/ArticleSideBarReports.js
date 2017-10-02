@@ -20,7 +20,7 @@ export class ArticleSideBarReports extends React.Component {
               {updates.items.map((item, i) => <li key={item.id}><ReportLinkSmall report={item} /></li>)}
             </ul>
             <Link prefetch as={`/report/listing?search=${this.props.type}.exact:"${this.props.item.fields.name}"`}
-              href={`/updates?search=${this.props.type}.exact:"${this.props.item.fields.name}"`}>
+              href={`/report-listing?search=${this.props.type}.exact:"${this.props.item.fields.name}"`}>
               <a className='btn-primary'>
                 View more {this.props.item.fields.name} updates
               </a>

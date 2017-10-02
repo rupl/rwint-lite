@@ -17,11 +17,11 @@ const renderDate = (date) => {
   }
 }
 
-const formatPaths = (report, reportsType = 'update') => {
+const formatPaths = (report, reportsType = 'report') => {
   const { id, urlCountry, urlTitle } = report
-  const type = reportsType === 'update' ? 'report' : reportsType
-  let hrefPath = `/${type}?id=${id}`
-  let linkPath = urlCountry && reportsType !== 'disaster' ? `/${type}/${id}/${urlCountry}/${urlTitle}` : `/${type}/${id}/${urlTitle}`
+  // const type = reportsType === 'update' ? 'report' : reportsType
+  let hrefPath = `/${reportsType}?id=${id}`
+  let linkPath = urlCountry && reportsType !== 'disaster' ? `/${reportsType}/${id}/${urlCountry}/${urlTitle}` : `/${reportsType}/${id}/${urlTitle}`
   return {
     href: hrefPath,
     link: linkPath
@@ -44,6 +44,7 @@ class ReportLink extends React.Component {
     const countries = fields.primary_country ? [fields.primary_country] : fields.country
     const linkPath = formatPaths(this.props.report, this.props.reportsType).link
     const hrefPath = formatPaths(this.props.report, this.props.reportsType).href
+
     return (
       <div className='report'>
         {headingLevel === '2' &&

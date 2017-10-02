@@ -29,7 +29,7 @@ export const requestTrainings = jest.fn((x) => {
   let returnTrainings = x === '1' ? mockTrainingsPage2 : mockTrainings
   return Promise.resolve(returnTrainings)
 })
-export const requestUpdates = jest.fn((x) => {
+export const requestReports = jest.fn((x) => {
   let returnReports = x === '1' ? mockReportsPage2 : mockReports
   return Promise.resolve(returnReports)
 })

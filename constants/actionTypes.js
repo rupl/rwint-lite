@@ -1,5 +1,5 @@
 export const GET_UPDATE = 'GET_UPDATE'
-export const GET_UPDATES = 'GET_UPDATES'
+export const GET_REPORTS = 'GET_REPORTS'
 export const LOAD_MORE_UPDATES = 'LOAD_MORE_UPDATES'
 export const UPDATES_REQUESTED = 'UPDATES_REQUESTED'
 export const GET_FEATURED = 'GET_FEATURED'

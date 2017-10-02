@@ -14,7 +14,7 @@ describe('Country page', () => {
     getState: function () {
       return {
         countryReports: [mockCountry],
-        updates: {
+        reports: {
           canLoadMore: true
         }
       }
@@ -65,7 +65,7 @@ describe('Country page', () => {
         getState: function () {
           return {
             countryReports: [mockCountry],
-            updates: {
+            reports: {
               canLoadMore: false
             }
           }

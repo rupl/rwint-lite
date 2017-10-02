@@ -2,15 +2,15 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import configureStore from 'redux-mock-store'
-import ConnectedTrainings, { Trainings } from '../../pages/trainings.js'
+import ConnectedJobListing, { JobListing } from '../../pages/job-listing.js'
 
-describe('Trainings page', () => {
+describe('Jobs page', () => {
   let container, fakeStore, store, wrapper
   const mockStore = configureStore()
   const mockDispatch = jest.fn(() => function () {})
 
   const initialState = {
-    trainings: {
+    jobs: {
       canLoadMore: true,
       currentPage: 4
     }
@@ -19,7 +19,7 @@ describe('Trainings page', () => {
   describe('Connected component', () => {
     beforeAll(function () {
       store = mockStore(initialState)
-      container = shallow(<ConnectedTrainings store={store} />)
+      container = shallow(<ConnectedJobListing store={store} />)
     })
 
     it('renders the page', () => {
@@ -29,7 +29,7 @@ describe('Trainings page', () => {
 
   describe('Simple component', () => {
     beforeAll(() => {
-      wrapper = shallow(<Trainings />)
+      wrapper = shallow(<JobListing />)
     })
 
     it('renders the page', () => {
@@ -41,13 +41,13 @@ describe('Trainings page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            trainings: {
+            jobs: {
               canLoadMore: false
             }
           }
         }
       }
-      return Trainings.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {}}).then(function (data) {
+      return JobListing.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {}}).then(function (data) {
         expect(data.canLoadMore).toBe(false)
       })
     })
@@ -57,13 +57,13 @@ describe('Trainings page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            trainings: {
+            jobs: {
               canLoadMore: true
             }
           }
         }
       }
-      return Trainings.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {}}).then(function (data) {
+      return JobListing.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {}}).then(function (data) {
         expect(data.currentPage).toBe(1)
       })
     })
@@ -73,13 +73,13 @@ describe('Trainings page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            trainings: {
+            jobs: {
               canLoadMore: true
             }
           }
         }
       }
-      return Trainings.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {page: 12}}).then(function (data) {
+      return JobListing.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {page: 12}}).then(function (data) {
         expect(data.currentPage).toBe(12)
       })
     })
@@ -89,13 +89,13 @@ describe('Trainings page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            trainings: {
+            jobs: {
               canLoadMore: true
             }
           }
         }
       }
-      return Trainings.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {search: 'Syria'}}).then(function (data) {
+      return JobListing.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {search: 'Syria'}}).then(function (data) {
         expect(data.query).toBe('Syria')
       })
     })
@@ -105,13 +105,13 @@ describe('Trainings page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            trainings: {
+            jobs: {
               canLoadMore: true
             }
           }
         }
       }
-      return Trainings.getInitialProps({store: fakeStore, isServer: true, pathname: 'blah', query: {page: 3}}).then(function (data) {
+      return JobListing.getInitialProps({store: fakeStore, isServer: true, pathname: 'blah', query: {page: 3}}).then(function (data) {
         expect(data.showPagination).toBe(true)
       })
     })
@@ -121,13 +121,13 @@ describe('Trainings page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            trainings: {
+            jobs: {
               canLoadMore: true
             }
           }
         }
       }
-      return Trainings.getInitialProps({store: fakeStore, isServer: true, pathname: 'blah', query: {}}).then(function (data) {
+      return JobListing.getInitialProps({store: fakeStore, isServer: true, pathname: 'blah', query: {}}).then(function (data) {
         expect(data.showPagination).toBe(false)
       })
     })
@@ -137,14 +137,30 @@ describe('Trainings page', () => {
         dispatch: mockDispatch,
         getState: function () {
           return {
-            trainings: {
+            jobs: {
               canLoadMore: true
             }
           }
         }
       }
-      return Trainings.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {page: 3}}).then(function (data) {
+      return JobListing.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {page: 3}}).then(function (data) {
         expect(data.showPagination).toBe(false)
+      })
+    })
+
+    it('sets convert 10plus years experience in the search query back to 10+ for the api call', () => {
+      fakeStore = {
+        dispatch: mockDispatch,
+        getState: function () {
+          return {
+            jobs: {
+              canLoadMore: true
+            }
+          }
+        }
+      }
+      return JobListing.getInitialProps({store: fakeStore, isServer: false, pathname: 'blah', query: {search: 'experience.exact:"10plus years"'}}).then(function (data) {
+        expect(data.query).toBe('experience.exact:"10+ years"')
       })
     })
   })

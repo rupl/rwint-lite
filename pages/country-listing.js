@@ -7,7 +7,7 @@ import Layout from '../components/Layout'
 import CountriesList from '../components/lists/CountriesList'
 import SectionHeading from '../components/SectionHeading'
 
-export class Countries extends React.Component {
+export class CountryListing extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
     await store.dispatch(getCountries())
     return {
@@ -31,4 +31,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRedux(initStore, null, mapDispatchToProps)(Countries)
+export default withRedux(initStore, null, mapDispatchToProps)(CountryListing)

@@ -24,7 +24,7 @@ describe('Article SideBar with Reports component', () => {
     it('renders a link to more updates', () => {
       const link = wrapper.find('Link')
       expect(link.prop('as')).toBe('/report/listing?search=country.exact:"I am a country"')
-      expect(link.prop('href')).toBe('/updates?search=country.exact:"I am a country"')
+      expect(link.prop('href')).toBe('/report-listing?search=country.exact:"I am a country"')
       expect(link.find('a').text()).toBe('View more I am a country updates')
     })
   })
@@ -46,7 +46,7 @@ describe('Article SideBar with Reports component', () => {
     it('renders a link to more updates', () => {
       const link = wrapper.find('Link')
       expect(link.prop('as')).toBe('/report/listing?search=disaster.exact:"I am a disaster"')
-      expect(link.prop('href')).toBe('/updates?search=disaster.exact:"I am a disaster"')
+      expect(link.prop('href')).toBe('/report-listing?search=disaster.exact:"I am a disaster"')
       expect(link.find('a').text()).toBe('View more I am a disaster updates')
     })
   })
