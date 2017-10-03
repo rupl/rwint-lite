@@ -49,14 +49,14 @@ class ReportLink extends React.Component {
       <div className='report'>
         {headingLevel === '2' &&
           <h2 className='title'>
-            <Link prefetch as={linkPath} href={hrefPath}>
+            <Link as={linkPath} href={hrefPath}>
               <a ref='theLink'>{title}</a>
             </Link>
           </h2>
         }
         {headingLevel === '3' &&
           <h3 className='title'>
-            <Link prefetch as={linkPath} href={hrefPath}>
+            <Link as={linkPath} href={hrefPath}>
               <a ref='theLink'>{title}</a>
             </Link>
           </h3>

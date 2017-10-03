@@ -4,7 +4,6 @@ import { Arrow, Star } from '../icons/Icons'
 
 const SimpleLink = ({link}) => (
   <Link
-    prefetch
     as={`/${link.type}/${link.id}/${link.urlName}`}
     href={`/${link.type}?id=${link.id}&name=${link.urlName}`}>
     <a>

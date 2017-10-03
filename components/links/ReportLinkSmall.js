@@ -3,7 +3,7 @@ import formatDate from '../../helpers/formatDate'
 import { colors, fontSizes, measurements } from '../../theme/variables'
 
 const ReportLinkSmall = ({report}) => (
-  <Link prefetch as={`/report/${report.id}/${report.urlCountry}/${report.urlTitle}`} href={`/report?id=${report.id}`}>
+  <Link as={`/report/${report.id}/${report.urlCountry}/${report.urlTitle}`} href={`/report?id=${report.id}`}>
     <a>
       <span className='title'>{report.fields.title}</span>
       {report.fields.date &&
