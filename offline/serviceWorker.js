@@ -1,15 +1,13 @@
 /* global caches, importScripts, Request, self, toolbox */
 importScripts('/static/sw-toolbox.js')
 
-var cacheName = 'static-v1.1'
+var cacheName = 'static-v1.2'
 var expectedCaches = [cacheName]
 var cacheFiles = [
   '/',
   './static/rw-logo.svg',
   './static/rw-logo-mobile.svg',
-  './static/offline.html',
-  './static/favicon-16x16.png',
-  './static/favicon-32x32.png'
+  './static/offline.html'
 ]
 
 self.addEventListener('install', function (e) {
@@ -25,7 +23,7 @@ self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys => Promise.all(
       keys.map(key => {
-        if (!expectedCaches.includes(key)) {
+        if (!expectedCaches.includes(key) && key.indexOf('toolbox-cache') === -1) {
           return caches.delete(key)
         }
       })
