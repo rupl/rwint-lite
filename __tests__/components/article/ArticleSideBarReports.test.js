@@ -9,7 +9,7 @@ describe('Article SideBar with Reports component', () => {
 
   describe('On a Country article', () => {
     beforeAll(() => {
-      wrapper = shallow(<ArticleSideBarReports item={mockCountry} updates={{items: mockReports.data}} type='country' />)
+      wrapper = shallow(<ArticleSideBarReports item={mockCountry} reports={{items: mockReports.data}} type='country' />)
     })
 
     it('renders the component', () => {
@@ -31,7 +31,7 @@ describe('Article SideBar with Reports component', () => {
 
   describe('On a Disaster article', () => {
     beforeAll(() => {
-      wrapper = shallow(<ArticleSideBarReports item={mockDisaster} updates={{items: mockReports.data}} type='disaster' />)
+      wrapper = shallow(<ArticleSideBarReports item={mockDisaster} reports={{items: mockReports.data}} type='disaster' />)
     })
 
     it('renders the component', () => {
