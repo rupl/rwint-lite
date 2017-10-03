@@ -3,21 +3,21 @@ import { breakpoints, colors, measurements } from '../../theme/variables'
 
 const Logo = ({home}) => {
   return (
-    <div className='cd-site-header__logo-holder'>
+    <div className='lh'>
       {home &&
-        <h1 className='cd-site-header__logo active'>
+        <h1 className='logo active'>
           <span className='sr-only'>ReliefWeb</span>
         </h1>
       }
       {!home &&
         <Link prefetch href='/'>
-          <a className='cd-site-header__logo'>
+          <a className='logo'>
             <span className='sr-only'>ReliefWeb</span>
           </a>
         </Link>
       }
       <style jsx>{`
-      .cd-site-header__logo {
+      .logo {
         display: block;
         width: ${measurements.baseUnit * 5}em;
         height: ${measurements.baseUnit * 6}em;
@@ -25,7 +25,7 @@ const Logo = ({home}) => {
         background: url("/static/rw-logo-mobile.svg") left center no-repeat;
         background-size: 100% auto;
       }
-      .cd-site-header__logo:after {
+      .logo:after {
         content: "";
         position: absolute;
         bottom: -2px;
@@ -34,30 +34,30 @@ const Logo = ({home}) => {
         border-bottom: 2px solid transparent;
         transition: border-color 0.3s ease;
       }
-      .cd-site-header__logo:focus {
+      .logo:focus {
         outline-style: dotted;
         outline-width: 1px;
         outline-color: #CFD1D2;
       }
-      .cd-site-header__logo.active:after, .cd-site-header__logo:focus:after, .cd-site-header__logo:hover:after {
+      .logo.active:after, .logo:focus:after, .logo:hover:after {
         border-color: ${colors.bg.headerFooter};
       }
 
-      .cd-site-header__logo-holder {
+      .lh {
         float: left;
       }
 
       @media (max-width: 1024px) {
-        .cd-site-header__logo-holder {
+        .lh {
           float: none;
         }
       }
 
       @media (min-width: ${breakpoints.md}) {
-        .cd-site-header__logo-holder {
+        .lh {
           float: left;
         }
-        .cd-site-header__logo {
+        .logo {
           background: url("/static/rw-logo.svg") left 14px no-repeat;
           width: ${measurements.baseUnit * 19}em;
           height: ${measurements.baseUnit * 7.5}em;

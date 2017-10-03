@@ -7,23 +7,23 @@ import { breakpoints, colors, measurements } from '../../theme/variables'
 const Header = (props) => (
   <header role='banner'>
     <GlobalHeader />
-    <div className='cd-site-header'>
-      <div className='container cd-site-header__inner'>
+    <div className='sh'>
+      <div className='container inner'>
         <Logo home={props.home} />
         <SearchForm query={props.query} />
         <Nav />
       </div>
     </div>
     <style jsx>{`
-      .cd-site-header {
+      .sh {
         border-bottom: 2px solid ${colors.border.light};
       }
-      .cd-site-header__inner {
+      .inner {
         position: relative;
         height: ${measurements.baseUnit * 6}em;
       }
       @media (min-width: ${breakpoints.md}) {
-        .cd-site-header__inner {
+        .inner {
           height: ${measurements.baseUnit * 7.5}em;
         }
       }

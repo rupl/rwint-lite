@@ -87,6 +87,7 @@ export class SearchForm extends React.Component {
             float: left;
             position: relative;
             height: 100%;
+            overflow: hidden;
           }
           input {
             border: none;

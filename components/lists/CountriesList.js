@@ -146,10 +146,9 @@ export class CountriesList extends React.Component {
             margin-left: 8px;
           }
           .styled-select {
+            position: relative;
             width: ${measurements.baseUnit * 15}em;
-            position: absolute;
-            right: 0;
-            top: ${measurements.baseUnit * -6}em;
+            margin-top: ${measurements.baseUnit}em;
             height: ${measurements.baseUnit * 4.5}em;
             border: 1px solid ${colors.border.default};
           }
@@ -188,6 +187,14 @@ export class CountriesList extends React.Component {
           }
           option {
             color: ${colors.text.dark};
+          }
+          @media (min-width: 280px) {
+            .styled-select {
+              position: absolute;
+              right: 0;
+              top: ${measurements.baseUnit * -6}em;
+              margin-top: 0;
+            }
           }
           @media (min-width: ${breakpoints.sm}) {
             ol {

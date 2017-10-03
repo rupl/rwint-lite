@@ -26,56 +26,56 @@ class Nav extends React.Component {
   render () {
     return (
       <div>
-        <nav className='cd-site-header__nav' role='navigation' aria-hidden={!this.state.isOpen}>
-          <ul className='cd-nav'>
-            <li className='cd-nav__item'>
+        <nav className='site-nav' role='navigation' aria-hidden={!this.state.isOpen}>
+          <ul className='nav'>
+            <li className='item'>
               <Link prefetch as='/report/listing' href='/report-listing'>
-                <a className={`cd-nav__link ${(this.state.activeLink === '/report-listing' || this.state.activeLink === '/report') ? 'cd-nav__link--active' : ''}`}>
+                <a className={`link ${(this.state.activeLink === '/report-listing' || this.state.activeLink === '/report') ? 'link--active' : ''}`}>
                   Updates
                 </a>
               </Link>
             </li>
-            <li className='cd-nav__item'>
+            <li className='item'>
               <Link prefetch as='/country/listing' href='/country-listing'>
-                <a className={`cd-nav__link ${(this.state.activeLink === '/country-listing' || this.state.activeLink === '/country') ? 'cd-nav__link--active' : ''}`}>
+                <a className={`link ${(this.state.activeLink === '/country-listing' || this.state.activeLink === '/country') ? 'link--active' : ''}`}>
                   Countries
                 </a>
               </Link>
             </li>
-            <li className='cd-nav__item'>
+            <li className='item'>
               <Link prefetch as='/disaster/listing' href='/disaster-listing'>
-                <a className={`cd-nav__link ${(this.state.activeLink === '/disaster-listing' || this.state.activeLink === '/disaster') ? 'cd-nav__link--active' : ''}`}>
+                <a className={`link ${(this.state.activeLink === '/disaster-listing' || this.state.activeLink === '/disaster') ? 'link--active' : ''}`}>
                   Disasters
                 </a>
               </Link>
             </li>
-            <li className='cd-nav__item'>
+            <li className='item'>
               <Link prefetch as='/job/listing' href='/job-listing'>
-                <a className={`cd-nav__link ${(this.state.activeLink === '/job-listing' || this.state.activeLink === '/job') ? 'cd-nav__link--active' : ''}`}>
+                <a className={`link ${(this.state.activeLink === '/job-listing' || this.state.activeLink === '/job') ? 'link--active' : ''}`}>
                   Jobs
                 </a>
               </Link>
             </li>
-            <li className='cd-nav__item'>
+            <li className='item'>
               <Link prefetch as='/training/listing' href='/training-listing'>
-                <a className={`cd-nav__link ${(this.state.activeLink === '/training-listing' || this.state.activeLink === '/training') ? 'cd-nav__link--active' : ''}`}>
+                <a className={`link ${(this.state.activeLink === '/training-listing' || this.state.activeLink === '/training') ? 'link--active' : ''}`}>
                   Training
                 </a>
               </Link>
             </li>
           </ul>
         </nav>
-        <button type='button' className='cd-site-header__nav-toggle' onClick={this.toggle}>
-          <span className='cd-site-header__nav-toggle-cancel'>
+        <button type='button' className='toggle' onClick={this.toggle}>
+          <span className='toggle-cancel'>
             <Cancel />
           </span>
-          <span className='cd-site-header__nav-toggle-menu'>
+          <span className='toggle-menu'>
             <Menu />
           </span>
           <span className='sr-only'>Main menu</span>
         </button>
         <style jsx>{`
-          .cd-nav__link {
+          .link {
             display: block;
             line-height: 1;
             text-decoration: none;
@@ -84,19 +84,19 @@ class Nav extends React.Component {
             height: ${measurements.baseUnit * 7.5}em;
             padding: ${measurements.baseUnit * 3}em ${measurements.baseUnit * 2}em;
           }
-          .cd-nav {
+          .nav {
             list-style: none;
             margin: 0;
             padding: 0;
             float: right;
           }
-          .cd-nav__item {
+          .item {
             position: relative;
             text-transform: uppercase;
             display: inline-block;
             border: none;
           }
-          .cd-nav__link:after {
+          .link:after {
             content: "";
             position: absolute;
             bottom: -2px;
@@ -105,31 +105,32 @@ class Nav extends React.Component {
             border-bottom: 2px solid transparent;
             transition: border-color 0.3s ease;
           }
-          .cd-nav__link:hover, .cd-nav__link:focus {
+          .link:hover, .link:focus {
             background: ${colors.link.focusBg};
             outline: none;
           }
-          .cd-nav__link:hover:after, .cd-nav__link:focus:after, .cd-nav__link--active:after {
+          .link:hover:after, .link:focus:after, .link--active:after {
             border-color: ${colors.bg.headerFooter};
           }
-          .cd-active .cd-nav__link {
+          .cd-active .link {
             font-weight: bold;
           }
-          .cd-active .cd-nav__link:after {
+          .cd-active .link:after {
             border-color: #${colors.bg.headerFooter};
           }
-          @media (max-width: 1024px) {
-            .cd-site-header__nav-toggle {
+          @media (max-width: ${breakpoints.lg}) {
+            .toggle {
               border: none;
-              background: none;
+              background: white;
               width: ${measurements.baseUnit * 5}em;
               height: ${measurements.baseUnit * 5}em;
               position: absolute;
               top: ${measurements.baseUnit / 2}em;
               right: ${measurements.baseUnit}em;
               padding: 0;
+              line-height: 0;
             }
-            .cd-site-header__nav {
+            .site-nav {
               top: ${measurements.baseUnit * 6}em;
               width: 100%;
               right: 0;
@@ -139,43 +140,43 @@ class Nav extends React.Component {
               box-shadow: 0 3px 3px 0 rgba(0,0,0,.15);
               padding: 0 ${measurements.baseUnit * 1.5}em ${measurements.baseUnit / 2}em ${measurements.baseUnit * 1.5}em;
             }
-            .cd-site-header__nav[aria-hidden="true"] {
+            .site-nav[aria-hidden="true"] {
               display: none;
             }
-            .cd-site-header__nav[aria-hidden="true"] + .cd-site-header__nav-toggle .cd-site-header__nav-toggle-cancel {
+            .site-nav[aria-hidden="true"] + .toggle .toggle-cancel {
               display: none;
             }
-            .cd-site-header__nav[aria-hidden="false"] + .cd-site-header__nav-toggle .cd-site-header__nav-toggle-menu {
+            .site-nav[aria-hidden="false"] + .toggle .toggle-menu {
               display: none;
             }
-            .cd-nav {
+            .nav {
               float: none;
             }
-            .cd-nav__item {
+            .item {
               display: block;
               border-bottom: 1px solid ${colors.border.light};
             }
-            .cd-nav__item:last-child {
+            .item:last-child {
               border: none;
             }
-            .cd-nav__link {
+            .link {
               height: auto;
               padding: ${measurements.baseUnit * 2}em ${measurements.baseUnit}em;
             }
           }
           @media (min-width: ${breakpoints.md}) {
-            .cd-site-header__nav {
+            .site-nav {
               top: ${measurements.baseUnit * 7}em;
             }
-            .cd-site-header__nav-toggle {
+            .toggle {
               top: ${measurements.baseUnit * 1.5}em;
             }
           }
           @media (min-width: ${breakpoints.lg}) {
-            .cd-site-header__nav-toggle {
+            .toggle {
               display: none;
             }
-            .cd-site-header__nav {
+            .site-nav {
               box-shadow: none;
               position: relative;
               float: right;
@@ -185,17 +186,17 @@ class Nav extends React.Component {
               width: auto;
               padding: 0;
             }
-            .cd-site-header__nav[aria-hidden="true"] {
+            .site-nav[aria-hidden="true"] {
               display: block;
             }
-            .cd-nav {
+            .nav {
               display: flex;
             }
-            .cd-nav__link:hover, .cd-nav__link:focus {
+            .link:hover, .link:focus {
               text-decoration: none;
               color: #5C6FA6;
             }
-            .cd-nav__link:before {
+            .link:before {
               content: "";
               top: 50%;
               margin-top: -5px;
@@ -207,7 +208,7 @@ class Nav extends React.Component {
               height: 12px;
               z-index: 1;
             }
-            .cd-nav__item:last-child .cd-nav__link:before {
+            .item:last-child .link:before {
               content: none;
             }
           }
