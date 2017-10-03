@@ -26,22 +26,17 @@ export const primaryButton = `.btn-primary {
 export const smallButton = `.btn-small {
   display: inline-block;
   border: none;
-  background: ${colors.bg.primaryButton};
-  color: ${colors.text.primaryButton};
   text-decoration: none;
   text-align: center;
   font-size: ${fontSizes.small};
   font-weight: bold;
-  padding: ${measurements.baseUnit * 0.5}em ${measurements.baseUnit * 0.75}em;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.31);
+  padding: 0;
   line-height: 1.4;
 }
 .btn-small:hover {
   opacity: 0.9;
-  color: white;
+  text-decoration: underline;
 }
 .btn-small:focus {
   outline: -webkit-focus-ring-color auto 5px;
-  background: ${colors.bg.primaryButton};
-  color: white;
 }`

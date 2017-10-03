@@ -1,5 +1,7 @@
 import formatDate from '../../helpers/formatDate'
 import InfoLinks from '../links/InfoLinks'
+import { Arrow } from '../icons/Icons'
+import { smallButton } from '../../theme/buttons'
 import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
 
 const getTitle = (report) => {
@@ -38,7 +40,7 @@ const ArticleHeader = ({report, type}) => (
     }
     {showInfoSection(type) &&
       <div>
-        <p className='header-info'>
+        <p className='info'>
           {report.fields.date &&
             <span className='date'>
               {getDate(report.fields.date, type)}
@@ -48,16 +50,20 @@ const ArticleHeader = ({report, type}) => (
             </span>
           }
           {report.fields.origin &&
-            <a href={report.fields.origin} className='original'>View original</a>
+            <a href={report.fields.origin} className='btn-small'>
+              View original
+              <span className='icon-holder'><Arrow direction='right' /></span>
+            </a>
           }
         </p>
         {showInfoLinks(type) &&
-          <div className='header-info'>
+          <div className='info'>
             <InfoLinks countries={[report.fields.primary_country]} sources={report.fields.source} />
           </div>
         }
       </div>
     }
+    <style jsx>{smallButton}</style>
     <style jsx>{`
       header {
         border-bottom: 1px solid ${colors.border.highlight};
@@ -68,13 +74,13 @@ const ArticleHeader = ({report, type}) => (
         font-size: ${fontSizes.mediumLarge};
         margin: 0 0 ${measurements.baseUnit / 2}em 0;
       }
-      .header-info {
+      .info {
         margin: 0 0 ${measurements.baseUnit * 1.5}em 0;
       }
-      .header-info + .header-info {
+      .info + .info {
         margin: 0 0 ${measurements.baseUnit * 2}em 0;
       }
-      .header-info .date, .header-info a {
+      .info .date, .info a {
         font-size: ${fontSizes.small}
       }
       .date {
@@ -82,16 +88,34 @@ const ArticleHeader = ({report, type}) => (
         line-height: 1;
         color: ${colors.text.light};
       }
-      .original {
-        margin-left: ${measurements.baseUnit * 2}em;
-        text-decoration: none;
+      .btn-small {
+        display: block;
+        width: 108px;
+        margin-top: ${measurements.baseUnit / 2}em;
+        text-align: left;
       }
-      .original:hover, .original:focus {
-        text-decoration: underline;
+      .icon-holder {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        line-height: 10px;
+        margin-left: 4px;
       }
       .reg {
         display: block;
         margin-top: ${measurements.baseUnit * 1.5}em;
+      }
+      @media (min-width: ${breakpoints.sm}) {
+        .info {
+          display: flex;
+          justify-content: space-between;
+        }
+        .btn-small {
+          display: inline-block;
+          margin-top: 0;
+          width: auto;
+          line-height: 1;
+        }
       }
       @media (min-width: ${breakpoints.md}) {
         h1 {
