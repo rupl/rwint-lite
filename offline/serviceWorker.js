@@ -1,7 +1,7 @@
 /* global caches, importScripts, Request, self, toolbox */
 importScripts('/static/sw-toolbox.js')
 
-var cacheName = 'static-v1.2'
+var cacheName = 'static-v1.3'
 var expectedCaches = [cacheName]
 var cacheFiles = [
   '/',
@@ -19,7 +19,7 @@ self.addEventListener('install', function (e) {
 })
 
 self.addEventListener('activate', event => {
-  // delete any caches that aren't in expectedCaches
+  // delete any caches that aren't in expectedCaches or toolbox caches
   event.waitUntil(
     caches.keys().then(keys => Promise.all(
       keys.map(key => {
@@ -32,10 +32,7 @@ self.addEventListener('activate', event => {
 })
 
 toolbox.router.get('/(.*)', function (req, vals, opts) {
-  if (req.url.indexOf('api.reliefweb.int') !== -1) {
-    return toolbox.networkFirst(req, vals, opts)
-  }
-  return toolbox.fastest(req, vals, opts)
+  return toolbox.networkFirst(req, vals, opts)
     .catch(function (error) {
       if (req.method === 'GET' && req.headers.get('accept').includes('text/html')) {
         return caches.match('./static/offline.html')
