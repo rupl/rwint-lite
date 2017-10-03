@@ -27,8 +27,8 @@ const Layout = (props) => (
         <NewRelic />
       }
     </Head>
-    <div className='page-wrapper'>
-      <a href='#main' className='skip-link'>Skip to content</a>
+    <div className='pw'>
+      <a href='#main' className='sl'>Skip to content</a>
       <Header home={props.home} query={props.query} />
       <div id='main' role='main' className='container'>
         {props.children}
@@ -107,14 +107,17 @@ const Layout = (props) => (
       }
     `}</style>
     <style jsx>{`
-      .skip-link {
+      .sl {
         position: absolute;
         left: -99999px;
         font-size: ${fontSizes.tiny};
       }
-      .skip-link:focus {
+      .sl:focus {
         left: 0;
         top: 0;
+      }
+      .pw {
+        min-height: 400px;
       }
     `}</style>
   </div>

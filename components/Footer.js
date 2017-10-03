@@ -1,7 +1,8 @@
+import { Arrow } from './icons/Icons'
 import { breakpoints, colors, fontSizes, measurements } from '../theme/variables'
 
 const Footer = () => (
-  <footer role='contentinfo' className='footer'>
+  <footer role='contentinfo'>
     <div className='container'>
       <ul>
         <li><a href='https://reliefweb.int/'>Full site</a></li>
@@ -10,8 +11,14 @@ const Footer = () => (
         <li><a href='https://reliefweb.int/about'>About us</a></li>
       </ul>
 
-      <div className='row footer__small-print'>
+      <div className='sp'>
         <p>© United Nations Office for the Coordination of Humanitarian Affairs</p>
+        <a className='top' href='#main'>
+          Top
+          <span className='i'>
+            <Arrow />
+          </span>
+        </a>
       </div>
     </div>
     <style jsx>{`
@@ -25,9 +32,10 @@ const Footer = () => (
         color: ${colors.text.globalHeader};
         text-decoration: none;
         font-size: ${fontSizes.small};
+        border-bottom: 1px solid transparent;
       }
       a:hover, a:focus {
-        border-bottom: 1px solid rgba(255,255,255,0.6)
+        border-color: rgba(255,255,255,0.6);
       }
       ul  {
         text-transform: uppercase;
@@ -56,6 +64,18 @@ const Footer = () => (
         font-size: ${fontSizes.small};
         margin-bottom: 0;
       }
+      .top {
+        display: inline-block;
+        font-size: ${fontSizes.small};
+        margin-top: ${measurements.baseUnit * 2}em;
+        line-height: 1.5;
+      }
+      .i {
+        display: inline-block;
+        width: ${measurements.baseUnit}em;
+        height: ${measurements.baseUnit}em;
+        margin: 0 0 0 ${measurements.baseUnit / 2}em;
+      }
       @media (min-width: ${breakpoints.md}) {
         footer {
           padding: ${measurements.baseUnit * 3}em 0;
@@ -64,6 +84,9 @@ const Footer = () => (
         a {
           font-size: ${fontSizes.base};
         }
+        a.top {
+          font-size: ${fontSizes.small};
+        }
         li {
           margin-right: ${measurements.baseUnit * 7}em
         }
@@ -71,6 +94,10 @@ const Footer = () => (
           right: -32px;
           font-size: ${fontSizes.base};
           top: 0;
+        }
+        .sp {
+          display: flex;
+          justify-content: space-between;
         }
       }
       @media (min-width: ${breakpoints.xl}) {
