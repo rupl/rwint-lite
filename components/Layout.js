@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Router from 'next/router'
 import Header from './header/Header'
 import Footer from './Footer'
 import NewRelic from './NewRelic'
@@ -7,6 +8,16 @@ import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/va
 const pageTitle = (home, title) => {
   const siteTitle = 'ReliefWeb Mobile'
   return (home || !title) ? siteTitle : `${title} | ${siteTitle}`
+}
+
+Router.onRouteChangeStart = () => {
+  const $loader = document.getElementById('loader')
+  $loader.classList.add('loading')
+}
+
+Router.onRouteChangeComplete = () => {
+  const $loader = document.getElementById('loader')
+  $loader.classList.remove('loading')
 }
 
 const dev = process.env.NODE_ENV !== 'production'
@@ -35,6 +46,7 @@ const Layout = (props) => (
       </div>
     </div>
     <Footer />
+    <div id='loader'><div className='inner' /></div>
     <style jsx global>{`
       * {
         box-sizing: border-box;
@@ -58,6 +70,9 @@ const Layout = (props) => (
         background: ${colors.bg.content};
         max-width: ${measurements.maxWidth};
         margin: 0 auto;
+      }
+      body.loading {
+        opacity: 0.4;
       }
       .container {
         padding: 0 ${measurements.baseUnit}em;
@@ -107,6 +122,30 @@ const Layout = (props) => (
       }
     `}</style>
     <style jsx>{`
+      @keyframes loading {
+        0% {
+          width: 0%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+      #loader {
+        display: none;
+        width: 100%;
+        height: 2px;
+        position: fixed;
+        top: 0;
+      }
+      #loader.loading {
+        display: block
+      }
+      #loader.loading .inner {
+        background: ${colors.border.highlight};
+        width: 0;
+        height: 100%;
+        animation: loading 1.2s infinite;
+      }
       .sl {
         position: absolute;
         left: -99999px;
