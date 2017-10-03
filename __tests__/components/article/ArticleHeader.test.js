@@ -35,7 +35,7 @@ describe('Article Header component', () => {
     })
 
     it('renders a link to the original', () => {
-      expect(wrapper.find('.original').text()).toContain('View original')
+      expect(wrapper.find('a.btn-small').text()).toContain('View original')
     })
   })
 
