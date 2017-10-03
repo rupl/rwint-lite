@@ -18,16 +18,16 @@ class GlobalHeader extends React.Component {
   render () {
     let isHidden = this.state.isOpen ? 'false' : 'true'
     return (
-      <div className='cd-global-header'>
-        <div className='container cd-global-header__inner'>
-          <div className='cd-global-header__sites'>
-            <button type='button' onClick={this.toggle} className='cd-global-header__sites-btn' id='cd-related-platforms-toggle'>
+      <div className='cdh'>
+        <div className='container inner'>
+          <div className='sites'>
+            <button type='button' onClick={this.toggle} className='btn' id='cd-related-platforms-toggle'>
               Related Platforms {this.state.isOpen}
-              <span className='cd-global-header__sites-icon'>
-                <Arrow direction='down' color='globalHeader' />
+              <span className='icon'>
+                <Arrow direction='down' />
               </span>
             </button>
-            <ul className='cd-global-header__sites-dropdown' aria-labelledby='cd-related-platforms-toggle' aria-hidden={isHidden}>
+            <ul className='dd' aria-labelledby='cd-related-platforms-toggle' aria-hidden={isHidden}>
               <li><a href='https://fts.unocha.org/'>Financial Tracking Service</a></li>
               <li><a href='https://humdata.org/'>Humanitarian Data Exchange</a></li>
               <li><a href='https://humanitarian.id/'>Humanitarian ID</a></li>
@@ -37,20 +37,20 @@ class GlobalHeader extends React.Component {
           </div>
         </div>
         <style jsx>{`
-          .cd-global-header {
+          .cdh {
             background: ${colors.bg.headerFooter};
           }
-          .cd-global-header__inner {
+          .inner {
             display: flex;
             align-items: center;
             justify-content: space-between;
             height: ${measurements.baseUnit * 5}em;
           }
-          .cd-global-header__sites {
+          .sites {
             position: relative;
             margin-left: -${measurements.baseUnit}em;
           }
-          .cd-global-header__sites-btn {
+          .btn {
             background: none;
             border: none;
             color: ${colors.text.globalHeader};
@@ -60,11 +60,11 @@ class GlobalHeader extends React.Component {
             height: 3.33em;
             font-size: ${fontSizes.tiny};
           }
-          .cd-global-header__sites-btn:hover, .cd-global-header__sites-btn:focus {
+          .btn:hover, .btn:focus {
             background: ${colors.bg.headerFooterHighlight};
             outline: none;
           }
-          .cd-global-header__sites-dropdown {
+          .dd {
             list-style: none;
             margin: 0;
             padding: 0;
@@ -76,25 +76,26 @@ class GlobalHeader extends React.Component {
             box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.25);
             display: none;
           }
-          .cd-global-header__sites-dropdown[aria-hidden="false"] {
+          .dd[aria-hidden="false"] {
             display: block;
           }
-          .cd-global-header__sites-dropdown a {
+          .dd a {
             display: block;
             padding: 12px;
             border-bottom: 1px solid #CFD1D2;
             text-decoration: none;
-            color: #767676;
+            color: ${colors.text.globalHeader};
             word-break: break-word;
+            background: ${colors.bg.headerFooter};
           }
-          .cd-global-header__sites-dropdown li:last-child a {
+          .dd li:last-child a {
             border: none;
           }
-          .cd-global-header__sites-dropdown a:hover, .cd-global-header__sites-dropdown a:focus {
-            background: ${colors.bg.headerFooter};
+          .dd a:hover, .dd a:focus {
+            background: ${colors.bg.headerFooterHighlight};
             color: ${colors.text.globalHeader};
           }
-          .cd-global-header__sites-icon {
+          .icon {
             width: 10px;
             height: 10px;
             display: inline-block;
@@ -102,10 +103,10 @@ class GlobalHeader extends React.Component {
             color: ${colors.text.globalHeader};
           }
           @media (min-width: ${breakpoints.sm}) {
-            .cd-global-header__sites {
+            .sites {
               margin-left: 0;
             }
-            .cd-global-header__sites-btn {
+            .btn {
               font-size: ${fontSizes.small};
               height: 2.857em;
             }
