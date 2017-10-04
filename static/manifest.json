@@ -1,6 +1,6 @@
 {
-    "name": "ReliefWeb Mobile",
-    "short_name": "ReliefWeb",
+    "name": "ReliefWeb Lite",
+    "short_name": "RW Lite",
     "icons": [
         {
             "src": "/static/android-chrome-192x192.png",
