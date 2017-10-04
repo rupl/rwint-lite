@@ -12,33 +12,31 @@ export class ArticleLayout extends React.Component {
     const {report} = this.props
     return (
       <div>
-        {this.props.type !== 'country' &&
-          <div className='article-container'>
-            <article className='article-main'>
-              <ArticleHeader report={report} type={this.props.type} />
+        <div className='article'>
+          <article className='primary'>
+            <ArticleHeader report={report} type={this.props.type} />
+            {this.props.type === 'disaster' &&
+              <DescriptionBody report={report} />
+            }
+            {this.props.type !== 'disaster' &&
+              <ArticleBody report={report} />
+            }
+          </article>
+          <aside className='secondary'>
+            <div className='sidebar'>
+              <ArticleSideBar report={report} type={this.props.type} />
               {this.props.type === 'disaster' &&
-                <DescriptionBody report={report} />
+                <div>
+                  <span className='divider' />
+                  <ArticleSideBarReports item={report} type={this.props.type} />
+                </div>
               }
-              {this.props.type !== 'disaster' &&
-                <ArticleBody report={report} />
-              }
-            </article>
-            <aside className='article-secondary'>
-              <div className='sidebar'>
-                <ArticleSideBar report={report} type={this.props.type} />
-                {this.props.type === 'disaster' &&
-                  <div>
-                    <span className='divider' />
-                    <ArticleSideBarReports item={report} type={this.props.type} />
-                  </div>
-                }
-              </div>
-            </aside>
-          </div>
-        }
+            </div>
+          </aside>
+        </div>
         <style jsx>{primaryButton}</style>
         <style jsx>{`
-          .article-container {
+          .article {
             padding-top: ${measurements.baseUnit * 2.25}em;
           }
           .sidebar {
@@ -57,16 +55,16 @@ export class ArticleLayout extends React.Component {
             margin: ${measurements.baseUnit * 2}em auto;
           }
           @media (min-width: ${breakpoints.md}) {
-            .article-container {
+            .article {
               padding-top: ${measurements.baseUnit * 4}em;
               overflow: auto;
             }
-            .article-main {
+            .primary {
               width: 70%;
               float: left;
               padding-right: ${measurements.baseUnit * 4}em;
             }
-            .article-secondary {
+            .secondary {
               width: 30%;
               float: left;
             }

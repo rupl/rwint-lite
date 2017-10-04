@@ -43,13 +43,13 @@ export class Country extends React.Component {
       <div>
         {!this.props.error &&
           <Layout title={title} url={url}>
-            <div className='heading-container'>
+            <header>
               <h1 className='section-heading'>{title}</h1>
               <a href={`https://reliefweb.int/country/${country.fields.iso3}`} target='_blank' className='btn-small'>
                 Full country information
                 <span className='arrow' aria-hidden />
               </a>
-            </div>
+            </header>
             <PaginatedReportsList
               canLoadMore={this.props.canLoadMore}
               query={this.props.query}
@@ -57,19 +57,18 @@ export class Country extends React.Component {
               showPagination={this.props.showPagination} />
             <style jsx>{smallButton}</style>
             <style jsx>{`
-              .heading-container {
+              header {
                 position: relative;
+                border-bottom: 1px solid ${colors.border.highlight};
+                padding: ${measurements.baseUnit * 2.25}em 0 ${measurements.baseUnit}em ;
               }
               .section-heading {
                 font-size: ${fontSizes.mediumLarge};
                 font-family: ${fonts.heading};
                 font-weight: normal;
-                border-bottom: 1px solid ${colors.border.highlight};
-                padding-bottom: ${measurements.baseUnit / 2}em;
-                margin: ${measurements.baseUnit * 1.5}em 0 0 0;
               }
               .btn-small {
-                margin: ${measurements.baseUnit * 2}em 0 ${measurements.baseUnit}em 0;
+                margin: ${measurements.baseUnit * 2}em 0 0 0;
               }
               .arrow {
                 display: inline-block;
@@ -80,15 +79,17 @@ export class Country extends React.Component {
                 background: url('/static/icons.svg') 0 -20px no-repeat;
               }
               @media (min-width: ${breakpoints.md}) {
+                header {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: baseline;
+                  padding: ${measurements.baseUnit * 4}em 0 ${measurements.baseUnit}em ;
+                }
                 .section-heading {
                   font-size: ${fontSizes.large};
-                  margin: ${measurements.baseUnit * 2}em 0 ${measurements.baseUnit}em 0;
-                  padding-right: 200px;
                 }
                 .btn-small {
-                  position: absolute;
-                  right: 0;
-                  bottom: 4px;
+                  margin: 0;
                 }
               }
             `}</style>

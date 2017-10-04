@@ -74,7 +74,7 @@ const ArticleHeader = ({report, type}) => (
         margin: 0 0 ${measurements.baseUnit / 2}em 0;
       }
       .info {
-        margin: 0 0 ${measurements.baseUnit * 1.5}em 0;
+        margin: 0 0 ${measurements.baseUnit}em 0;
       }
       .info + .info {
         margin: 0 0 ${measurements.baseUnit * 2}em 0;
