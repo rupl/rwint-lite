@@ -65,8 +65,12 @@ class Nav extends React.Component {
           </ul>
         </nav>
         <button type='button' className='toggle' onClick={this.toggle}>
-          <span className='toggle-cancel' aria-hidden />
-          <span className='toggle-menu' aria-hidden />
+          {this.state.isOpen &&
+            <span className='toggle-cancel' aria-hidden />
+          }
+          {!this.state.isOpen &&
+            <span className='toggle-menu' aria-hidden />
+          }
           <span className='sr-only'>Main menu</span>
         </button>
         <style jsx>{`
