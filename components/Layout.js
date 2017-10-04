@@ -144,7 +144,7 @@ const Layout = (props) => (
         background: ${colors.border.highlight};
         width: 0;
         height: 100%;
-        animation: loading 1.2s infinite;
+        animation: loading 2s infinite;
       }
       .sl {
         position: absolute;
