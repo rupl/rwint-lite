@@ -55,24 +55,9 @@ const Layout = (props) => (
       *:before, *:after {
          box-sizing: border-box;
       }
-      html, body, h1, h2, h3, h4, h5, h6 {
+      h1, h2, h3, h4, h5, h6 {
         margin: 0;
         padding: 0;
-      }
-      html {
-        font-size: 100%;
-        background: ${colors.bg.body};
-      }
-      body {
-        font-family: ${fonts.body};
-        font-size: ${fontSizes.base};
-        color: ${colors.text.body};
-        background: ${colors.bg.content};
-        max-width: ${measurements.maxWidth};
-        margin: 0 auto;
-      }
-      body.loading {
-        opacity: 0.4;
       }
       .container {
         padding: 0 ${measurements.baseUnit}em;
@@ -109,11 +94,6 @@ const Layout = (props) => (
         overflow: hidden;
         clip: rect(0,0,0,0);
         border: 0;
-      }
-      @media (min-width: ${breakpoints.md}) {
-        html {
-          padding: 0 ${measurements.baseUnit}em;
-        }
       }
       @media (min-width: ${breakpoints.xl}) {
         .container {
