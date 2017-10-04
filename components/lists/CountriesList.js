@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SimpleLink from '../links/SimpleLink'
-import { Arrow } from '../icons/Icons'
 import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
 
 const sortAlphabetically = (countries) => {
@@ -67,7 +66,7 @@ export class CountriesList extends React.Component {
               <option key={i} value={group.id}>{group.id}</option>
             )}
           </select>
-          <span><Arrow direction='down' /></span>
+          <span className='arrow down' aria-hidden />
         </div>
 
         {!countries.length && this.state.online &&
@@ -90,9 +89,7 @@ export class CountriesList extends React.Component {
             <div className='top'>
               <a href='#main'>
                 Top
-                <span>
-                  <Arrow />
-                </span>
+                <span className='arrow' aria-hidden />
               </a>
             </div>
           </div>
@@ -139,11 +136,21 @@ export class CountriesList extends React.Component {
           .top a {
             font-size: ${fontSizes.small};
           }
-          .top span {
+          .arrow {
             width: 10px;
             height: 10px;
             display: inline-block;
-            margin-left: 8px;
+            margin-left: ${measurements.baseUnit}em;
+            background: url('/static/icons.svg') 0 -20px no-repeat;
+            transform: rotate(-90deg);
+          }
+          .arrow.down {
+            display: block;
+            position: absolute;
+            top: 14px;
+            right: 6px;
+            transform: rotate(90deg);
+            margin: 0;
           }
           .styled-select {
             position: relative;
@@ -160,14 +167,6 @@ export class CountriesList extends React.Component {
             height: ${measurements.baseUnit * 4.5}em;
             line-height: ${measurements.baseUnit * 4.5}em;
             padding-left: ${measurements.baseUnit}em;
-          }
-          .styled-select span {
-            width:10px;
-            height:10px;
-            display: block;
-            position: absolute;
-            top: 9px;
-            right: 6px;
           }
           select {
             -webkit-appearance: none;

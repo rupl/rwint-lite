@@ -1,6 +1,5 @@
 import formatDate from '../../helpers/formatDate'
 import InfoLinks from '../links/InfoLinks'
-import { Arrow } from '../icons/Icons'
 import { smallButton } from '../../theme/buttons'
 import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
 
@@ -52,7 +51,7 @@ const ArticleHeader = ({report, type}) => (
           {report.fields.origin &&
             <a href={report.fields.origin} className='btn-small'>
               View original
-              <span className='icon-holder'><Arrow direction='right' /></span>
+              <span className='arrow' aria-hidden />
             </a>
           }
         </p>
@@ -94,12 +93,13 @@ const ArticleHeader = ({report, type}) => (
         margin-top: ${measurements.baseUnit / 2}em;
         text-align: left;
       }
-      .icon-holder {
+      .arrow {
         display: inline-block;
         width: 10px;
         height: 10px;
         line-height: 10px;
         margin-left: 4px;
+        background: url('/static/icons.svg') 0 -20px no-repeat;
       }
       .reg {
         display: block;

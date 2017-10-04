@@ -1,6 +1,5 @@
 import React from 'react'
 import Router from 'next/router'
-import { SearchIcon } from '../icons/Icons'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../../theme/variables'
 
 function setPlaceHolder (type) {
@@ -79,7 +78,7 @@ export class SearchForm extends React.Component {
         <label className='sr-only' htmlFor='search'>{this.state.placeholder}</label>
         <input type='search' id='search' value={this.state.value} onChange={this.handleChange} placeholder={this.state.placeholder} />
         <button type='submit'>
-          <SearchIcon />
+          <span className='icon' aria-hidden />
           <span className='sr-only'>Search</span>
         </button>
         <style jsx>{`
@@ -131,6 +130,12 @@ export class SearchForm extends React.Component {
           }
           :-moz-placeholder {
             font-style: italic;
+          }
+          .icon {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background: url('/static/icons.svg') 0 -54px no-repeat;
           }
 
           @media (min-width: ${breakpoints.lg}) {

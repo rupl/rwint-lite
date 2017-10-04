@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import { Cancel, Menu } from '../icons/Icons'
 import { breakpoints, colors, measurements } from '../../theme/variables'
 import Router from 'next/router'
 
@@ -66,12 +65,8 @@ class Nav extends React.Component {
           </ul>
         </nav>
         <button type='button' className='toggle' onClick={this.toggle}>
-          <span className='toggle-cancel'>
-            <Cancel />
-          </span>
-          <span className='toggle-menu'>
-            <Menu />
-          </span>
+          <span className='toggle-cancel' aria-hidden />
+          <span className='toggle-menu' aria-hidden />
           <span className='sr-only'>Main menu</span>
         </button>
         <style jsx>{`
@@ -129,6 +124,19 @@ class Nav extends React.Component {
               right: ${measurements.baseUnit}em;
               padding: 0;
               line-height: 0;
+              display: flex;
+              justify-content: center;
+              align-content: center;
+            }
+            .toggle-menu, .toggle-cancel {
+              display: block;
+              width: 24px;
+              height: 16px;
+              background: url('/static/icons.svg') 0 -92px no-repeat;
+            }
+            .toggle-cancel {
+              background-position: 0 -68px;
+              height: 24px;
             }
             .site-nav {
               top: ${measurements.baseUnit * 6}em;

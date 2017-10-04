@@ -1,22 +1,17 @@
 import Link from 'next/link'
 import { colors, measurements } from '../../theme/variables'
-import { Arrow, Star } from '../icons/Icons'
 
 const SimpleLink = ({link}) => (
   <Link
     as={`/${link.type}/${link.id}/${link.urlName}`}
     href={`/${link.type}?id=${link.id}&name=${link.urlName}`}>
     <a>
-      <span className='icon arrow'>
-        <Arrow direction='right' />
-      </span>
+      <span className='arrow' aria-hidden />
       {link.fields &&
         <span className='name'>
           {link.fields.name}
           {link.fields.featured &&
-            <span className='icon star'>
-              <Star />
-            </span>
+            <span className='star' aria-hidden />
           }
         </span>
       }
@@ -39,33 +34,32 @@ const SimpleLink = ({link}) => (
           color: white;
           outline: none;
         }
-        a:hover .icon, a:focus .icon {
+        a:hover .arrow, a:focus .arrow {
           color: white;
+          background-position: 0 -10px;
+        }
+        .arrow {
+          width: 10px;
+          height: 10px;
+          position: absolute;
+          left: 2px;
+          top: 50%;
+          margin-top: -5px;
+          background: url('/static/icons.svg') 0 0 no-repeat
         }
         .name {
           display: flex;
           align-items: center;
         }
-        .icon {
-          color: ${colors.border.highlight};
-        }
         .star {
           display: inline-block;
-          line-height: 14px;
-          height: 14px;
-          width: 14px;
-          margin-left: 2px;
-          color: ${colors.text.highlight};
+          height: 12px;
+          width: 12px;
+          margin-left: 4px;
+          background: url('/static/icons.svg') 0 -30px no-repeat
         }
-        .arrow {
-          position: absolute;
-          left: 0;
-          top: 50%;
-          line-height: 10px;
-          height: 10px;
-          width: 10px;
-          margin-top: -5px;
-          transition: transform 0.3s ease;
+        a:hover .star, a:focus .star {
+          background-position: 0 -42px;
         }
       `}</style>
     </a>

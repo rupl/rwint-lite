@@ -1,6 +1,5 @@
 import React from 'react'
 import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
-import { Arrow } from '../icons/Icons'
 
 class GlobalHeader extends React.Component {
   constructor (props) {
@@ -23,9 +22,7 @@ class GlobalHeader extends React.Component {
           <div className='sites'>
             <button type='button' onClick={this.toggle} className='btn' id='cd-related-platforms-toggle'>
               Related Platforms {this.state.isOpen}
-              <span className='icon'>
-                <Arrow direction='down' />
-              </span>
+              <span className='arrow' aria-hidden />
             </button>
             <ul className='dd' aria-labelledby='cd-related-platforms-toggle' aria-hidden={isHidden}>
               <li><a href='https://fts.unocha.org/'>Financial Tracking Service</a></li>
@@ -56,7 +53,7 @@ class GlobalHeader extends React.Component {
             color: ${colors.text.globalHeader};
             text-transform: uppercase;
             text-align: left;
-            padding: 0 ${measurements.baseUnit};
+            padding-right: 24px;
             height: 3.33em;
             font-size: ${fontSizes.tiny};
           }
@@ -95,12 +92,14 @@ class GlobalHeader extends React.Component {
             background: ${colors.bg.headerFooterHighlight};
             color: ${colors.text.globalHeader};
           }
-          .icon {
+          .arrow {
             width: 10px;
             height: 10px;
-            display: inline-block;
-            margin-left: ${measurements.baseUnit}em;
-            color: ${colors.text.globalHeader};
+            position: absolute;
+            right: 6px;
+            margin-top: -10px;
+            background: url('/static/icons.svg') 0 -10px no-repeat;
+            transform: rotate(90deg);
           }
           @media (min-width: ${breakpoints.sm}) {
             .sites {

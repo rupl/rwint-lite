@@ -5,7 +5,6 @@ import { initStore } from '../store'
 import { getCountry, getReports } from '../actions/actions'
 import withRedux from 'next-redux-wrapper'
 import PaginatedReportsList from '../components/lists/PaginatedReportsList'
-import { Arrow } from '../components/icons/Icons'
 import { smallButton } from '../theme/buttons'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/variables'
 import Error from './_error'
@@ -48,7 +47,7 @@ export class Country extends React.Component {
               <h1 className='section-heading'>{title}</h1>
               <a href={`https://reliefweb.int/country/${country.fields.iso3}`} target='_blank' className='btn-small'>
                 Full country information
-                <span className='icon-holder'><Arrow direction='right' /></span>
+                <span className='arrow' aria-hidden />
               </a>
             </div>
             <PaginatedReportsList
@@ -72,12 +71,13 @@ export class Country extends React.Component {
               .btn-small {
                 margin: ${measurements.baseUnit * 2}em 0 ${measurements.baseUnit}em 0;
               }
-              .icon-holder {
+              .arrow {
                 display: inline-block;
                 width: 10px;
                 height: 10px;
                 line-height: 10px;
                 margin-left: 4px;
+                background: url('/static/icons.svg') 0 -20px no-repeat;
               }
               @media (min-width: ${breakpoints.md}) {
                 .section-heading {

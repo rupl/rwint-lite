@@ -1,4 +1,3 @@
-import { Arrow } from './icons/Icons'
 import { breakpoints, colors, fontSizes, measurements } from '../theme/variables'
 
 const Footer = () => (
@@ -15,9 +14,7 @@ const Footer = () => (
         <p>© United Nations Office for the Coordination of Humanitarian Affairs</p>
         <a className='top' href='#main'>
           Top
-          <span className='i'>
-            <Arrow />
-          </span>
+          <span className='arrow' aria-hidden />
         </a>
       </div>
     </div>
@@ -70,11 +67,13 @@ const Footer = () => (
         margin-top: ${measurements.baseUnit * 2}em;
         line-height: 1.5;
       }
-      .i {
+      .arrow {
         display: inline-block;
-        width: ${measurements.baseUnit}em;
-        height: ${measurements.baseUnit}em;
-        margin: 0 0 0 ${measurements.baseUnit / 2}em;
+        width: 10px;
+        height: 10px;
+        margin: 0 0 2px ${measurements.baseUnit / 2}em;
+        background: url('/static/icons.svg') 0 -10px no-repeat;
+        transform: rotate(-90deg);
       }
       @media (min-width: ${breakpoints.md}) {
         footer {

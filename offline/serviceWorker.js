@@ -7,6 +7,7 @@ var cacheFiles = [
   '/',
   './static/rw-logo.svg',
   './static/rw-logo-mobile.svg',
+  './static/icons.svg',
   './static/offline.html'
 ]
 
