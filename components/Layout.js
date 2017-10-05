@@ -60,7 +60,11 @@ const Layout = (props) => (
       </div>
     </div>
     <Footer />
-    <div id='loader'><div className='inner' /></div>
+    <div id='loader'>
+      <div className='loader-container'>
+        <div className='inner' />
+      </div>
+    </div>
     <style jsx global>{`
       * {
         box-sizing: border-box;
@@ -130,6 +134,13 @@ const Layout = (props) => (
         height: 2px;
         position: fixed;
         top: 0;
+        left: 0;
+      }
+      .loader-container {
+        max-width: 87.5em;
+        margin: 0 auto;
+        width: 100%;
+        height: 2px;
       }
       #loader.loading {
         display: block
@@ -139,7 +150,7 @@ const Layout = (props) => (
         width: 0;
         height: 100%;
         animation: loading 2s infinite;
-      }
+              }
       .sl {
         position: absolute;
         left: -99999px;
