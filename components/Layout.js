@@ -19,6 +19,12 @@ Router.onRouteChangeStart = () => {
 Router.onRouteChangeComplete = () => {
   const $loader = document.getElementById('loader')
   $loader.classList.remove('loading')
+  let resetFocusItem = document.getElementsByTagName('h1')[0]
+  if (resetFocusItem) {
+    resetFocusItem.setAttribute('tabindex', '-1')
+    resetFocusItem.style.outline = 'none'
+    resetFocusItem.focus()
+  }
 }
 
 const dev = process.env.NODE_ENV !== 'production'
@@ -45,6 +51,7 @@ const Layout = (props) => (
     {!dev &&
       <GTMIframe />
     }
+    <div aria-live='assertive' className='sr-only'>View updated: {props.title}</div>
     <div className='pw'>
       <a href='#main' className='sl'>Skip to content</a>
       <Header home={props.home} query={props.query} />
@@ -137,6 +144,7 @@ const Layout = (props) => (
         position: absolute;
         left: -99999px;
         font-size: ${fontSizes.tiny};
+        background: white;
       }
       .sl:focus {
         left: 0;

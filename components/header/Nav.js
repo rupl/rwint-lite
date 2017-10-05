@@ -25,7 +25,7 @@ class Nav extends React.Component {
   render () {
     return (
       <div>
-        <nav className='site-nav' role='navigation' aria-hidden={!this.state.isOpen}>
+        <nav className={`site-nav ${this.state.isOpen ? 'open' : ''}`} role='navigation'>
           <ul className='nav'>
             <li className='item'>
               <Link prefetch as='/report/listing' href='/report-listing'>
@@ -151,15 +151,10 @@ class Nav extends React.Component {
               background: white;
               box-shadow: 0 3px 3px 0 rgba(0,0,0,.15);
               padding: 0 ${measurements.baseUnit * 1.5}em ${measurements.baseUnit / 2}em ${measurements.baseUnit * 1.5}em;
-            }
-            .site-nav[aria-hidden="true"] {
               display: none;
             }
-            .site-nav[aria-hidden="true"] + .toggle .toggle-cancel {
-              display: none;
-            }
-            .site-nav[aria-hidden="false"] + .toggle .toggle-menu {
-              display: none;
+            .site-nav.open {
+              display: block;
             }
             .nav {
               float: none;
@@ -198,7 +193,7 @@ class Nav extends React.Component {
               width: auto;
               padding: 0;
             }
-            .site-nav[aria-hidden="true"] {
+            .site-nav {
               display: block;
             }
             .nav {
