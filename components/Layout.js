@@ -6,7 +6,7 @@ import NewRelic from './NewRelic'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/variables'
 
 const pageTitle = (home, title) => {
-  const siteTitle = 'ReliefWeb Mobile'
+  const siteTitle = 'ReliefWeb Lite'
   return (home || !title) ? siteTitle : `${title} | ${siteTitle}`
 }
 
