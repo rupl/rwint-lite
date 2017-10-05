@@ -1,5 +1,6 @@
 import React from 'react'
 import sanitizeHtml from 'sanitize-html'
+import formatFileLinkText from '../../helpers/attachments'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../../theme/variables'
 
 export class ArticleBody extends React.Component {
@@ -12,6 +13,20 @@ export class ArticleBody extends React.Component {
 
     return (
       <div>
+        {!body && report.fields.file &&
+          <div>
+            <p>Please refer to the attached file(s):</p>
+            <ul>
+              {report.fields.file.map((file, i) =>
+                <li key={i}>
+                  <a href={file.url} key={i} className='file'>
+                    {formatFileLinkText(file, 'body')}
+                  </a>
+                </li>
+              )}
+            </ul>
+          </div>
+        }
         <div className='body' dangerouslySetInnerHTML={{__html: body}} />
         {howApply &&
           <div className='block'>
@@ -53,6 +68,9 @@ export class ArticleBody extends React.Component {
           }
           .block h2 {
             margin-top: 0;
+          }
+          .file {
+            text-decoration: none;
           }
           @media (min-width: ${breakpoints.md}) {
             h2 {
