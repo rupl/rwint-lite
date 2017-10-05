@@ -3,6 +3,7 @@ import Router from 'next/router'
 import Header from './header/Header'
 import Footer from './Footer'
 import NewRelic from './NewRelic'
+import { GTMInit, GTMIframe } from './gtm'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/variables'
 
 const pageTitle = (home, title) => {
@@ -37,7 +38,13 @@ const Layout = (props) => (
       {!dev &&
         <NewRelic />
       }
+      {!dev &&
+        <GTMInit />
+      }
     </Head>
+    {!dev &&
+      <GTMIframe />
+    }
     <div className='pw'>
       <a href='#main' className='sl'>Skip to content</a>
       <Header home={props.home} query={props.query} />
