@@ -45,6 +45,11 @@ app.prepare()
     const queryParams = { id: req.params.id }
     app.render(req, res, actualPage, queryParams)
   })
+  server.get('/report/:id', (req, res) => {
+    const actualPage = '/report'
+    const queryParams = { id: req.params.id }
+    app.render(req, res, actualPage, queryParams)
+  })
   server.get('/country/listing', (req, res) => {
     const actualPage = '/country-listing'
     const queryParams = { search: req.query.search }
@@ -55,12 +60,22 @@ app.prepare()
     const queryParams = { id: req.params.id, name: req.params.name }
     app.render(req, res, actualPage, queryParams)
   })
+  server.get('/country/:id', (req, res) => {
+    const actualPage = '/country'
+    const queryParams = { id: req.params.id, name: req.params.name }
+    app.render(req, res, actualPage, queryParams)
+  })
   server.get('/disaster/listing', (req, res) => {
     const actualPage = '/disaster-listing'
     const queryParams = { page: req.query.page, search: req.query.search }
     app.render(req, res, actualPage, queryParams)
   })
   server.get('/disaster/:id/:name', (req, res) => {
+    const actualPage = '/disaster'
+    const queryParams = { id: req.params.id, name: req.params.name }
+    app.render(req, res, actualPage, queryParams)
+  })
+  server.get('/disaster/:id', (req, res) => {
     const actualPage = '/disaster'
     const queryParams = { id: req.params.id, name: req.params.name }
     app.render(req, res, actualPage, queryParams)
@@ -80,6 +95,11 @@ app.prepare()
     const queryParams = { id: req.params.id }
     app.render(req, res, actualPage, queryParams)
   })
+  server.get('/job/:id', (req, res) => {
+    const actualPage = '/job'
+    const queryParams = { id: req.params.id }
+    app.render(req, res, actualPage, queryParams)
+  })
   server.get('/training/listing', (req, res) => {
     const actualPage = '/training-listing'
     const queryParams = { page: req.query.page, search: req.query.search }
@@ -91,6 +111,11 @@ app.prepare()
     app.render(req, res, actualPage, queryParams)
   })
   server.get('/training/:id/:country/:title', (req, res) => {
+    const actualPage = '/training'
+    const queryParams = { id: req.params.id }
+    app.render(req, res, actualPage, queryParams)
+  })
+  server.get('/training/:id', (req, res) => {
     const actualPage = '/training'
     const queryParams = { id: req.params.id }
     app.render(req, res, actualPage, queryParams)
