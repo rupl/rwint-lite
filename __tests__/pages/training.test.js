@@ -27,7 +27,10 @@ describe('Training page', () => {
     beforeAll(() => {
       const training = {
         fields: {
-          title: 'the title'
+          title: 'the title',
+          country: [{name: 'Sudan'}, {name: 'somewhere else'}],
+          source: [{name: 'source1'}],
+          url_alias: 'http://reliefweb/something'
         }
       }
       wrapper = shallow(<Training report={training} />)
@@ -38,7 +41,15 @@ describe('Training page', () => {
     })
 
     it('passes the title to the layout', () => {
-      expect(wrapper.find('Layout[title="the title"]').exists()).toBe(true)
+      expect(wrapper.find('Layout').prop('title')).toEqual('the title')
+    })
+
+    it('passes the url to the layout', () => {
+      expect(wrapper.find('Layout').prop('url')).toEqual('http://reliefweb/something')
+    })
+
+    it('passes the keywords to the layout', () => {
+      expect(wrapper.find('Layout').prop('keywords')).toEqual('humanitarian, Sudan, somewhere else, source1')
     })
 
     it('returns the correct training from getInitialProps', () => {

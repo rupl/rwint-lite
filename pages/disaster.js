@@ -5,6 +5,7 @@ import { initStore } from '../store'
 import { getDisaster, getReports } from '../actions/actions'
 import withRedux from 'next-redux-wrapper'
 import ArticleLayout from '../components/article/ArticleLayout'
+import buildKeywords from '../helpers/keywords'
 import Error from './_error'
 
 export class Disaster extends React.Component {
@@ -26,10 +27,11 @@ export class Disaster extends React.Component {
     const { report } = this.props
     const title = report && report.fields && report.fields.name ? report.fields.name : ''
     const url = report && report.fields && report.fields.url_alias ? report.fields.url_alias : ''
+    const keywords = report && report.fields ? buildKeywords(report.fields) : ''
     return (
       <div>
         {!this.props.error &&
-          <Layout title={title} url={url}>
+          <Layout title={title} url={url} keywords={keywords}>
             <ArticleLayout report={report} type='disaster' />
           </Layout>
         }

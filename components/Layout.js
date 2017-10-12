@@ -34,6 +34,10 @@ const Layout = (props) => (
     <Head>
       <title>{pageTitle(props.home, props.title)}</title>
       <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+      <meta name='description' content='The latest humanitarian news, jobs, training, crises and disasters on your mobile or on slow connections.' />
+      {props.keywords &&
+        <meta name='news_keywords' content={props.keywords} />
+      }
       <link rel='apple-touch-icon' sizes='180x180' href='/static/apple-touch-icon.png' />
       <link rel='mask-icon' href='/static/safari-pinned-tab.svg' color='#5c6fa6' />
       <link rel='shortcut icon' href='/static/favicon.ico' />
