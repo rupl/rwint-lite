@@ -117,6 +117,14 @@ const Layout = (props) => (
         clip: rect(0,0,0,0);
         border: 0;
       }
+      .menu-underlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 98;
+      }
       @media (min-width: ${breakpoints.xl}) {
         .container {
           padding: 0 ${measurements.baseUnit * 5}em;

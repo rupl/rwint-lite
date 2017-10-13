@@ -73,6 +73,7 @@ class Nav extends React.Component {
           }
           <span className='sr-only'>Main menu</span>
         </button>
+        <div className={`${this.state.isOpen ? 'menu-underlay' : ''}`} onClick={this.toggle} />
         <style jsx>{`
           .link {
             display: block;

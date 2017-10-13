@@ -33,6 +33,7 @@ class GlobalHeader extends React.Component {
             </ul>
           </div>
         </div>
+        <div className={`${this.state.isOpen ? 'menu-underlay' : ''}`} onClick={this.toggle} />
         <style jsx>{`
           .cdh {
             background: ${colors.bg.headerFooter};
