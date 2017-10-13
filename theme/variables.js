@@ -39,8 +39,8 @@ const colors = ({
     primaryButton: 'white'
   },
   status: {
-    alert: '#e83838',
-    current: '#e88e38',
+    alert: '#e88e38',
+    current: '#e83838',
     past: '#B7BDCC'
   }
 })

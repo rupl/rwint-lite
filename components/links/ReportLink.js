@@ -19,13 +19,16 @@ const renderDate = (date) => {
 
 const formatPaths = (report, reportsType = 'report') => {
   const { id, urlCountry, urlTitle } = report
-  // const type = reportsType === 'update' ? 'report' : reportsType
   let hrefPath = `/${reportsType}?id=${id}`
   let linkPath = urlCountry && reportsType !== 'disaster' ? `/${reportsType}/${id}/${urlCountry}/${urlTitle}` : `/${reportsType}/${id}/${urlTitle}`
   return {
     href: hrefPath,
     link: linkPath
   }
+}
+
+const getStatus = (status) => {
+  return status === 'current' ? 'Ongoing' : status
 }
 
 class ReportLink extends React.Component {
@@ -73,7 +76,7 @@ class ReportLink extends React.Component {
           <p className='date'>Ongoing course</p>
         }
         {fields.status &&
-          <p className={`status ${fields.status}`}>{fields.status}</p>
+          <p className={`status ${fields.status}`}>{getStatus(fields.status)}</p>
         }
         <InfoLinks countries={countries} sources={sources} disasterTypes={disasterTypes} searchType={this.props.reportsType} type='summary' />
         <style jsx>{`
