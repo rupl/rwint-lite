@@ -24,44 +24,34 @@ const getDate = (date, type) => {
   }
 }
 
-const showInfoSection = (type) => {
-  return type !== 'country'
-}
-
-const showInfoLinks = (type) => {
-  return type === 'report'
-}
-
-const ArticleHeader = ({report, type}) => (
+const ArticleHeader = ({report, type = 'report'}) => (
   <header>
     {getTitle(report) &&
       <h1>{getTitle(report)}</h1>
     }
-    {showInfoSection(type) &&
-      <div>
-        <p className='info'>
-          {report.fields.date &&
-            <span className='date'>
-              {getDate(report.fields.date, type)}
-              {report.fields.date.registration &&
-                <span className='reg'> Registration before {formatDate(report.fields.date.registration)}</span>
-              }
-            </span>
-          }
-          {report.fields.origin &&
-            <a href={report.fields.origin} className='btn-small'>
-              View original
-              <span className='arrow' aria-hidden />
-            </a>
-          }
-        </p>
-        {showInfoLinks(type) &&
-          <div className='info'>
-            <InfoLinks countries={[report.fields.primary_country]} sources={report.fields.source} />
-          </div>
+    <div>
+      <p className='info'>
+        {report.fields.date &&
+          <span className='date'>
+            {getDate(report.fields.date, type)}
+            {report.fields.date.registration &&
+              <span className='reg'> Registration before {formatDate(report.fields.date.registration)}</span>
+            }
+          </span>
         }
-      </div>
-    }
+        {report.fields.origin &&
+          <a href={report.fields.origin} className='btn-small'>
+            View original
+            <span className='arrow' aria-hidden />
+          </a>
+        }
+      </p>
+      {type === 'report' &&
+        <div className='info'>
+          <InfoLinks countries={[report.fields.primary_country]} sources={report.fields.source} />
+        </div>
+      }
+    </div>
     <style jsx>{smallButton}</style>
     <style jsx>{`
       header {
