@@ -44,6 +44,7 @@ const Layout = (props) => (
       <link rel='manifest' href='/static/manifest.json' crossOrigin='use-credentials' />
       <meta name='msapplication-config' content='/static/browserconfig.xml' />
       <meta name='theme-color' content='#ffffff' />
+      <meta name='robots' content='noindex, nofollow' />
       <link rel='canonical' href={props.url || 'https://reliefweb.int/'} />
       {!dev &&
         <NewRelic />
