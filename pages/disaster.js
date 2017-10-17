@@ -7,6 +7,7 @@ import withRedux from 'next-redux-wrapper'
 import ArticleLayout from '../components/article/ArticleLayout'
 import buildKeywords from '../helpers/keywords'
 import Error from './_error'
+import registerServiceWorker from '../helpers/registerServiceWorker'
 
 export class Disaster extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
@@ -21,6 +22,10 @@ export class Disaster extends React.Component {
       return { report }
     }
     return { error: 404 }
+  }
+
+  componentDidMount () {
+    registerServiceWorker()
   }
 
   render () {

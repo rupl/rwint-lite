@@ -8,6 +8,7 @@ import PaginatedReportsList from '../components/lists/PaginatedReportsList'
 import { smallButton } from '../theme/buttons'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/variables'
 import Error from './_error'
+import registerServiceWorker from '../helpers/registerServiceWorker'
 
 export class Country extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
@@ -33,6 +34,10 @@ export class Country extends React.Component {
     return {
       error: 404
     }
+  }
+
+  componentDidMount () {
+    registerServiceWorker()
   }
 
   render () {

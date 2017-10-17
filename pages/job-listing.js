@@ -6,6 +6,7 @@ import withRedux from 'next-redux-wrapper'
 import Layout from '../components/Layout'
 import PaginatedReportsList from '../components/lists/PaginatedReportsList'
 import SectionHeading from '../components/SectionHeading'
+import registerServiceWorker from '../helpers/registerServiceWorker'
 
 export class JobListing extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
@@ -23,6 +24,10 @@ export class JobListing extends React.Component {
       showPagination: showPagination,
       query: searchQuery
     }
+  }
+
+  componentDidMount () {
+    registerServiceWorker()
   }
 
   render () {

@@ -6,6 +6,7 @@ import withRedux from 'next-redux-wrapper'
 import Layout from '../components/Layout'
 import CountriesList from '../components/lists/CountriesList'
 import SectionHeading from '../components/SectionHeading'
+import registerServiceWorker from '../helpers/registerServiceWorker'
 
 export class CountryListing extends React.Component {
   static async getInitialProps ({store, isServer, pathname, query}) {
@@ -13,6 +14,10 @@ export class CountryListing extends React.Component {
     return {
       searchQuery: query.search
     }
+  }
+
+  componentDidMount () {
+    registerServiceWorker()
   }
 
   render () {
