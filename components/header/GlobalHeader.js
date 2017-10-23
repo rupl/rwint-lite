@@ -98,7 +98,7 @@ class GlobalHeader extends React.Component {
             height: 10px;
             position: absolute;
             right: 6px;
-            margin-top: -10px;
+            top: 18px;
             background: url('/static/icons.svg') 0 -10px no-repeat;
             transform: rotate(90deg);
           }
