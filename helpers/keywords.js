@@ -1,6 +1,20 @@
 const buildKeywords = (fields) => {
   let keywords = ['humanitarian']
-  const types = ['country', 'source', 'theme', 'disaster', 'disaster_type', 'format', 'language', 'vulnerable_groups']
+  const types = [
+    'career_categories',
+    'city',
+    'cost',
+    'country',
+    'disaster',
+    'disaster_type',
+    'experience',
+    'format',
+    'language',
+    'source',
+    'theme',
+    'type',
+    'vulnerable_groups'
+  ]
   types.map((type) => {
     if (fields[type]) fields[type].map((item) => { keywords.push(item.name) })
   })
