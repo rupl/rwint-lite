@@ -83,7 +83,7 @@ class ReportLink extends React.Component {
           .report {
             border-bottom: 1px solid ${colors.border.light}
             padding: ${measurements.baseUnit * 1.5}em 0 ${measurements.baseUnit}em 0;
-            word-break: break-word;
+            word-wrap: break-word;
           }
           p {
             line-height: initial;

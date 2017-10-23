@@ -92,7 +92,7 @@ export class SearchForm extends React.Component {
             border: none;
             border-bottom: 2px solid transparent;
             border-radius: none;
-            box-shadow: none;
+            box-shadow: 0;
             -webkit-appearance: none;
             font-family: ${fonts.body};
             font-size: ${fontSizes.base};

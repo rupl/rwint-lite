@@ -110,7 +110,7 @@ const Layout = (props) => (
       }
       a {
         color: ${colors.link.default};
-        word-break: break-word;
+        word-wrap: break-word;
       }
       a:focus {
         outline: thin dotted;

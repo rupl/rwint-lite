@@ -39,7 +39,7 @@ class ArticleAttachments extends React.Component {
             font-size: ${fontSizes.small};
             font-weight: bold;
             text-decoration: none;
-            word-break: break-word;
+            word-wrap: break-word;
           }
           a:hover {
             text-decoration: underline;

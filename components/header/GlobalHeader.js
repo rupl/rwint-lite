@@ -83,7 +83,6 @@ class GlobalHeader extends React.Component {
             border-bottom: 1px solid #CFD1D2;
             text-decoration: none;
             color: ${colors.text.globalHeader};
-            word-break: break-word;
             background: ${colors.bg.headerFooter};
           }
           .dd li:last-child a {
