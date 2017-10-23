@@ -6,7 +6,7 @@ const Footer = () => (
       <ul>
         <li><a href='https://reliefweb.int/'>Full site</a></li>
         <li><a href='https://reliefweb.int/blog'>Blog</a></li>
-        <li><a href='https://labs.reliefweb.int/'>Labs</a></li>
+        <li><a href='http://labs.reliefweb.int/'>Labs</a></li>
         <li><a href='https://reliefweb.int/about'>About us</a></li>
       </ul>
 
