@@ -1,5 +1,4 @@
 const buildKeywords = (fields) => {
-  console.log(fields)
   let keywords = ['humanitarian']
   const types = [
     'career_categories',
