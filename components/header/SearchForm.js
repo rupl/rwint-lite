@@ -76,7 +76,7 @@ export class SearchForm extends React.Component {
     return (
       <form role='search' onSubmit={this.handleSubmit}>
         <label className='sr-only' htmlFor='search'>{this.state.placeholder}</label>
-        <input type='search' id='search' value={this.state.value} onChange={this.handleChange} placeholder={this.state.placeholder} />
+        <input type='search' id='search' className={`${this.state.value ? 'active' : ''}`} value={this.state.value} onChange={this.handleChange} placeholder={this.state.placeholder} />
         <button type='submit'>
           <span className='icon' aria-hidden />
           <span className='sr-only'>Search</span>
@@ -102,7 +102,7 @@ export class SearchForm extends React.Component {
             background: transparent;
             color: ${colors.text.light};
           }
-          input:focus {
+          input:focus, input.active {
             outline: none;
             background: ${colors.link.focusBg};
             border-color: ${colors.bg.headerFooter};
