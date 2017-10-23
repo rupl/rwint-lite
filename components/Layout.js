@@ -28,6 +28,11 @@ Router.onRouteChangeComplete = () => {
 }
 
 const dev = process.env.NODE_ENV !== 'production'
+const oldBrowserMessage = `<!--[if lt IE 9]><div style="padding: 8px; text-align:center;">
+  You are using an <strong>outdated</strong> browser.
+  Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.
+  <br><br>You can access the main ReliefWeb site at <a href="https://reliefweb.int/">https://reliefweb.int/</a>
+  </div><![endif]-->`
 
 const Layout = (props) => (
   <div>
@@ -56,6 +61,7 @@ const Layout = (props) => (
     {!dev &&
       <GTMIframe />
     }
+    <div dangerouslySetInnerHTML={{__html: oldBrowserMessage}} />
     <div aria-live='assertive' className='sr-only'>View updated: {props.title}</div>
     <div className='pw'>
       <a href='#main' className='sl'>Skip to content</a>
