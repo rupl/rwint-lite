@@ -46,22 +46,22 @@ describe('Info Links List component', () => {
     it('links to updates search by default', () => {
       wrapper = shallow(<InfoLinksList dataType='source' items={singleItem} />)
       links = wrapper.find('Link')
-      expect(links.at(0).prop('href')).toBe('/report-listing?search=source.exact:"Sheffield Star"')
-      expect(links.at(0).prop('as')).toBe('/report/listing?search=source.exact:"Sheffield Star"')
+      expect(links.at(0).prop('href')).toBe('/report-listing?search=source.exact:%22Sheffield+Star%22')
+      expect(links.at(0).prop('as')).toBe('/report/listing?search=source.exact:%22Sheffield+Star%22')
     })
 
     it('links to jobs search if set', () => {
       wrapper = shallow(<InfoLinksList dataType='source' items={singleItem} searchType='job' />)
       links = wrapper.find('Link')
-      expect(links.at(0).prop('href')).toBe('/job-listing?search=source.exact:"Sheffield Star"')
-      expect(links.at(0).prop('as')).toBe('/job/listing?search=source.exact:"Sheffield Star"')
+      expect(links.at(0).prop('href')).toBe('/job-listing?search=source.exact:%22Sheffield+Star%22')
+      expect(links.at(0).prop('as')).toBe('/job/listing?search=source.exact:%22Sheffield+Star%22')
     })
 
     it('links to trainings search if set', () => {
       wrapper = shallow(<InfoLinksList dataType='source' items={singleItem} searchType='training' />)
       links = wrapper.find('Link')
-      expect(links.at(0).prop('href')).toBe('/training-listing?search=source.exact:"Sheffield Star"')
-      expect(links.at(0).prop('as')).toBe('/training/listing?search=source.exact:"Sheffield Star"')
+      expect(links.at(0).prop('href')).toBe('/training-listing?search=source.exact:%22Sheffield+Star%22')
+      expect(links.at(0).prop('as')).toBe('/training/listing?search=source.exact:%22Sheffield+Star%22')
     })
   })
 

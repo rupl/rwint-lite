@@ -22,7 +22,7 @@ export class Headlines extends React.Component {
             headlines.items.map((item, i) => <ReportLink key={item.id} headingLevel='3' report={item} />)
           }
         </div>
-        <style>{`
+        <style jsx>{`
           @media (min-width: ${breakpoints.md}) {
             .reports-wrapper {
               overflow: auto;

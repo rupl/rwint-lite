@@ -2,6 +2,10 @@ import Link from 'next/link'
 import React from 'react'
 import { measurements } from '../../theme/variables'
 
+const formatUrl = (name) => {
+  return name.split(' ').join('+')
+}
+
 class InfoLinksList extends React.Component {
   render () {
     const { dataType, divider, items, type } = this.props
@@ -19,8 +23,8 @@ class InfoLinksList extends React.Component {
         {displayItems.map((item, i) =>
           <span className='item' key={i}>
             <Link prefetch
-              as={`/${searchType}/listing${queryString}"${item.name}"`}
-              href={`/${searchType}-listing${queryString}"${item.name}"`}>
+              as={`/${searchType}/listing${queryString}%22${formatUrl(item.name)}%22`}
+              href={`/${searchType}-listing${queryString}%22${formatUrl(item.name)}%22`}>
               <a>{type === 'summary' ? (item.shortname || item.name) : item.name }</a>
             </Link>
             {i < items.length && i + 1 !== totalItems &&
