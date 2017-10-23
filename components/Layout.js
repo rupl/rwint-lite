@@ -33,6 +33,7 @@ const oldBrowserMessage = `<!--[if lt IE 9]><div style="padding: 8px; text-align
   Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.
   <br><br>You can access the main ReliefWeb site at <a href="https://reliefweb.int/">https://reliefweb.int/</a>
   </div><![endif]-->`
+const ie9styles = `<!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/static/ie9.css" /><![endif]-->`
 
 const Layout = (props) => (
   <div>
@@ -50,6 +51,7 @@ const Layout = (props) => (
       <meta name='msapplication-config' content='/static/browserconfig.xml' />
       <meta name='theme-color' content='#ffffff' />
       <meta name='robots' content='noindex, nofollow' />
+
       <link rel='canonical' href={props.url || 'https://reliefweb.int/'} />
       {!dev &&
         <NewRelic />
@@ -76,6 +78,7 @@ const Layout = (props) => (
         <div className='inner' />
       </div>
     </div>
+    <div dangerouslySetInnerHTML={{__html: ie9styles}} />
     <style jsx global>{`
       * {
         box-sizing: border-box;
