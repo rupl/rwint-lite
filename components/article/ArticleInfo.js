@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { fonts, fontSizes, measurements } from '../../theme/variables'
+import { fontSizes, measurements } from '../../theme/variables'
 
 const formatHeading = (heading, itemsLength) => {
   if (itemsLength === 1) {
@@ -41,7 +41,7 @@ class ArticleInfo extends React.Component {
     return (
       <div>
         <h2>{heading}</h2>
-        {items.map((item, i) =>
+        {this.props.type !== 'status' && items.map((item, i) =>
           <span key={i}>
             <Link prefetch as={formatPaths(this.props.searchType, this.props.type, item.name).as}
               href={formatPaths(this.props.searchType, this.props.type, item.name).href}>
@@ -58,7 +58,6 @@ class ArticleInfo extends React.Component {
           }
           h2 {
             text-transform: uppercase;
-            font-family: ${fonts.body};
             font-size: ${fontSizes.small};
             margin-bottom: 4px;
           }

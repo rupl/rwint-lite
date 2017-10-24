@@ -6,7 +6,7 @@ import { mockUpdate } from '../../../__fixtures__/data.fixture'
 
 describe('Article Side Bar component', () => {
   let attachmentInfo, careerInfo, cityInfo, costInfo, countryInfo, disastersInfo, disasterTypeInfo, experienceInfo, formatInfo,
-    languageInfo, report, sourceInfo, themeInfo, typeInfo, vulnerableGroupInfo, wrapper
+    languageInfo, report, sourceInfo, status, themeInfo, typeInfo, vulnerableGroupInfo, wrapper
 
   beforeEach(() => {
     report = [...mockUpdate]
@@ -347,6 +347,16 @@ describe('Article Side Bar component', () => {
       wrapper = shallow(<ArticleSideBar report={report} />)
       costInfo = wrapper.find('ArticleInfo[heading="Cost"]')
       expect(costInfo.exists()).toBe(false)
+    })
+  })
+
+  describe('Disaster status', () => {
+    it('renders the status', () => {
+      report.fields.status = 'alert'
+      wrapper = shallow(<ArticleSideBar report={report} type='disaster' />)
+      status = wrapper.find('DisasterStatus')
+      expect(status.exists()).toBe(true)
+      expect(status.prop('status')).toEqual(report.fields.status)
     })
   })
 })

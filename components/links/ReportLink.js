@@ -3,6 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import formatDate from '../../helpers/formatDate'
 import InfoLinks from '../links/InfoLinks'
+import DisasterStatus from '../article/DisasterStatus'
 import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
 
 const renderDate = (date) => {
@@ -25,10 +26,6 @@ const formatPaths = (report, reportsType = 'report') => {
     href: hrefPath,
     link: linkPath
   }
-}
-
-const getStatus = (status) => {
-  return status === 'current' ? 'Ongoing' : status
 }
 
 class ReportLink extends React.Component {
@@ -76,7 +73,7 @@ class ReportLink extends React.Component {
           <p className='date'>Ongoing course</p>
         }
         {fields.status &&
-          <p className={`status ${fields.status}`}>{getStatus(fields.status)}</p>
+          <DisasterStatus status={fields.status} />
         }
         <InfoLinks countries={countries} sources={sources} disasterTypes={disasterTypes} searchType={this.props.reportsType} type='summary' />
         <style jsx>{`
@@ -102,28 +99,6 @@ class ReportLink extends React.Component {
           .date, .status {
             font-size: ${fontSizes.small};
             margin-bottom: ${measurements.baseUnit * 1.5}em;
-          }
-          .status {
-            text-transform: uppercase;
-            font-size: ${fontSizes.tiny};
-            display: flex;
-            align-items: center;
-            line-height: 1;
-          }
-          .status:before {
-            content: '';
-            display: block;
-            width: 10px;
-            height: 10px;
-            margin-right: 4px;
-            border-radius: 100%;
-            background: ${colors.status.past};
-          }
-          .status.alert:before {
-            background: ${colors.status.alert};
-          }
-          .status.current:before {
-            background: ${colors.status.current};
           }
           .reg {
             display: block;

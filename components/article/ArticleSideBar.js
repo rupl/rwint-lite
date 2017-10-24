@@ -2,14 +2,21 @@ import React from 'react'
 import Link from 'next/link'
 import ArticleAttachments from './ArticleAttachments'
 import ArticleInfo from './ArticleInfo'
+import DisasterStatus from './DisasterStatus'
 import { primaryButton } from '../../theme/buttons'
-import { breakpoints, measurements } from '../../theme/variables'
+import { breakpoints, fontSizes, measurements } from '../../theme/variables'
 
 class ArticleSideBar extends React.Component {
   render () {
     const {report} = this.props
     return (
       <div>
+        {this.props.type === 'disaster' && report.fields.status &&
+          <div className='status'>
+            <h2 className='status-heading'>Status</h2>
+            <DisasterStatus status={report.fields.status} />
+          </div>
+        }
         {report.fields.country &&
           <ArticleInfo heading='Country' searchType={this.props.type} type='country' items={report.fields.country} />
         }
@@ -61,6 +68,14 @@ class ArticleSideBar extends React.Component {
         <style jsx>{`
           .btn-primary {
             margin-bottom: ${measurements.baseUnit * 2}em;
+          }
+          .status {
+            margin-bottom: ${measurements.baseUnit * 2}em;
+          }
+          .status-heading {
+            text-transform: uppercase;
+            font-size: ${fontSizes.small};
+            margin-bottom: -${measurements.baseUnit / 2}em;
           }
           @media (min-width: ${breakpoints.md}) {
             .btn-primary {
