@@ -3,3 +3,6 @@
   float: none!important;
   margin: 0!important;
 }
+.search-form {
+  display: none!important;
+}

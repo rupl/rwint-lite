@@ -74,7 +74,7 @@ export class SearchForm extends React.Component {
 
   render () {
     return (
-      <form role='search' onSubmit={this.handleSubmit}>
+      <form role='search' className='search-form' onSubmit={this.handleSubmit}>
         <label className='sr-only' htmlFor='search'>{this.state.placeholder}</label>
         <input type='search' id='search' className={`${this.state.value ? 'active' : ''}`} value={this.state.value} onChange={this.handleChange} placeholder={this.state.placeholder} />
         <button type='submit'>
