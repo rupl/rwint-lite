@@ -11,6 +11,10 @@ const pageTitle = (home, title) => {
   return (home || !title) ? siteTitle : `${title} | ${siteTitle}`
 }
 
+const robots = () => {
+  return process.env.ALLOW_ROBOTS === 'true' ? 'index, follow' : 'noindex, nofollow'
+}
+
 Router.onRouteChangeStart = () => {
   const $loader = document.getElementById('loader')
   $loader.classList.add('loading')
@@ -56,7 +60,7 @@ const Layout = (props) => (
       <link rel='manifest' href='/static/manifest.json' crossOrigin='use-credentials' />
       <meta name='msapplication-config' content='/static/browserconfig.xml' />
       <meta name='theme-color' content='#ffffff' />
-      <meta name='robots' content='noindex, nofollow' />
+      <meta name='robots' content={robots()} />
 
       <link rel='canonical' href={props.url || 'https://reliefweb.int/'} />
       {!dev &&
