@@ -27,6 +27,11 @@ const Header = (props) => (
           height: ${measurements.baseUnit * 7.5}em;
         }
       }
+      @media print {
+        header {
+          display: none!important;
+        }
+      }
     `}</style>
   </header>
 )

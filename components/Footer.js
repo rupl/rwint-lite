@@ -108,6 +108,11 @@ const Footer = () => (
           margin-bottom: ${measurements.baseUnit * 4}em;
         }
       }
+      @media print {
+        footer {
+          display: none!important;
+        }
+      }
     `}</style>
   </footer>
 )
