@@ -8,7 +8,7 @@ const Footer = () => (
         <li><a href='https://reliefweb.int/blog'>Blog</a></li>
         <li><a href='http://labs.reliefweb.int/'>Labs</a></li>
         <li><a href='https://reliefweb.int/about'>About us</a></li>
-        <li><a href='http://www.un.org/en/sections/about-website/privacy-notice/'>Privacy policy</a></li>
+        <li><a href='https://reliefweb.int/terms-conditions'>Privacy policy</a></li>
       </ul>
 
       <div className='sp'>
