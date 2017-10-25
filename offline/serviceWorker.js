@@ -5,8 +5,8 @@ var cacheName = 'static-v1.3'
 var expectedCaches = [cacheName]
 var cacheFiles = [
   '/',
-  './static/rw-logo.svg',
-  './static/rw-logo-mobile.svg',
+  './static/rw-logo-beta.svg',
+  './static/rw-logo-mobile-beta.svg',
   './static/icons.svg',
   './static/offline.html'
 ]
