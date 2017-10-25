@@ -6,13 +6,13 @@ const Logo = ({home}) => {
     <div className='lh'>
       {home &&
         <h1 className='logo active'>
-          <span className='sr-only'>ReliefWeb</span>
+          <span className='sr-only'>ReliefWeb Lite</span>
         </h1>
       }
       {!home &&
         <Link prefetch href='/'>
           <a className='logo'>
-            <span className='sr-only'>ReliefWeb</span>
+            <span className='sr-only'>ReliefWeb Lite</span>
           </a>
         </Link>
       }
@@ -22,7 +22,7 @@ const Logo = ({home}) => {
         width: ${measurements.baseUnit * 5}em;
         height: ${measurements.baseUnit * 6}em;
         position: relative;
-        background: url("/static/rw-logo-mobile.svg") left center no-repeat;
+        background: url("/static/rw-logo-mobile-beta.svg") left center no-repeat;
         background-size: 100% auto;
       }
       .logo:after {
@@ -42,7 +42,6 @@ const Logo = ({home}) => {
       .logo.active:after, .logo:focus:after, .logo:hover:after {
         border-color: ${colors.bg.headerFooter};
       }
-
       .lh {
         float: left;
       }
@@ -58,9 +57,9 @@ const Logo = ({home}) => {
           float: left;
         }
         .logo {
-          background: url("/static/rw-logo.svg") left 14px no-repeat;
-          width: ${measurements.baseUnit * 19}em;
-          height: ${measurements.baseUnit * 7.5}em;
+          background: url("/static/rw-logo-beta.svg") left 10px no-repeat;
+          width: 159px;
+          height: 60px;
           margin-right: ${measurements.baseUnit * 3}em;
           margin-bottom: -${measurements.baseUnit}em;
           background-size: auto;
