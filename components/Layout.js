@@ -27,6 +27,10 @@ Router.onRouteChangeComplete = () => {
   }
 }
 
+Router.onAppUpdated = function (nextRoute) {
+  window.location.href = nextRoute
+}
+
 const dev = process.env.NODE_ENV !== 'production'
 const oldBrowserMessage = `<!--[if lt IE 9]><div style="padding: 8px; text-align:center;">
   You are using an <strong>outdated</strong> browser.
