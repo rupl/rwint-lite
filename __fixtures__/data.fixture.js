@@ -133,7 +133,10 @@ export const mockReports = {
             name: 'The Star'
           }
         ],
-        title: 'Report: Something - words [EN/UK] 0'
+        title: 'Report: Something - words [EN/UK] 0',
+        headline: {
+          title: 'A headline about something'
+        }
       }
     },
     {

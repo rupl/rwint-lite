@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import ReportLink from '../components/links/ReportLink'
+import HeadlineLink from '../components/links/HeadlineLink'
 import SectionHeading from './SectionHeading'
 import { breakpoints } from '../theme/variables'
 
@@ -19,7 +19,7 @@ export class Headlines extends React.Component {
         }
         <div className='reports-wrapper'>
           {headlines.items && headlines.items.length > 0 &&
-            headlines.items.map((item, i) => <ReportLink key={item.id} headingLevel='3' report={item} />)
+            headlines.items.map((item, i) => <HeadlineLink key={item.id} report={item} />)
           }
         </div>
         <style jsx>{`

@@ -82,20 +82,6 @@ describe('Report Link component', () => {
     })
   })
 
-  describe('Rendering the heading level', () => {
-    it('renders a h2 for the heading', () => {
-      report = reports[0]
-      wrapper = shallow(<Component report={report} headingLevel='2' />)
-      expect(wrapper.find('h2 a').text()).toContain(report.fields.title)
-    })
-
-    it('renders a h3 for the heading', () => {
-      report = reports[0]
-      wrapper = shallow(<Component report={report} headingLevel='3' />)
-      expect(wrapper.find('h3 a').text()).toContain(report.fields.title)
-    })
-  })
-
   describe('Rendering the link title', () => {
     it('renders the title', () => {
       report = reports[0]

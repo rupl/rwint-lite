@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom'
 import formatDate from '../../helpers/formatDate'
 import InfoLinks from '../links/InfoLinks'
 import DisasterStatus from '../article/DisasterStatus'
-import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
+import { reportLinkStyle } from '../../theme/links'
+import { breakpoints, measurements } from '../../theme/variables'
 
 const renderDate = (date) => {
   if (date.created) {
@@ -37,7 +38,6 @@ class ReportLink extends React.Component {
 
   render () {
     const { fields } = this.props.report
-    const headingLevel = this.props.headingLevel || '2'
     const title = fields.title ? fields.title : fields.name
     const sources = fields.source ? fields.source : []
     const disasterTypes = fields.type ? fields.type : ''
@@ -47,20 +47,11 @@ class ReportLink extends React.Component {
 
     return (
       <div className='report'>
-        {headingLevel === '2' &&
-          <h2 className='title'>
-            <Link as={linkPath} href={hrefPath}>
-              <a ref='theLink'>{title}</a>
-            </Link>
-          </h2>
-        }
-        {headingLevel === '3' &&
-          <h3 className='title'>
-            <Link as={linkPath} href={hrefPath}>
-              <a ref='theLink'>{title}</a>
-            </Link>
-          </h3>
-        }
+        <h2 className='title'>
+          <Link as={linkPath} href={hrefPath}>
+            <a ref='theLink'>{title}</a>
+          </Link>
+        </h2>
         {fields.date &&
           <p className='date'>
             {renderDate(fields.date)}
@@ -76,45 +67,13 @@ class ReportLink extends React.Component {
           <DisasterStatus status={fields.status} />
         }
         <InfoLinks countries={countries} sources={sources} disasterTypes={disasterTypes} searchType={this.props.reportsType} type='summary' />
+        <style jsx>{reportLinkStyle}</style>
         <style jsx>{`
-          .report {
-            border-bottom: 1px solid ${colors.border.light}
-            padding: ${measurements.baseUnit * 1.5}em 0 ${measurements.baseUnit}em 0;
-            word-wrap: break-word;
-          }
-          p {
-            line-height: initial;
-          }
-          .title {
-            margin-bottom: ${measurements.baseUnit}em;
-          }
-          .title a {
-            color: ${colors.text.body};
-            font-weight: bold;
-            text-decoration: none;
-          }
-          .title a:hover {
-            text-decoration: underline;
-          }
-          .date, .status {
-            font-size: ${fontSizes.small};
-            margin-bottom: ${measurements.baseUnit * 1.5}em;
-          }
           .reg {
             display: block;
             margin-top: ${measurements.baseUnit * 1.5}em;
           }
           @media (min-width: ${breakpoints.md}) {
-            .report {
-              float: left;
-              width: 49%;
-            }
-            .report:nth-child(odd) {
-              margin-right: 1%;
-            }
-            .report:nth-child(even) {
-              margin-left: 1%;
-            }
             .reg {
               display: inline;
               margin-top: 0;

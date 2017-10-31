@@ -6,7 +6,7 @@ import ConnectHeadlines, { Headlines } from '../../components/Headlines.js'
 import { mockHeadlines } from '../../__fixtures__/data.fixture'
 
 describe('Headlines component', () => {
-  let container, reportLinks, store, wrapper
+  let container, headlineLinks, store, wrapper
   const initialState = {
     items: mockHeadlines.data
   }
@@ -30,19 +30,19 @@ describe('Headlines component', () => {
   describe('Simple component', () => {
     beforeAll(() => {
       wrapper = shallow(<Headlines headlines={initialState} />)
-      reportLinks = wrapper.find('ReportLink')
+      headlineLinks = wrapper.find('HeadlineLink')
     })
 
     it('renders the component', () => {
       expect(wrapper.length).toEqual(1)
     })
 
-    it('renders a report link for each report', () => {
-      expect(reportLinks.length).toBe(10)
+    it('renders a headline link for each report', () => {
+      expect(headlineLinks.length).toBe(10)
     })
 
     it('passes the report to the ReportLink', function () {
-      const first = reportLinks.nodes[0]
+      const first = headlineLinks.nodes[0]
       expect(first.props.report).toEqual(mockHeadlines.data[0])
     })
   })
