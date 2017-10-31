@@ -43,7 +43,7 @@ export class PaginatedReportsList extends React.Component {
 
     await props[getFn](pageNumber, loadMore, pagination, props.query)
     if (pagination) {
-      this.updatePagination(pageNumber, props.query)
+      this.updatePagination(pageNumber, props.query, props.reportsType)
     }
   }
 
@@ -51,14 +51,13 @@ export class PaginatedReportsList extends React.Component {
     this.loadPage(this.props)
   }
 
-  updatePagination (pageNumber, query) {
+  updatePagination (pageNumber, query, reportsType) {
     let queryString = `?`
     if (query) {
       queryString += `search=${query}&`
     }
     queryString += `page=${pageNumber}`
-    // check this - shoudl be hard coded to report?
-    Router.push(`/report-listing${queryString}`, `/report/listing${queryString}`, {shallow: true})
+    Router.push(`/${reportsType}-listing${queryString}`, `/${reportsType}/listing${queryString}`, {shallow: true})
   }
 
   loadNextPage () {
