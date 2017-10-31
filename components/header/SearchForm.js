@@ -150,7 +150,7 @@ export class SearchForm extends React.Component {
             }
           }
 
-          @media (max-width: 48em) {
+          @media (max-width: 767px) {
             form {
               position: absolute;
               top: 0;
