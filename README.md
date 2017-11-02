@@ -61,9 +61,3 @@ Get the docker image (latest dev branch is being pulled in the example below)
 To view it on host port 3000
 
 `docker run -d -p 3000:3000 unocha/rwint-lite:dev`
-
-## Service Worker issues
-
-Service Workers don't play nicely with HTTP basic auth, which is on staging.
-
-They are disabled on staging in pages/index.js, undo this and use the Jenkins task to turn off auth and test on staging.
