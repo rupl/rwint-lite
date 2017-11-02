@@ -16,18 +16,25 @@ if (!fs.existsSync(logDir)) {
   mkdirp(logDir)
 }
 
+const accessLogger = expressWinston.logger({
+  transports: [
+    new (winston.transports.File)({filename: `${logDir}/access.log`})
+  ]
+})
+
+const errorLogger = expressWinston.errorLogger({
+  transports: [
+    new (winston.transports.File)({filename: `${logDir}/error.log`})
+  ]
+});
+
 app.prepare()
 .then(() => {
   const server = express()
   server.use(compression())
 
   if (!dev) {
-    server.use(expressWinston.logger({
-      transports: [
-        new winston.transports.Console(),
-        new (winston.transports.File)({filename: `${logDir}/access.log`})
-      ]
-    }))
+    server.use(accessLogger)
   }
 
   server.get('/sw.js', (req, res) => {
@@ -126,15 +133,7 @@ app.prepare()
   })
 
   if (!dev) {
-    server.use(expressWinston.errorLogger({
-      transports: [
-        new winston.transports.Console({
-          json: true,
-          colorize: true
-        }),
-        new (winston.transports.File)({filename: `${logDir}/error.log`})
-      ]
-    }))
+    server.use(errorLogger)
   }
 
   server.listen(3000, '0.0.0.0', (err) => {
