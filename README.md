@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/UN-OCHA/rwint-lite.svg?branch=master)](https://travis-ci.org/UN-OCHA/rwint-lite)
 
-New version of the ReliefWeb mobile site built using [Preact](https://preactjs.com/) ([React](https://facebook.github.io/react/)is used in dev) and [Next.js](https://github.com/zeit/next.js).
+New version of the ReliefWeb mobile site built using [Preact](https://preactjs.com/) ([React](https://facebook.github.io/react/) is used in dev) and [Next.js](https://github.com/zeit/next.js).
 
 ## Getting started
 
