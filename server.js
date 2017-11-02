@@ -26,7 +26,7 @@ const errorLogger = expressWinston.errorLogger({
   transports: [
     new (winston.transports.File)({filename: `${logDir}/error.log`})
   ]
-});
+})
 
 app.prepare()
 .then(() => {
