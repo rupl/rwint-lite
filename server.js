@@ -8,7 +8,7 @@ const fs = require('fs')
 const mkdirp = require('mkdirp')
 
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
+const app = next({ dev, quiet: true })
 const handle = app.getRequestHandler()
 const logDir = '/var/log/node'
 
