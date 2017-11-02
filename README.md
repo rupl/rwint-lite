@@ -1,14 +1,14 @@
 # ReliefWeb Mobile v2
 
-[![Build Status](https://travis-ci.org/UN-OCHA/rw-mobile2.svg?branch=master)](https://travis-ci.org/UN-OCHA/rw-mobile2)
+[![Build Status](https://travis-ci.org/UN-OCHA/rwint-lite.svg?branch=master)](https://travis-ci.org/UN-OCHA/rwint-lite)
 
 New version of the ReliefWeb mobile site built using [Preact](https://preactjs.com/) ([React](https://facebook.github.io/react/)is used in dev) and [Next.js](https://github.com/zeit/next.js).
 
 ## Getting started
 
-Clone the repo: `git clone git@github.com:UN-OCHA/rw-mobile2.git`
+Clone the repo: `git clone git@github.com:UN-OCHA/rwint-lite.git`
 
-Go to the folder: `cd rw-mobile2`
+Go to the folder: `cd rwint-lite`
 
 Install: `npm install`
 
@@ -56,11 +56,11 @@ Add new pages to test to .pa11yci
 
 Get the docker image (latest dev branch is being pulled in the example below)
 
-`docker pull unocha/rw-mobile:dev`
+`docker pull unocha/rwint-lite:dev`
 
 To view it on host port 3000
 
-`docker run -d -p 3000:3000 unocha/rw-mobile:dev`
+`docker run -d -p 3000:3000 unocha/rwint-lite:dev`
 
 ## Service Worker issues
 

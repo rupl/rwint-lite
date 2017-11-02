@@ -2,4 +2,4 @@ version: '2'
 
 services:
   mobile:
-    image: unocha/rw-mobile:dev
+    image: unocha/rwint-lite:dev
