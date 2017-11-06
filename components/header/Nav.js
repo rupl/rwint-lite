@@ -112,12 +112,6 @@ class Nav extends React.Component {
           .link:hover:after, .link:focus:after, .link--active:after {
             border-color: ${colors.bg.headerFooter};
           }
-          .cd-active .link {
-            font-weight: bold;
-          }
-          .cd-active .link:after {
-            border-color: #${colors.bg.headerFooter};
-          }
           @media (max-width: ${breakpoints.lg}) {
             .toggle {
               border: none;
