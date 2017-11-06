@@ -18,6 +18,10 @@ const formatHeading = (heading, itemsLength) => {
   return `${heading}s`
 }
 
+const formatUrl = (name) => {
+  return name.split(' ').join('+')
+}
+
 const formatPaths = (searchType = 'report', itemType, name) => {
   const queryString = itemType === 'cost' ? `?search=${itemType}:` : `?search=${itemType}.exact:`
   const asPath = `/${searchType}/listing`
@@ -28,8 +32,8 @@ const formatPaths = (searchType = 'report', itemType, name) => {
     searchTerm = searchTerm.replace('+ years', 'plus years')
   }
   return {
-    as: `${asPath}${queryString}"${searchTerm}"`,
-    href: `${hrefPath}${queryString}"${searchTerm}"`
+    as: `${asPath}${queryString}%22${formatUrl(searchTerm)}%22`,
+    href: `${hrefPath}${queryString}%22${formatUrl(searchTerm)}%22`
   }
 }
 

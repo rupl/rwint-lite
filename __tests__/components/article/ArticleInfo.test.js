@@ -35,31 +35,31 @@ describe('Article Info component', () => {
     wrapper = shallow(<ArticleInfo heading='Country' type='country' items={items} />)
     expect(wrapper.find('a').length).toBe(2)
     expect(wrapper.find('a').first().text()).toContain('South Yorkshire')
-    expect(wrapper.find('Link').first().prop('href')).toBe('/report-listing?search=country.exact:"South Yorkshire"')
-    expect(wrapper.find('Link').first().prop('as')).toBe('/report/listing?search=country.exact:"South Yorkshire"')
+    expect(wrapper.find('Link').first().prop('href')).toBe('/report-listing?search=country.exact:%22South+Yorkshire%22')
+    expect(wrapper.find('Link').first().prop('as')).toBe('/report/listing?search=country.exact:%22South+Yorkshire%22')
   })
 
   it('sets the search term based on the item type', () => {
     wrapper = shallow(<ArticleInfo heading='Language' type='language' items={items} />)
-    expect(wrapper.find('Link').first().prop('href')).toBe('/report-listing?search=language.exact:"South Yorkshire"')
-    expect(wrapper.find('Link').first().prop('as')).toBe('/report/listing?search=language.exact:"South Yorkshire"')
+    expect(wrapper.find('Link').first().prop('href')).toBe('/report-listing?search=language.exact:%22South+Yorkshire%22')
+    expect(wrapper.find('Link').first().prop('as')).toBe('/report/listing?search=language.exact:%22South+Yorkshire%22')
   })
 
   it('sets the correct search term for cost ', () => {
     wrapper = shallow(<ArticleInfo heading='Cost' type='cost' items={items} />)
-    expect(wrapper.find('Link').first().prop('href')).toBe('/report-listing?search=cost:"South Yorkshire"')
-    expect(wrapper.find('Link').first().prop('as')).toBe('/report/listing?search=cost:"South Yorkshire"')
+    expect(wrapper.find('Link').first().prop('href')).toBe('/report-listing?search=cost:%22South+Yorkshire%22')
+    expect(wrapper.find('Link').first().prop('as')).toBe('/report/listing?search=cost:%22South+Yorkshire%22')
   })
 
   it('changes + to plus in in the search term for job experience', () => {
     wrapper = shallow(<ArticleInfo heading='experience' type='experience' searchType='job' items={[{name: '10+ years'}]} />)
-    expect(wrapper.find('Link').first().prop('href')).toBe('/job-listing?search=experience.exact:"10plus years"')
-    expect(wrapper.find('Link').first().prop('as')).toBe('/job/listing?search=experience.exact:"10plus years"')
+    expect(wrapper.find('Link').first().prop('href')).toBe('/job-listing?search=experience.exact:%2210plus+years%22')
+    expect(wrapper.find('Link').first().prop('as')).toBe('/job/listing?search=experience.exact:%2210plus+years%22')
   })
 
   it('sets the search path based on the article type', () => {
     wrapper = shallow(<ArticleInfo heading='Language' searchType='job' type='language' items={items} />)
-    expect(wrapper.find('Link').first().prop('href')).toBe('/job-listing?search=language.exact:"South Yorkshire"')
-    expect(wrapper.find('Link').first().prop('as')).toBe('/job/listing?search=language.exact:"South Yorkshire"')
+    expect(wrapper.find('Link').first().prop('href')).toBe('/job-listing?search=language.exact:%22South+Yorkshire%22')
+    expect(wrapper.find('Link').first().prop('as')).toBe('/job/listing?search=language.exact:%22South+Yorkshire%22')
   })
 })
