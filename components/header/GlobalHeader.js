@@ -54,8 +54,8 @@ class GlobalHeader extends React.Component {
             color: ${colors.text.globalHeader};
             text-transform: uppercase;
             text-align: left;
-            padding: 0 24px 0 ${8/12}em;
-            height: ${40/12}em;
+            padding: 0 24px 0 ${8 / 12}em;
+            height: ${40 / 12}em;
             font-size: ${fontSizes.tiny};
           }
           .btn:hover, .btn:focus {
