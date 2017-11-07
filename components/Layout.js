@@ -141,6 +141,11 @@ const Layout = (props) => (
         right: 0;
         z-index: 98;
       }
+      @media (min-width: ${breakpoints.md}) {
+        .container {
+          padding: 0 ${measurements.baseUnit*2}em;
+        }
+      }
       @media (min-width: ${breakpoints.xl}) {
         .container {
           padding: 0 ${measurements.baseUnit * 5}em;

@@ -120,7 +120,7 @@ class Nav extends React.Component {
               height: ${measurements.baseUnit * 5}em;
               position: absolute;
               top: ${measurements.baseUnit / 2}em;
-              right: ${measurements.baseUnit}em;
+              right: 0;
               padding: 0;
               line-height: 0;
               display: flex;
@@ -172,6 +172,7 @@ class Nav extends React.Component {
             }
             .toggle {
               top: ${measurements.baseUnit * 1.5}em;
+              right: ${measurements.baseUnit}em;
             }
           }
           @media (min-width: ${breakpoints.lg}) {
