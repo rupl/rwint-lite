@@ -140,7 +140,7 @@ export class SearchForm extends React.Component {
 
           @media (min-width: ${breakpoints.lg}) {
             input {
-              width: 270px;
+              width: 250px;
             }
           }
 
