@@ -61,7 +61,7 @@ const fontSizes = ({
 
 const measurements = ({
   baseUnit: 0.5, // Use with em. 8px
-  containerMaxWidth: '75em', // 1200px
+  containerMaxWidth: '76.25em', // 1230px
   maxWidth: '87.5em' // 1400px
 })
 

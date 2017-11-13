@@ -140,13 +140,13 @@ export class SearchForm extends React.Component {
 
           @media (min-width: ${breakpoints.lg}) {
             input {
-              width: 250px;
+              width: 220px;
             }
           }
 
           @media (min-width: ${breakpoints.xl}) {
             input {
-              width: 380px;
+              width: 350px;
             }
           }
 
