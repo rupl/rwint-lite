@@ -1,22 +1,38 @@
+import React from 'react'
+import { bindActionCreators } from 'redux'
+import { initStore } from '../store'
+import { getFeatured, getHeadlines } from '../actions/actions'
+import withRedux from 'next-redux-wrapper'
 import Layout from '../components/Layout'
 import Headlines from '../components/Headlines'
 import Featured from '../components/Featured'
-import { getFeatured, getHeadlines } from '../services/requests'
+import registerServiceWorker from '../helpers/registerServiceWorker'
 
-const Index = (props) => (
-  <Layout home='true'>
-    <Featured {...props} />
-    <Headlines {...props} />
-  </Layout>
-)
+export class Index extends React.Component {
+  static async getInitialProps ({store}) {
+    await store.dispatch(getFeatured())
+    await store.dispatch(getHeadlines())
+  }
 
-Index.getInitialProps = async function () {
-  let featured = await getFeatured()
-  let headlines = await getHeadlines()
-  return {
-    featured: featured,
-    reports: headlines
+  componentDidMount () {
+    registerServiceWorker()
+  }
+
+  render () {
+    return (
+      <Layout home='true'>
+        <Featured />
+        <Headlines />
+      </Layout>
+    )
   }
 }
 
-export default Index
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getFeatured: bindActionCreators(getFeatured, dispatch),
+    getHeadlines: bindActionCreators(getHeadlines, dispatch)
+  }
+}
+
+export default withRedux(initStore, null, mapDispatchToProps)(Index)

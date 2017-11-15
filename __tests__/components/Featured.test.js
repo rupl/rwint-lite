@@ -1,35 +1,49 @@
 /* eslint-env jest */
 import { shallow } from 'enzyme'
 import React from 'react'
-import Component from '../../components/Featured.js'
-
-let featured, wrapper
+import configureStore from 'redux-mock-store'
+import ConnectedFeatured, { Featured } from '../../components/Featured.js'
+import { mockFeatured } from '../../__fixtures__/data.fixture'
 
 describe('Featured component', () => {
-  beforeAll(function () {
-    featured = [
-      {
-        id: 1,
-        fields: {
-          names: 'the name'
-        }
-      },
-      {
-        id: 2,
-        fields: {
-          names: 'the name 2'
-        }
-      }
-    ]
-    wrapper = shallow(<Component featured={featured} />)
+  let store, container, simpleLinks, wrapper
+  const initialState = {
+    items: mockFeatured.data
+  }
+  const mockStore = configureStore()
+
+  describe('Connected component', () => {
+    beforeAll(() => {
+      store = mockStore(initialState)
+      container = shallow(<ConnectedFeatured store={store} />)
+    })
+
+    it('renders the component', () => {
+      expect(container.length).toEqual(1)
+    })
+
+    it('renders passes the featured items from the store', () => {
+      expect(container.prop('items')).toEqual(mockFeatured.data)
+    })
   })
 
-  it('renders the component', () => {
-    expect(wrapper.exists()).toBe(true)
-  })
+  describe('Simple component', () => {
+    beforeAll(() => {
+      wrapper = shallow(<Featured featured={initialState} />)
+      simpleLinks = wrapper.find('SimpleLink')
+    })
 
-  it('renders a link for each featured item', () => {
-    const links = wrapper.find('Link')
-    expect(links.length).toBe(2)
+    it('renders the component', () => {
+      expect(wrapper.length).toEqual(1)
+    })
+
+    it('renders a link for each featured item', () => {
+      expect(simpleLinks.length).toBe(6)
+    })
+
+    it('passes the link to the SimpleLink', function () {
+      const first = simpleLinks.nodes[0]
+      expect(first.props.link).toEqual(mockFeatured.data[0])
+    })
   })
 })

@@ -1,107 +1,206 @@
 /* global fetch */
 import 'isomorphic-unfetch'
-import shuffleArray from './shuffleArray'
+import shuffleArray from '../helpers/shuffleArray'
 
 const apiEndpoint = 'https://api.reliefweb.int/v1/'
-const appName = 'rwmob-dev'
+const appName = process.env.API_APP_NAME || 'rwlite-dev'
 
 const formatStringForUrl = (str) => {
   return str.toLowerCase().replace(/\W+/g, '-')
 }
 
-const constructEndpoint = (type, limit = 20, sort = [], fields = [], filters = [], filterConditions = []) => {
-  let endpoint = `${apiEndpoint}${type}?appname=${appName}&limit=${limit}`
-
-  for (let sortValue of sort) {
-    endpoint += `&sort[]=${sortValue}`
+const constructRequestBody = (limit = 20, offset = 0, sort = [], fields = [], filter, preset, query) => {
+  let requestBody = {
+    limit: limit,
+    offset: offset
   }
 
+  if (preset) {
+    requestBody.preset = preset
+  }
+
+  if (sort.length) {
+    requestBody.sort = sort
+  }
+
+  if (fields.length) {
+    requestBody.fields = {
+      include: fields
+    }
+  }
+
+  if (filter) {
+    requestBody.filter = {
+      field: filter
+    }
+    if (filter === 'featured') {
+      requestBody.filter.value = true
+    }
+  }
+
+  if (query) {
+    requestBody.query = {
+      value: query,
+      operator: 'AND'
+    }
+  }
+
+  return requestBody
+}
+
+const getSingleItem = async (type, id, fields = []) => {
+  let endpoint = `${apiEndpoint}${type}/${id}?appname=${appName}`
   for (let fieldValue of fields) {
     endpoint += `&fields[include][]=${fieldValue}`
   }
-
-  for (let filterValue of filters) {
-    endpoint += `&filter[field]=${filterValue}&filter[value]=true`
+  let res, data
+  try {
+    res = await fetch(endpoint)
+    if (res.ok) {
+      data = await res.json()
+      return data.data
+    }
+    return res
+  } catch (e) {
+    console.log('error', e)
   }
-
-  for (let i = 0; i < filterConditions.length; i++) {
-    endpoint += '&filter[operator]=AND'
-
-    if (filterConditions[i].field) {
-      endpoint += `&filter[conditions][${i}][field]=${filterConditions[i].field}`
-    }
-    if (filterConditions[i].value) {
-      for (let theValue of filterConditions[i].value) {
-        endpoint += `&filter[conditions][${i}][value][]=${theValue}`
-      }
-    }
-    if (filterConditions[i].operator) {
-      endpoint += `&filter[conditions][${i}][operator]=${filterConditions[i].operator}`
-    }
-  }
-
-  return endpoint
 }
 
-const getFeatured = async function () {
-  const countriesEndpoint = constructEndpoint('countries', 20, [], [], ['featured'])
-  const disastersEndpoint = constructEndpoint('disasters', 20, [], [], ['featured'])
-  const countriesPromise = fetch(countriesEndpoint)
-  const disastersPromise = fetch(disastersEndpoint)
+const getItems = async (type, limit, offset, sort, fields, transformFn, filter, preset, query) => {
+  const requestBody = constructRequestBody(limit, offset, sort, fields, filter, preset, query)
+  let res, data
+  try {
+    res = await fetch(`${apiEndpoint}${type}?appname=${appName}`, {
+      method: 'post',
+      body: JSON.stringify(requestBody)
+    })
+    if (res && res.ok) {
+      data = await res.json()
+      if (transformFn) {
+        transformFn(data)
+      }
+      return data
+    }
+    return res
+  } catch (e) {
+    console.log('error', e)
+  }
+}
+
+const transformCountries = (data) => {
+  return data.data.map(item => {
+    item.type = 'country'
+    item.urlName = formatStringForUrl(item.fields.name)
+  })
+}
+
+const transformItems = (data) => {
+  return data.data.map(item => {
+    if (item.fields.primary_country) {
+      item.urlCountry = item.fields.primary_country.shortname ? formatStringForUrl(item.fields.primary_country.shortname) : formatStringForUrl(item.fields.primary_country.name)
+    }
+    if (!item.fields.primary_country && item.fields.country && item.fields.country.length === 1) {
+      item.urlCountry = item.fields.country[0].shortname ? formatStringForUrl(item.fields.country[0].shortname) : formatStringForUrl(item.fields.country[0].name)
+    }
+    if (item.fields.name) {
+      item.urlTitle = formatStringForUrl(item.fields.name)
+    }
+    if (item.fields.title) {
+      item.urlTitle = formatStringForUrl(item.fields.title)
+    }
+  })
+}
+
+export const requestCountry = async function (id) {
+  return getSingleItem('countries', id, ['name', 'iso3', 'url_alias'])
+}
+
+export const requestCountries = async function () {
+  return getItems('countries', 300, 0, ['name:asc'], ['name', 'featured'], transformCountries)
+}
+
+export const requestFeatured = async function () {
+  const requestBody = {
+    filter: {
+      field: 'featured',
+      value: true
+    }
+  }
+  const countriesPromise = fetch(`${apiEndpoint}countries?appname=${appName}`, {
+    method: 'post',
+    body: JSON.stringify(requestBody)
+  })
+  const disastersPromise = fetch(`${apiEndpoint}disasters?appname=${appName}`, {
+    method: 'post',
+    body: JSON.stringify(requestBody)
+  })
   let res1, res2, countriesData, disastersData, featured
 
   try {
     [res1, res2] = await Promise.all([countriesPromise, disastersPromise])
-    countriesData = await res1.json()
-    disastersData = await res2.json()
-    countriesData.data.map(item => {
-      item.type = 'country'
-      item.urlName = formatStringForUrl(item.fields.name)
-    })
-    disastersData.data.map(item => {
-      item.type = 'disaster'
-      item.urlName = formatStringForUrl(item.fields.name)
-    })
-
-    featured = [...countriesData.data, ...disastersData.data]
-    const shuffled = shuffleArray(featured)
-    return shuffled.slice(0, 6)
-  } catch (e) {
-    console.log('error', e)
-  }
-}
-
-const getHeadlines = async function () {
-  const sort = ['date.created:desc']
-  const fields = ['headline.title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
-  const filterConditions = [
-    {
-      operator: 'OR',
-      field: 'status',
-      value: ['published', 'to-review']
-    },
-    {
-      field: 'headline'
+    if (res1.ok && res2.ok) {
+      countriesData = await res1.json()
+      disastersData = await res2.json()
+      countriesData.data.map(item => {
+        item.type = 'country'
+        item.urlName = formatStringForUrl(item.fields.name)
+      })
+      disastersData.data.map(item => {
+        item.type = 'disaster'
+        item.urlName = formatStringForUrl(item.fields.name)
+      })
+      featured = [...countriesData.data, ...disastersData.data]
+      const shuffled = shuffleArray(featured)
+      return shuffled.slice(0, 6)
     }
-  ]
-
-  const headlinesEndpoint = constructEndpoint('reports', 16, sort, fields, [], filterConditions)
-  let res, data
-  try {
-    res = await fetch(headlinesEndpoint)
-    data = await res.json()
-    data.data.map(item => {
-      if (item.fields.primary_country) {
-        item.urlCountry = item.fields.primary_country.shortname ? formatStringForUrl(item.fields.primary_country.shortname) : formatStringForUrl(item.fields.primary_country.name)
-      }
-      if (item.fields.title) {
-        item.urlTitle = formatStringForUrl(item.fields.title)
-      }
-    })
-    return data.data
+    return {ok: false}
   } catch (e) {
     console.log('error', e)
   }
 }
 
-export { getFeatured, getHeadlines }
+export const requestDisaster = async function (id) {
+  return getSingleItem('disasters', id)
+}
+
+export const requestDisasters = async function (offset, limit = 10, query) {
+  const sort = []
+  const fields = ['name', 'country.id', 'country.name', 'country.shortname', 'type', 'status']
+  return getItems('disasters', limit, offset, sort, fields, transformItems, '', 'latest', query)
+}
+
+export const requestHeadlines = async function () {
+  const sort = ['date:desc']
+  const fields = ['headline.title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
+  return getItems('reports', 16, 0, sort, fields, transformItems, 'headline')
+}
+
+export const requestJob = async function (id) {
+  return getSingleItem('jobs', id)
+}
+
+export const requestJobs = async function (offset, limit = 10, query) {
+  const sort = ['date.created:desc']
+  const fields = ['title', 'date.closing', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
+  return getItems('jobs', limit, offset, sort, fields, transformItems, '', 'latest', query)
+}
+
+export const requestTraining = async function (id) {
+  return getSingleItem('training', id)
+}
+
+export const requestTrainings = async function (offset, limit = 10, query) {
+  const sort = ['date.created:desc']
+  const fields = ['title', 'date.registration', 'date.start', 'date.end', 'country.name', 'country.shortname', 'source.name', 'source.shortname']
+  return getItems('training', limit, offset, sort, fields, transformItems, '', 'latest', query)
+}
+
+export const requestUpdate = async function (id) {
+  return getSingleItem('reports', id)
+}
+
+export const requestReports = async function (offset, limit = 10, query) {
+  const sort = ['date:desc']
+  const fields = ['title', 'date.created', 'primary_country.name', 'primary_country.shortname', 'source.name', 'source.shortname']
+  return getItems('reports', limit, offset, sort, fields, transformItems, '', 'latest', query)
+}

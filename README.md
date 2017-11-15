@@ -1,8 +1,16 @@
 # ReliefWeb Mobile v2
 
-[![Build Status](https://travis-ci.org/UN-OCHA/rw-mobile2.svg?branch=master)](https://travis-ci.org/UN-OCHA/rw-mobile2)
+[![Build Status](https://travis-ci.org/UN-OCHA/rwint-lite.svg?branch=master)](https://travis-ci.org/UN-OCHA/rwint-lite)
 
-New version of the ReliefWeb mobile site built using [React](https://facebook.github.io/react/) and [Next.js](https://github.com/zeit/next.js).
+New version of the ReliefWeb mobile site built using [Preact](https://preactjs.com/) ([React](https://facebook.github.io/react/) is used in dev) and [Next.js](https://github.com/zeit/next.js).
+
+## Getting started
+
+Clone the repo: `git clone git@github.com:UN-OCHA/rwint-lite.git`
+
+Go to the folder: `cd rwint-lite`
+
+Install: `npm install`
 
 ## Running in dev mode
 
@@ -14,6 +22,8 @@ New version of the ReliefWeb mobile site built using [React](https://facebook.gi
 npm run build
 npm run start
 ```
+
+Note: Logging causes an error when running the production build locally, to avoid this, in server.js comment out `server.use(expressWinston.logger({` and the following lines (25 - 30).
 
 ## Unit tests
 
@@ -30,3 +40,24 @@ To run a single test suite
 https://standardjs.com/
 
 `npm run lint`
+
+## pa11y
+
+[pa11y-ci](https://github.com/pa11y/ci) is used for automated accessibility testing.
+
+To run locally:
+
+`npm run test:pa11y`
+
+Add new pages to test to .pa11yci
+
+
+## Using the docker image
+
+Get the docker image (latest dev branch is being pulled in the example below)
+
+`docker pull unocha/rwint-lite:dev`
+
+To view it on host port 3000
+
+`docker run -d -p 3000:3000 unocha/rwint-lite:dev`
