@@ -403,15 +403,15 @@ export const mockDisaster2 = {
 }
 
 export const mockEndpoints = {
-  country: 'https://api.reliefweb.int/v1/countries/100?appname=&fields[include][]=name&fields[include][]=iso3&fields[include][]=url_alias',
-  countries: 'https://api.reliefweb.int/v1/countries?appname=',
-  disaster: 'https://api.reliefweb.int/v1/disasters/200?appname=',
-  disasters: 'https://api.reliefweb.int/v1/disasters?appname=',
-  headlines: 'https://api.reliefweb.int/v1/reports?appname=',
-  job: 'https://api.reliefweb.int/v1/jobs/300?appname=',
-  jobs: 'https://api.reliefweb.int/v1/jobs?appname=',
-  training: 'https://api.reliefweb.int/v1/training/400?appname=',
-  trainings: 'https://api.reliefweb.int/v1/training?appname=',
-  updates: 'https://api.reliefweb.int/v1/reports?appname=',
-  update: 'https://api.reliefweb.int/v1/reports/100?appname='
+  country: 'https://api.reliefweb.int/v1/countries/100?appname=rwlite-dev&fields[include][]=name&fields[include][]=iso3&fields[include][]=url_alias',
+  countries: 'https://api.reliefweb.int/v1/countries?appname=rwlite-dev',
+  disaster: 'https://api.reliefweb.int/v1/disasters/200?appname=rwlite-dev',
+  disasters: 'https://api.reliefweb.int/v1/disasters?appname=rwlite-dev',
+  headlines: 'https://api.reliefweb.int/v1/reports?appname=rwlite-dev',
+  job: 'https://api.reliefweb.int/v1/jobs/300?appname=rwlite-dev',
+  jobs: 'https://api.reliefweb.int/v1/jobs?appname=rwlite-dev',
+  training: 'https://api.reliefweb.int/v1/training/400?appname=rwlite-dev',
+  trainings: 'https://api.reliefweb.int/v1/training?appname=rwlite-dev',
+  updates: 'https://api.reliefweb.int/v1/reports?appname=rwlite-dev',
+  update: 'https://api.reliefweb.int/v1/reports/100?appname=rwlite-dev'
 }

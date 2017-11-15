@@ -16,7 +16,6 @@ export class Index extends React.Component {
 
   componentDidMount () {
     registerServiceWorker()
-    console.log('vars', process.env.GTM_ID, process.env.API_APP_NAME)
   }
 
   render () {
