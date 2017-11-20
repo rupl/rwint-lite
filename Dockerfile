@@ -1,4 +1,4 @@
-FROM unocha/alpine-nodejs:6
+FROM unocha/nodejs:6.12
 
 ENV NPM_CONFIG_SPIN=false \
     NPM_CONFIG_PROGRESS=false \
