@@ -21,17 +21,17 @@
     "express-winston": "^2.4.0",
     "isomorphic-unfetch": "^2.0.0",
     "mkdirp": "^0.5.1",
-    "newrelic": "^2.0.2",
-    "next": "^4.1.4",
-    "next-redux-wrapper": "1.3.4",
+    "newrelic": "^2.4.0",
+    "next": "^3.2.2",
+    "next-redux-wrapper": "^1.3.4",
     "preact": "^8.2.5",
     "preact-compat": "^3.17.0",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "sanitize-html": "^1.14.1",
+    "sanitize-html": "^1.16.1",
     "sw-toolbox": "^3.6.0",
     "thunk": "0.0.1",
     "winston": "^2.3.1"
@@ -45,8 +45,17 @@
     "fetch-mock": "^5.12.1",
     "jest": "^21.2.1",
     "pa11y-ci": "^1.2.0",
-    "react-test-renderer": "^16.1.1",
+    "react-test-renderer": "^15.6.2",
     "redux-mock-store": "^1.2.3",
     "standard": "^10.0.2"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "next",
+      "next-redux-wrapper",
+      "react",
+      "react-dom",
+      "react-test-renderer"
+    ]
   }
 }
