@@ -21,7 +21,7 @@
     "express-winston": "^2.4.0",
     "isomorphic-unfetch": "^2.0.0",
     "mkdirp": "^0.5.1",
-    "newrelic": "^2.4.0",
+    "newrelic": "^2.4.1",
     "next": "^3.2.2",
     "next-redux-wrapper": "^1.3.4",
     "preact": "^8.2.5",
