@@ -3,7 +3,7 @@ import 'isomorphic-unfetch'
 import shuffleArray from '../helpers/shuffleArray'
 
 const apiEndpoint = 'https://api.reliefweb.int/v1/'
-const appName = process.env.API_APP_NAME || 'rwlite-dev'
+const appName = 'rwlite'
 
 const formatStringForUrl = (str) => {
   return str.toLowerCase().replace(/\W+/g, '-')
