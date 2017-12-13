@@ -3,16 +3,13 @@ import Router from 'next/router'
 import Header from './header/Header'
 import Footer from './Footer'
 import NewRelic from './NewRelic'
+import RobotsMetaTag from './RobotsMetaTag'
 import { GTMInit, GTMIframe } from './gtm'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/variables'
 
 const pageTitle = (home, title) => {
   const siteTitle = 'ReliefWeb Lite'
   return (home || !title) ? siteTitle : `${title} | ${siteTitle}`
-}
-
-const robots = () => {
-  return process.env.ALLOW_ROBOTS === 'true' ? 'index, follow' : 'noindex, nofollow'
 }
 
 Router.onRouteChangeStart = () => {
@@ -60,8 +57,7 @@ const Layout = (props) => (
       <link rel='manifest' href='/static/manifest.json' crossOrigin='use-credentials' />
       <meta name='msapplication-config' content='/static/browserconfig.xml' />
       <meta name='theme-color' content='#ffffff' />
-      <meta name='robots' content={robots()} />
-
+      <RobotsMetaTag />
       <link rel='canonical' href={props.url || 'https://reliefweb.int/'} />
       {!dev &&
         <NewRelic />
