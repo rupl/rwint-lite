@@ -1,4 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document'
+import { GTMInit, GTMIframe } from '../components//gtm'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/variables'
 
 function polyfill () {
@@ -14,9 +15,11 @@ export default class MyDocument extends Document {
     return (
       <html lang='en'>
         <Head>
+          <GTMInit />
           <script dangerouslySetInnerHTML={polyfill()} />
         </Head>
         <body>
+          <GTMIframe />
           <Main />
           <NextScript />
         </body>
