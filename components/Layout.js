@@ -4,7 +4,6 @@ import Header from './header/Header'
 import Footer from './Footer'
 import NewRelic from './NewRelic'
 import RobotsMetaTag from './RobotsMetaTag'
-import { GTMInit, GTMIframe } from './gtm'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/variables'
 
 const pageTitle = (home, title) => {
@@ -62,13 +61,8 @@ const Layout = (props) => (
       {!dev &&
         <NewRelic />
       }
-      {!dev &&
-        <GTMInit />
-      }
     </Head>
-    {!dev &&
-      <GTMIframe />
-    }
+
     <div dangerouslySetInnerHTML={{__html: oldBrowserMessage}} />
     <div aria-live='assertive' className='sr-only'>View updated: {props.title}</div>
     <div className='pw'>
