@@ -1,4 +1,4 @@
-# ReliefWeb Mobile v2
+# ReliefWeb Lite
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/UN-OCHA/rwint-lite.svg)](https://greenkeeper.io/)
 
