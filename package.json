@@ -45,7 +45,7 @@
     "babel-runtime": "^6.26.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "fetch-mock": "^5.12.1",
+    "fetch-mock": "^6.0.0",
     "jest": "^22.1.4",
     "pa11y-ci": "^1.2.0",
     "react-test-renderer": "^16.2.0",
