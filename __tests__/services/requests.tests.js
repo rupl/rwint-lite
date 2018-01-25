@@ -4,7 +4,7 @@ import { requestCountry, requestCountries, requestDisaster, requestDisasters, re
 import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockEndpoints, mockHeadlines, mockJob, mockJobs, mockTraining,
  mockTrainings, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
 jest.mock('../../helpers/shuffleArray')
-const fetchMock = require('fetch-mock')
+const fetchMock = require('fetch-mock/es5/server')
 
 describe('API requests', () => {
   let expectedBody, result
