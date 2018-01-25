@@ -1,6 +1,7 @@
+import css from 'styled-jsx/css'
 import { colors, fontSizes, measurements } from './variables'
 
-export const primaryButton = `.btn-primary {
+export const primaryButton = css`.btn-primary {
   display: block;
   border: none;
   background: ${colors.bg.primaryButton};
@@ -23,7 +24,7 @@ export const primaryButton = `.btn-primary {
   color: white;
 }`
 
-export const smallButton = `.btn-small {
+export const smallButton = css`.btn-small {
   display: inline-block;
   border: none;
   text-decoration: none;
