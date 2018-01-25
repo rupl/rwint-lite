@@ -9,7 +9,7 @@ describe('Description Body component', () => {
 
   beforeAll(() => {
     wrapper = shallow(<DescriptionBody report={mockCountry} />)
-    bodyContent = wrapper.find('.description-body').node.props.dangerouslySetInnerHTML.__html
+    bodyContent = wrapper.find('.description-body').getElement().props.dangerouslySetInnerHTML.__html
   })
 
   it('renders the component', () => {

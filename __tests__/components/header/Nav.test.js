@@ -1,13 +1,16 @@
 /* eslint-env jest */
 import { shallow } from 'enzyme'
 import React from 'react'
-import Component from '../../../components/header/Nav.js'
+import Nav from '../../../components/header/Nav.js'
+import Router from 'next/router'
+Router['push'] = jest.fn(() => function () {})
 
-let wrapper
+let navLinks, wrapper
 
 describe('Nav component', () => {
   beforeAll(function () {
-    wrapper = shallow(<Component />)
+    wrapper = shallow(<Nav />)
+    navLinks = wrapper.find('NavLink')
   })
 
   it('renders the component', () => {
@@ -19,5 +22,11 @@ describe('Nav component', () => {
     expect(wrapper.state().isOpen).toBe(false)
     button.simulate('click')
     expect(wrapper.state().isOpen).toBe(true)
+  })
+
+  it('renders a NavLink for each nav item', () => {
+    expect(navLinks.length).toBe(5)
+    expect(navLinks.get(0).props.link.label).toEqual('Updates')
+    expect(navLinks.get(0).props.link.type).toEqual('report')
   })
 })

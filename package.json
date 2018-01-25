@@ -12,6 +12,9 @@
     "test:coverage": "jest --coverage",
     "test:pa11y": "./node_modules/.bin/pa11y-ci"
   },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./enzyme-setup.js"
+  },
   "author": "Amy Benson <amy@humanitarianresponse.info>",
   "license": "Apache 2",
   "dependencies": {
@@ -41,6 +44,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-runtime": "^6.26.0",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "fetch-mock": "^5.12.1",
     "jest": "^22.1.4",
     "pa11y-ci": "^1.2.0",

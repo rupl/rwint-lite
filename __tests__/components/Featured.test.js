@@ -42,7 +42,7 @@ describe('Featured component', () => {
     })
 
     it('passes the link to the SimpleLink', function () {
-      const first = simpleLinks.nodes[0]
+      const first = simpleLinks.get(0)
       expect(first.props.link).toEqual(mockFeatured.data[0])
     })
   })
