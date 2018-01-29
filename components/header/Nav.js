@@ -9,7 +9,8 @@ class Nav extends React.Component {
     this.toggle = this.toggle.bind(this)
     this.state = {
       isOpen: false,
-      activeLink: ''
+      activeLink: '',
+      canSetState: false
     }
   }
 
@@ -26,7 +27,8 @@ class Nav extends React.Component {
   componentDidMount () {
     if (Router && Router.router && Router.router.route) {
       this.setState({
-        activeLink: Router.route
+        activeLink: Router.route,
+        canSetState: true
       })
     }
   }
@@ -56,7 +58,7 @@ class Nav extends React.Component {
     ]
     return (
       <div>
-        <nav className={`site-nav ${this.state.isOpen ? 'open' : ''}`} role='navigation'>
+        <nav className={`site-nav ${this.state.isOpen ? 'open' : ''} ${!this.state.canSetState ? 'keep-open' : ''}`} role='navigation'>
           <ul className='nav'>
             {navLinks.map((item, i) => (
               <li className='item' key={i}>
@@ -126,6 +128,11 @@ class Nav extends React.Component {
             }
             .site-nav.open {
               display: block;
+            }
+            .site-nav.keep-open {
+              display: block;
+              position:relative;
+              top: auto;
             }
             .nav {
               float: none;
