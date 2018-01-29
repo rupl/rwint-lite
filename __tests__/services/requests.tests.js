@@ -4,7 +4,7 @@ import { requestCountry, requestCountries, requestDisaster, requestDisasters, re
 import { mockCountry, mockCountries, mockDisaster, mockDisasters, mockEndpoints, mockHeadlines, mockJob, mockJobs, mockTraining,
  mockTrainings, mockReports, mockUpdate } from '../../__fixtures__/data.fixture'
 jest.mock('../../helpers/shuffleArray')
-const fetchMock = require('fetch-mock')
+const fetchMock = require('fetch-mock/es5/server')
 
 describe('API requests', () => {
   let expectedBody, result
@@ -632,7 +632,7 @@ describe('API requests', () => {
 
   describe('Handle error when get single item', () => {
     beforeAll(async () => {
-      fetchMock.get(mockEndpoints.training, {ok: false, status: 404})
+      fetchMock.get(mockEndpoints.training, 404)
       result = await requestTraining(400)
     })
     afterAll(fetchMock.restore)
@@ -645,8 +645,9 @@ describe('API requests', () => {
 
   describe('Handle error when get items', () => {
     beforeAll(async () => {
-      fetchMock.post(mockEndpoints.trainings, {ok: false, status: 404})
+      fetchMock.post(mockEndpoints.trainings, 404)
       result = await requestTrainings()
+      console.log('result', result)
     })
     afterAll(fetchMock.restore)
 
@@ -658,8 +659,8 @@ describe('API requests', () => {
 
   describe('Handle error when get featured', () => {
     beforeAll(async () => {
-      fetchMock.post(mockEndpoints.countries, {ok: false, status: 404})
-      fetchMock.post(mockEndpoints.disasters, {ok: false, status: 404})
+      fetchMock.post(mockEndpoints.countries, 404)
+      fetchMock.post(mockEndpoints.disasters, 404)
       result = await requestFeatured()
     })
     afterAll(fetchMock.restore)

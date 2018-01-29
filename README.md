@@ -1,10 +1,10 @@
-# ReliefWeb Mobile v2
+# ReliefWeb Lite
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/UN-OCHA/rwint-lite.svg)](https://greenkeeper.io/)
 
 [![Build Status](https://travis-ci.org/UN-OCHA/rwint-lite.svg?branch=master)](https://travis-ci.org/UN-OCHA/rwint-lite)
 
-New version of the ReliefWeb mobile site built using [Preact](https://preactjs.com/) ([React](https://facebook.github.io/react/) is used in dev) and [Next.js](https://github.com/zeit/next.js).
+New version of the ReliefWeb mobile site built [React](https://facebook.github.io/react/) and [Next.js](https://github.com/zeit/next.js).
 
 ## Getting started
 
@@ -22,10 +22,10 @@ Install: `npm install`
 
 ```
 npm run build
-npm run start
+npm start
 ```
 
-Note: Logging causes an error when running the production build locally, to avoid this, in server.js comment out `server.use(expressWinston.logger({` and the following lines (25 - 30).
+Note: Logging causes an error when running the production build locally, to avoid this, in server.js comment out `server.use(accessLogger)` on line 37.
 
 ## Unit tests
 

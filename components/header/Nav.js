@@ -1,7 +1,7 @@
 import React from 'react'
-import Link from 'next/link'
-import { breakpoints, colors, measurements } from '../../theme/variables'
 import Router from 'next/router'
+import NavLink from './NavLink'
+import { breakpoints, colors, measurements } from '../../theme/variables'
 
 class Nav extends React.Component {
   constructor (props) {
@@ -9,59 +9,62 @@ class Nav extends React.Component {
     this.toggle = this.toggle.bind(this)
     this.state = {
       isOpen: false,
-      activeLink: ''
+      activeLink: '',
+      canSetState: false
     }
   }
+
   toggle () {
     this.setState({
       isOpen: !this.state.isOpen
     })
   }
-  componentDidMount () {
-    this.setState({
-      activeLink: Router.route
-    })
+
+  getActiveState (type) {
+    return this.state.activeLink === `/${type}-listing` || this.state.activeLink === `/${type}`
   }
+
+  componentDidMount () {
+    if (Router && Router.router && Router.router.route) {
+      this.setState({
+        activeLink: Router.route,
+        canSetState: true
+      })
+    }
+  }
+
   render () {
+    const navLinks = [
+      {
+        label: 'Updates',
+        type: 'report'
+      },
+      {
+        label: 'Countries',
+        type: 'country'
+      },
+      {
+        label: 'Disasters',
+        type: 'disaster'
+      },
+      {
+        label: 'Jobs',
+        type: 'job'
+      },
+      {
+        label: 'Training',
+        type: 'training'
+      }
+    ]
     return (
       <div>
-        <nav className={`site-nav ${this.state.isOpen ? 'open' : ''}`} role='navigation'>
+        <nav className={`site-nav ${this.state.isOpen ? 'open' : ''} ${!this.state.canSetState ? 'keep-open' : ''}`} role='navigation'>
           <ul className='nav'>
-            <li className='item'>
-              <Link prefetch as='/report/listing' href='/report-listing'>
-                <a className={`link ${(this.state.activeLink === '/report-listing' || this.state.activeLink === '/report') ? 'link--active' : ''}`}>
-                  Updates
-                </a>
-              </Link>
-            </li>
-            <li className='item'>
-              <Link prefetch as='/country/listing' href='/country-listing'>
-                <a className={`link ${(this.state.activeLink === '/country-listing' || this.state.activeLink === '/country') ? 'link--active' : ''}`}>
-                  Countries
-                </a>
-              </Link>
-            </li>
-            <li className='item'>
-              <Link prefetch as='/disaster/listing' href='/disaster-listing'>
-                <a className={`link ${(this.state.activeLink === '/disaster-listing' || this.state.activeLink === '/disaster') ? 'link--active' : ''}`}>
-                  Disasters
-                </a>
-              </Link>
-            </li>
-            <li className='item'>
-              <Link prefetch as='/job/listing' href='/job-listing'>
-                <a className={`link ${(this.state.activeLink === '/job-listing' || this.state.activeLink === '/job') ? 'link--active' : ''}`}>
-                  Jobs
-                </a>
-              </Link>
-            </li>
-            <li className='item'>
-              <Link prefetch as='/training/listing' href='/training-listing'>
-                <a className={`link ${(this.state.activeLink === '/training-listing' || this.state.activeLink === '/training') ? 'link--active' : ''}`}>
-                  Training
-                </a>
-              </Link>
-            </li>
+            {navLinks.map((item, i) => (
+              <li className='item' key={i}>
+                <NavLink link={item} isActive={this.getActiveState(item.type)} />
+              </li>
+            ))}
           </ul>
         </nav>
         <button type='button' className='toggle' onClick={this.toggle}>
@@ -75,15 +78,6 @@ class Nav extends React.Component {
         </button>
         <div className={`${this.state.isOpen ? 'menu-underlay' : ''}`} onClick={this.toggle} />
         <style jsx>{`
-          .link {
-            display: block;
-            line-height: 1;
-            text-decoration: none;
-            position: relative;
-            color: ${colors.text.header};
-            height: ${measurements.baseUnit * 7.5}em;
-            padding: ${measurements.baseUnit * 3}em ${measurements.baseUnit * 2}em;
-          }
           .nav {
             list-style: none;
             margin: 0;
@@ -95,22 +89,6 @@ class Nav extends React.Component {
             text-transform: uppercase;
             display: inline-block;
             border: none;
-          }
-          .link:after {
-            content: "";
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            border-bottom: 2px solid transparent;
-            transition: border-color 0.3s ease;
-          }
-          .link:hover, .link:focus {
-            background: ${colors.link.focusBg};
-            outline: none;
-          }
-          .link:hover:after, .link:focus:after, .link--active:after {
-            border-color: ${colors.bg.headerFooter};
           }
           @media (max-width: ${breakpoints.lg}) {
             .toggle {
@@ -151,6 +129,11 @@ class Nav extends React.Component {
             .site-nav.open {
               display: block;
             }
+            .site-nav.keep-open {
+              display: block;
+              position:relative;
+              top: auto;
+            }
             .nav {
               float: none;
             }
@@ -160,10 +143,6 @@ class Nav extends React.Component {
             }
             .item:last-child {
               border: none;
-            }
-            .link {
-              height: auto;
-              padding: ${measurements.baseUnit * 2}em ${measurements.baseUnit}em;
             }
           }
           @media (min-width: ${breakpoints.md}) {
@@ -194,22 +173,6 @@ class Nav extends React.Component {
             }
             .nav {
               display: flex;
-            }
-            .link:hover, .link:focus {
-              text-decoration: none;
-              color: #5C6FA6;
-            }
-            .link:before {
-              content: "";
-              top: 50%;
-              margin-top: -5px;
-              background: #5C6FA6;
-              display: inline-block;
-              width: 1px;
-              position: absolute;
-              right: 0;
-              height: 12px;
-              z-index: 1;
             }
             .item:last-child .link:before {
               content: none;

@@ -1,6 +1,7 @@
+import css from 'styled-jsx/css'
 import { breakpoints, colors, fontSizes, measurements } from './variables'
 
-export const reportLinkStyle = `.report {
+export const reportLinkStyle = css`.report {
   border-bottom: 1px solid ${colors.border.light};
   padding: ${measurements.baseUnit * 1.5}em 0 ${measurements.baseUnit}em 0;
   word-wrap: break-word;

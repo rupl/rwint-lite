@@ -42,7 +42,7 @@ describe('Headlines component', () => {
     })
 
     it('passes the report to the ReportLink', function () {
-      const first = headlineLinks.nodes[0]
+      const first = headlineLinks.get(0)
       expect(first.props.report).toEqual(mockHeadlines.data[0])
     })
   })

@@ -20,11 +20,11 @@ const Header = (props) => (
       }
       .inner {
         position: relative;
-        height: ${measurements.baseUnit * 6}em;
+        min-height: ${measurements.baseUnit * 6}em;
       }
       @media (min-width: ${breakpoints.md}) {
         .inner {
-          height: ${measurements.baseUnit * 7.5}em;
+          min-height: ${measurements.baseUnit * 7.5}em;
         }
       }
       @media print {

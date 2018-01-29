@@ -2,12 +2,6 @@ import Document, { Head, Main, NextScript } from 'next/document'
 import { GTMInit, GTMIframe } from '../components//gtm'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/variables'
 
-function polyfill () {
-  // https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign|always
-  const data = `(function(undefined) {Object.assign=function(r,t){for(var n,e,o=1;o<arguments.length;++o){e=arguments[o];for(n in e)Object.prototype.hasOwnProperty.call(e,n)&&(r[n]=e[n])}return r};}).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});`
-  return {__html: data}
-}
-
 export default class MyDocument extends Document {
   render () {
     const { html } = this.props
@@ -16,7 +10,7 @@ export default class MyDocument extends Document {
       <html lang='en'>
         <Head>
           <GTMInit />
-          <script dangerouslySetInnerHTML={polyfill()} />
+          <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign,Map,Set' />
         </Head>
         <body>
           <GTMIframe />
