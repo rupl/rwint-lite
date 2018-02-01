@@ -1,3 +1,8 @@
+/**
+ * Article Header component
+ * Displays the article header, including the date
+ */
+
 import formatDate from '../../helpers/formatDate'
 import InfoLinks from '../links/InfoLinks'
 import { smallButton } from '../../theme/buttons'
@@ -7,6 +12,9 @@ const getTitle = (report) => {
   return report.fields.title || report.fields.name
 }
 
+/**
+ * Format the date display based on article type
+ */
 const getDate = (date, type) => {
   if (type === 'job' && date.closing) {
     return `Closing date: ${formatDate(date.closing, true)}`

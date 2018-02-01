@@ -1,3 +1,8 @@
+/**
+ * Report Link Small component
+ * Simplified version of the Report Link. Used for reports lists in article side bars.
+ */
+
 import Link from 'next/link'
 import formatDate from '../../helpers/formatDate'
 import { colors, fontSizes, measurements } from '../../theme/variables'

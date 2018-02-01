@@ -1,3 +1,8 @@
+/**
+ * Logo component
+ * Logo is wrapped in a h1 on the homepage.
+ */
+
 import Link from 'next/link'
 import { breakpoints, colors, measurements } from '../../theme/variables'
 

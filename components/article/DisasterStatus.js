@@ -1,3 +1,8 @@
+/**
+ * Disaster Status component
+ * Displays the color coded current status of the Disaster
+ */
+
 import { colors, fontSizes } from '../../theme/variables'
 
 const getStatus = (status) => {

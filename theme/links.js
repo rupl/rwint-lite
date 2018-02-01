@@ -1,3 +1,7 @@
+/**
+ * Re-usable link styles
+ */
+
 import css from 'styled-jsx/css'
 import { breakpoints, colors, fontSizes, measurements } from './variables'
 

@@ -1,3 +1,7 @@
+/**
+ * Redux reducers
+ */
+
 import * as actionTypes from '../constants/actionTypes'
 
 const removeDuplicates = (myArr, prop) => {

@@ -1,3 +1,7 @@
+/**
+ * Format Date helper
+ */
+
 const formatDay = (day) => {
   return day < 10 ? `0${day}` : day
 }

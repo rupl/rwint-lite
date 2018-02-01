@@ -1,3 +1,7 @@
+/**
+ * Article Layout component
+ */
+
 import React from 'react'
 import ArticleHeader from './ArticleHeader'
 import ArticleBody from './ArticleBody'

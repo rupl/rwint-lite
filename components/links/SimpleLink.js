@@ -1,3 +1,8 @@
+/**
+ * Simple Link component
+ * Used on Featured on the homepage and the Countries list
+ */
+
 import Link from 'next/link'
 import { colors, measurements } from '../../theme/variables'
 

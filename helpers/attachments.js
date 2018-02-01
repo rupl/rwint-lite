@@ -1,5 +1,13 @@
+/**
+ * Attachments helper
+ * Formats link text for file attachments
+ */
+
 import { measurements } from '../theme/variables'
 
+/**
+ * Display the filesize
+ */
 const formatFileSize = (size) => {
   if (!size) { return '' }
   let filesize = Math.round(size / 1000)
@@ -10,6 +18,9 @@ const formatFileSize = (size) => {
   return `${filesize} MB`
 }
 
+/**
+ * Display the file type
+ */
 const formatMimeType = (mimeType) => {
   if (!mimeType) { return '' }
   return mimeType.split('/')[1].toUpperCase()

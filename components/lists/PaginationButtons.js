@@ -1,3 +1,7 @@
+/**
+ * Pagination Buttons component
+ * Fallback pagination buttons for browsers that don't support push state.
+ */
 import React from 'react'
 import { primaryButton } from '../../theme/buttons'
 import { breakpoints, measurements } from '../../theme/variables'

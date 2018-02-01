@@ -1,3 +1,8 @@
+/**
+ * Headline Link component
+ * Used for headlines on the homepage
+ */
+
 import Link from 'next/link'
 import React from 'react'
 import formatDate from '../../helpers/formatDate'

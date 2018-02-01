@@ -1,3 +1,7 @@
+/**
+ * Site-wide layout
+ */
+
 import Head from 'next/head'
 import Router from 'next/router'
 import Header from './header/Header'
@@ -6,16 +10,26 @@ import NewRelic from './NewRelic'
 import RobotsMetaTag from './RobotsMetaTag'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/variables'
 
+/**
+ * Format the page title
+ */
 const pageTitle = (home, title) => {
   const siteTitle = 'ReliefWeb Lite'
   return (home || !title) ? siteTitle : `${title} | ${siteTitle}`
 }
 
+/**
+ * Show loader bar when changing route
+ */
 Router.onRouteChangeStart = () => {
   const $loader = document.getElementById('loader')
   $loader.classList.add('loading')
 }
 
+/**
+ * Remove loader bar when route change completes
+ * Move keyboard focus to the new page h1 element
+ */
 Router.onRouteChangeComplete = () => {
   const $loader = document.getElementById('loader')
   $loader.classList.remove('loading')
@@ -31,6 +45,9 @@ Router.onAppUpdated = function (nextRoute) {
   window.location.href = nextRoute
 }
 
+/**
+ * Show old browser message for unsupported browsers
+ */
 const dev = process.env.NODE_ENV !== 'production'
 const oldBrowserMessage = `<!--[if lt IE 9]><div style="padding: 8px; text-align:center;">
   You are using an <strong>outdated</strong> browser.

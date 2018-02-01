@@ -1,7 +1,15 @@
+/**
+ * Article Info component
+ * Displays the facets for the articles
+ */
+
 import React from 'react'
 import Link from 'next/link'
 import { fontSizes, measurements } from '../../theme/variables'
 
+/**
+ * Pluralise the heading
+ */
 const formatHeading = (heading, itemsLength) => {
   if (itemsLength === 1) {
     return heading
@@ -18,10 +26,16 @@ const formatHeading = (heading, itemsLength) => {
   return `${heading}s`
 }
 
+/**
+ * Replace spaces with + in urls
+ */
 const formatUrl = (name) => {
   return name.split(' ').join('+')
 }
 
+/**
+ * Format search paths for the facet links
+ */
 const formatPaths = (searchType = 'report', itemType, name) => {
   const queryString = itemType === 'cost' ? `?search=${itemType}:` : `?search=${itemType}.exact:`
   const asPath = `/${searchType}/listing`

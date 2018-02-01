@@ -1,3 +1,7 @@
+/**
+ * Footer
+ */
+
 import { breakpoints, colors, fontSizes, measurements } from '../theme/variables'
 
 const Footer = () => (

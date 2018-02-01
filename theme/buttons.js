@@ -1,3 +1,7 @@
+/**
+ * Re-usable button styles
+ */
+
 import css from 'styled-jsx/css'
 import { colors, fontSizes, measurements } from './variables'
 
