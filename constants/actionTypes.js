@@ -1,3 +1,7 @@
+/**
+ * Redux action types
+ */
+
 export const GET_UPDATE = 'GET_UPDATE'
 export const GET_REPORTS = 'GET_REPORTS'
 export const LOAD_MORE_UPDATES = 'LOAD_MORE_UPDATES'

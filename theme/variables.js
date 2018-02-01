@@ -1,3 +1,7 @@
+/**
+ * Style variables
+ */
+
 const blue = '#07719B'
 const red = '#F65C51'
 const purple = '#5C6FA6'

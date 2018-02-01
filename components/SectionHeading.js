@@ -1,3 +1,8 @@
+/**
+ * Section Heading component
+ * Heading level defaults to h2, can be set to h1 by passing in level='1'
+ */
+
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/variables'
 
 const SectionHeading = ({heading, level = '2'}) => {

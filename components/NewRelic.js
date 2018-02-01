@@ -1,3 +1,7 @@
+/**
+ * New Relic script
+ */
+
 const licenseKey = process.env.NEW_RELIC_LICENSE_KEY_BROWSER || ''
 const appId = process.env.NEW_RELIC_APP_ID || ''
 const enableNewRelic = () => {

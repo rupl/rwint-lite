@@ -1,3 +1,8 @@
+/**
+ * Article Sidebar component
+ * Displays the sidebar content
+ */
+
 import React from 'react'
 import Link from 'next/link'
 import ArticleAttachments from './ArticleAttachments'

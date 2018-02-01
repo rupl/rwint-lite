@@ -1,8 +1,14 @@
+/**
+ * Redux actions
+ */
+
 import * as actionTypes from '../constants/actionTypes'
 import { requestCountry, requestCountries, requestDisaster, requestDisasters, requestFeatured, requestHeadlines,
   requestJob, requestJobs, requestTraining, requestTrainings, requestUpdate, requestReports } from '../services/requests'
 
-// helpers
+/**
+ * Check if store should be updated based on time since last fetched.
+ */
 const shouldUpdate = (lastFetched, threshold = 1) => {
   if (!lastFetched) {
     return true
@@ -77,7 +83,7 @@ const getItem = async (dispatch, getState, id, reportsType, requestFn, action) =
 const shouldFetch = (lastFetched, loadMore, pageNumber, pagination, query) => {
   const goingBackToPaginatedPage = pageNumber > 1 && !loadMore && !pagination
   const shouldRefreshFirstPage = query || (pageNumber === 1 && shouldUpdate(lastFetched))
-  // if going back client side or is page one and recently fetched dont re-fetch data
+  // if going back client side or is page one and recently fetched don't re-fetch data
   if ((goingBackToPaginatedPage || (pageNumber === 1 && !shouldRefreshFirstPage))) {
     return false
   }

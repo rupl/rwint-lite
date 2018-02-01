@@ -1,3 +1,8 @@
+/**
+ * Header component
+ * Layout the the header components
+ */
+
 import Logo from './Logo'
 import Nav from './Nav'
 import GlobalHeader from './GlobalHeader'

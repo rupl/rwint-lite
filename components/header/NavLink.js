@@ -1,3 +1,7 @@
+/**
+ * NavLink component
+ */
+
 import Link from 'next/link'
 import { breakpoints, colors, measurements } from '../../theme/variables'
 

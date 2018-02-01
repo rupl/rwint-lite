@@ -1,3 +1,8 @@
+/**
+ * Report Link component
+ * Standard Report Link, used on Paginated Reports Lists (updates, disasters, jobs, training)
+ */
+
 import Link from 'next/link'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -7,6 +12,9 @@ import DisasterStatus from '../article/DisasterStatus'
 import { reportLinkStyle } from '../../theme/links'
 import { breakpoints, measurements } from '../../theme/variables'
 
+/**
+ * Format the date display
+ */
 const renderDate = (date) => {
   if (date.created) {
     return formatDate(date.created)
@@ -19,6 +27,9 @@ const renderDate = (date) => {
   }
 }
 
+/**
+ * Format the link paths base on rrport type
+ */
 const formatPaths = (report, reportsType = 'report') => {
   const { id, urlCountry, urlTitle } = report
   let hrefPath = `/${reportsType}?id=${id}`

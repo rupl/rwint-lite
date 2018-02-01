@@ -1,3 +1,8 @@
+/**
+ * Nav component
+ * Site navigation
+ */
+
 import React from 'react'
 import Router from 'next/router'
 import NavLink from './NavLink'

@@ -1,7 +1,17 @@
+/**
+ * Description Body component
+ * Displays the body content for Disaster pages
+ */
+
 import React from 'react'
 import sanitizeHtml from 'sanitize-html'
 import { breakpoints, fonts, fontSizes, measurements } from '../../theme/variables'
 
+/**
+ * Get alt text for an image.
+* Uses the document description as the image alt text if present.
+ * Uses the url as alt text for image links with no description.
+ */
 const getAltText = (str) => {
   const startPoint = str.indexOf('<strong>') + '<strong>'.length
   const endPoint = str.indexOf('</strong>')
@@ -18,6 +28,9 @@ const getAltText = (str) => {
   return 'Link'
 }
 
+/**
+ * Add alt text to images.
+ */
 const formatImg = (li) => {
   let imgs = li.split('<img')
   for (let i = 0; i < imgs.length; i++) {
@@ -31,6 +44,9 @@ const formatImg = (li) => {
   return imgs.join('')
 }
 
+/**
+ * Add class to Useful links lists
+ */
 const formatUsefulLinks = (body) => {
   let sections = body.split('<h2>')
   for (let i = 0; i < sections.length; i++) {
@@ -41,6 +57,10 @@ const formatUsefulLinks = (body) => {
   return sections.join('<h2>')
 }
 
+/**
+ * Format the HTML
+ * Changes h3s to h2s. Formats useful links lists and images.
+ */
 const formatBodyHtml = (body) => {
   let formattedBody = body.split('h3').join('h2')
   formattedBody = formatUsefulLinks(formattedBody)

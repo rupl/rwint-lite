@@ -1,3 +1,7 @@
+/**
+ * Performs fetch requests to get data from the API
+ */
+
 /* global fetch */
 import 'isomorphic-unfetch'
 import shuffleArray from '../helpers/shuffleArray'

@@ -1,3 +1,8 @@
+/**
+ * Info Links  List component
+ * Displays the list of info links
+ */
+
 import Link from 'next/link'
 import React from 'react'
 import { measurements } from '../../theme/variables'

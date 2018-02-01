@@ -1,3 +1,8 @@
+/**
+ * Keywords helper
+ * Builds string of keywords for use in the news_keywords meta tag
+ */
+
 const buildKeywords = (fields) => {
   let keywords = ['humanitarian']
   const types = [

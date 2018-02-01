@@ -1,3 +1,7 @@
+/**
+ * Custom server using Express
+ */
+
 require('newrelic')
 const express = require('express')
 const next = require('next')

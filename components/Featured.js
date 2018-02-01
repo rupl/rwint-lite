@@ -1,3 +1,8 @@
+/**
+ * Featured component
+ * Displays list of 'featured' countries and disaters on the homepage
+ */
+
 import React from 'react'
 import { connect } from 'react-redux'
 import { breakpoints } from '../theme/variables'

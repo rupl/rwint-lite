@@ -1,3 +1,8 @@
+/**
+ * Countries List component
+ * Countries are grouped alphabetically
+ */
+
 import React from 'react'
 import { connect } from 'react-redux'
 import SimpleLink from '../links/SimpleLink'
@@ -9,6 +14,9 @@ const sortAlphabetically = (countries) => {
   })
 }
 
+/**
+ * Group countries alphabetically
+ */
 const groupCountries = (countries) => {
   let grouped = []
   sortAlphabetically(countries)
@@ -26,6 +34,9 @@ const groupCountries = (countries) => {
   return grouped
 }
 
+/**
+ * Display search for countries
+ */
 const filterCountries = (countries, searchQuery) => {
   return countries.filter(country => country.fields.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1)
 }

@@ -1,3 +1,8 @@
+/**
+ * Info Link component
+ * Displays the sidebar links for articles
+ */
+
 import React from 'react'
 import InfoLinksList from './InfoLinksList'
 import { colors, fontSizes } from '../../theme/variables'

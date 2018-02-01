@@ -1,3 +1,7 @@
+/**
+ * Service Worker registration
+ */
+
 const registerServiceWorker = () => {
   const dev = process.env.NODE_ENV !== 'production'
   if (!dev && 'serviceWorker' in navigator) {

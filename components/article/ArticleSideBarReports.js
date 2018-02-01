@@ -1,3 +1,8 @@
+/**
+ * Article Sidebar Reports component
+ * Used on Disaster pages. Displays the latest reports related to the disaster.
+ */
+
 import React from 'react'
 import { connect } from 'react-redux'
 import ReportLinkSmall from '../links/ReportLinkSmall'

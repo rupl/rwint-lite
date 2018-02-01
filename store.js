@@ -1,3 +1,7 @@
+/**
+ * Initialises the Redux Store
+ */
+
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { reducer, theInitialState } from './reducers/data'

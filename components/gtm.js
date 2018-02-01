@@ -1,3 +1,7 @@
+/**
+ * Google Tag Manager script
+ */
+
 const gtmId = 'GTM-NQ3WGRR'
 
 const GTMScript = () => {

@@ -1,3 +1,9 @@
+/**
+ * Article Body component
+ * Displays the main body content of the article.
+ * If there's no body content but there are attachments, these are displayed instead.
+ */
+
 import React from 'react'
 import sanitizeHtml from 'sanitize-html'
 import formatFileLinkText from '../../helpers/attachments'

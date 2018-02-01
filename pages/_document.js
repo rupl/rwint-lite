@@ -1,3 +1,8 @@
+/**
+ * Overrides default Next.js document layout.
+ * Adds Google Tag Manager and old browser polyfills
+ */
+
 import Document, { Head, Main, NextScript } from 'next/document'
 import { GTMInit, GTMIframe } from '../components//gtm'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../theme/variables'

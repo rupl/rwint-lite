@@ -1,3 +1,7 @@
+/**
+ * Countries page
+ */
+
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { initStore } from '../store'

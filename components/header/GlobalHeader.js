@@ -1,3 +1,8 @@
+/**
+ * Global component
+ * Top bar of the header, including 'Related Platforms'
+ */
+
 import React from 'react'
 import { breakpoints, colors, fontSizes, measurements } from '../../theme/variables'
 

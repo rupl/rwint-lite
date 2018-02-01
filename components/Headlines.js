@@ -1,3 +1,8 @@
+/**
+ * Headlines component
+ * Displays list of headlines on the homepage
+ */
+
 import React from 'react'
 import { connect } from 'react-redux'
 import HeadlineLink from '../components/links/HeadlineLink'

@@ -1,7 +1,15 @@
+/**
+ * Search Form component
+ * Searchs different types of content depending on the current page
+ */
+
 import React from 'react'
 import Router from 'next/router'
 import { breakpoints, colors, fonts, fontSizes, measurements } from '../../theme/variables'
 
+/**
+ * Set placeholder text based on current page type
+ */
 function setPlaceHolder (type) {
   if (type === 'report') {
     return 'Search for updates'
@@ -35,6 +43,10 @@ export class SearchForm extends React.Component {
       const value = Router.router.query && Router.router.query.search ? Router.router.query.search : ''
 
       const route = Router.router.route
+
+      /**
+       * Update what is being searched (searchType) and the placeholder text if no on home or report pages
+       */
       if (route !== '/' && route !== '/report-listing' && route !== '/report') {
         let searchType = route.replace('/', '')
         searchType = searchType.replace('-listing', '')
@@ -47,6 +59,9 @@ export class SearchForm extends React.Component {
     }
   }
 
+  /**
+   * Set the search input value from the search query in the route
+   */
   componentWillReceiveProps (nextProps) {
     const value = Router.router.query && Router.router.query.search ? Router.router.query.search : ''
     this.setState({
@@ -54,10 +69,16 @@ export class SearchForm extends React.Component {
     })
   }
 
+  /**
+   * Update state when serch input value is changed
+   */
   handleChange (event) {
     this.setState({value: event.target.value})
   }
 
+  /**
+   * Set and go to correct path based on search type and value
+   */
   handleSubmit (event) {
     event.preventDefault()
     const searchPathAs = `/${this.state.searchType}/listing?search=`

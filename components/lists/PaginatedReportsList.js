@@ -1,3 +1,8 @@
+/**
+ * Paginated Reports List component
+ * List of reports, plus pagination.
+ */
+
 import React from 'react'
 import Router from 'next/router'
 import { connect } from 'react-redux'
@@ -27,6 +32,9 @@ export class PaginatedReportsList extends React.Component {
     })
   }
 
+  /**
+    * Get list content from the Redux store based on page type
+    */
   async loadPage (props, loadMore = true, pagination = false, prev = false) {
     const currentPage = parseInt(props[`${props.reportsType}s`].currentPage, 10)
     const pageNumber = prev ? currentPage - 1 : currentPage + 1
@@ -47,10 +55,16 @@ export class PaginatedReportsList extends React.Component {
     }
   }
 
+  /*
+   * Load more content using push state
+   */
   loadMore () {
     this.loadPage(this.props)
   }
 
+  /**
+    * Update the page in the url if using server-side pagination
+    */
   updatePagination (pageNumber, query, reportsType) {
     let queryString = `?`
     if (query) {
@@ -60,6 +74,9 @@ export class PaginatedReportsList extends React.Component {
     Router.push(`/${reportsType}-listing${queryString}`, `/${reportsType}/listing${queryString}`, {shallow: true})
   }
 
+  /*
+   * Load next and previous pages using server-side pagination
+   */
   loadNextPage () {
     this.loadPage(this.props, false, true)
   }

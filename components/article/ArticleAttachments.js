@@ -1,3 +1,8 @@
+/**
+ * Article Attachments component
+ * Displays list of attachments for the article
+ */
+
 import React from 'react'
 import formatFileLinkText from '../../helpers/attachments'
 import { fonts, fontSizes, measurements } from '../../theme/variables'

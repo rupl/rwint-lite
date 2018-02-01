@@ -1,3 +1,7 @@
+/**
+ * Service Worker
+ */
+
 /* global caches, importScripts, Request, self, toolbox */
 importScripts('/static/sw-toolbox.js')
 
