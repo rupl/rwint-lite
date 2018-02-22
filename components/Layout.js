@@ -41,10 +41,6 @@ Router.onRouteChangeComplete = () => {
   }
 }
 
-Router.onAppUpdated = function (nextRoute) {
-  window.location.href = nextRoute
-}
-
 /**
  * Show old browser message for unsupported browsers
  */
